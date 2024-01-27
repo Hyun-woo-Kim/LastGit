@@ -1,0 +1,7373 @@
+fileFormatVersion: 2
+guid: 7eb610697e4a9ae4cabbdd8a5fc95d35
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 328
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5071bf95396ed5a42867101e34e0a9ec
+      internalID: 1982315467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 326
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f518ef945c141c54bbefcf0722e0b21b
+      internalID: 312862275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_2
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 325
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83cdda79287c78640a4d77541e80a9bc
+      internalID: 1564069227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_3
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 333
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0f2541a0def61f449709dbd40d632bb
+      internalID: 193847926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_4
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 333
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc4c40459f83adb44b8934050a02dcc7
+      internalID: 1660933745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_5
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 333
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43ab007c90e2eb94dac10be8cfa84a8c
+      internalID: 772140904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_6
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 323
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4eb6f03401b35b42a67433c476eb5eb
+      internalID: -1289370180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_7
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 323
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b184b740cec3dd24f9fa927b933fe13e
+      internalID: 264416977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_8
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 323
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7316634a7dbb6f34e90767240facbf70
+      internalID: -937520070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_9
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 323
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4faf0a97ca45f534fa86b99bfa76030f
+      internalID: -1047930636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_10
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 323
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b77c8a6863341064b93abf102c4c24d2
+      internalID: -2021165356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_11
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 306
+        width: 12
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d3afcce3a3f390438adb2bb54eb37e2
+      internalID: -1962142900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_12
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 323
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ca0feda4580d5243bef0bead2624fde
+      internalID: -681177257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_13
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 323
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d67a4e55e9f32bc4db8d000812956260
+      internalID: -819094337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_14
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 324
+        width: 29
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32be8a1438653fe499ab05e5f064cbc3
+      internalID: 1247376134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_15
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 323
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 001657b951ea7864dbed63ec26d9ba74
+      internalID: -1679174562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_16
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 327
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eab084e33c37124f8608b3a052fe181
+      internalID: -504813688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_17
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 323
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7455fdcc05c33048a76685a7dbbed86
+      internalID: -1366003384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_18
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 328
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d52f456cb3c7a1748aeef6e2975a6943
+      internalID: -1630403981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_19
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 323
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a7d5cccadadfcc40894fcc9acd5681b
+      internalID: -714700157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_20
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 324
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bef0d5803152aa4bb1eb87de9f80a40
+      internalID: 1584743607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_21
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 323
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c120659c614de142a91a615b2e94e00
+      internalID: 1339120208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_22
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 324
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb9473316feaa434cadddd10e3606047
+      internalID: -1809931205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_23
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 324
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 989e32c3202a8ae4bb5b6e3ef929f686
+      internalID: 1062799087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_24
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 311
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83da598925c7deb489b7d6686ad07c89
+      internalID: 463229300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_25
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 310
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d0181299f14e13458b4f29a2e1ee8a9
+      internalID: -177698830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_26
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 309
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e2046eee5034354a993ea4a9d7cae22
+      internalID: -1463104602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_27
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 316
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2567dbe6571af148a060797ab97ae37
+      internalID: 1325076582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_28
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 309
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c268958ffbd6be4fb174eff28973592
+      internalID: -663321826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_29
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 309
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c2ad2693c13e5d45947402ca7264362
+      internalID: -387162731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_30
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 306
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5548ab501a2843744988ca4beb3aba88
+      internalID: 1638643306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_31
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 306
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c805d896461870458e9314fb0d7985b
+      internalID: 97233697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_32
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 306
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3bdc6ef8d12dbd4fa2878ff17936eb5
+      internalID: -147987644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_33
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 306
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1634818da45041b488b0893f4ce89a19
+      internalID: -1433713389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_34
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 306
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7338cc358bcd4ab4c9167400c2498b92
+      internalID: 1032129891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_35
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 306
+        width: 6
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36d744c7f72f34e409bc835d655af8f4
+      internalID: 776502846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_36
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 308
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bb1ed2f41c77bd41a9c116183eecfc1
+      internalID: 175743964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_37
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 306
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29d46965ff949d441a704e94e414bc83
+      internalID: 903487422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_38
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 306
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d959e03e8a7ff164ca41994daee0584a
+      internalID: -1642374249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_39
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 310
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 284928984816a6046af8e30da0211750
+      internalID: 1508524202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_40
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 308
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fbbb4abab174ba4bb799ac5df345ece
+      internalID: 1360894488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_41
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 307
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 671c806648a10214ab55f541ed555aac
+      internalID: -1812502474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_42
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 307
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f7c6fd4b2d8f19458b2d6a2879be9f6
+      internalID: -1748866414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_43
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 307
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 186cb242c977f9b42b5d640492722771
+      internalID: 719848202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_44
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 289
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8ee0af0622398d45a99b10f05da8cc3
+      internalID: -2007027935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_45
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 292
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2122559d754af394ba60db2ff22f3d48
+      internalID: -58926555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_46
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 291
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e42f4ebefd53ea048af82ec5fb4d95cb
+      internalID: -1450046682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_47
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 299
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7171651d13ddf9e4699aaeb8fbf05093
+      internalID: 506972875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_48
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 299
+        width: 33
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ddbfb04805e45549b4e3721aa8953de
+      internalID: -962155380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_49
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 299
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 810091d51928ad046965fba49cd56482
+      internalID: -1823872018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_50
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 290
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8354c2bd2b95c574c907f594c62430dd
+      internalID: -2100827766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_51
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 290
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b11e7a212f7377f49ae6258334e4ff41
+      internalID: -882946397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_52
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 290
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21166684fd4bd764f88ac0146b9b34bc
+      internalID: -1959322352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_53
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 290
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de9f581367b5372438f87c9ca1b4c30f
+      internalID: -75937238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_54
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 289
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 498e47882b986b84194e6298c54bd032
+      internalID: 1434917823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_55
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 290
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d84b6b4cdb81174388a2d1bea11606b
+      internalID: -1651632890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_56
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 300
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfde81c7335f501438d6682a6c5cd3b9
+      internalID: -651869706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_57
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 297
+        width: 12
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 146ecf7d58adf8448966b673acc59cda
+      internalID: 864574394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_58
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 289
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f1a7f2108945204f82b554699802b21
+      internalID: 574991978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_59
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 289
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fa1a4fa3ddacb944957040bdb3a5736
+      internalID: -232581141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_60
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 289
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12479732361163e4c8061e2edfc0e9bb
+      internalID: -227203121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_61
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 289
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bef8e752233c194b96c4d793cfa1efa
+      internalID: -1181107404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_62
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 294
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfa0394f89a187b4b94bc0b28d0e03b3
+      internalID: 622899467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_63
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 292
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ca92bb82a350f146a9606111138db93
+      internalID: 1763838903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_64
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 289
+        width: 4
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecc59d5e0808ad749b597121dcb547e3
+      internalID: -1502543274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_65
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 289
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48aabe2aa5d7ccd47aac3c91b6b986d9
+      internalID: -871147754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_66
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 221
+        width: 45
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20537cdefe36d3d44b6868cf2c41e6bb
+      internalID: 34594755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_67
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 281
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f932bcfa0da717647a63c85320304f4f
+      internalID: 58491970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_68
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 281
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d1b3558ac29ea24a9d07c158abc71ca
+      internalID: -410301778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_69
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 281
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d7fbb084192f284ba2f1ee5d6e94888
+      internalID: -1420131202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_70
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 281
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeb3d654f10f2ac47a91b3abb7e53cf6
+      internalID: 536665425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_71
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 273
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31013f52c0fa1fb4da126af668a29907
+      internalID: 255765100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_72
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 273
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da8779b4a891df34db9556918d9ef355
+      internalID: -634736182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_73
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 273
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dcedd213442df74c8d0817b57b98b3d
+      internalID: -994950626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_74
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 273
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2de7c6fa0d5ee342b52f9e9bd645866
+      internalID: 1390852777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_75
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 273
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a276d7a1aeca14245a849cd811230b32
+      internalID: -495607112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_76
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fda6ee6ec7e70594dba3f226a895487e
+      internalID: 364553164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_77
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c4e5e2e353e06547ad367db64c9ad75
+      internalID: -632054698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_78
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 276
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aadf7507ee016f142b29f08abf24d6c2
+      internalID: 643446637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_79
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 276
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9be074ce2c478ec47b1aab8a28bb13d7
+      internalID: 471150302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_80
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8edf5ad88dd27a5418ecb17ee2be1b4f
+      internalID: -584954957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_81
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf12d7d75606795418991f088b31bf7d
+      internalID: 2141506255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_82
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 272
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32b6d8fad0acfce438c2f54fe2798681
+      internalID: 712793827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_83
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 272
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09f7828fa9f19354592d4a4e6a4753b0
+      internalID: -1587213875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_84
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 258
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c01b71daa221bf742ad963b49b92c20a
+      internalID: -1424585131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_85
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 255
+        width: 101
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0736d72f6b99ccb4db2ff25b1f7bdf95
+      internalID: -1892405466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_86
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 264
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fb41f8834bc3e14d82e60d299b534e1
+      internalID: -1764285055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_87
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 263
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6bee362db38f474e8d86e93a7053c84
+      internalID: -2018629330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_88
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 263
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a928425b0bb8064186267d66c3ef4cd
+      internalID: -1818116756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_89
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 263
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6044400951a19f48b4ca823c229d286
+      internalID: -1787955548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_90
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 255
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26ff6bd8a4433f842830e00a8b2be363
+      internalID: -867937422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_91
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 255
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a55170839842e334388066d12e3986bc
+      internalID: -359591858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_92
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 255
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 217bedc14e2bbcd46b181551240a0bf7
+      internalID: -1475389374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_93
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 253
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebf5648085b8518438a99ce8f44194cd
+      internalID: 12240366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_94
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 255
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc118982598a064fac81ce3895271b7
+      internalID: -1832710013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_95
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 255
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bb50e7820c29eb49a8ac486a80829fd
+      internalID: -83884826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_96
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 255
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5604b67a5a8cacc4aa63ae63e81bc579
+      internalID: 799781000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_97
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 259
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa8fa3d2cf326874581a08c8327ee59f
+      internalID: -630598083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_98
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 259
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70c5c1ba317160d4f949f0e5c4235fa5
+      internalID: -291793785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_99
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 261
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86104e0a0e4c05742a08d12d392c03cf
+      internalID: 394440113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_100
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 255
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25589cf22067ee46b4c39ab20ec6741
+      internalID: 1623191313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_101
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 250
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1cec0619a661bf478fefe411ffe5adb
+      internalID: -885233068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_102
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 221
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feb33b3455fd4124eae0a4246eb40bd8
+      internalID: -1564692362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_103
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 240
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd47ddcbe950b9743a66caa9d4bea195
+      internalID: -54314213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_104
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 247
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df00f46d834f26b44b94f1dbd6c954f5
+      internalID: 1107485672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_105
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 225
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9daf586cb2af9c42bca318451c64344
+      internalID: 2120099285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_106
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 243
+        width: 12
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8678e741a21243438248974392213c6
+      internalID: -2055580874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_107
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 225
+        width: 33
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 187b496956008354e8ce233fcc5e226a
+      internalID: -156634430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_108
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 247
+        width: 33
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29ee98d8fc0d4ac47bd5d8c2b2bbf9ab
+      internalID: -250631051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_109
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 243
+        width: 14
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 797c147006b0c2445966af3a712e9cc9
+      internalID: 1168919557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_110
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 247
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55ee47365546da346aff12e82013d132
+      internalID: 1666129128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_111
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 229
+        width: 16
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54d7740954da47b42b3ed9c6f85e1b28
+      internalID: 1713998209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_112
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 243
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a3e9ee38304d694e99ddfb654daded0
+      internalID: 1915070874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_113
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 247
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8df48d9eabcd59647a56ab840d89915d
+      internalID: -1935805815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_114
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 225
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1937dbae86226614897462933484af9f
+      internalID: -647488042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_115
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 243
+        width: 14
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f87742fcbef4a924ab8902216bbe0569
+      internalID: -794842436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_116
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 221
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dae362af8f6ec0a4c94dfacea6e49422
+      internalID: -52545401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_117
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 238
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 819d990d4c1901042b539fffc43a1a71
+      internalID: -1196978134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_118
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 224
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 182e64b8050831a4d96c4a4951379fbe
+      internalID: -1104164543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_119
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 238
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a37e1500314d1684fb9f542431b1a160
+      internalID: -781829319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_120
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 221
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ba009de9284bb14caccce262575916a
+      internalID: 30765075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_121
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 238
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d361a94871a2ea498b163a219cdad32
+      internalID: -1131583743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_122
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 202
+        width: 33
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 878183a02e49823438bb78fd225a62b3
+      internalID: -1917032225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_123
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 238
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b170511fb56366c44bd731caf5ec4396
+      internalID: 1871536479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_124
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 238
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88d38f38c1857b54ba7d25c99e9a746e
+      internalID: 469788394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_125
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 204
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76e80cc88c8785341ae035feab981eae
+      internalID: -1848252476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_126
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 204
+        width: 19
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b90d02fad64e9e4f95b0904de6c4e00
+      internalID: 1998770999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_127
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 238
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fac8854fa8d61a4aa5839edfcd5a79e
+      internalID: -345587129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_128
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 221
+        width: 19
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bae32f21e4ffde74cbea468d3826a5b8
+      internalID: -874557794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_129
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 246
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ff5e3793a81be049a272270188b3956
+      internalID: 598244191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_130
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 238
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2b5ab643249e6a4da7f0822c2d341fa
+      internalID: 625458863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_131
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 204
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b68962202bb3344c804b2298c7b3ee6
+      internalID: 1895830227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_132
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 204
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04a50e63cf8b3944b8658759c43d5bc7
+      internalID: -340799593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_133
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 226
+        width: 16
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c23546dd091c2dd40be17d13fa2de524
+      internalID: 558849587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_134
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 211
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97db46f8aa7c87742b175449736e491b
+      internalID: -914682230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_135
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 209
+        width: 33
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eb3c89307646af40a0dc1204a0e0097
+      internalID: 1804163338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_136
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 209
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5a52c6f2a4f45e4693a180263528e9c
+      internalID: -940732500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_137
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 215
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44fc3a684f1da8f45843425b8acc4f61
+      internalID: 1933556329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_138
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 215
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09cae853fec4f7243bc5ece122da7799
+      internalID: -238787422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_139
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 215
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 663aebc5cef7ecc4babd3580e3e14bb8
+      internalID: -1327919613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_140
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 204
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1875823b1ebed5942bf0909a40e22d24
+      internalID: -124816142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_141
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 204
+        width: 32
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 818047514cb78754fb0973418c60bab3
+      internalID: -698535777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_142
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 204
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 992416beab1158f478ebbeabde956498
+      internalID: 1643527305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_143
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 196
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51cefd40643826344bceeef509fdf3f9
+      internalID: 27011651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_144
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 196
+        width: 33
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75c4f09a13bb84b48bfcfd822eaf7819
+      internalID: 130336064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_145
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 197
+        width: 16
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf5e7c3ee55f23f42bf8a62a8606a4ec
+      internalID: -1640426096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_146
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 188
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a982c2fdf9491a44fa3af3d1e190271d
+      internalID: -86191088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_147
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 188
+        width: 41
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 922a238c1899a4144941df4ab9575edf
+      internalID: 1871231947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_148
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 196
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22b99b5ab442c9c42bf948880395788e
+      internalID: -1280265357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_149
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 187
+        width: 84
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ade6a9f508188d47a492e15bfe5c1d5
+      internalID: -1315091467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_150
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 195
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 127413ab7be34b743a8d0f01df708577
+      internalID: -1510851904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_151
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 195
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d46d4f028f64d649a7beb25e5512459
+      internalID: -662709928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_152
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 187
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecde1c46d852c1f4ca3426fd4571543a
+      internalID: 243358627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_153
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 187
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e4a36bdfaddc2d40b27c1fe44f0954a
+      internalID: -1836233909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_154
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 198
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a951e7ba7857a804c805e52f685e5cd2
+      internalID: -1308982081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_155
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 198
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8480e42938ab2d4abf73279d3b552ff
+      internalID: -1917318775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_156
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 198
+        width: 18
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0b6586c4f5276b4191399b94c47f20f
+      internalID: 1509439062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_157
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 187
+        width: 33
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56a7f651261f36c43ae3101f59a39958
+      internalID: 2094676065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_158
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 187
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 469d586e037566e44b56d1656f00c894
+      internalID: -1088647402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_159
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 187
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 193ae7bd0fcfae343baabdae9946a585
+      internalID: -1130408021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_160
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 136
+        width: 16
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a493f98fe86a18b4d968f01ca711afb5
+      internalID: 841816503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_161
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 153
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efe0d363c8c9e74499bd80e5d751d92a
+      internalID: -817078206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_162
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 170
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07008850003aa9d44b594be5db027da6
+      internalID: 1611792585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_163
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 170
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a931a145f8c3bac4eb43da19b21359eb
+      internalID: -801419408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_164
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 171
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46714955d24e6644496a1f0e69be4f63
+      internalID: 505868843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_165
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 153
+        width: 13
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fef3c18b13cb720428edc7b1a9d2cd0a
+      internalID: 1578738002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_166
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 178
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f0b8110909a96b46aa7536b23187662
+      internalID: 736882769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_167
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 170
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6d4a224c6d47b74896f91ef4e058637
+      internalID: -121238213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_168
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 170
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65abf043474a54f48996fea09050be3a
+      internalID: -1559889797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_169
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 178
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a85921604fcd5e04daa56accfbe6eb29
+      internalID: -1479615608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_170
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 170
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35e98cdaae2b2dd40878427c0711345b
+      internalID: -2105170795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_171
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 180
+        width: 16
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f201851366e9ef4fb90be6ac3a91716
+      internalID: 455615676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_172
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 170
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58fb991ca495590418c9b9d62b1d9d5f
+      internalID: -703284092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_173
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 170
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fbbf737e0fabe94e80e2fb73921297a
+      internalID: 1984395350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_174
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 153
+        width: 35
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bfb85f5b53751f4ebabf0428a079807
+      internalID: -1890804782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_175
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 153
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed13b615169619d418ad55261aeea36c
+      internalID: 1602224915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_176
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 153
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aee9b26915c70a243aaad7082ca3a5b0
+      internalID: -144370330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_177
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 136
+        width: 16
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa89dc81572fea746b2bf754b71b4886
+      internalID: -1200144141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_178
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 153
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c5c48c96df6a9d479566c06237f2533
+      internalID: -1823251695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_179
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 153
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a15f4cde1ad5dd4479def9e14f3e0107
+      internalID: 808260532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_180
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 153
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a18fc6b4785e17c4dafc1322b910bf60
+      internalID: -2084725929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_181
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 153
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f980644a1e8cac45a2295eaaa1422fb
+      internalID: -1831840015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_182
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 153
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdf1dec605d6e1b45a6973846ef87b71
+      internalID: -882474872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_183
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 153
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05563429af615fc48b64de3fd56862ef
+      internalID: 2008725711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_184
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 153
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eba10ede97f3d8247b96f00a1bb797f6
+      internalID: -1584336987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_185
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 159
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68d0bb81c5eff4248a5c477dbfd17fa7
+      internalID: -241172447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_186
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 154
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c32c3ea028f1a8b4d9efe3e474e43853
+      internalID: -2017979032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_187
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 153
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db6ae7b219bcf684dbc390c4341c850b
+      internalID: 127418514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_188
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 136
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04d2a7f779ac1984ebccd7a4b0d0f1e7
+      internalID: -1561421734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_189
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 156
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21427da3b47167144928d189ead4cd82
+      internalID: -1203141941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_190
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 153
+        width: 16
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70f02d602c3c9fa4b93be6c3bec64fa3
+      internalID: -1989060563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_191
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 136
+        width: 53
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3f5049e72ba08349b66be74203a9f9b
+      internalID: 308856731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_192
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 143
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e87332d2bf3763744b36e80f020013fe
+      internalID: -732296679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_193
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 136
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf355917e03755243b9912a9d6ae8228
+      internalID: -944469605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_194
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 136
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b7de020a70e35240a5412b8c97ec6a0
+      internalID: -184402356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_195
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 140
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96bbb6039983216478f862cfa2ea6de8
+      internalID: 1418334261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_196
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 136
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8be0ccc4014a2df408f00a44280856ca
+      internalID: 452046730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_197
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 136
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ebf0271e006f324b95ce0095c2e76e1
+      internalID: -1176713369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_198
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 136
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0991afc884213be47b652d9a05429449
+      internalID: 1767910035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_199
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 136
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfce1e4f9887d2542bb378ae715e2372
+      internalID: 2130241152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_200
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 136
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54ddfc47179ede3428754275d663fcad
+      internalID: 1094429927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_201
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 112
+        width: 33
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 454a959f006fe04429d8767703165962
+      internalID: -2041611874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_202
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 119
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a698c7ec86f904141a2bf2a19e96061c
+      internalID: 541274286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_203
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 119
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 274ba64a0e0f116428b2e903b9a413e0
+      internalID: -858368837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_204
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 120
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb078a1fca9be634a9a40688be56bcaa
+      internalID: -313017575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_205
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 120
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 426c0140afd91c34ba8acf8b949f6b42
+      internalID: -896906736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_206
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 121
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77007b1c6bafa414dbaf586861c8bfb1
+      internalID: 119479746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_207
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 119
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dd34829ab96b564ba3433f90e241214
+      internalID: 1511333336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_208
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 119
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34b83cec66e95e249930bbef8996ccc8
+      internalID: 1276917020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_209
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 119
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3ca3df66373244438e9435ca1e06c2c
+      internalID: 1733200813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_210
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 119
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a7d9d27ce47fc146ae0f222be94a253
+      internalID: -1579126541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_211
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 129
+        width: 33
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96ae14fcbc349fb4e9500e1959f9fc23
+      internalID: 275127981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_212
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 129
+        width: 16
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3956c29148531bd488d20f853e1f99ac
+      internalID: 900366896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_213
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 129
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35d8ff3d83e48d24c91cb862e21acfb8
+      internalID: 583481725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_214
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 129
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4970c5fe7df01d84fb8e25b53db9bb76
+      internalID: 361062587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_215
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 119
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51a8c6d15d6585e499062c9c1bad8722
+      internalID: -1898716616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_216
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 119
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b76b6999c50cc624f9b070e3d6045a69
+      internalID: -274405675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_217
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 119
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4019bd5bfa1cf1b4faf25f48441aa902
+      internalID: -1078651788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_218
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 119
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f42c03d208e296d4c84c515e828e0c45
+      internalID: -1478794105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_219
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 119
+        width: 33
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3e1ba923f4a91a44aba9e3abc670f83
+      internalID: 2103902368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_220
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 119
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02bd90215f40fe047b671275d3fd8895
+      internalID: 459621395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_221
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 119
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18c3cdf1a6957fe4fa9ba1bd3d6fe2b5
+      internalID: 951724759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_222
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 102
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 173cf99d8ec3bca4b836f764b8f14a00
+      internalID: 1902414489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_223
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 102
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f31361320af60040a5ed4173fbfd1dd
+      internalID: -228630450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_224
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 103
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b0b4fe09a72ff84c8727a3fe6d71403
+      internalID: 852561679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_225
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 103
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4cade5401b946f478dedbb2c1ec90a0
+      internalID: -1225267752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_226
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 104
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6798b6c1331c84a41b94a0447520f10f
+      internalID: 402711599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_227
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 102
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9fd0898d6c569d4ea51387d7e974b86
+      internalID: -299638203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_228
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 102
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0660b7e77e80a54d8aee4137fef71fa
+      internalID: 1142044813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_229
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 103
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 773fc127bcd23db469918b43b888e2bf
+      internalID: -59476139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_230
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 106
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbaf43b2e17220a44861a90e7cc3d003
+      internalID: 2032843794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_231
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 85
+        width: 50
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1da3724195cc184297ba1fb4c8380fa
+      internalID: -2104508756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_232
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 103
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 901cca24a5298f5438cd341792f759b1
+      internalID: 888649033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_233
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 102
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71a41c48d0cc2104ca1632f271c46c4c
+      internalID: 1038384077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_234
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 102
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41329f415d53e474d9e36b6bf39d0ee6
+      internalID: -1721327937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_235
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 85
+        width: 36
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18c958157cdce8e448045289bbf9859e
+      internalID: 2038343349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_236
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 85
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53baf8493eab84548aa45122b4f5e951
+      internalID: 2130929233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_237
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 85
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad347f48e196c5948a8974eb377a4309
+      internalID: 900949463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_238
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 85
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd40fb8e027fd6b4a982a2048feae027
+      internalID: -1455507530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_239
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 85
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e74553856967d6e438c5e79b1a49d4ae
+      internalID: -336459210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_240
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 86
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eff763a5ec9684d4cba7bc9991b4b8c2
+      internalID: 1248822077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_241
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 86
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fc79b00bb90790469e1981be13af666
+      internalID: 466850534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_242
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 87
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ba2a23e5b7aadc4bb10732d472e68f4
+      internalID: -870538825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_243
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 85
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 373e4344d9ae2d04ba679bc3e15cca30
+      internalID: 1356067403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_244
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 85
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 418ac6ae8af4ace4fab60199561523e1
+      internalID: 102978322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_245
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 85
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 743ea758fb1424e489dfbb23a46f7faf
+      internalID: -808355562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_246
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 95
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6801a64a86361446a151a418b7201b1
+      internalID: 115463471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_247
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 68
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dee916db3473a7343ad291518613fe7b
+      internalID: 1974875013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_248
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 68
+        width: 19
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a68766a0642cbc42b01a512fd4cc589
+      internalID: -618979862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_249
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 68
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00910f7e3083ec7479ecb484b97b73c2
+      internalID: 1187313387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_250
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 68
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7792c4f01572ec84d8f8d98b3ab54a74
+      internalID: 44183088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_251
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 69
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d48eb1dbf0fe5040b1c26eaacf5ce6b
+      internalID: -894448726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_252
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 69
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50f39b521b056e845a26b1eeac92cef7
+      internalID: -1672249253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_253
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 70
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 739194eadaa1f2f4d94dc29a98b43123
+      internalID: 2045146270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_254
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 51
+        width: 14
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce50db0420fad4e449cc5037eba7a23a
+      internalID: -758433676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_255
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 85
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0117cccc539242a4abb5ae726496888e
+      internalID: -1644610279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_256
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 70
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 704adbc0409287f418e907d8c45bf3e1
+      internalID: 491127910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_257
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 70
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da848add76c2887479486ae7300c6ad8
+      internalID: 1761487438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_258
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 68
+        width: 49
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8df97c9d08af3f440a2a413e9b661f6f
+      internalID: -1468859679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_259
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 78
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99e242c3f296b074b951edac43c75f50
+      internalID: 1260897553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_260
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 68
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8812d9836dfd21c4697d5f1995602dca
+      internalID: -1144685143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_261
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 68
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e95cdcafab940a4f81b403f7b923ca7
+      internalID: -1070792596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_262
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 59
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6a6590f4f79a9d4e85677df6304ee70
+      internalID: -1061914394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_263
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 68
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90f50ec8f52046b48be84d7cdb2282e2
+      internalID: 948292079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_264
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 68
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dd12bea1363da0408b73ad8bb748274
+      internalID: -1996505765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_265
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 51
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d018d394f6f3042a09858a25fd9670
+      internalID: 1262135394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_266
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 51
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a3395d5f9f4ae24c8df2a28e5889fa5
+      internalID: 1155576173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_267
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 51
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f16ce7fc066f71549800fc0b66fe283b
+      internalID: 714638624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_268
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 52
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26e14e0cc39cbd14ba88613bb038efc0
+      internalID: -1760661014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_269
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 51
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dfd2224dcc617d4c9370e4f14447d12
+      internalID: 2125146170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_270
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 58
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0bb9307dea8a37479d25bfd196e444a
+      internalID: 788434456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_271
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 51
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d382b7324badea7418bd631fd3c47cb5
+      internalID: -875774571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_272
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 51
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10a1e65199a5eff4598ce9eda8ac2bd1
+      internalID: -1789606313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_273
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 57
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbe7d5cda00e8f840a7697dc7bfce57b
+      internalID: 1802761180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_274
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 51
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86c5ead4ec2560d4cba8a96f7282ea1a
+      internalID: -1094397715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_275
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 51
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f400025c9ea0c0f4993f6886e0a5e577
+      internalID: 2086591025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_276
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 51
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6f82568bdd9a6f4691fa89f4f7ee5b6
+      internalID: 950891330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_277
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 51
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ad9370f515ea5a409e573b69063a007
+      internalID: -835586707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_278
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 51
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46dc9240bee574840a6b2a9dce58db60
+      internalID: 1644786651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_279
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 51
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcb7f5038b56a674f866f24d3e277a17
+      internalID: 830938377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_280
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 51
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8e1d65f8c8ba944ab554c430922f1fc
+      internalID: -1083562436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_281
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 34
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9abd5e83cb9f7e84b996d33d3b543f23
+      internalID: -256164219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_282
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 34
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1c48733fa2d1f54da47671a99c1dd0d
+      internalID: 241652955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_283
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 34
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 813c38c228717d947b7980cf7a5c7d00
+      internalID: -1151845338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_284
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 35
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 102222063cac5404a8e19f3f2bcada1c
+      internalID: 573129726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_285
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 34
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ad990e68e058d488f60d595056809a
+      internalID: -1146890560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_286
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 37
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 722d12ef4a7dc124aaa57d5513ceccc7
+      internalID: -1485063276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_287
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 36
+        width: 29
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 445632a5fc8ffce42ac738ede93d9260
+      internalID: 1548871847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_288
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 1
+        width: 31
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8497133a576fb0443b65e0fcde74923a
+      internalID: 10721903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_289
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 35
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00344b34dd4a2d846bdb3a8876d3d6e3
+      internalID: 1086499364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_290
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 35
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4d0740b52ebf964bbd82c5b29ca9d66
+      internalID: 1390552082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_291
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 35
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7257a122206554b429cae1caf7c4fbcb
+      internalID: -1368522956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_292
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 34
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e66d965066b1ac44790430ebf4de2b84
+      internalID: 329014452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_293
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 34
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b42a2289f9c61d4fa5395f4b214451f
+      internalID: 292469492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_294
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 34
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 809aec0e35ee87d40aecd8f33d4084a2
+      internalID: -835670784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_295
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 34
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fc38e8c44205764b8c92b4e4bde52e1
+      internalID: 1330799864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_296
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 34
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3211d88a5484ef24fb1521dea5b7de2a
+      internalID: -676155973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_297
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 34
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c31c9c5effa89e041be32b956d3ac4ba
+      internalID: 1514221560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_298
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 34
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e814e7e2569cf74485d033c80ba4b68
+      internalID: -2008623911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_299
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 17
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5c264f8646708a42bd8a77f604ef164
+      internalID: 1949438348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_300
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 17
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f084d76d1aea3f546adcb274591f4afd
+      internalID: 1594991289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_301
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 17
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c858391105fe66f439fb2bb339b5b2fd
+      internalID: 328049680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_302
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 18
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97342e3b8ba89dd4c91c0bedeee4d5e6
+      internalID: 1895351119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_303
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 17
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49eb461c4b62b674b9fc20edb8486bbc
+      internalID: 329293028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_304
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 17
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43a2745404cacbb42be0372330b58a82
+      internalID: 2095060205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_305
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 17
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00b5a8074f6499e49b0dc0067af15188
+      internalID: -1427855842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_306
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 18
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dccc3046048cea44839b3e87504fca2
+      internalID: -675427086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_307
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 18
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3808d52ad2d9e14c80a3278a7dd4b21
+      internalID: 360622485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_308
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 0
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d20a58b92e706143ad6ad6ec2728e7d
+      internalID: -1761199454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_309
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 17
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6edb755fdb39db4ea8e6745f38e051c
+      internalID: 1123061856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_310
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 0
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56d21c6240bcbb147a6b9fb05279457e
+      internalID: 409494699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_311
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 0
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d127a9cd5e8eb9a459da275afc9cf326
+      internalID: -1811535894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_312
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 17
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f8bda1ab4cb4fe4a80fba95da369e5d
+      internalID: -1258819210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_313
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 17
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55e64b372dba4bf4eae65a8d39b89024
+      internalID: 429614694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_314
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 0
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 723f2b3f751b877419730c4fc89b0880
+      internalID: 1503983813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_315
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 17
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e0498700c92b384b92d2722e48b9c88
+      internalID: 824473115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_316
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 0
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 494f01b18a2b04c4dbc0b188a7486b18
+      internalID: -1407774857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_317
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 0
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0c0359938a8deb409877d44d6ab7603
+      internalID: 1697951601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_318
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7bb9dee54d419a49b6a47544f76a838
+      internalID: 910206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_319
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee52de912748fab4297173a550bb902c
+      internalID: 1613127371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_320
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 0
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6da0c0a24ac20d941a3e05cc2ef36399
+      internalID: 2040604437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_321
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 12
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a7f8f355849609499bf6a14ca635e25
+      internalID: 262167045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_322
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31ff2416102b4464d825e73470c9df14
+      internalID: -740495280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_323
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 2
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 289facbaa21981b4cbdde64b2a107716
+      internalID: -1825326466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_324
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 0
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae821761fe485f64ba411140e8928946
+      internalID: 609205780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_325
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 3
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 473a3b22c28b8fa439c8630bf29a5fbd
+      internalID: -282417968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_326
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 4
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f6a41dfb2d36014e81e0ddc074f487c
+      internalID: 869599388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_327
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 0
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d71a90371086057468d07a87c77eb2af
+      internalID: 999835418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome_tilemap_transparent_328
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 0
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c68d816fc0c8f24db5a9032f2e1a828
+      internalID: -671603988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      monochrome_tilemap_transparent_0: 1982315467
+      monochrome_tilemap_transparent_1: 312862275
+      monochrome_tilemap_transparent_10: -2021165356
+      monochrome_tilemap_transparent_100: 1623191313
+      monochrome_tilemap_transparent_101: -885233068
+      monochrome_tilemap_transparent_102: -1564692362
+      monochrome_tilemap_transparent_103: -54314213
+      monochrome_tilemap_transparent_104: 1107485672
+      monochrome_tilemap_transparent_105: 2120099285
+      monochrome_tilemap_transparent_106: -2055580874
+      monochrome_tilemap_transparent_107: -156634430
+      monochrome_tilemap_transparent_108: -250631051
+      monochrome_tilemap_transparent_109: 1168919557
+      monochrome_tilemap_transparent_11: -1962142900
+      monochrome_tilemap_transparent_110: 1666129128
+      monochrome_tilemap_transparent_111: 1713998209
+      monochrome_tilemap_transparent_112: 1915070874
+      monochrome_tilemap_transparent_113: -1935805815
+      monochrome_tilemap_transparent_114: -647488042
+      monochrome_tilemap_transparent_115: -794842436
+      monochrome_tilemap_transparent_116: -52545401
+      monochrome_tilemap_transparent_117: -1196978134
+      monochrome_tilemap_transparent_118: -1104164543
+      monochrome_tilemap_transparent_119: -781829319
+      monochrome_tilemap_transparent_12: -681177257
+      monochrome_tilemap_transparent_120: 30765075
+      monochrome_tilemap_transparent_121: -1131583743
+      monochrome_tilemap_transparent_122: -1917032225
+      monochrome_tilemap_transparent_123: 1871536479
+      monochrome_tilemap_transparent_124: 469788394
+      monochrome_tilemap_transparent_125: -1848252476
+      monochrome_tilemap_transparent_126: 1998770999
+      monochrome_tilemap_transparent_127: -345587129
+      monochrome_tilemap_transparent_128: -874557794
+      monochrome_tilemap_transparent_129: 598244191
+      monochrome_tilemap_transparent_13: -819094337
+      monochrome_tilemap_transparent_130: 625458863
+      monochrome_tilemap_transparent_131: 1895830227
+      monochrome_tilemap_transparent_132: -340799593
+      monochrome_tilemap_transparent_133: 558849587
+      monochrome_tilemap_transparent_134: -914682230
+      monochrome_tilemap_transparent_135: 1804163338
+      monochrome_tilemap_transparent_136: -940732500
+      monochrome_tilemap_transparent_137: 1933556329
+      monochrome_tilemap_transparent_138: -238787422
+      monochrome_tilemap_transparent_139: -1327919613
+      monochrome_tilemap_transparent_14: 1247376134
+      monochrome_tilemap_transparent_140: -124816142
+      monochrome_tilemap_transparent_141: -698535777
+      monochrome_tilemap_transparent_142: 1643527305
+      monochrome_tilemap_transparent_143: 27011651
+      monochrome_tilemap_transparent_144: 130336064
+      monochrome_tilemap_transparent_145: -1640426096
+      monochrome_tilemap_transparent_146: -86191088
+      monochrome_tilemap_transparent_147: 1871231947
+      monochrome_tilemap_transparent_148: -1280265357
+      monochrome_tilemap_transparent_149: -1315091467
+      monochrome_tilemap_transparent_15: -1679174562
+      monochrome_tilemap_transparent_150: -1510851904
+      monochrome_tilemap_transparent_151: -662709928
+      monochrome_tilemap_transparent_152: 243358627
+      monochrome_tilemap_transparent_153: -1836233909
+      monochrome_tilemap_transparent_154: -1308982081
+      monochrome_tilemap_transparent_155: -1917318775
+      monochrome_tilemap_transparent_156: 1509439062
+      monochrome_tilemap_transparent_157: 2094676065
+      monochrome_tilemap_transparent_158: -1088647402
+      monochrome_tilemap_transparent_159: -1130408021
+      monochrome_tilemap_transparent_16: -504813688
+      monochrome_tilemap_transparent_160: 841816503
+      monochrome_tilemap_transparent_161: -817078206
+      monochrome_tilemap_transparent_162: 1611792585
+      monochrome_tilemap_transparent_163: -801419408
+      monochrome_tilemap_transparent_164: 505868843
+      monochrome_tilemap_transparent_165: 1578738002
+      monochrome_tilemap_transparent_166: 736882769
+      monochrome_tilemap_transparent_167: -121238213
+      monochrome_tilemap_transparent_168: -1559889797
+      monochrome_tilemap_transparent_169: -1479615608
+      monochrome_tilemap_transparent_17: -1366003384
+      monochrome_tilemap_transparent_170: -2105170795
+      monochrome_tilemap_transparent_171: 455615676
+      monochrome_tilemap_transparent_172: -703284092
+      monochrome_tilemap_transparent_173: 1984395350
+      monochrome_tilemap_transparent_174: -1890804782
+      monochrome_tilemap_transparent_175: 1602224915
+      monochrome_tilemap_transparent_176: -144370330
+      monochrome_tilemap_transparent_177: -1200144141
+      monochrome_tilemap_transparent_178: -1823251695
+      monochrome_tilemap_transparent_179: 808260532
+      monochrome_tilemap_transparent_18: -1630403981
+      monochrome_tilemap_transparent_180: -2084725929
+      monochrome_tilemap_transparent_181: -1831840015
+      monochrome_tilemap_transparent_182: -882474872
+      monochrome_tilemap_transparent_183: 2008725711
+      monochrome_tilemap_transparent_184: -1584336987
+      monochrome_tilemap_transparent_185: -241172447
+      monochrome_tilemap_transparent_186: -2017979032
+      monochrome_tilemap_transparent_187: 127418514
+      monochrome_tilemap_transparent_188: -1561421734
+      monochrome_tilemap_transparent_189: -1203141941
+      monochrome_tilemap_transparent_19: -714700157
+      monochrome_tilemap_transparent_190: -1989060563
+      monochrome_tilemap_transparent_191: 308856731
+      monochrome_tilemap_transparent_192: -732296679
+      monochrome_tilemap_transparent_193: -944469605
+      monochrome_tilemap_transparent_194: -184402356
+      monochrome_tilemap_transparent_195: 1418334261
+      monochrome_tilemap_transparent_196: 452046730
+      monochrome_tilemap_transparent_197: -1176713369
+      monochrome_tilemap_transparent_198: 1767910035
+      monochrome_tilemap_transparent_199: 2130241152
+      monochrome_tilemap_transparent_2: 1564069227
+      monochrome_tilemap_transparent_20: 1584743607
+      monochrome_tilemap_transparent_200: 1094429927
+      monochrome_tilemap_transparent_201: -2041611874
+      monochrome_tilemap_transparent_202: 541274286
+      monochrome_tilemap_transparent_203: -858368837
+      monochrome_tilemap_transparent_204: -313017575
+      monochrome_tilemap_transparent_205: -896906736
+      monochrome_tilemap_transparent_206: 119479746
+      monochrome_tilemap_transparent_207: 1511333336
+      monochrome_tilemap_transparent_208: 1276917020
+      monochrome_tilemap_transparent_209: 1733200813
+      monochrome_tilemap_transparent_21: 1339120208
+      monochrome_tilemap_transparent_210: -1579126541
+      monochrome_tilemap_transparent_211: 275127981
+      monochrome_tilemap_transparent_212: 900366896
+      monochrome_tilemap_transparent_213: 583481725
+      monochrome_tilemap_transparent_214: 361062587
+      monochrome_tilemap_transparent_215: -1898716616
+      monochrome_tilemap_transparent_216: -274405675
+      monochrome_tilemap_transparent_217: -1078651788
+      monochrome_tilemap_transparent_218: -1478794105
+      monochrome_tilemap_transparent_219: 2103902368
+      monochrome_tilemap_transparent_22: -1809931205
+      monochrome_tilemap_transparent_220: 459621395
+      monochrome_tilemap_transparent_221: 951724759
+      monochrome_tilemap_transparent_222: 1902414489
+      monochrome_tilemap_transparent_223: -228630450
+      monochrome_tilemap_transparent_224: 852561679
+      monochrome_tilemap_transparent_225: -1225267752
+      monochrome_tilemap_transparent_226: 402711599
+      monochrome_tilemap_transparent_227: -299638203
+      monochrome_tilemap_transparent_228: 1142044813
+      monochrome_tilemap_transparent_229: -59476139
+      monochrome_tilemap_transparent_23: 1062799087
+      monochrome_tilemap_transparent_230: 2032843794
+      monochrome_tilemap_transparent_231: -2104508756
+      monochrome_tilemap_transparent_232: 888649033
+      monochrome_tilemap_transparent_233: 1038384077
+      monochrome_tilemap_transparent_234: -1721327937
+      monochrome_tilemap_transparent_235: 2038343349
+      monochrome_tilemap_transparent_236: 2130929233
+      monochrome_tilemap_transparent_237: 900949463
+      monochrome_tilemap_transparent_238: -1455507530
+      monochrome_tilemap_transparent_239: -336459210
+      monochrome_tilemap_transparent_24: 463229300
+      monochrome_tilemap_transparent_240: 1248822077
+      monochrome_tilemap_transparent_241: 466850534
+      monochrome_tilemap_transparent_242: -870538825
+      monochrome_tilemap_transparent_243: 1356067403
+      monochrome_tilemap_transparent_244: 102978322
+      monochrome_tilemap_transparent_245: -808355562
+      monochrome_tilemap_transparent_246: 115463471
+      monochrome_tilemap_transparent_247: 1974875013
+      monochrome_tilemap_transparent_248: -618979862
+      monochrome_tilemap_transparent_249: 1187313387
+      monochrome_tilemap_transparent_25: -177698830
+      monochrome_tilemap_transparent_250: 44183088
+      monochrome_tilemap_transparent_251: -894448726
+      monochrome_tilemap_transparent_252: -1672249253
+      monochrome_tilemap_transparent_253: 2045146270
+      monochrome_tilemap_transparent_254: -758433676
+      monochrome_tilemap_transparent_255: -1644610279
+      monochrome_tilemap_transparent_256: 491127910
+      monochrome_tilemap_transparent_257: 1761487438
+      monochrome_tilemap_transparent_258: -1468859679
+      monochrome_tilemap_transparent_259: 1260897553
+      monochrome_tilemap_transparent_26: -1463104602
+      monochrome_tilemap_transparent_260: -1144685143
+      monochrome_tilemap_transparent_261: -1070792596
+      monochrome_tilemap_transparent_262: -1061914394
+      monochrome_tilemap_transparent_263: 948292079
+      monochrome_tilemap_transparent_264: -1996505765
+      monochrome_tilemap_transparent_265: 1262135394
+      monochrome_tilemap_transparent_266: 1155576173
+      monochrome_tilemap_transparent_267: 714638624
+      monochrome_tilemap_transparent_268: -1760661014
+      monochrome_tilemap_transparent_269: 2125146170
+      monochrome_tilemap_transparent_27: 1325076582
+      monochrome_tilemap_transparent_270: 788434456
+      monochrome_tilemap_transparent_271: -875774571
+      monochrome_tilemap_transparent_272: -1789606313
+      monochrome_tilemap_transparent_273: 1802761180
+      monochrome_tilemap_transparent_274: -1094397715
+      monochrome_tilemap_transparent_275: 2086591025
+      monochrome_tilemap_transparent_276: 950891330
+      monochrome_tilemap_transparent_277: -835586707
+      monochrome_tilemap_transparent_278: 1644786651
+      monochrome_tilemap_transparent_279: 830938377
+      monochrome_tilemap_transparent_28: -663321826
+      monochrome_tilemap_transparent_280: -1083562436
+      monochrome_tilemap_transparent_281: -256164219
+      monochrome_tilemap_transparent_282: 241652955
+      monochrome_tilemap_transparent_283: -1151845338
+      monochrome_tilemap_transparent_284: 573129726
+      monochrome_tilemap_transparent_285: -1146890560
+      monochrome_tilemap_transparent_286: -1485063276
+      monochrome_tilemap_transparent_287: 1548871847
+      monochrome_tilemap_transparent_288: 10721903
+      monochrome_tilemap_transparent_289: 1086499364
+      monochrome_tilemap_transparent_29: -387162731
+      monochrome_tilemap_transparent_290: 1390552082
+      monochrome_tilemap_transparent_291: -1368522956
+      monochrome_tilemap_transparent_292: 329014452
+      monochrome_tilemap_transparent_293: 292469492
+      monochrome_tilemap_transparent_294: -835670784
+      monochrome_tilemap_transparent_295: 1330799864
+      monochrome_tilemap_transparent_296: -676155973
+      monochrome_tilemap_transparent_297: 1514221560
+      monochrome_tilemap_transparent_298: -2008623911
+      monochrome_tilemap_transparent_299: 1949438348
+      monochrome_tilemap_transparent_3: 193847926
+      monochrome_tilemap_transparent_30: 1638643306
+      monochrome_tilemap_transparent_300: 1594991289
+      monochrome_tilemap_transparent_301: 328049680
+      monochrome_tilemap_transparent_302: 1895351119
+      monochrome_tilemap_transparent_303: 329293028
+      monochrome_tilemap_transparent_304: 2095060205
+      monochrome_tilemap_transparent_305: -1427855842
+      monochrome_tilemap_transparent_306: -675427086
+      monochrome_tilemap_transparent_307: 360622485
+      monochrome_tilemap_transparent_308: -1761199454
+      monochrome_tilemap_transparent_309: 1123061856
+      monochrome_tilemap_transparent_31: 97233697
+      monochrome_tilemap_transparent_310: 409494699
+      monochrome_tilemap_transparent_311: -1811535894
+      monochrome_tilemap_transparent_312: -1258819210
+      monochrome_tilemap_transparent_313: 429614694
+      monochrome_tilemap_transparent_314: 1503983813
+      monochrome_tilemap_transparent_315: 824473115
+      monochrome_tilemap_transparent_316: -1407774857
+      monochrome_tilemap_transparent_317: 1697951601
+      monochrome_tilemap_transparent_318: 910206
+      monochrome_tilemap_transparent_319: 1613127371
+      monochrome_tilemap_transparent_32: -147987644
+      monochrome_tilemap_transparent_320: 2040604437
+      monochrome_tilemap_transparent_321: 262167045
+      monochrome_tilemap_transparent_322: -740495280
+      monochrome_tilemap_transparent_323: -1825326466
+      monochrome_tilemap_transparent_324: 609205780
+      monochrome_tilemap_transparent_325: -282417968
+      monochrome_tilemap_transparent_326: 869599388
+      monochrome_tilemap_transparent_327: 999835418
+      monochrome_tilemap_transparent_328: -671603988
+      monochrome_tilemap_transparent_33: -1433713389
+      monochrome_tilemap_transparent_34: 1032129891
+      monochrome_tilemap_transparent_35: 776502846
+      monochrome_tilemap_transparent_36: 175743964
+      monochrome_tilemap_transparent_37: 903487422
+      monochrome_tilemap_transparent_38: -1642374249
+      monochrome_tilemap_transparent_39: 1508524202
+      monochrome_tilemap_transparent_4: 1660933745
+      monochrome_tilemap_transparent_40: 1360894488
+      monochrome_tilemap_transparent_41: -1812502474
+      monochrome_tilemap_transparent_42: -1748866414
+      monochrome_tilemap_transparent_43: 719848202
+      monochrome_tilemap_transparent_44: -2007027935
+      monochrome_tilemap_transparent_45: -58926555
+      monochrome_tilemap_transparent_46: -1450046682
+      monochrome_tilemap_transparent_47: 506972875
+      monochrome_tilemap_transparent_48: -962155380
+      monochrome_tilemap_transparent_49: -1823872018
+      monochrome_tilemap_transparent_5: 772140904
+      monochrome_tilemap_transparent_50: -2100827766
+      monochrome_tilemap_transparent_51: -882946397
+      monochrome_tilemap_transparent_52: -1959322352
+      monochrome_tilemap_transparent_53: -75937238
+      monochrome_tilemap_transparent_54: 1434917823
+      monochrome_tilemap_transparent_55: -1651632890
+      monochrome_tilemap_transparent_56: -651869706
+      monochrome_tilemap_transparent_57: 864574394
+      monochrome_tilemap_transparent_58: 574991978
+      monochrome_tilemap_transparent_59: -232581141
+      monochrome_tilemap_transparent_6: -1289370180
+      monochrome_tilemap_transparent_60: -227203121
+      monochrome_tilemap_transparent_61: -1181107404
+      monochrome_tilemap_transparent_62: 622899467
+      monochrome_tilemap_transparent_63: 1763838903
+      monochrome_tilemap_transparent_64: -1502543274
+      monochrome_tilemap_transparent_65: -871147754
+      monochrome_tilemap_transparent_66: 34594755
+      monochrome_tilemap_transparent_67: 58491970
+      monochrome_tilemap_transparent_68: -410301778
+      monochrome_tilemap_transparent_69: -1420131202
+      monochrome_tilemap_transparent_7: 264416977
+      monochrome_tilemap_transparent_70: 536665425
+      monochrome_tilemap_transparent_71: 255765100
+      monochrome_tilemap_transparent_72: -634736182
+      monochrome_tilemap_transparent_73: -994950626
+      monochrome_tilemap_transparent_74: 1390852777
+      monochrome_tilemap_transparent_75: -495607112
+      monochrome_tilemap_transparent_76: 364553164
+      monochrome_tilemap_transparent_77: -632054698
+      monochrome_tilemap_transparent_78: 643446637
+      monochrome_tilemap_transparent_79: 471150302
+      monochrome_tilemap_transparent_8: -937520070
+      monochrome_tilemap_transparent_80: -584954957
+      monochrome_tilemap_transparent_81: 2141506255
+      monochrome_tilemap_transparent_82: 712793827
+      monochrome_tilemap_transparent_83: -1587213875
+      monochrome_tilemap_transparent_84: -1424585131
+      monochrome_tilemap_transparent_85: -1892405466
+      monochrome_tilemap_transparent_86: -1764285055
+      monochrome_tilemap_transparent_87: -2018629330
+      monochrome_tilemap_transparent_88: -1818116756
+      monochrome_tilemap_transparent_89: -1787955548
+      monochrome_tilemap_transparent_9: -1047930636
+      monochrome_tilemap_transparent_90: -867937422
+      monochrome_tilemap_transparent_91: -359591858
+      monochrome_tilemap_transparent_92: -1475389374
+      monochrome_tilemap_transparent_93: 12240366
+      monochrome_tilemap_transparent_94: -1832710013
+      monochrome_tilemap_transparent_95: -83884826
+      monochrome_tilemap_transparent_96: 799781000
+      monochrome_tilemap_transparent_97: -630598083
+      monochrome_tilemap_transparent_98: -291793785
+      monochrome_tilemap_transparent_99: 394440113
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

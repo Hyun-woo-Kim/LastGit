@@ -1,0 +1,410 @@
+fileFormatVersion: 2
+guid: 82d5e74e4af5e904db57801e07f4d016
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4112235975625120444
+    second: "\uC810\uD504 \uBAA8\uC158_0"
+  - first:
+      213: 8348040694155177884
+    second: "\uC810\uD504 \uBAA8\uC158_1"
+  - first:
+      213: -1981181391613046076
+    second: "\uC810\uD504 \uBAA8\uC158_2"
+  - first:
+      213: -6488780080450126164
+    second: "\uC810\uD504 \uBAA8\uC158_3"
+  - first:
+      213: 4519567060428147877
+    second: "\uC810\uD504 \uBAA8\uC158_4"
+  - first:
+      213: 8748796519694590696
+    second: "\uC810\uD504 \uBAA8\uC158_5"
+  - first:
+      213: 1683613359679294021
+    second: "\uC810\uD504 \uBAA8\uC158_6"
+  - first:
+      213: 4744965340308342761
+    second: "\uC810\uD504 \uBAA8\uC158_7"
+  - first:
+      213: -8968712573068889397
+    second: "\uC810\uD504 \uBAA8\uC158_8"
+  - first:
+      213: 9184914407232719383
+    second: "\uC810\uD504 \uBAA8\uC158_9"
+  - first:
+      213: 74267792006674971
+    second: "\uC810\uD504 \uBAA8\uC158_10"
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 160
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Player_JumpFi_0
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 515
+        width: 216
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9522d2ad7db612458b63ee3b208164a
+      internalID: -1043240999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_1
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 706
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e09891c106515b44184c158703a983f3
+      internalID: -15040669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_2
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 522
+        width: 185
+        height: 379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80add0d7405306b408da00d99e4b9688
+      internalID: 1546219813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_3
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 510
+        width: 185
+        height: 404
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc7b8bf3559e9654da9f869ae8f151fe
+      internalID: 909976701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_4
+      rect:
+        serializedVersion: 2
+        x: 1621
+        y: 522
+        width: 252
+        height: 436
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d431b53603242c4393a3073e9d6c18d
+      internalID: 993941256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_5
+      rect:
+        serializedVersion: 2
+        x: 2126
+        y: 523
+        width: 243
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f3c9872068c22848a941a3a711dec69
+      internalID: -1096027646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_6
+      rect:
+        serializedVersion: 2
+        x: 2630
+        y: 524
+        width: 236
+        height: 434
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f36d5e88ab6e7b40aec19ec1e433ea7
+      internalID: 806836826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_7
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 24
+        width: 227
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7aa8520f4926da44b2c392023fe8bc0
+      internalID: 1495821627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_8
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 16
+        width: 194
+        height: 421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98ec01f0e9442ce46b3ba9a4eb1c4dbe
+      internalID: -405410757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_9
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 12
+        width: 194
+        height: 388
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55cae9cb47bc0334796bd84a18b4deee
+      internalID: 1967213695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_JumpFi_10
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 13
+        width: 203
+        height: 433
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8be1783128514d54db4f18c7e8584053
+      internalID: 91793133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: c9d0b45c02929644a8daacb4f8b35acb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Player_JumpFi_0: -1043240999
+      Player_JumpFi_1: -15040669
+      Player_JumpFi_10: 91793133
+      Player_JumpFi_2: 1546219813
+      Player_JumpFi_3: 909976701
+      Player_JumpFi_4: 993941256
+      Player_JumpFi_5: -1096027646
+      Player_JumpFi_6: 806836826
+      Player_JumpFi_7: 1495821627
+      Player_JumpFi_8: -405410757
+      Player_JumpFi_9: 1967213695
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
