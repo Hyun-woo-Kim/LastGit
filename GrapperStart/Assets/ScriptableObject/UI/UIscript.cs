@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIscript : MonoBehaviour
 {
+    float a = 1;
     // Start is called before the first frame update
     void Start()
     {
