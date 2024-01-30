@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerControllerRope : MonoBehaviour
 {
+    
+
     Grapling  grapling;
 
     Hooking hooking;
@@ -15,6 +18,8 @@ public class PlayerControllerRope : MonoBehaviour
 
 
     GameObject Objcr;
+
+    
     void Start()
     {
         
@@ -27,7 +32,7 @@ public class PlayerControllerRope : MonoBehaviour
         Objcr = GameObject.FindGameObjectWithTag("Enemy");
 
 
-
+    
     }
 
     // Update is called once per frame
@@ -37,10 +42,17 @@ public class PlayerControllerRope : MonoBehaviour
 
 
     }
+    public Transform Ground;
+    Vector3 mouse;
 
+    public float baseSwingForce = 10f;
+    private bool isKeyPressed = false;
+    private float keyPressStartTime = 0f;
+    private float longKeyPressDuration = 0.5f;
     private void Update()
     {
-
+        GraplingFlyAnimaton();
+  
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             PlayerJump();
@@ -59,6 +71,21 @@ public class PlayerControllerRope : MonoBehaviour
     
 
         AttackCool();
+    }
+
+    void GraplingFlyAnimaton()
+    {
+        if (isPlayerfly)
+        {
+            animatorPlayer.SetBool("PlayerGrapling", false);
+            animatorPlayer.SetBool("PlayerFly", true);
+
+            float verticalDistanceToGround = Mathf.Abs(transform.position.y - Ground.position.y);
+            if (verticalDistanceToGround < 3f)
+            {
+                animatorPlayer.SetBool("PlayerFly", false);
+            }
+        }
     }
 
 
@@ -94,14 +121,7 @@ public class PlayerControllerRope : MonoBehaviour
         if (isPlayerfly ==  false)
         {
             animatorPlayer.SetTrigger("PlayerJump");
-        }
-        
-
-        
-
-
-
-
+        }       
 
     }
 
@@ -160,7 +180,7 @@ public class PlayerControllerRope : MonoBehaviour
 
     void MoveToPlayer(float horizontalInput)
     {
-        if (grapling.isAttatch == false && isPlayerfly == false)
+        if (grapling.isAttatch == false)
         {
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)
@@ -314,12 +334,15 @@ public class PlayerControllerRope : MonoBehaviour
     }
     
     public float playerdir;
-    public void hookAnchorSet()
+
+    
+    public void hookAnchorSet(float swingForce)
     {
-       
-
-
      
+        
+        
+
+
         Hooking hookingScr = GameObject.Find("Hook").GetComponent<Hooking>();
 
         Vector3 playerdir = grapling.hook.transform.position - transform.position;
@@ -328,6 +351,9 @@ public class PlayerControllerRope : MonoBehaviour
 
         Vector2 flyDirection = Quaternion.Euler(0, 0, flyangle) * Vector2.right;
 
+
+
+        Debug.Log(swingForce + "°ª");
         rigid.velocity = flyDirection * swingForce;
         //rigid.AddForce(flyDirection * swingForce, ForceMode2D.Impulse);
 
