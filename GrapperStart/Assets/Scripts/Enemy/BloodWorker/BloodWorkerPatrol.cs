@@ -5,11 +5,14 @@ using UnityEngine;
 public class BloodWorkerPatrol : BloodWorkerState
 {
 
+    public override void SlingAttack(BloodState state, GameObject rokcPref, Transform rockPos)
+    {
+        
+    }
 
 
 
 
-  
 
     public override void Initialize(BloodState state)
     {
