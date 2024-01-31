@@ -23,6 +23,7 @@ public abstract class BloodWorkerState : MonoBehaviour
     }
 
     protected abstract IEnumerator PatrolStop(BloodState state);
-   
+
+    public abstract void SlingAttack(BloodState state,GameObject rokcPref,Transform rockPos);
 
 }
