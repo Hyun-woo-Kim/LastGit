@@ -52,7 +52,7 @@ public class PlayerControllerRope : MonoBehaviour
     private void Update()
     {
         GraplingFlyAnimaton();
-  
+        PlayerCollider();
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             PlayerJump();
@@ -73,6 +73,29 @@ public class PlayerControllerRope : MonoBehaviour
         AttackCool();
     }
 
+    public Transform playerPos;
+    public Vector2 playerColliderBox;
+    public bool isSelectUI = false;
+    public bool isElevator = false;
+    void PlayerCollider()
+    {
+        isElevator = false;
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(playerPos.position, playerColliderBox, 0);
+        foreach (Collider2D collider in collider2Ds)
+        {
+            if(collider.CompareTag("Elevator"))
+            {
+                isElevator = true;
+            }
+        }
+        if(isElevator == true)
+        {
+            if(Input.GetKey(KeyCode.F))
+            {
+                SelectManager.Instance.UIActive();
+            }
+        }
+    }
     void GraplingFlyAnimaton()
     {
         if (isPlayerfly)
@@ -157,7 +180,7 @@ public class PlayerControllerRope : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        if (grapling.grapCount != 1.0f && grapling.isAttatch == false ) //&& grapling.isAttatch == false
+        if (grapling.grapCount != 1.0f && grapling.isAttatch == false) //&& grapling.isAttatch == false
         {
 
             if(grapling.isLerping == false )
@@ -180,7 +203,7 @@ public class PlayerControllerRope : MonoBehaviour
 
     void MoveToPlayer(float horizontalInput)
     {
-        if (grapling.isAttatch == false)
+        if (grapling.isAttatch == false && SelectManager.Instance.isSelectUI == false)
         {
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)
@@ -412,10 +435,12 @@ public class PlayerControllerRope : MonoBehaviour
 
     }
 
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
 
         Gizmos.DrawWireCube(attackpos.position, baseAtkboxSize);//DrawWireCube(pos.position,boxsize)      
+        Gizmos.DrawWireCube(playerPos.position, playerColliderBox);//DrawWireCube(pos.position,boxsize)      
     }
 }

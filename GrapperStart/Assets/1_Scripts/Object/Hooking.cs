@@ -73,6 +73,7 @@ public class Hooking : MonoBehaviour
             joint2D.enabled = true;
             grappling.isAttatch = true;
             GetComponent<SpriteRenderer>().sprite = attachedSprite;
+            GrapplingObjManager.Instance.brightnessUp(collision);
         }
     
     }
@@ -96,7 +97,7 @@ public class Hooking : MonoBehaviour
             //joint2D.enabled = false;
             grappling.isAttatch = false;
             graplingRange.isobjSkill = false;
-
+            GrapplingObjManager.Instance.brightnessDown(collision);
         }    
     }
 

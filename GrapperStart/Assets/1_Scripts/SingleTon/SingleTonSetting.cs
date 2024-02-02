@@ -10,6 +10,8 @@ public class SingleTonSetting : MonoBehaviour
         ResourceManager.Instance.ResourceSingleTonSet();
         MouseManager.Instance.MouseSingleTonSet();
         DialogueManager.Instance.DialogueSingleTonSet();
+        GrapplingObjManager.Instance.ObjManagerSingleTonSet();
+        SelectManager.Instance.SelectSingleTonSet();
     }
 
     // Update is called once per frame
