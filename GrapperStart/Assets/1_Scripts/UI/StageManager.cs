@@ -95,6 +95,8 @@ public class StageManager : MonoBehaviour
     //    pauseui.setactive(false);
     //    time.timescale = 1f;
     //}
+
+    
     public void goTime() //paused °¡ false¿©¾ßµÊ.
     {
         Debug.Log("goTime");
