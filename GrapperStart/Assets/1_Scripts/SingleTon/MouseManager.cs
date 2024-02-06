@@ -7,7 +7,7 @@ public class MouseManager : SingleTonGeneric<MouseManager>
     
     public void MouseSingleTonSet()
     {
-        Debug.Log("MouseManager ½Ì±ÛÅæ º¯È¯");
+      
     }
 
     Texture2D idleIcon;
@@ -42,7 +42,6 @@ public class MouseManager : SingleTonGeneric<MouseManager>
             switch (newType)
             {
                 case CursorType.Idle:
-                    Debug.Log("¸¶¿ì½º ");
                     Cursor.SetCursor(idleIcon, Vector2.zero, CursorMode.Auto);
                     break;
 

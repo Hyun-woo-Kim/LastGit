@@ -38,7 +38,6 @@ public class BloodWorkerAction : MonoBehaviour
         bloodWorkerAnim = GetComponent<Animator>();
 
         this.bloodState = BloodState.STATE_PATROL; //기본적으로 시작하면 순찰 상태로 시작.
-
         setActionType(bloodState);
 
         myState = gameObject.AddComponent<BloodWorkerPatrol>();
@@ -180,7 +179,7 @@ public class BloodWorkerAction : MonoBehaviour
     {
         if (collision.gameObject.tag == ("Wall"))
         {
-            Debug.Log("턴");
+            
             isWall = false;
         }
     }

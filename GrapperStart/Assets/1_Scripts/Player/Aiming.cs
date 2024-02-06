@@ -10,8 +10,8 @@ public class Aiming : MonoBehaviour
     Animator anim;
     Grapling grapling;
     Hooking hooking;
-    GraplingRange graplingRange; 
-
+    GraplingRange graplingRange;
+    PlayerControllerRope player;
 
     Vector3 mouse;
     public Transform playerAimPos;
@@ -21,6 +21,7 @@ public class Aiming : MonoBehaviour
          grapling = FindAnyObjectByType<Grapling>();
        
         graplingRange = FindAnyObjectByType<GraplingRange>();
+        player = FindAnyObjectByType<PlayerControllerRope>();
 
 
         lineAim.positionCount = 2;
@@ -28,7 +29,7 @@ public class Aiming : MonoBehaviour
         lineAim.useWorldSpace = true;
 
         //initialAimPos = playerAimPos;
-        Debug.Log(playerAimPos.position);
+        
 
         
     }
@@ -47,6 +48,7 @@ public class Aiming : MonoBehaviour
 
     public bool isAimEnemy = false;
     public bool isAimObject = false;
+    public bool isGrapplingReady = false;
 
     private void AimGrap()
     {
@@ -85,9 +87,10 @@ public class Aiming : MonoBehaviour
                      
 
 
-                        if (collider.CompareTag("Ring") && isAimEnemy == false)
-                        {   
-                                
+                        if (collider.CompareTag("Ring") && isAimEnemy == false && grapling.isFlyReady == false)
+                        {
+                            isGrapplingReady = true;
+
                                 hookAim.gameObject.SetActive(true);
 
                                 grapling.iscollObj = true;
@@ -149,6 +152,7 @@ public class Aiming : MonoBehaviour
         }
         if (hit.collider == null || grapling.isAttatch) //링에 걸려있거나 마우스 포인터와 충돌하지 않았다면 
         {
+            isGrapplingReady = false;
             anim = GetComponent<Animator>();
             anim.SetBool("PlayerAimEnemy", false);       
             grapling.iscollObj = false;
@@ -162,6 +166,7 @@ public class Aiming : MonoBehaviour
         if ((graplingRange.isobjSkill == false && graplingRange.isRange == false )||
             (graplingRange.isenemySkill == false && graplingRange.isRange == false))
         {
+            isGrapplingReady = false;
             hookAim.gameObject.SetActive(false);
             Grapling grapling = FindAnyObjectByType<Grapling>();
             grapling.ResetGrap();
