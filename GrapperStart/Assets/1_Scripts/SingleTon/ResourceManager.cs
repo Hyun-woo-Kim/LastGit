@@ -6,7 +6,7 @@ public class ResourceManager : SingleTonGeneric<ResourceManager>
 {
     public void ResourceSingleTonSet()
     {
-        Debug.Log("ΩÃ±€≈Ê ∫Ø»Ø");
+       
     }
 
     public T Load<T>(string path) where T : Object

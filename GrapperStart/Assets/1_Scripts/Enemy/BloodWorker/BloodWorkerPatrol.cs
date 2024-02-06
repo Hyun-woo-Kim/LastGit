@@ -24,8 +24,7 @@ public class BloodWorkerPatrol : BloodWorkerState
     protected  override void PatrolMovement(BloodState state, float patrolSpeed, float patrolDis, Vector2 patrolDir, Vector2 starPos)
     {
 
-        Debug.Log("Patrol startPosition " + starPos);
-        Debug.Log("Patrol patrolDirection " + patrolDir);
+    
         
         //이동 애니메이션 추가. 
 
@@ -47,7 +46,6 @@ public class BloodWorkerPatrol : BloodWorkerState
     {
         state = BloodState.STATE_STOP;
         yield return new WaitForSeconds(0.1f);
-        Debug.Log("정지 후 순찰");
     }
 
 }

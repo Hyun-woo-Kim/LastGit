@@ -19,7 +19,9 @@ public class PlayerControllerRope : MonoBehaviour
 
     GameObject Objcr;
 
-    
+
+
+   
     void Start()
     {
         
@@ -42,18 +44,16 @@ public class PlayerControllerRope : MonoBehaviour
 
 
     }
-    public Transform Ground;
+   
     Vector3 mouse;
 
     public float baseSwingForce = 10f;
-    private bool isKeyPressed = false;
-    private float keyPressStartTime = 0f;
-    private float longKeyPressDuration = 0.5f;
+
     private void Update()
     {
-        GraplingFlyAnimaton();
+        
         PlayerCollider();
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && grapling.isAttatch == false)
         {
             PlayerJump();
         }
@@ -68,7 +68,7 @@ public class PlayerControllerRope : MonoBehaviour
             }
         }
 
-    
+       
 
         AttackCool();
     }
@@ -77,39 +77,44 @@ public class PlayerControllerRope : MonoBehaviour
     public Vector2 playerColliderBox;
     public bool isSelectUI = false;
     public bool isElevator = false;
+    public bool isFlyAction = false;
     void PlayerCollider()
     {
+        GameObject elevatorObject = GameObject.Find("Elevator");
+        Transform firstChildTransform = elevatorObject.transform.GetChild(0);
+        SpriteRenderer spriteRenderer = firstChildTransform.GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.white;
+
         isElevator = false;
+
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(playerPos.position, playerColliderBox, 0);
         foreach (Collider2D collider in collider2Ds)
         {
             if(collider.CompareTag("Elevator"))
-            {
+            {            
+                spriteRenderer.color = Color.red;
+
                 isElevator = true;
             }
+            if(collider.CompareTag("Ring") && grapling.isFlyReady)
+            {
+                isFlyAction = true;
+                Debug.Log("ac");
+            }
         }
-        if(isElevator == true)
+        if (isElevator == true)
         {
             if(Input.GetKey(KeyCode.F))
-            {
+            {                
                 SelectManager.Instance.UIActive();
             }
         }
+      
     }
-    void GraplingFlyAnimaton()
-    {
-        if (isPlayerfly)
-        {
-            animatorPlayer.SetBool("PlayerGrapling", false);
-            animatorPlayer.SetBool("PlayerFly", true);
 
-            float verticalDistanceToGround = Mathf.Abs(transform.position.y - Ground.position.y);
-            if (verticalDistanceToGround < 3f)
-            {
-                animatorPlayer.SetBool("PlayerFly", false);
-            }
-        }
-    }
+
+
+
 
 
     public float baseAtkTime;
@@ -123,7 +128,7 @@ public class PlayerControllerRope : MonoBehaviour
             {
                 baseAtkTime = 0.5f; //다시 처음으로 기본 공격시간을 2.0초로 맞춘다.
                 atkcount = 0;      // 기본 공격 카운트가 0으로 맞춘다.
-                Debug.Log("기본공격 쿨타임 초기화");
+              
             }
 
         }
@@ -133,15 +138,13 @@ public class PlayerControllerRope : MonoBehaviour
     public bool isGrounded = true; //점프 조건 bool변수 
     public float jumpForce = 8f;
 
-    public bool isPlayerfly = false;
     void PlayerJump()
     {
         
         rigid.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-        //isGrounded = false;
-        isPlayerfly = false;
+        isGrounded = false;
 
-        if (isPlayerfly ==  false)
+        if (isGrounded ==  false)
         {
             animatorPlayer.SetTrigger("PlayerJump");
         }       
@@ -153,7 +156,7 @@ public class PlayerControllerRope : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            isPlayerfly = false;
+            
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -162,7 +165,7 @@ public class PlayerControllerRope : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
-           
+            
         }
 
     }
@@ -208,25 +211,32 @@ public class PlayerControllerRope : MonoBehaviour
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)
             {
-                Debug.Log("링에게 안걸렸을 때 D키 눌렀을 때 ");
+        
                 Vector2 moveDirection = new Vector2(horizontalInput, 0);
                 rigid.velocity = new Vector2(moveDirection.x * curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(1, 1, 1);
 
                 //transform.eulerAngles = new Vector3(0, 0, 0);
                 //sprPlayer.flipX = false;
-                animatorPlayer.SetFloat("Position_X", moveDirection.x);
+                if(grapling.isFlyReady == false)
+                {
+                    animatorPlayer.SetFloat("Position_X", moveDirection.x);
+                }
+                
 
             }
             else if (horizontalInput < 0) // else if (horizontalInput < 0 && grapling.isLerping == false)
             {
-                Debug.Log("링에게 안걸렸을 때 A키 눌렀을 때 ");
+               
                 Vector2 moveDirection = new Vector2(-horizontalInput, 0);
                 rigid.velocity = new Vector2(-moveDirection.x * curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(-1, 1, 1);
                 //transform.eulerAngles = new Vector3(0, 180, 0);
                 //sprPlayer.flipX = true;
-                animatorPlayer.SetFloat("Position_X", moveDirection.x);
+                if (grapling.isFlyReady == false)
+                {
+                    animatorPlayer.SetFloat("Position_X", moveDirection.x);
+                }
 
             }
 
@@ -243,33 +253,24 @@ public class PlayerControllerRope : MonoBehaviour
     public float swing_y;
     public void SwingPlayer()
     {
-       
-         Hooking hook = GameObject.Find("Hook").GetComponent<Hooking>();
+        Hooking hook = GameObject.Find("Hook").GetComponent<Hooking>();
         Vector2 currentConnectedAnchor = hook.joint2D.connectedAnchor;
-
-
-
 
         if (grapling.hookisLeft)
         {
-
-            Debug.Log("갈고리 날렸을 때 후크는 왼쪽에 있다.");
-
-
             if (Input.GetKey(KeyCode.A))
             {
               
-                //currentConnectedAnchor.x -= accelerationRate * Time.deltaTime;
-                //currentConnectedAnchor.y -= accelerationRate * Time.deltaTime;
+                currentConnectedAnchor.x -= accelerationRate * Time.deltaTime;
+               
 
-                //currentConnectedAnchor.x = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_X); //1
+                currentConnectedAnchor.x = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_X); //1
                                                                                                      //currentConnectedAnchor.y  = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_Y);
-                currentConnectedAnchor.x = swing_x;
-                currentConnectedAnchor.y= swing_y;
-                //if (currentConnectedAnchor.y < 2.0f)
-                //{
-                //    currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
-                //}
+             
+                if (currentConnectedAnchor.y < 3.0f)
+                {
+                    currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
+                }
 
 
             }
@@ -279,19 +280,18 @@ public class PlayerControllerRope : MonoBehaviour
             {
 
 
-                //currentConnectedAnchor.x += accelerationRate * Time.deltaTime;
+                currentConnectedAnchor.x += accelerationRate * Time.deltaTime;
 
 
 
-                //if (currentConnectedAnchor.y < 2.0f)
-                //{
-                //    currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
-                //}
+                if (currentConnectedAnchor.y < 3.0f)
+                {
+                    currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
+                }
 
-                //currentConnectedAnchor.x = Mathf.Min(currentConnectedAnchor.x, graplingMaxSpeed_X);
-                
-                currentConnectedAnchor.x = -swing_x;
-                currentConnectedAnchor.y = swing_y;
+                currentConnectedAnchor.x = Mathf.Min(currentConnectedAnchor.x, graplingMaxSpeed_X);
+
+
             }
 
             else
@@ -308,7 +308,7 @@ public class PlayerControllerRope : MonoBehaviour
         }
         else if (grapling.hookisRight)
         {
-            Debug.Log("갈고리 날렸을 때 후크는 오른쪽에 있따");
+           
             if (Input.GetKey(KeyCode.A))
             {
 
@@ -316,7 +316,7 @@ public class PlayerControllerRope : MonoBehaviour
 
 
 
-                if (currentConnectedAnchor.y < 2.0f)
+                if (currentConnectedAnchor.y < 3.0f)
                 {
                     currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
                 }
@@ -333,7 +333,7 @@ public class PlayerControllerRope : MonoBehaviour
                 currentConnectedAnchor.x = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_X); //1
                                                                                                      //currentConnectedAnchor.y  = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_Y);
 
-                if (currentConnectedAnchor.y < 2.0f)
+                if (currentConnectedAnchor.y < 3.0f)
                 {
                     currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
                 }
@@ -359,13 +359,10 @@ public class PlayerControllerRope : MonoBehaviour
     public float playerdir;
 
     
-    public void hookAnchorSet(float swingForce)
+    public void flyAction(float swingForce)
     {
-     
-        
-        
 
-
+        Debug.Log(swingForce);
         Hooking hookingScr = GameObject.Find("Hook").GetComponent<Hooking>();
 
         Vector3 playerdir = grapling.hook.transform.position - transform.position;
@@ -376,7 +373,6 @@ public class PlayerControllerRope : MonoBehaviour
 
 
 
-        Debug.Log(swingForce + "값");
         rigid.velocity = flyDirection * swingForce;
         //rigid.AddForce(flyDirection * swingForce, ForceMode2D.Impulse);
 
@@ -397,8 +393,8 @@ public class PlayerControllerRope : MonoBehaviour
     public float graplingMaxSpeed_X = 5.0f; // 최대 속도
     public float graplingMaxSpeed_Y = 5.0f; // 최대 속도
 
-    public float accelerationRate = 0.5f;       // 가속도
-    public float graplingSpeed;
+    public float accelerationRate = 2.5f;       // 가속도
+   
 
     public Transform attackpos;
     public Vector2 baseAtkboxSize;
