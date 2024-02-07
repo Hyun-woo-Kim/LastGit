@@ -64,12 +64,10 @@ public class Hooking : MonoBehaviour
 
 
 
-    public bool isHookRing;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Ring"))
         {
-            isHookRing = true;
             joint2D.enabled = true;
             grappling.isAttatch = true;
             GetComponent<SpriteRenderer>().sprite = attachedSprite;
@@ -94,7 +92,6 @@ public class Hooking : MonoBehaviour
             //player.hookAnchorSet();
 
             GetComponent<SpriteRenderer>().sprite = defaultSprite;
-            isHookRing = false;
             //joint2D.enabled = false;
             graplingRange.isobjSkill = false;
             GrapplingObjManager.Instance.brightnessDown(collision);

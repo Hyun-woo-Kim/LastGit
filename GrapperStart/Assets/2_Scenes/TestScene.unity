@@ -12517,7 +12517,6 @@ MonoBehaviour:
   joint2D: {fileID: 0}
   target: {fileID: 521793345}
   hookToEnemyspeed: 6
-  isHookRing: 0
   dealy: 0.5
 --- !u!1 &1932286170
 GameObject:
