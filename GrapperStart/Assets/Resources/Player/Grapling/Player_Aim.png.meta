@@ -120,10 +120,10 @@ TextureImporter:
       name: Player_Aim_0
       rect:
         serializedVersion: 2
-        x: 139
-        y: 18
-        width: 216
-        height: 433
+        x: 0
+        y: 0
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,27 +133,6 @@ TextureImporter:
       bones: []
       spriteID: 78ca7ebf83c663348813c62db206ca33
       internalID: -2111536536
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Aim_1
-      rect:
-        serializedVersion: 2
-        x: 347
-        y: 208
-        width: 5
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd8a9e19b6de5bc409ca793f7efd57f1
-      internalID: -1734967704
       vertices: []
       indices: 
       edges: []
@@ -170,7 +149,6 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Player_Aim_0: -2111536536
-      Player_Aim_1: -1734967704
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

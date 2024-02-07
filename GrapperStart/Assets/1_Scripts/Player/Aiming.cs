@@ -81,8 +81,7 @@ public class Aiming : MonoBehaviour
 
                         //hookAim.gameObject.SetActive(true);
                    
-                            anim = GetComponent<Animator>();
-                            anim.SetBool("PlayerAimEnemy",true);
+                           
                         
                      
 
@@ -102,7 +101,7 @@ public class Aiming : MonoBehaviour
                                 Vector3 mousedir = aimEndPos - aimStarPos; //조준선 방향 구하기
 
                                 AimData(aimDistance, mousedir); //조준선 방향, 길이 넘기기  
-
+                           
                             MouseManager.Instance.SetCursorType(MouseManager.CursorType.objIdle);
                         }
                         
@@ -170,6 +169,12 @@ public class Aiming : MonoBehaviour
             hookAim.gameObject.SetActive(false);
             Grapling grapling = FindAnyObjectByType<Grapling>();
             grapling.ResetGrap();
+        }
+
+        else if(grapling.iscollObj == true)
+        {
+            anim = GetComponent<Animator>();
+            anim.SetBool("PlayerAimEnemy", true);
         }
 
     }

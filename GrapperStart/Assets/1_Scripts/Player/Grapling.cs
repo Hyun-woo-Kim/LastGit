@@ -340,7 +340,7 @@ public class Grapling : MonoBehaviour
 
                 // E 키를 누르고 있는 동안 계속 실행할 코드
                 eKeyHoldTime += Time.deltaTime;
-              
+                Debug.Log("누르는 시간" + eKeyHoldTime);
             }
             else
             {
