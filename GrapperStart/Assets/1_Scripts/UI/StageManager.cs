@@ -12,6 +12,10 @@ public class StageManager : MonoBehaviour
 
     public GameObject OptionUI; //기본옵션,컨트롤옵션,사운드옵션 창
 
+    public GameObject Background; // 배경색
+
+    public GameObject playerUI; //미니맵, 체력바 게이지바 아이콘
+
 
     public GameObject Ingame_OptionBGUI; //옵션이미지
     public GameObject Ingame_KeyOptionBGUI;//컨트롤옵션이미지
@@ -71,7 +75,9 @@ public class StageManager : MonoBehaviour
             {
                 Pause_Panel.color = new Color(0, 0, 0, 0);
                 OptionUI.SetActive(false);
+                Background.SetActive(false);
                 Ingame_OptionBGUI.SetActive(false);
+                playerUI.SetActive(true);
                 PauseUI.SetActive(false); // 일시정지 메뉴 비활성화
                 Time.timeScale = 1f; // 시간 원상 복귀
             }
@@ -167,11 +173,13 @@ public class StageManager : MonoBehaviour
     {
         Debug.Log("옵션 클릭");
         PauseUI.SetActive(false);
+        Background.SetActive(true);
         OptionOn = true;
 
-        Ingame_OptionBGUI.SetActive(true);
+       // Ingame_OptionBGUI.SetActive(true);
         OptionUI.SetActive(true);
         Ingame_KeyOptionBGUI.SetActive(false);
+        playerUI.SetActive(false);
 
         blockInput = false;
     }
