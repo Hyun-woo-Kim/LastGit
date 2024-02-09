@@ -171,7 +171,8 @@ public class Grapling : MonoBehaviour
     {
         if(isLerping == false)
         {
-            line.SetPosition(0, enemyHookPos.position);
+            Transform aimPos = transform.GetChild(5);
+            line.SetPosition(0, aimPos.position);
         }
         else if(isLerping == true )
         {
@@ -340,7 +341,7 @@ public class Grapling : MonoBehaviour
 
                 // E 키를 누르고 있는 동안 계속 실행할 코드
                 eKeyHoldTime += Time.deltaTime;
-                Debug.Log("누르는 시간" + eKeyHoldTime);
+                
             }
             else
             {
@@ -356,7 +357,7 @@ public class Grapling : MonoBehaviour
                     isHookActive = false;
                     isLineMax = false;
 
-                    if (eKeyHoldTime >= 1.0f) // 1초 이상 눌렀을 때
+                    if (eKeyHoldTime >= 0.5f) // 1초 이상 눌렀을 때
                     {
                         baseSwingForce = 20.0f;
                         player.flyAction(baseSwingForce);
@@ -406,7 +407,7 @@ public class Grapling : MonoBehaviour
 
     public bool isFlyReady = false; //공중제비 준비 여부
 
-    private bool isEKeyHeld = false; //E키 눌림여부
+    public bool isEKeyHeld = false; //E키 눌림여부
     private float eKeyHoldTime = 0f; //E키 누르는 시간
 
     public float PlayerGraplingAnimCount; //그래플링 관련 블렌드 트리 애니메이션 변수 

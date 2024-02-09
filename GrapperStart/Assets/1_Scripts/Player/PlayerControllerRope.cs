@@ -78,6 +78,7 @@ public class PlayerControllerRope : MonoBehaviour
     public bool isSelectUI = false;
     public bool isElevator = false;
     public bool isFlyAction = false;
+    public bool isStopMove = false;
     void PlayerCollider()
     {
         GameObject elevatorObject = GameObject.Find("Elevator");
@@ -86,7 +87,7 @@ public class PlayerControllerRope : MonoBehaviour
         spriteRenderer.color = Color.white;
 
         isElevator = false;
-
+        isStopMove = false;
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(playerPos.position, playerColliderBox, 0);
         foreach (Collider2D collider in collider2Ds)
         {
@@ -96,9 +97,10 @@ public class PlayerControllerRope : MonoBehaviour
 
                 isElevator = true;
             }
-            if(collider.CompareTag("Ring") && grapling.isFlyReady)
+            if(collider.CompareTag("Ring") && grapling.isFlyReady) //공중제비시 충돌 관련 코드.
             {
                 isFlyAction = true;
+                isStopMove = true;
                 Debug.Log("ac");
             }
         }
@@ -191,16 +193,19 @@ public class PlayerControllerRope : MonoBehaviour
                 MoveToPlayer(horizontalInput);
             }
 
+
             animatorPlayer.SetBool("PlayerAimEnemy", false); //조준애니메이션 해제.
             Time.timeScale = 1.0f;
 
         }
-        if (grapling.grapCount == 1.0f) //적에게 갈고리 걸렸을  때
+        else if (grapling.grapCount == 1.0f) //적에게 갈고리 걸렸을  때
         {
             animatorPlayer.SetBool("PlayerAimEnemy", true); //조준애니메이션 발동.
             Time.timeScale = 0.5f;
         }
 
+      
+     
         
     }
 
@@ -211,7 +216,7 @@ public class PlayerControllerRope : MonoBehaviour
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)
             {
-        
+                
                 Vector2 moveDirection = new Vector2(horizontalInput, 0);
                 rigid.velocity = new Vector2(moveDirection.x * curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(1, 1, 1);
@@ -220,14 +225,14 @@ public class PlayerControllerRope : MonoBehaviour
                 //sprPlayer.flipX = false;
                 if(grapling.isFlyReady == false)
                 {
-                    animatorPlayer.SetFloat("Position_X", moveDirection.x);
+                    animatorPlayer.SetFloat("Position_X", moveDirection.x); 
                 }
                 
 
             }
             else if (horizontalInput < 0) // else if (horizontalInput < 0 && grapling.isLerping == false)
             {
-               
+                Debug.Log("일반적인 움직임");
                 Vector2 moveDirection = new Vector2(-horizontalInput, 0);
                 rigid.velocity = new Vector2(-moveDirection.x * curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(-1, 1, 1);
@@ -256,8 +261,9 @@ public class PlayerControllerRope : MonoBehaviour
         Hooking hook = GameObject.Find("Hook").GetComponent<Hooking>();
         Vector2 currentConnectedAnchor = hook.joint2D.connectedAnchor;
 
-        if (grapling.hookisLeft)
+        if (grapling.hookisLeft && grapling.isAttatch)
         {
+           
             if (Input.GetKey(KeyCode.A))
             {
               
@@ -370,8 +376,6 @@ public class PlayerControllerRope : MonoBehaviour
         float flyangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
 
         Vector2 flyDirection = Quaternion.Euler(0, 0, flyangle) * Vector2.right;
-
-
 
         rigid.velocity = flyDirection * swingForce;
         //rigid.AddForce(flyDirection * swingForce, ForceMode2D.Impulse);
