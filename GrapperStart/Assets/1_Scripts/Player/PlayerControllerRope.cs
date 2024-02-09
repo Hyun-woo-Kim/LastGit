@@ -113,16 +113,7 @@ public class PlayerControllerRope : MonoBehaviour
         }
       
     }
-<<<<<<< Updated upstream
 
-
-
-
-
-
-=======
-  
->>>>>>> Stashed changes
     public float baseAtkTime;
     public int atkcount = 0;
     void AttackCool()
