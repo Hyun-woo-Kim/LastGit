@@ -91,7 +91,7 @@ public class BloodWorkerAction : MonoBehaviour
                 {
                     myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
                     myAttackState.InstanRock(bloodState, rockPref, rockPos);
-                    Debug.Log("돌멩이 함수 호출");
+                    Debug.Log("돌멩이 함수 호출aa");
                     isTargetPlayer = false;
                     this.bloodState = BloodState.STATE_RENCHATTACK;
                 }
