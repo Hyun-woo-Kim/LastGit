@@ -5,14 +5,16 @@ using UnityEngine;
 public enum BloodState
 {
     STATE_PATROL,
-    STATE_ATTACK,
+    STATE_ROCKATTACK,
     STATE_STOP,
+    STATE_RENCHATTACK,
     
 }
 public class BloodWorkerAction : MonoBehaviour
 {
     public BloodState bloodState;
     private BloodWorkerState myState;
+    private BloodWorkerAttackReady myAttackState;
 
     Animator bloodWorkerAnim;
     CapsuleCollider2D capsuleColl;
@@ -37,11 +39,13 @@ public class BloodWorkerAction : MonoBehaviour
         capsuleColl = GetComponent<CapsuleCollider2D>();
         bloodWorkerAnim = GetComponent<Animator>();
 
-        this.bloodState = BloodState.STATE_PATROL; //기본적으로 시작하면 순찰 상태로 시작.
-        setActionType(bloodState);
 
+
+        //기본적으로 시작하면 순찰 상태로 시작.
+        this.bloodState = BloodState.STATE_PATROL; 
+        setActionType(bloodState);
         myState = gameObject.AddComponent<BloodWorkerPatrol>();
-        myState.Initialize(bloodState);
+
 
         //순찰 기능 초기값 설정.
         startPosition = transform.position;
@@ -55,40 +59,85 @@ public class BloodWorkerAction : MonoBehaviour
     public Transform rockPos;
     public void setActionType(BloodState _bloodState)
     {
-       
-
-        Component c = gameObject.GetComponent<BloodWorkerState>();
-
-        if (c != null)
+        Component bwState = gameObject.GetComponent<BloodWorkerState>();
+        Component bwAttackReady = gameObject.GetComponent<BloodWorkerAttackReady>();
+ 
+        if (bwState != null)
         {
-            Destroy(c);
+            Destroy(bwState);
+        }
+        else if(bwAttackReady != null)
+        {
+            Destroy(bwAttackReady);
         }
 
         switch (_bloodState)
         {
             case BloodState.STATE_PATROL:
-                myState = gameObject.AddComponent<BloodWorkerPatrol>();     
-                myState.Patrol(_bloodState,patrolSpeed,patrolDistance,patrolDirection,startPosition);
+                if(myState == null)
+                {
+                    myState = gameObject.AddComponent<BloodWorkerPatrol>();
+                    myState.Patrol(_bloodState, patrolSpeed, patrolDistance, patrolDirection, startPosition);
+                }           
                 break;
             case BloodState.STATE_STOP:
                 myState = gameObject.AddComponent<BloodWorkerPatrol>();
                 myState.Stop(_bloodState);
                 StartCoroutine(PatTrolTurn()); 
                 break;
-            //case BloodState.STATE_ATTACK:
-            //    myState = gameObject.AddComponent<BloodWorkerPatrol>();
-            //    myState.SlingAttack(_bloodState, rockPref, rockPos);
-            //    break;
+            case BloodState.STATE_ROCKATTACK:
+                if (myAttackState == null)
+                {
+                    myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
+                    myAttackState.InstanRock(bloodState, rockPref, rockPos);
+                    isRenchAttack = true;
+                    Debug.Log("돌멩이 함수 호출aa");
+                    //isTargetPlayer = false;
+                    this.bloodState = BloodState.STATE_RENCHATTACK;
+                }
+                  
+                break;
 
+        }
+    }
+
+    void Update()
+    {
+        switch (bloodState)
+        {
+            case BloodState.STATE_PATROL:
+                if (Mathf.Abs(transform.position.x - startPosition.x) >= patrolDistance || isWall)
+                {
+                    this.bloodState = BloodState.STATE_STOP;
+                    setActionType(BloodState.STATE_STOP);
+                    isWall = false; 
+                }
+                else
+                {
+                    PatrolRange();
+                    setActionType(BloodState.STATE_PATROL); // 중복 호출 제거
+                }
+                break;
+            case BloodState.STATE_STOP:
+                PatrolRange();
+                break;
+            case BloodState.STATE_ROCKATTACK:
+                setActionType(BloodState.STATE_ROCKATTACK);
+                break;
+            case BloodState.STATE_RENCHATTACK:
+                RenchAttack();
+                FollowPlayer();
+                //PatrolRange() 메서드를 호출 하면 돌멩이가 1개 생성되는 것이 아닌 8개가 생성된다. why? 중복호출때문
+                break;
         }
     }
     IEnumerator PatTrolTurn()
     {
         bloodWorkerAnim.SetBool("EnemyStop", true);
-           yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.0f); //정지 후 기다리는 시간.
         bloodWorkerAnim.SetBool("EnemyStop", false);
         this.bloodState = BloodState.STATE_PATROL;
-       
+
 
         patrolDirection *= -1;
         startPosition.x = transform.position.x;
@@ -98,71 +147,80 @@ public class BloodWorkerAction : MonoBehaviour
 
         setActionType(BloodState.STATE_PATROL);
     }
-    void Update()
+    void FollowPlayer()
     {
-        switch (bloodState)
+        if(isTargetPlayer && isRenchAttack)
         {
-            case BloodState.STATE_PATROL:
-                PatrolRange(); //순찰 상태에서 순찰 범위 기능을 추가한다. 
-                if (Mathf.Abs(transform.position.x - startPosition.x) >= patrolDistance || isWall)                     
-                {
-                    this.bloodState = BloodState.STATE_STOP;
-                    setActionType(BloodState.STATE_STOP);
-                    isWall = false;
-                }
-                setActionType(BloodState.STATE_PATROL);
-
-                break;
-            case BloodState.STATE_STOP:
-                PatrolRange();//정지상태에서도 순찰 범위 기능을 추가한다. 
-                break;
-            //case BloodState.STATE_ATTACK:
-            //    PatrolRange(); //순찰 범위가 있어야 공격상태를 확인 할 수 있다.         
-            //        setActionType(BloodState.STATE_ATTACK);
-                    //슬링 애니메이션 추가
-                
-                
-               // break;
-
+            Transform renchChild = transform.GetChild(4);
+            renchChild.gameObject.SetActive(true);
+            transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
+            
         }
+      
     }
-
     public bool isTargetPlayer;
+    public Transform target;
+    public float followSpeed;
+    public bool isRenchAttack;
     void PatrolRange()
     {
         isReact = false;
         isTargetPlayer = false;
+
         Transform thirdChild = transform.GetChild(3);
         SpriteRenderer spriteRenderer = thirdChild.GetComponent<SpriteRenderer>();
+
         Collider2D[] colliders = Physics2D.OverlapBoxAll(patrolPos.position, patrolBoxSize, 0);
+       
 
         foreach (Collider2D collider in colliders) //순찰 범위 
         {
             if (collider.CompareTag("Player"))
             {
+                target = collider.transform;
                 isReact = true;
                 isTargetPlayer = true;
             }
         }
-        //if (isTargetPlayer)
-        //{
-        //    this.bloodState = BloodState.STATE_ATTACK;
-        //}
-        //else if(isTargetPlayer == false)
-        //{
-        //    this.bloodState = BloodState.STATE_PATROL;
-        //}
-            PatrolReaction(spriteRenderer);
+        if (isTargetPlayer)//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
+        {
+            Transform handChild = transform.GetChild(5);
+            handChild.gameObject.SetActive(true);
+            bloodWorkerAnim.SetTrigger("RockAttack");      
+            this.bloodState = BloodState.STATE_ROCKATTACK; //돌멩이 투척상태
+           
+        }
+        else if(isTargetPlayer == false )
+        {
+            Transform handChild = transform.GetChild(5);
+            Transform renchChild = transform.GetChild(4);
+            handChild.gameObject.SetActive(false);
+            renchChild.gameObject.SetActive(false);
+            isRenchAttack = false;
+            target = null;
+        }
+        PatrolReaction(spriteRenderer);
     }
+
+    public Transform renchAttackPos;
+    public Vector2 renchAttackSize;
+    void RenchAttack()
+    {
+        Collider2D[] coliderRench = Physics2D.OverlapBoxAll(renchAttackPos.position, renchAttackSize, 0);
+        myAttackState.RenchAttack(bloodState, coliderRench,bloodWorkerAnim);    
+    }
+    
     void PatrolReaction(SpriteRenderer spriteRenderer )
     {
        if(isReact)
         {
             spriteRenderer.sprite = reactSprite;
+          
         }
        else if(isReact == false)
         {
             spriteRenderer.sprite = null;
+           
         }
     }
 
@@ -170,7 +228,6 @@ public class BloodWorkerAction : MonoBehaviour
     {
         if (collision.gameObject.tag == ("Wall"))
         {
-            
             isWall = true;
         }
     }
@@ -189,5 +246,6 @@ public class BloodWorkerAction : MonoBehaviour
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireCube(patrolPos.position, patrolBoxSize);//DrawWireCube(pos.position,boxsize)      
+        Gizmos.DrawWireCube(renchAttackPos.position, renchAttackSize);//DrawWireCube(pos.position,boxsize)      
     }
 }

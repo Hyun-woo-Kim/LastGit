@@ -5,21 +5,6 @@ using UnityEngine;
 public class BloodWorkerPatrol : BloodWorkerState
 {
 
-    public override void SlingAttack(BloodState state, GameObject rokcPref, Transform rockPos)
-    {
-        
-    }
-
-
-
-
-
-    public override void Initialize(BloodState state)
-    {
-
-       
-
-    }
 
     protected  override void PatrolMovement(BloodState state, float patrolSpeed, float patrolDis, Vector2 patrolDir, Vector2 starPos)
     {
@@ -44,7 +29,6 @@ public class BloodWorkerPatrol : BloodWorkerState
 
     protected override IEnumerator PatrolStop(BloodState state)
     {
-        state = BloodState.STATE_STOP;
         yield return new WaitForSeconds(0.1f);
     }
 

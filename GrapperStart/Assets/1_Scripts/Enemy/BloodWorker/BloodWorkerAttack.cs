@@ -2,32 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BloodWorkerAttack : BloodWorkerState 
+public class BloodWorkerAttack : BloodWorkerAttackReady
 {
-    public override void Initialize(BloodState state)
-    {
-        // BloodWorkerAttack에서만 필요한 초기화 로직을 구현
-    }
-
-    protected override void PatrolMovement(BloodState state, float patrolSpeed, float patrolDis, Vector2 patrolDir, Vector2 starPos)
-    {
-
-
-
+    public override void InstanRock(BloodState state, GameObject rockPref, Transform rockPos)
+    {    
+         Vector3 rockVec = rockPos.position;
+         Instantiate(rockPref, rockVec, Quaternion.identity);
 
     }
 
-    protected override IEnumerator PatrolStop(BloodState state)
+
+
+
+    public override void RenchAttack(BloodState state, Collider2D[] collider,Animator renchAnim)
     {
-        yield return null;
+       foreach(Collider2D renchCollider in collider)
+        {
+            if(renchCollider.CompareTag("Player"))
+            {
+                Flip(renchCollider);
+                renchAnim.SetTrigger("RenchAttack");
+                Debug.Log("플레이어 발견");
+            }
+        }
     }
 
-
-
-    public override void SlingAttack(BloodState state,GameObject rockPref,Transform rockPos)
+    void Flip(Collider2D player)
     {
-        Debug.Log("돌멩이 생성");
-        Vector3 rockVec = rockPos.position;
-        Instantiate(rockPref, rockVec, Quaternion.identity);
+        Debug.Log("방향전환");
+        Transform playerPos = player.transform;
+        if (transform.position.x > playerPos.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (transform.position.x < playerPos.position.x)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
+    
 }

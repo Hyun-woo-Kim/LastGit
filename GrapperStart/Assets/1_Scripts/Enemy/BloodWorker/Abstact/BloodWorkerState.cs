@@ -6,8 +6,6 @@ public abstract class BloodWorkerState : MonoBehaviour
 {
   
 
-    public abstract void Initialize(BloodState state);
-
     public virtual void Patrol(BloodState state, float patrolSpeed, float patrolDis, Vector2 patrolDir, Vector2 starPos)
     {
         PatrolMovement(state, patrolSpeed, patrolDis, patrolDir, starPos);
@@ -24,6 +22,6 @@ public abstract class BloodWorkerState : MonoBehaviour
 
     protected abstract IEnumerator PatrolStop(BloodState state);
 
-    public abstract void SlingAttack(BloodState state,GameObject rokcPref,Transform rockPos);
+   
 
 }
