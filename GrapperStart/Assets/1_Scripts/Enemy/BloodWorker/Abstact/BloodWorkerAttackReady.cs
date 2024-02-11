@@ -10,4 +10,5 @@ public abstract class BloodWorkerAttackReady : MonoBehaviour
     public abstract void RenchAttack(BloodState state, Collider2D[] collider,Animator bwAnim);
    
 
+
 }

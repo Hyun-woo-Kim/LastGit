@@ -12,6 +12,7 @@ public class BloodWorkerAttack : BloodWorkerAttackReady
     }
 
 
+  
 
 
     public override void RenchAttack(BloodState state, Collider2D[] collider,Animator renchAnim)
@@ -22,14 +23,14 @@ public class BloodWorkerAttack : BloodWorkerAttackReady
             {
                 Flip(renchCollider);
                 renchAnim.SetTrigger("RenchAttack");
-                Debug.Log("ÇÃ·¹ÀÌ¾î ¹ß°ß");
+                Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ß°ï¿½");
             }
         }
     }
 
     void Flip(Collider2D player)
     {
-        Debug.Log("¹æÇâÀüÈ¯");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯");
         Transform playerPos = player.transform;
         if (transform.position.x > playerPos.position.x)
         {
@@ -40,5 +41,6 @@ public class BloodWorkerAttack : BloodWorkerAttackReady
             transform.localScale = new Vector3(-1, 1, 1);
         }
     }
+
     
 }

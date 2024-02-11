@@ -23,7 +23,7 @@ public class BloodWorkerAction : MonoBehaviour
 
     public bool isWall;
     public float patrolSpeed = 2.0f;
-    public float patrolDistance = 10.0f; // ¼øÂû °Å¸®
+    public float patrolDistance = 10.0f; // ìˆœì°° ê±°ë¦¬
 
     public Vector2 patrolDirection;
     protected Vector2 startPosition;
@@ -41,13 +41,13 @@ public class BloodWorkerAction : MonoBehaviour
 
 
 
-        //±âº»ÀûÀ¸·Î ½ÃÀÛÇÏ¸é ¼øÂû »óÅÂ·Î ½ÃÀÛ.
+        //ê¸°ë³¸ì ìœ¼ë¡œ ì‹œì‘í•˜ë©´ ìˆœì°° ìƒíƒœë¡œ ì‹œì‘.
         this.bloodState = BloodState.STATE_PATROL; 
         setActionType(bloodState);
         myState = gameObject.AddComponent<BloodWorkerPatrol>();
 
 
-        //¼øÂû ±â´É ÃÊ±â°ª ¼³Á¤.
+        //ìˆœì°° ê¸°ëŠ¥ ì´ˆê¸°ê°’ ì„¤ì •.
         startPosition = transform.position;
         patrolDirection = Vector2.right;
 
@@ -79,6 +79,8 @@ public class BloodWorkerAction : MonoBehaviour
                     myState = gameObject.AddComponent<BloodWorkerPatrol>();
                     myState.Patrol(_bloodState, patrolSpeed, patrolDistance, patrolDirection, startPosition);
                 }           
+                }
+              
                 break;
             case BloodState.STATE_STOP:
                 myState = gameObject.AddComponent<BloodWorkerPatrol>();
@@ -91,11 +93,16 @@ public class BloodWorkerAction : MonoBehaviour
                     myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
                     myAttackState.InstanRock(bloodState, rockPref, rockPos);
                     isRenchAttack = true;
-                    Debug.Log("µ¹¸æÀÌ ÇÔ¼ö È£Ãâaa");
+                    Debug.Log("ëŒë©©ì´ í•¨ìˆ˜ í˜¸ì¶œaa");
                     //isTargetPlayer = false;
                     this.bloodState = BloodState.STATE_RENCHATTACK;
                 }
                   
+                    Debug.Log("ëŒë©©ì´ í•¨ìˆ˜ í˜¸ì¶œaa");
+                    isTargetPlayer = false;
+                    this.bloodState = BloodState.STATE_RENCHATTACK;
+                }
+                
                 break;
 
         }
@@ -115,7 +122,7 @@ public class BloodWorkerAction : MonoBehaviour
                 else
                 {
                     PatrolRange();
-                    setActionType(BloodState.STATE_PATROL); // Áßº¹ È£Ãâ Á¦°Å
+                    setActionType(BloodState.STATE_PATROL); // ì¤‘ë³µ í˜¸ì¶œ ì œê±°
                 }
                 break;
             case BloodState.STATE_STOP:
@@ -127,14 +134,19 @@ public class BloodWorkerAction : MonoBehaviour
             case BloodState.STATE_RENCHATTACK:
                 RenchAttack();
                 FollowPlayer();
-                //PatrolRange() ¸Ş¼­µå¸¦ È£Ãâ ÇÏ¸é µ¹¸æÀÌ°¡ 1°³ »ı¼ºµÇ´Â °ÍÀÌ ¾Æ´Ñ 8°³°¡ »ı¼ºµÈ´Ù. why? Áßº¹È£Ãâ¶§¹®
+                //PatrolRange() ë©”ì„œë“œë¥¼ í˜¸ì¶œ í•˜ë©´ ëŒë©©ì´ê°€ 1ê°œ ìƒì„±ë˜ëŠ” ê²ƒì´ ì•„ë‹Œ 8ê°œê°€ ìƒì„±ëœë‹¤. why? ì¤‘ë³µí˜¸ì¶œë•Œë¬¸
                 break;
         }
     }
     IEnumerator PatTrolTurn()
     {
         bloodWorkerAnim.SetBool("EnemyStop", true);
-        yield return new WaitForSeconds(2.0f); //Á¤Áö ÈÄ ±â´Ù¸®´Â ½Ã°£.
+        yield return new WaitForSeconds(2.0f); //ì •ì§€ í›„ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„.
+
+    IEnumerator PatTrolTurn()
+    {
+        bloodWorkerAnim.SetBool("EnemyStop", true);
+           yield return new WaitForSeconds(2.0f); //ì •ì§€ í›„ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„.
         bloodWorkerAnim.SetBool("EnemyStop", false);
         this.bloodState = BloodState.STATE_PATROL;
 
@@ -155,6 +167,26 @@ public class BloodWorkerAction : MonoBehaviour
             renchChild.gameObject.SetActive(true);
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
             
+
+            case BloodState.STATE_PATROL:
+                if (Mathf.Abs(transform.position.x - startPosition.x) >= patrolDistance || isWall)
+                {
+                    this.bloodState = BloodState.STATE_STOP;
+                    setActionType(BloodState.STATE_STOP);
+                    isWall = false; 
+                }
+                else
+                {
+                    PatrolRange();
+                    setActionType(BloodState.STATE_PATROL); // ì¤‘ë³µ í˜¸ì¶œ ì œê±°
+                }
+                break;
+            case BloodState.STATE_STOP:
+                PatrolRange();
+                break;
+            case BloodState.STATE_ROCKATTACK:
+                setActionType(BloodState.STATE_ROCKATTACK);
+                break;
         }
       
     }
@@ -173,7 +205,7 @@ public class BloodWorkerAction : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapBoxAll(patrolPos.position, patrolBoxSize, 0);
        
 
-        foreach (Collider2D collider in colliders) //¼øÂû ¹üÀ§ 
+        foreach (Collider2D collider in colliders) //ìˆœì°° ë²”ìœ„ 
         {
             if (collider.CompareTag("Player"))
             {
@@ -182,22 +214,24 @@ public class BloodWorkerAction : MonoBehaviour
                 isTargetPlayer = true;
             }
         }
-        if (isTargetPlayer)//¼ÕÀ» ÀÌ¿ëÇÏ¿© µ¹¸æÀÌ ´øÁø´Ù. ¼Õ È°¼ºÈ­, µ¹¸æÀÌ ÅõÃ´ ¾Ö´Ï¸ŞÀÌ¼Ç È°¼ºÈ­, µ¹¸æÀÌ ÅõÃ´ »óÅÂ·Î º¯°æ.
+        if (isTargetPlayer)//ì†ì„ ì´ìš©í•˜ì—¬ ëŒë©©ì´ ë˜ì§„ë‹¤. ì† í™œì„±í™”, ëŒë©©ì´ íˆ¬ì²™ ì• ë‹ˆë©”ì´ì…˜ í™œì„±í™”, ëŒë©©ì´ íˆ¬ì²™ ìƒíƒœë¡œ ë³€ê²½.
         {
             Transform handChild = transform.GetChild(5);
             handChild.gameObject.SetActive(true);
             bloodWorkerAnim.SetTrigger("RockAttack");      
-            this.bloodState = BloodState.STATE_ROCKATTACK; //µ¹¸æÀÌ ÅõÃ´»óÅÂ
+            this.bloodState = BloodState.STATE_ROCKATTACK; //ëŒë©©ì´ íˆ¬ì²™ìƒíƒœ
+
            
         }
         else if(isTargetPlayer == false )
         {
             Transform handChild = transform.GetChild(5);
             Transform renchChild = transform.GetChild(4);
-            handChild.gameObject.SetActive(false);
             renchChild.gameObject.SetActive(false);
             isRenchAttack = false;
             target = null;
+            handChild.gameObject.SetActive(false);
+            //ë Œì¹˜ ê³µê²© ìƒíƒœ ì €ì¥ í•´ì•¼í•¨.
         }
         PatrolReaction(spriteRenderer);
     }
@@ -209,6 +243,7 @@ public class BloodWorkerAction : MonoBehaviour
         Collider2D[] coliderRench = Physics2D.OverlapBoxAll(renchAttackPos.position, renchAttackSize, 0);
         myAttackState.RenchAttack(bloodState, coliderRench,bloodWorkerAnim);    
     }
+
     
     void PatrolReaction(SpriteRenderer spriteRenderer )
     {

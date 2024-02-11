@@ -12725,6 +12725,7 @@ MonoBehaviour:
   isRenchAttack: 0
   renchAttackPos: {fileID: 4514033}
   renchAttackSize: {x: 2.5, y: 2.36}
+
 --- !u!50 &1565152436
 Rigidbody2D:
   serializedVersion: 4
@@ -18750,6 +18751,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+
 --- !u!4 &2101752414
 Transform:
   m_ObjectHideFlags: 0
