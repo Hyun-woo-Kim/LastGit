@@ -426,6 +426,7 @@ public class Grapling : MonoBehaviour
     public void GrapHandling(GameObject target)
     {
         isenemyGrapling = true;
+        Debug.Log(target);
         GraplingPlayerFlip(target);
          
         hook.position = enemyHookPos.position; //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
@@ -501,7 +502,16 @@ public class Grapling : MonoBehaviour
                 GraplingPlayerFlip(enemyObj);
                 animPlayer.SetTrigger("PlayerAttack");
                 yield return new WaitForSeconds(grapanimdelay);
-                StartCoroutine(enemyObj.GetComponent<CritureController>().AtkDamagedCriture());
+
+                Enemies enemyScript = enemyObj.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                if (enemyScript != null)
+                {
+                    StartCoroutine( enemyScript.GraplingAtkDamaged());
+                }
+                else
+                {
+                    Debug.Log("Enemies인터페이스 찾지 못함");
+                }
             }
 
             transform.rotation = originalRotation;

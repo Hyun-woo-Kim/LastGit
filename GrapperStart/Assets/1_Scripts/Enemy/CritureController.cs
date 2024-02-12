@@ -2,13 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CritureController : MonoBehaviour
+public class CritureController : MonoBehaviour,Enemies
 {
     Rigidbody2D rigidCr;
     SpriteRenderer sprCr;
     PlayerControllerRope player;
     Animator animEnemy;
     CapsuleCollider2D capsuleColl;
+
+    private Enemies bw;
+
+    public IEnumerator GraplingAtkDamaged()
+    {
+    
+        sprCr.color = Color.red;
+        CancelInvoke();
+        moveCr = 0;
+        animEnemy.SetTrigger("EnemyHit");
+        yield return new WaitForSeconds(1.0f);
+        sprCr.color = Color.white;
+        Think();
+        Debug.Log("기본 몬스터가 데미지를 입음");
+        yield return null;
+    }
+
     private void Start()
     {
         animEnemy = GetComponent<Animator>();
@@ -17,6 +34,8 @@ public class CritureController : MonoBehaviour
         capsuleColl = GetComponent<CapsuleCollider2D>();
         player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
         grapling = GameObject.Find("Player").GetComponent<Grapling>();
+
+        bw = GetComponentInParent<Enemies>();
         Think();
     }
     public int moveCr;
@@ -57,7 +76,7 @@ public class CritureController : MonoBehaviour
             {
                 localScale();
             }
-            Debug.Log("기본 움직임 시작");
+       
 
             Invoke("Think", 3);//재귀
         }
@@ -79,18 +98,7 @@ public class CritureController : MonoBehaviour
         }
       
     }
-    public IEnumerator AtkDamagedCriture()
-    {
-        // Debug.Log("크리쳐가 피해를 입었다.");
-        sprCr.color = Color.red;
-        CancelInvoke();
-        moveCr = 0;
-        animEnemy.SetTrigger("EnemyHit");
-        yield return new WaitForSeconds(1.0f);
-        sprCr.color = Color.white;
-        Think();
-    }
-
+  
     public IEnumerator baseDamagedCriture()
     {
         // Debug.Log("크리쳐가 피해를 입었다.");
@@ -106,8 +114,11 @@ public class CritureController : MonoBehaviour
     public Vector2 EnemyattackBoxSize;
 
 
-    Transform targetPos;
+    public Transform targetPos;
+    public Vector2 targetPlayer;
     public bool isEnemyAttack;
+    public bool isPlayerCheack;
+
     void EnemyToAttack()
     {
         isEnemyAttack = false;
@@ -121,27 +132,51 @@ public class CritureController : MonoBehaviour
             {
                 if (coll.CompareTag("Player"))
                 {
-                    Debug.Log("추격 준비");
+
+                    isPlayerCheack = true;
                     isEnemyAttack = true;
                     isbaseMove = false;
                     targetPos = coll.transform;
+                    targetPlayer = coll.transform.position;
                 }
 
             }
             
         }
-      
+        
 
         if (isEnemyAttack == true)
         {
-            Debug.Log("타겟 넘김");
             Attack(targetPos);
         }
         
-        
+        else if(isPlayerCheack)
+        {
+            Enemies enemy = GetComponentInChildren<Enemies>();
 
+            if (enemy != null)
+            {
+                Debug.Log(enemy);
+                // Enemies 인터페이스를 구현한 클래스의 인스턴스인 경우에만 사용
+                if (enemy is BloodWorkerAction bloodWorkerAction)
+                {
+                    // EnemyB 클래스의 인스턴스인 경우에만 사용
+                    bool specialEnemyValue = bloodWorkerAction.isTeamEnemy;
+                    Debug.Log("Special Enemy (EnemyB): " + specialEnemyValue);
+                }
+                else
+                {
+                    Debug.Log("EnemyB 클래스를 찾지 못함");
+                }
+            }
+            else
+            {
+                Debug.Log("Enemies 인터페이스를 구현한 클래스를 찾지 못함");
+            }
+        }
     }
 
+    public float speed = 1.0f; // 이동 속도
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.CompareTag("Wall")) //방향전환 
@@ -154,8 +189,6 @@ public class CritureController : MonoBehaviour
     public float attackSpeed;
     void Attack(Transform target)
     {
-        Debug.Log("추격 시작");
-        
         if (transform.position.x > target.position.x)
         {
             //CancelInvoke();

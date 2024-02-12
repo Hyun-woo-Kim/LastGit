@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class BloodWorkerAttack : BloodWorkerAttackReady
 {
-    public override void InstanRock(BloodState state, GameObject rockPref, Transform rockPos)
-    {    
-         Vector3 rockVec = rockPos.position;
-         Instantiate(rockPref, rockVec, Quaternion.identity);
+    public override IEnumerator InstanRock(BloodState state, GameObject rockPref, Transform rockPos)
+    {
+        Vector3 rockVec = rockPos.position;
+        yield return new WaitForSeconds(0.1f);
+        Instantiate(rockPref, rockVec, Quaternion.identity);
 
+      
+
+        // 이후에 원하는 작업을 추가할 수 있습니다.
     }
-
-
-  
-
 
     public override void RenchAttack(BloodState state, Collider2D[] collider,Animator renchAnim)
     {
@@ -22,15 +22,15 @@ public class BloodWorkerAttack : BloodWorkerAttackReady
             if(renchCollider.CompareTag("Player"))
             {
                 Flip(renchCollider);
+                Debug.Log("타격");
                 renchAnim.SetTrigger("RenchAttack");
-                Debug.Log("�÷��̾� �߰�");
             }
         }
     }
 
     void Flip(Collider2D player)
     {
-        Debug.Log("������ȯ");
+
         Transform playerPos = player.transform;
         if (transform.position.x > playerPos.position.x)
         {
