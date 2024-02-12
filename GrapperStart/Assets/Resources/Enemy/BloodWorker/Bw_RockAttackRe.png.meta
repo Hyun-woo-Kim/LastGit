@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 540acb139a66bf242bdef5b548db843e
+guid: 1d928910f17b79e469ef39a41db5ae0f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BW_RockAttack_0
+      name: RockSour_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88cbf0b9dda0c814fa66a4012f33f1f9
-      internalID: -1972693260
+      spriteID: 047308e637b149d4298c9a505e6dfd72
+      internalID: 828776612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BW_RockAttack_1
+      name: RockSour_1
       rect:
         serializedVersion: 2
         x: 500
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1a5a5b3544bcb24e9a58389c4424d14
-      internalID: 455707276
+      spriteID: 3b8a41d88fdf55b42bc326ad6b097b18
+      internalID: -1880145813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BW_RockAttack_2
+      name: RockSour_2
       rect:
         serializedVersion: 2
         x: 1000
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 418bcb4f4413ffb46833fd3635842135
-      internalID: -1213381283
+      spriteID: 4a41942402428af4ba901d5d8ad4ae6e
+      internalID: 669798187
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BW_RockAttack_3
+      name: RockSour_3
       rect:
         serializedVersion: 2
         x: 1500
@@ -194,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 062c9ae2c4e53204994fcb90d488de9b
-      internalID: 1828579116
+      spriteID: b44a53eb6523231459b5ecb269e9af64
+      internalID: 456080774
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BW_RockAttack_4
+      name: RockSour_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f63345632ed01f40b7fa50023811fa4
-      internalID: 778068145
+      spriteID: e1ecece0fd6b7e8488f184ba17322726
+      internalID: 774826712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BW_RockAttack_5
+      name: RockSour_5
       rect:
         serializedVersion: 2
         x: 500
@@ -236,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 289c1ec9536e8e74d916a166edfedf8c
-      internalID: 133699640
+      spriteID: 3f056b0856980b5428193e2540d058a4
+      internalID: -15708180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BW_RockAttack_6
+      name: RockSour_6
       rect:
         serializedVersion: 2
         x: 1000
@@ -257,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f70712081f178445bc32d2cec8bd5f1
-      internalID: -1019836015
+      spriteID: dcb71fd4ce9e9024b8857dabdb546079
+      internalID: 1723758463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BW_RockAttack_7
+      name: RockSour_7
       rect:
         serializedVersion: 2
         x: 1500
@@ -278,8 +278,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e2439fce62932345a7626b00bd0e20d
-      internalID: -2128805761
+      spriteID: 1e38b89f0e7c16342994d21877c5ec5e
+      internalID: 551826056
       vertices: []
       indices: 
       edges: []
@@ -295,14 +295,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BW_RockAttack_0: -1972693260
-      BW_RockAttack_1: 455707276
-      BW_RockAttack_2: -1213381283
-      BW_RockAttack_3: 1828579116
-      BW_RockAttack_4: 778068145
-      BW_RockAttack_5: 133699640
-      BW_RockAttack_6: -1019836015
-      BW_RockAttack_7: -2128805761
+      RockSour_0: 828776612
+      RockSour_1: -1880145813
+      RockSour_2: 669798187
+      RockSour_3: 456080774
+      RockSour_4: 774826712
+      RockSour_5: -15708180
+      RockSour_6: 1723758463
+      RockSour_7: 551826056
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

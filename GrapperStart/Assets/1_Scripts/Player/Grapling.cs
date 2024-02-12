@@ -5,12 +5,12 @@ using UnityEngine;
 public class Grapling : MonoBehaviour
 {
     public LineRenderer line;
-    public Transform  hook; //갈고리의 위치를 나타내는 Transform 변수입니다.
+    public Transform hook; //갈고리의 위치를 나타내는 Transform 변수입니다.
 
-  
+
     GraplingRange graplingRange;
     Animator animPlayer;
-   
+
 
 
     Aiming aim;
@@ -22,8 +22,8 @@ public class Grapling : MonoBehaviour
     public bool isAttatch = false;
     public float hookDelSpeed;
     public float hookMoveSpeed;
-   // public float hookLength;
-   
+    // public float hookLength;
+
     public bool iscollObj = false;
     public bool iscollenemy = false;
     public float grapCount = 0.0f;
@@ -43,22 +43,22 @@ public class Grapling : MonoBehaviour
 
     PlayerControllerRope player;
 
-    
-    
+
+
 
     void Start()
     {
-        
+
 
         animPlayer = GetComponent<Animator>();
-        
+
 
         graplingRange = FindAnyObjectByType<GraplingRange>();
         aim = FindAnyObjectByType<Aiming>();
 
         player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
-        HookSet();      
-        
+        HookSet();
+
         originalRotation = transform.rotation;
 
         #region Line컴포넌트 정리
@@ -92,69 +92,69 @@ public class Grapling : MonoBehaviour
         line.endColor = Color.white;
         isAttatch = false;
 
-       
+
 
     }
 
-    
+
 
     void Update()
     {
         GraplingSkill();
-        
 
-        if(graplingRange.isRange == true &&  isAttatch == false && graplingRange.isenemySkill == true) //범위안에 있어야 하며, 범위 안에 적이 있어야 하며, 링에 부착하지 않았을 때만
+
+        if (graplingRange.isRange == true && isAttatch == false && graplingRange.isenemySkill == true) //범위안에 있어야 하며, 범위 안에 적이 있어야 하며, 링에 부착하지 않았을 때만
         {
-           //isRange == true , isenemySkill == true
+            //isRange == true , isenemySkill == true
             GraplingEnmeyHookPos();
         }
 
 
 
 
-        if (graplingRange.isRange == true ) //범위 켜진 상태 and 범위 안에 링 있을 때 and 범위 안에 적이 없을 때
+        if (graplingRange.isRange == true) //범위 켜진 상태 and 범위 안에 링 있을 때 and 범위 안에 적이 없을 때
         {
-            if(grapCount == 1.0f && graplingRange.isenemySkill == false)
+            if (grapCount == 1.0f && graplingRange.isenemySkill == false)
             {
                 grapCount = 0.0f;
                 animPlayer.SetBool("EnemyGrapling", false);
                 // hokkobj.GetComponent<SpriteRenderer>().color;
-                StartCoroutine(HookColor());             
+                StartCoroutine(HookColor());
                 aim.isAimEnemy = false;
             }
-           
+
 
         }
-        else if(graplingRange.isRange == false && graplingRange.isenemySkill == false)
+        else if (graplingRange.isRange == false && graplingRange.isenemySkill == false)
         {
-           
+
             hook.gameObject.SetActive(false);
-            
+
             aim.isAimEnemy = false;
-            
+
 
         }
 
 
 
-       
+
 
         //if (player.isPlayerfly == true)
         //{
         //    float distance = Vector2.Distance(playerArm.transform.position, hook.position);
         //    float Mindistance;
 
-           
+
         //    Mindistance = Mathf.Min(0.5f, distance); //distance와 0.5를 비교하여 작은값을 출력한다. 
 
-            
+
 
 
         //    if (Mindistance < 0.5f || distance < 0.9f) // distance가 0.5보다 작을 때 추가적인 작업을 수행하고 싶다면 이 부분을 수정하세요.
         //    {
         //        playerArm.gameObject.SetActive(false);
         //        hook.gameObject.SetActive(false);
-               
+
         //    }
         //}
 
@@ -164,27 +164,27 @@ public class Grapling : MonoBehaviour
             RotData();
         }
 
-       
+
     }
 
     public void GraplingEnmeyHookPos()
     {
-        if(isLerping == false)
+        if (isLerping == false)
         {
             Transform aimPos = transform.GetChild(5);
             line.SetPosition(0, aimPos.position);
         }
-        else if(isLerping == true )
+        else if (isLerping == true)
         {
             Debug.Log("AD");
             line.SetPosition(0, new Vector3(enemyHookPos.position.x, enemyHookPos.position.y + 0.2f, enemyHookPos.position.z));
         }
-        
-       
+
+
 
     }
 
-  
+
     public void ResetGrap()
     {
         grapCount = 0.0f;
@@ -210,7 +210,7 @@ public class Grapling : MonoBehaviour
     }
 
     public float rotationSpeed = 5.0f; // 조절 가능한 회전 속도
-    
+
 
     private PlayerArm playerArmScr;
 
@@ -223,7 +223,7 @@ public class Grapling : MonoBehaviour
         if (playerArmScr != null)
         {
             playerArmScr.rotationArm(hook.transform.position);
-            
+
 
             Vector3 playerdir = hook.transform.position - transform.position;
 
@@ -232,15 +232,15 @@ public class Grapling : MonoBehaviour
 
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
-       
+
         else
         {
             Debug.Log("팔을 찾지 못함");
-        }    
-        
+        }
+
 
     }
-        
+
 
 
     public float hookDistance;
@@ -253,14 +253,14 @@ public class Grapling : MonoBehaviour
 
     public void GraplingSkill() //링 로브젝트 기준 그래플링 스킬 
     {
-        
+
         // line.SetPosition(0, playerArm.position);
 
         line.SetPosition(1, hook.GetComponent<Hooking>().hooklinePos.position);
 
-        if (Input.GetKeyDown(KeyCode.E) && 
+        if (Input.GetKeyDown(KeyCode.E) &&
             isHookActive == false && iscollObj == true)
-        { 
+        {
             //animPlayer.SetTrigger("Player_Grapling_Ready");
 
             //hook의 라인 시작 위치는 playerAimPos
@@ -273,25 +273,25 @@ public class Grapling : MonoBehaviour
             isLineMax = false;
             hook.gameObject.SetActive(true);
 
-  
+
             if (transform.position.x > hook.transform.position.x)
             {
                 hookisLeft = true;
                 hookisRight = false;
                 hook.GetComponent<Hooking>().hookSpr.flipX = false;
             }
-            else if(transform.position.x < hook.transform.position.x)
+            else if (transform.position.x < hook.transform.position.x)
             {
                 hookisRight = true;
                 hookisLeft = false;
                 hook.GetComponent<Hooking>().hookSpr.flipX = true;
             }
-           
+
 
         }
         if (isHookActive == true && isLineMax == false && isAttatch == false)
         {
-            
+
             float distanceFromHookPos = Vector2.Distance(aim.playerAimPos.position, transform.position); //팔 위치
 
             //Hook오브젝트가 날아갈 때구문.
@@ -299,11 +299,11 @@ public class Grapling : MonoBehaviour
             hook.Translate(aim.aimMousedir.normalized * Time.deltaTime * hookMoveSpeed * 1.5f);
 
         }
-        else if (isHookActive == true && isLineMax == true )
+        else if (isHookActive == true && isLineMax == true)
         {
             //Hook오브젝트가 돌아 올 때 구문.       
 
-           // hook.position = Vector2.MoveTowards(hook.position, playerArm.transform.position, Time.deltaTime * hookDelSpeed); //hook에서 transform위치로 hookDelSpeed속도로 이동한다.(hook가 돌아온다)
+            // hook.position = Vector2.MoveTowards(hook.position, playerArm.transform.position, Time.deltaTime * hookDelSpeed); //hook에서 transform위치로 hookDelSpeed속도로 이동한다.(hook가 돌아온다)
             if (Vector2.Distance(playerArm.transform.position, hook.position) < 0.1f)
             {
                 Debug.Log("ADADADA");
@@ -313,7 +313,7 @@ public class Grapling : MonoBehaviour
 
             }
 
-          
+
 
         }
         else if (isAttatch == true)
@@ -324,31 +324,31 @@ public class Grapling : MonoBehaviour
             animPlayer.SetBool("PlayerGrapling", true);
             animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
 
-            line.SetPosition(0, playerArm .position);
+            line.SetPosition(0, playerArm.position);
 
             playerArm.gameObject.SetActive(true);
 
             if (Input.GetKey(KeyCode.E) && isAttatch) //공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            { 
-              
+            {
+
 
                 if (!isEKeyHeld)
                 {
                     // E 키가 처음으로 눌렸을 때 실행할 코드
-   
+
                     isEKeyHeld = true;
                 }
 
                 // E 키를 누르고 있는 동안 계속 실행할 코드
                 eKeyHoldTime += Time.deltaTime;
-                
+
             }
             else
             {
                 if (isEKeyHeld)
                 {
                     // E 키가 놓였을 때 실행할 코드
-         
+
                     PlayerGraplingAnimCount++;
 
 
@@ -375,7 +375,7 @@ public class Grapling : MonoBehaviour
 
         }
 
-         if(isFlyReady == true)
+        if (isFlyReady == true)
         {
             transform.rotation = originalRotation;
             animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
@@ -392,18 +392,18 @@ public class Grapling : MonoBehaviour
             if (verticalDistanceToGround < 3f && player.isFlyAction == true)
             {
                 Debug.Log("공중제비 후 바닥에 닿기 직전 공중제비 종료");
-               
+
                 player.isFlyAction = false;
                 isFlyReady = false;
                 animPlayer.SetBool("PlayerGrapling", false);
-                
+
             }
         }
-        
+
 
     }
 
- 
+
 
     public bool isFlyReady = false; //공중제비 준비 여부
 
@@ -412,7 +412,7 @@ public class Grapling : MonoBehaviour
 
     public float PlayerGraplingAnimCount; //그래플링 관련 블렌드 트리 애니메이션 변수 
 
-   
+
     public float baseSwingForce; //공중제비 세기 값 변수 
 
     //1. 오브젝트 걸린 상태. 2. e키를 누름 . 3.공중제비 시작. 4. playerArm과 hook이 가까워지면 두 오브젝트 삭제.
@@ -426,8 +426,9 @@ public class Grapling : MonoBehaviour
     public void GrapHandling(GameObject target)
     {
         isenemyGrapling = true;
+        Debug.Log(target);
         GraplingPlayerFlip(target);
-         
+
         hook.position = enemyHookPos.position; //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
 
         grapCount += 1.0f;
@@ -436,7 +437,7 @@ public class Grapling : MonoBehaviour
         animPlayer.SetFloat("EnemyGraplingCount", grapCount);
         if (grapCount == 1.0f && graplingRange.isenemySkill == true)
         {
-            aim.isAimObject  = false;
+            aim.isAimObject = false;
 
             hook.gameObject.SetActive(true);
 
@@ -447,29 +448,29 @@ public class Grapling : MonoBehaviour
             aim.isAimEnemy = false;
 
             hook.position = target.transform.position;
-            
+
             StartCoroutine(LerpToTarget(enemyPosition.position, target));
         }
 
     }
- 
 
-    IEnumerator LerpToTarget(Vector3 targetPosition,GameObject enemyObj)
+
+    IEnumerator LerpToTarget(Vector3 targetPosition, GameObject enemyObj)
     {
 
-       
+
         //animPlayer.SetFloat("EnemyGraplingCount", grapCount);
         aim.isAimEnemy = false;
         gameObject.layer = 8;
 
         if (enemyObj != null)
         {
-           
-            
+
+
             isLerping = true;
             float elapsedTime = 0f;
             Vector3 startingPos = transform.position;
-             targetPosition = new Vector3(enemyPosition.position.x, enemyPosition.position.y, enemyPosition.position.z);
+            targetPosition = new Vector3(enemyPosition.position.x, enemyPosition.position.y, enemyPosition.position.z);
 
             while (elapsedTime < lerpTime)
             {
@@ -489,7 +490,7 @@ public class Grapling : MonoBehaviour
             }
 
 
-            
+
             if (Vector2.Distance(transform.position, enemyObj.transform.position) < 3.0f)
             {
                 gameObject.layer = 7;
@@ -501,7 +502,16 @@ public class Grapling : MonoBehaviour
                 GraplingPlayerFlip(enemyObj);
                 animPlayer.SetTrigger("PlayerAttack");
                 yield return new WaitForSeconds(grapanimdelay);
-                StartCoroutine(enemyObj.GetComponent<CritureController>().AtkDamagedCriture());
+
+                Enemies enemyScript = enemyObj.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                if (enemyScript != null)
+                {
+                    StartCoroutine(enemyScript.GraplingAtkDamaged());
+                }
+                else
+                {
+                    Debug.Log("Enemies인터페이스 찾지 못함");
+                }
             }
 
             transform.rotation = originalRotation;
@@ -512,18 +522,18 @@ public class Grapling : MonoBehaviour
             isLerping = false; // Lerp 종료
             isenemyGrapling = false; //적 그래플링 종료
         }
-        
+
     }
 
 
     void GraplingPlayerFlip(GameObject enemy)
     {
-        
-        if(enemy.transform.localScale.x == 1)
+
+        if (enemy.transform.localScale.x == 1)
         {
-            if(transform.localScale.x == -1)
+            if (transform.localScale.x == -1)
             {
-                if(enemy.transform.position.x > transform.position.x)
+                if (enemy.transform.position.x > transform.position.x)
                 {
                     transform.localScale = new Vector3(1, 1, 1);
                 }
@@ -566,5 +576,5 @@ public class Grapling : MonoBehaviour
 
 
 
- 
+
 }
