@@ -19,6 +19,7 @@ public class PlayerControllerRope : MonoBehaviour
 
     GameObject Objcr;
 
+    public PlayerData playerData;
 
 
    
@@ -33,8 +34,9 @@ public class PlayerControllerRope : MonoBehaviour
 
         Objcr = GameObject.FindGameObjectWithTag("Enemy");
 
+        playerData.playerHp = 10; //리스폰시 체력
 
-    
+
     }
 
     // Update is called once per frame

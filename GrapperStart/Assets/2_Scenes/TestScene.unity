@@ -4010,7 +4010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &521793342
 Rigidbody2D:
   serializedVersion: 4
@@ -4108,7 +4108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521793341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.38, y: -6.78, z: 0}
+  m_LocalPosition: {x: 16.42, y: -6.78, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4131,11 +4131,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCr: 0
-  speedCr: 3
+  speedCr: 0
   isbaseMove: 0
   Enemyattackpos: {fileID: 739916938}
-  EnemyattackBoxSize: {x: 5.22, y: 2.71}
+  EnemyattackBoxSize: {x: 15, y: 2.71}
   isEnemyAttack: 0
+  isTeamBW: 0
   attackSpeed: 0.1
 --- !u!95 &521793347
 Animator:
@@ -8070,7 +8071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079117453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.15, y: -7.12, z: 0}
+  m_LocalPosition: {x: -10.7, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8135,6 +8136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffd273c82ac85342a444de22d0deff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 70cee63220071b34ba699e145c313f38, type: 2}
   baseSwingForce: 10
   playerPos: {fileID: 1708068920}
   playerColliderBox: {x: 1.16, y: 2.52}
@@ -8178,7 +8180,7 @@ MonoBehaviour:
   isHookActive: 0
   isLineMax: 0
   isAttatch: 0
-  hookDelSpeed: 0.1
+  hookDelSpeed: 8
   hookMoveSpeed: 19
   iscollObj: 0
   iscollenemy: 0
@@ -8186,7 +8188,7 @@ MonoBehaviour:
   isGrap: 0
   isLerping: 0
   lerpTime: 0.8
-  enemyPosition: {fileID: 1213388301}
+  enemyPosition: {fileID: 0}
   playerArm: {fileID: 1528347223}
   rotationSpeed: 15
   hookDistance: 3
@@ -11127,7 +11129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1421090587
 Transform:
   m_ObjectHideFlags: 0
@@ -13440,7 +13442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1565152434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13460,7 +13462,7 @@ MonoBehaviour:
   patrolSpeed: 5
   patrolDistance: 30
   patrolPos: {fileID: 851663973}
-  patrolBoxSize: {x: 19.59, y: 2.59}
+  patrolBoxSize: {x: 10.1, y: 2.59}
   renchAttackPos: {fileID: 4514033}
   renchAttackSize: {x: 2.5, y: 2.36}
   isTargetPlayer: 0
@@ -13472,6 +13474,7 @@ MonoBehaviour:
   playerTarget: {fileID: 2140732893}
   isReact: 0
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
+  teamEnemy: {fileID: 0}
 --- !u!50 &1565152436
 Rigidbody2D:
   serializedVersion: 4
@@ -17190,7 +17193,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -17274,7 +17277,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1504795703
+  m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -731081203, guid: 5874c8e0924524745b4b25a7d88f46ee, type: 3}
@@ -17322,7 +17325,7 @@ MonoBehaviour:
   defaultSprite: {fileID: -731081203, guid: 5874c8e0924524745b4b25a7d88f46ee, type: 3}
   hooklinePos: {fileID: 338940825}
   joint2D: {fileID: 0}
-  target: {fileID: 521793345}
+  target: {fileID: 0}
   hookToEnemyspeed: 6
   dealy: 0.5
 --- !u!1 &1924575416

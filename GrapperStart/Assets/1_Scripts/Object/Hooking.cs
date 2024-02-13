@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hooking : MonoBehaviour
 {
-    Grapling  grappling;
+    Grapling grappling;
     GraplingRange graplingRange;
 
     public SpriteRenderer hookSpr;
@@ -22,36 +22,36 @@ public class Hooking : MonoBehaviour
         joint2D = GetComponent<DistanceJoint2D>();
         //hookSpr = GetComponent<SpriteRenderer>();
 
-       
+
     }
 
 
 
-        
+
     private void Update()
     {
-        if(grappling.isHookActive)
+        if (grappling.isHookActive)
         {
             transform.rotation = grappling.transform.rotation;
 
-            
-        }
-       
 
-        if (grappling.isenemyGrapling )
+        }
+
+
+        if (grappling.isenemyGrapling)
         {
             targetToEnemy();
         }
-        
+
     }
 
- 
+
 
 
 
     public Transform target;
     public float hookToEnemyspeed;
-     void targetToEnemy()
+    void targetToEnemy()
     {
         if (target != null && grappling.grapCount == 1)
         {
@@ -94,9 +94,10 @@ public class Hooking : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = defaultSprite;
             //joint2D.enabled = false;
             graplingRange.isobjSkill = false;
+            grappling.isAttatch = false;
             GrapplingObjManager.Instance.brightnessDown(collision);
-        }    
+        }
     }
 
- 
+
 }

@@ -179,14 +179,22 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         setActionType(BloodState.STATE_PATROL);
     }
 
+    public void PlayerToDamaged() //인터페이스 Enemies를 통해 구현해야 할 메서드.
+    {
+        Debug.Log("플레이어 타격");
+        PlayerControllerRope player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
+        PlayerData playerData = player.playerData;
+        playerData.DamagedHp(1);
+    }
 
     void FollowPlayer()
     {
+        FlipEnemy(target);
         //렌치들고 추격하는 애니메이션 필요.
-
         transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
     }
 
+    public Transform teamEnemy;
     void PatrolRange()
     {
         isReact = false;
@@ -207,16 +215,11 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 isReact = true;
                 isTargetPlayer = true; //적 감지 확인
             }
-            if (collider.CompareTag("Enemy")) //적 감지 
-            {
-                //isReact = true;
-                //isTargetPlayer = true; //적 감지 확인
-
-            }
 
         }
         if (isTargetPlayer && bloodState == BloodState.STATE_PATROL)//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
         {
+            FlipEnemy(target);
             bloodWorkerAnim.SetTrigger("RockAttack");
             this.bloodState = BloodState.STATE_ROCKATTACK; //돌멩이 투척상태
 
@@ -224,19 +227,25 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         else if (isTargetPlayer == false)
         {
             this.bloodState = BloodState.STATE_PATROL;
-
         }
 
-        else if (isTeamEnemy)
-        {
-            Debug.Log("ㅇㅁㅇㅁ");
-        }
         PatrolReaction(spriteRenderer);
     }
 
 
 
-
+    void FlipEnemy(Transform target)
+    {
+        Debug.Log("방향뒤집기");
+        if (transform.position.x > target.position.x)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (transform.position.x < target.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
     void PatrolReaction(SpriteRenderer spriteRenderer)
     {
         if (isReact)
