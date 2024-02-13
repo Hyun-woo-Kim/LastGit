@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CritureController : MonoBehaviour
+public class CritureController : MonoBehaviour, Enemies
 {
     Rigidbody2D rigidCr;
     SpriteRenderer sprCr;
@@ -26,7 +26,13 @@ public class CritureController : MonoBehaviour
         aiMoveCriture();
         EnemyToAttack();
     }
-
+    public void PlayerToDamaged() //인터페이스 Enemies를 통해 구현해야 할 플레이어에게 데미지 주는 메서드.
+    {
+        Debug.Log("플레이어 타격");
+        PlayerControllerRope player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
+        PlayerData playerData = player.playerData;
+        playerData.DamagedHp(1);
+    }
     void aiMoveCriture()
     {
         if(grapling.isLerping == true)
@@ -38,7 +44,7 @@ public class CritureController : MonoBehaviour
         {
             speedCr = 5.0f;
         }
-        rigidCr.velocity = new Vector2(moveCr * speedCr, rigidCr.velocity.y);
+        //rigidCr.velocity = new Vector2(moveCr * speedCr, rigidCr.velocity.y); Test용
         animEnemy.SetFloat("PosionX", moveCr);
     }
 
@@ -79,9 +85,9 @@ public class CritureController : MonoBehaviour
         }
       
     }
-    public IEnumerator AtkDamagedCriture()
+    public IEnumerator GraplingAtkDamaged()
     {
-        // Debug.Log("크리쳐가 피해를 입었다.");
+        Debug.Log("크리쳐가 피해를 입었다.");
         sprCr.color = Color.red;
         CancelInvoke();
         moveCr = 0;
@@ -108,35 +114,34 @@ public class CritureController : MonoBehaviour
 
     Transform targetPos;
     public bool isEnemyAttack;
+    public bool isTeamBW;
     void EnemyToAttack()
     {
         isEnemyAttack = false;
+        isTeamBW = false;
         isbaseMove = true;
 
         Collider2D[] collider = Physics2D.OverlapBoxAll(Enemyattackpos.transform.position, EnemyattackBoxSize, 0);
 
-        if(isEnemyAttack == false)
+        
+        foreach (Collider2D coll in collider) //시야
         {
-            foreach (Collider2D coll in collider)
-            {
-                if (coll.CompareTag("Player"))
-                {
-                    Debug.Log("추격 준비");
+           if (coll.CompareTag("Player"))
+           {
+                  
                     isEnemyAttack = true;
                     isbaseMove = false;
                     targetPos = coll.transform;
-                }
 
-            }
+                  
+           }
+        }
             
-        }
-      
-
-        if (isEnemyAttack == true)
-        {
-            Debug.Log("타겟 넘김");
-            Attack(targetPos);
-        }
+            if (isEnemyAttack == true)
+            {
+                Debug.Log("타겟 넘김");
+                Attack(targetPos);
+            }
         
         
 
@@ -174,8 +179,10 @@ public class CritureController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.black ;
 
         Gizmos.DrawWireCube(Enemyattackpos.position, EnemyattackBoxSize);//DrawWireCube(pos.position,boxsize) 
     }
+
+
 }
