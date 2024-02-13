@@ -18,8 +18,8 @@ public class Aiming : MonoBehaviour
     private Transform initialAimPos;
     private void Start()
     {
-         grapling = FindAnyObjectByType<Grapling>();
-       
+        grapling = FindAnyObjectByType<Grapling>();
+
         graplingRange = FindAnyObjectByType<GraplingRange>();
         player = FindAnyObjectByType<PlayerControllerRope>();
 
@@ -29,9 +29,9 @@ public class Aiming : MonoBehaviour
         lineAim.useWorldSpace = true;
 
         //initialAimPos = playerAimPos;
-        
 
-        
+
+
     }
 
     //public Material dashedLineMaterial; // 점선 이미지를 사용한 머티리얼
@@ -42,7 +42,7 @@ public class Aiming : MonoBehaviour
     {
         AimGrap();
 
-       
+
 
     }
 
@@ -52,13 +52,13 @@ public class Aiming : MonoBehaviour
 
     private void AimGrap()
     {
-    
+
 
         mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mouse, Vector2.zero);
         //Vector3 aimStarPos = initialAimPos.transform.position;
         Vector3 aimStarPos = playerAimPos.transform.position;
-
+        Debug.Log(playerAimPos.transform.position);
         Collider2D[] colliders = Physics2D.OverlapCircleAll(graplingRange.skillPos.position, graplingRange.radius);
         // 가져온 Collider2D들에 대한 처리
         if (hit.collider != null) //마우스 포인터로 움직이다가 오브젝트의 콜라이더가 있으면
@@ -79,37 +79,31 @@ public class Aiming : MonoBehaviour
 
                         hookAim.position = this.transform.position;
 
-                        //hookAim.gameObject.SetActive(true);
-                   
-                           
-                        
-                     
-
-
                         if (collider.CompareTag("Ring") && isAimEnemy == false && grapling.isFlyReady == false)
                         {
                             isGrapplingReady = true;
+                            grapling.iscollObj = true;
 
-                                hookAim.gameObject.SetActive(true);
+                            hookAim.gameObject.SetActive(true);
 
-                                grapling.iscollObj = true;
+                          
 
-                                Vector3 aimEndPos = collider.transform.position;
-                                lineAim.SetPosition(1, aimEndPos); //조준 마지막 위치는 aimEndPos(충돌한 오브젝트)이다.
-                                hookAim.position = aimEndPos;
-                                float aimDistance = Vector2.Distance(aimStarPos, aimEndPos); //조준선 사이 길이 구하기 
-                                Vector3 mousedir = aimEndPos - aimStarPos; //조준선 방향 구하기
+                            Vector3 aimEndPos = collider.transform.position;
+                            lineAim.SetPosition(1, aimEndPos); //조준 마지막 위치는 aimEndPos(충돌한 오브젝트)이다.
 
-                                AimData(aimDistance, mousedir); //조준선 방향, 길이 넘기기  
-                           
+                            float aimDistance = Vector2.Distance(aimStarPos, aimEndPos); //조준선 사이 길이 구하기 
+                            Vector3 mousedir = aimEndPos - aimStarPos; //조준선 방향 구하기
+                            
+                            AimData(aimDistance, mousedir); //조준선 방향, 길이 넘기기  
+
                             MouseManager.Instance.SetCursorType(MouseManager.CursorType.objIdle);
                         }
-                        
-                       
+
+
 
                         if (collider.CompareTag("Enemy"))
                         {
-                            
+
 
                             Vector3 rotEndPos = collider.transform.position;
 
@@ -117,33 +111,30 @@ public class Aiming : MonoBehaviour
 
                             GameObject colliderGo = collider.gameObject;
 
-
-                            MouseManager.Instance.SetCursorType(MouseManager.CursorType.enemyIdle);
-
                             hookAim.position = this.transform.position;
 
-                                if (grapling.grapCount == 0)
-                                {
-                                    grapling.isGrapplingActive = true;
-                                    hookAim.gameObject.SetActive(true);
-                                }
-                                else
-                                {
-                                    hookAim.gameObject.SetActive(false);
-                                }
+                            if (grapling.grapCount == 0)
+                            {
+                                grapling.isGrapplingActive = true;
+                                hookAim.gameObject.SetActive(true);
+                            }
+                            else
+                            {
+                                hookAim.gameObject.SetActive(false);
+                            }
 
-                                if (Input.GetKeyDown(KeyCode.E))
-                                {
+                            if (Input.GetKeyDown(KeyCode.E))
+                            {
 
-                                    isAimEnemy = true;
-                                    grapling.isGrapplingActive = false;
-                                    grapling.GrapHandling(colliderGo);
-                                }
-                            
-                                                   
+                                isAimEnemy = true;
+                                grapling.isGrapplingActive = false;
+                                grapling.GrapHandling(colliderGo);
+                            }
+
+                            MouseManager.Instance.SetCursorType(MouseManager.CursorType.enemyIdle);
                         }
-                        
-                      
+
+
                     }
                 }
 
@@ -153,16 +144,17 @@ public class Aiming : MonoBehaviour
         {
             isGrapplingReady = false;
             anim = GetComponent<Animator>();
-            anim.SetBool("PlayerAimEnemy", false);       
+            anim.SetBool("PlayerAimEnemy", false);
             grapling.iscollObj = false;
 
             hookAim.gameObject.SetActive(false);
             MouseManager.Instance.SetCursorType(MouseManager.CursorType.Idle);
 
-
+            aimMousedir.x = 0.0f;
+            aimMousedir.y = 0.0f;
         }
 
-        if ((graplingRange.isobjSkill == false && graplingRange.isRange == false )||
+        if ((graplingRange.isobjSkill == false && graplingRange.isRange == false) ||
             (graplingRange.isenemySkill == false && graplingRange.isRange == false))
         {
             isGrapplingReady = false;
@@ -171,7 +163,7 @@ public class Aiming : MonoBehaviour
             grapling.ResetGrap();
         }
 
-        else if(grapling.iscollObj == true)
+        else if (grapling.iscollObj == true)
         {
             anim = GetComponent<Animator>();
             anim.SetBool("PlayerAimEnemy", true);
@@ -182,7 +174,7 @@ public class Aiming : MonoBehaviour
 
     public Vector2 aimMousedir;
     public float aimLength;
-    public void AimData(float length, Vector3 dir) //조준선 길이 및 방향과 갈고리 길이 및 방향을 일치시키기.
+    public void AimData(float length,Vector2 dir) //조준선 길이 및 방향과 갈고리 길이 및 방향을 일치시키기.
     {
         aimLength = length;
         aimMousedir = dir;

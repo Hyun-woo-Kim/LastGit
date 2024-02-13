@@ -5,6 +5,7 @@ using UnityEngine;
 public interface Enemies
 {
     public abstract IEnumerator GraplingAtkDamaged();
+    public abstract void PlayerToDamaged();
 
 
 }

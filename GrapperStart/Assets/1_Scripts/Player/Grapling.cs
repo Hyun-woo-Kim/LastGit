@@ -135,31 +135,7 @@ public class Grapling : MonoBehaviour
 
         }
 
-
-
-
-
-        //if (player.isPlayerfly == true)
-        //{
-        //    float distance = Vector2.Distance(playerArm.transform.position, hook.position);
-        //    float Mindistance;
-
-
-        //    Mindistance = Mathf.Min(0.5f, distance); //distance와 0.5를 비교하여 작은값을 출력한다. 
-
-
-
-
-        //    if (Mindistance < 0.5f || distance < 0.9f) // distance가 0.5보다 작을 때 추가적인 작업을 수행하고 싶다면 이 부분을 수정하세요.
-        //    {
-        //        playerArm.gameObject.SetActive(false);
-        //        hook.gameObject.SetActive(false);
-
-        //    }
-        //}
-
-
-        if (isHookActive)
+        if (isHookActive )
         {
             RotData();
         }
@@ -261,9 +237,6 @@ public class Grapling : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) &&
             isHookActive == false && iscollObj == true)
         {
-            //animPlayer.SetTrigger("Player_Grapling_Ready");
-
-            //hook의 라인 시작 위치는 playerAimPos
             line.SetPosition(0, aim.playerAimPos.position);
             iscollObj = false;
 
@@ -330,7 +303,7 @@ public class Grapling : MonoBehaviour
 
             if (Input.GetKey(KeyCode.E) && isAttatch) //공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             {
-
+                //hook.position = Vector2.MoveTowards(hook.position, transform.position, Time.deltaTime * hookDelSpeed);
 
                 if (!isEKeyHeld)
                 {
@@ -348,9 +321,8 @@ public class Grapling : MonoBehaviour
                 if (isEKeyHeld)
                 {
                     // E 키가 놓였을 때 실행할 코드
-
+                   
                     PlayerGraplingAnimCount++;
-
 
                     isFlyReady = true;
                     isAttatch = false;
@@ -361,13 +333,15 @@ public class Grapling : MonoBehaviour
                     {
                         baseSwingForce = 20.0f;
                         player.flyAction(baseSwingForce);
+
                     }
                     else
                     {
                         baseSwingForce = 15.0f;
                         player.flyAction(baseSwingForce);
+                       
                     }
-
+                   
                     isEKeyHeld = false;
                     eKeyHoldTime = 0f; // 누르고 있던 시간 초기화
                 }
@@ -426,7 +400,6 @@ public class Grapling : MonoBehaviour
     public void GrapHandling(GameObject target)
     {
         isenemyGrapling = true;
-        Debug.Log(target);
         GraplingPlayerFlip(target);
 
         hook.position = enemyHookPos.position; //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
@@ -435,11 +408,13 @@ public class Grapling : MonoBehaviour
 
         animPlayer.SetBool("EnemyGrapling", true);
         animPlayer.SetFloat("EnemyGraplingCount", grapCount);
+
         if (grapCount == 1.0f && graplingRange.isenemySkill == true)
         {
             aim.isAimObject = false;
 
             hook.gameObject.SetActive(true);
+            hook.GetComponent<Hooking>().target = target.transform;
 
         }
         if (grapCount == 2.0f)
@@ -449,28 +424,24 @@ public class Grapling : MonoBehaviour
 
             hook.position = target.transform.position;
 
-            StartCoroutine(LerpToTarget(enemyPosition.position, target));
+            StartCoroutine(LerpToTarget(target.transform, target));
         }
 
     }
 
 
-    IEnumerator LerpToTarget(Vector3 targetPosition, GameObject enemyObj)
+    IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj)
     {
+        enemyPosition = targetPosition;
 
-
-        //animPlayer.SetFloat("EnemyGraplingCount", grapCount);
         aim.isAimEnemy = false;
         gameObject.layer = 8;
 
         if (enemyObj != null)
         {
-
-
             isLerping = true;
             float elapsedTime = 0f;
             Vector3 startingPos = transform.position;
-            targetPosition = new Vector3(enemyPosition.position.x, enemyPosition.position.y, enemyPosition.position.z);
 
             while (elapsedTime < lerpTime)
             {
@@ -479,7 +450,7 @@ public class Grapling : MonoBehaviour
                 //targetPosition = enemyPosition.position;
 
                 hook.position = enemyObj.transform.position;
-                transform.position = Vector3.Lerp(startingPos, targetPosition, Mathf.SmoothStep(0f, 1f, elapsedTime / lerpTime));
+                transform.position = Vector3.Lerp(startingPos, enemyPosition.transform.position, Mathf.SmoothStep(0f, 1f, elapsedTime / lerpTime));
                 //Mathf.SmoothStep(float edge0, float edge1, float t); -> Mathf.SmoothStep(시작 값, 끝 값 , 시작 값과 끝 값의 보간 인수)
                 // t가 0이하 일때 시작 값이며, t가 1 이상 일때 결과 값.
                 //이 함수는 특히 시작과 끝 부분을 부드럽게 만들어 중간 부분이 더 빠르게 가속되거나 감속되는 등의 효과를 생성하는 데 사용
