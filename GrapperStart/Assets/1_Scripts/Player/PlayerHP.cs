@@ -25,6 +25,7 @@ public class PlayerHP : MonoBehaviour
     {
         if(collision.CompareTag("Enemy"))
         {
+            Debug.Log("데미지 입음");
             TakeDamage(10f);
         }
     }
@@ -44,7 +45,7 @@ public class PlayerHP : MonoBehaviour
 
     void UpdateHealthUI()
     {
-        sliderHP.value = correntHP / maxHP; // Slider 값을 현재 체력에 따라 조절
+        sliderHP.value = correntHP; // Slider 값을 현재 체력에 따라 조절
     }
 
     void Die()
