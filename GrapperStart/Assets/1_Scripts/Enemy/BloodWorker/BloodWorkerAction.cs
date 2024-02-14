@@ -151,7 +151,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 }
                 break;
             case BloodState.STATE_STOP:
-                PatrolRange();
+                //PatrolRange();
                 break;
             case BloodState.STATE_ROCKATTACK:
                 setActionType(BloodState.STATE_ROCKATTACK);
