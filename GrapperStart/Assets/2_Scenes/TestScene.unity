@@ -2615,7 +2615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 338940825}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HookPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4061,7 +4061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &521793342
 Rigidbody2D:
   serializedVersion: 4
@@ -4139,7 +4139,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -9207324096461601957, guid: c122e7b9aa279824f8fe5e868d93ab66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4159,7 +4159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521793341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.42, y: -6.78, z: 0}
+  m_LocalPosition: {x: 19.39, y: -7.16, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5571,7 +5571,7 @@ GameObject:
   - component: {fileID: 772777226}
   - component: {fileID: 772777225}
   - component: {fileID: 772777224}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HookAim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5653,9 +5653,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1504795703
+  m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6d01503afda11de478bbcba2e7c7067e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -8544,7 +8544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105598883}
   - component: {fileID: 1105598884}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Line_Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9353,37 +9353,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162103196}
   m_CullTransparentMesh: 1
---- !u!1 &1188755642
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1188755644}
-  m_Layer: 0
-  m_Name: SoundManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1188755644
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1188755642}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 582.47363, y: 495.73672, z: -2.642704}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1213388300
 GameObject:
   m_ObjectHideFlags: 0
@@ -10381,7 +10350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1336568152}
   - component: {fileID: 1336568153}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12659,7 +12628,7 @@ Transform:
   - {fileID: 344013758}
   - {fileID: 1646750412}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1541570429
 GameObject:
@@ -13589,7 +13558,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -9207324096461601957, guid: c122e7b9aa279824f8fe5e868d93ab66, type: 3}
   m_Color: {r: 0.8207547, g: 0.6257286, b: 0.19667137, a: 1}
   m_FlipX: 0
@@ -13609,7 +13578,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565152433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.19, y: -6.78, z: 0}
+  m_LocalPosition: {x: 9.94, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17303,7 +17272,7 @@ GameObject:
   - component: {fileID: 1916087126}
   - component: {fileID: 1916087125}
   - component: {fileID: 1916087124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hook
   m_TagString: Hook
   m_Icon: {fileID: 0}
@@ -19323,7 +19292,7 @@ Transform:
   m_Children:
   - {fileID: 2083355725}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2140732892
 GameObject:
