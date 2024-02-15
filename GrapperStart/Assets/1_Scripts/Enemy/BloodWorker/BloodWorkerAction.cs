@@ -40,10 +40,10 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     public float followSpeed = 1.0f;
     public GameObject rockPref;
     public Transform rockPos;
-    [Header("##BwInteraction")]
+    [Header("##Bw Interaction")]
     public bool isTeamEnemy;
     public Transform playerTarget;
-    [Header("##IsReaction")]
+    [Header("##Is Reaction")]
     public bool isReact;
     public Sprite reactSprite;
 
@@ -54,7 +54,12 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         bwData.bwHp--;
         yield return null;
     }
-
+    public IEnumerator baseDamagedCriture()
+    {
+      
+        bwData.bwHp--;
+        yield return new WaitForSeconds(1.0f);
+    }
     void Start()
     {
         capsuleColl = GetComponent<CapsuleCollider2D>();

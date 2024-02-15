@@ -14,7 +14,7 @@ public class GraplingRange : MonoBehaviour
     public float radius;
     public bool isUnViewObjRangeRunning = false; // 범위 비활성화 시 for문 반복 제어 변수 추가
     public bool isFifthchild = false; //skillRange 오브젝트 활성화 유무 변수 추가 
-
+    const float ViewObjRangeDuration = 0.3f;
     // Update is called once per frame
     void Update()
     {
@@ -129,7 +129,7 @@ public class GraplingRange : MonoBehaviour
 
     }
 
-    const float ViewObjRangeDuration = 0.3f;
+
     IEnumerator UnViewObjRange()
     {
 
