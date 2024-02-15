@@ -6,23 +6,43 @@ using UnityEngine;
 public class PlayerControllerRope : MonoBehaviour
 {
     
-
     Grapling  grapling;
-
     Hooking hooking;
 
-    
     Rigidbody2D rigid;
     Animator animatorPlayer;
     SpriteRenderer sprPlayer;
 
-
-    GameObject Objcr;
-
     public PlayerData playerData;
 
+    [Header("##Player Obj Grapling Rotation")]
+    public float distanceSpeed = 0.1f;       // 가속도
+    public float releaseDeceleration = 0.9f;
+    public float initialGraplingSpeed = 0.0f;  // 초기 속도
+    public float graplingMaxSpeed_X = 5.0f; // 최대 속도
+    public float graplingMaxSpeed_Y = 5.0f; // 최대 속도
+    public float accelerationRate = 2.5f;       // 가속도
 
-   
+    [Header("##Player BasicAttack")]
+    public Transform attackpos;
+    public Vector2 baseAtkboxSize;
+    public float baseAtkCount = 0.0f;
+    public float baseAtkTime;
+    public int atkcount = 0;
+
+    [Header("##Player Basic")]
+    public float curSpeed;
+    public Transform playerPos;
+    public Vector2 playerColliderBox;
+    public bool isGrounded = true; //점프 조건 bool변수 
+    public float jumpForce = 8f;
+
+    [Header("##Player Elevator")]
+    public bool isSelectUI = false;
+    public bool isElevator = false;
+    public bool isFlyAction = false;
+    public bool isStopMove = false;
+
     void Start()
     {
         
@@ -32,7 +52,6 @@ public class PlayerControllerRope : MonoBehaviour
         animatorPlayer = GetComponent<Animator>();
         sprPlayer = GetComponent<SpriteRenderer>();
 
-        Objcr = GameObject.FindGameObjectWithTag("Enemy");
 
         playerData.playerHp = 10; //리스폰시 체력
 
@@ -75,12 +94,7 @@ public class PlayerControllerRope : MonoBehaviour
         AttackCool();
     }
 
-    public Transform playerPos;
-    public Vector2 playerColliderBox;
-    public bool isSelectUI = false;
-    public bool isElevator = false;
-    public bool isFlyAction = false;
-    public bool isStopMove = false;
+
     void PlayerCollider()
     {
         GameObject elevatorObject = GameObject.Find("Elevator");
@@ -116,8 +130,7 @@ public class PlayerControllerRope : MonoBehaviour
       
     }
 
-    public float baseAtkTime;
-    public int atkcount = 0;
+ 
     void AttackCool()
     {
         if (atkcount >= 1) //기본 공격 카운트가 1보다 클 때
@@ -134,8 +147,7 @@ public class PlayerControllerRope : MonoBehaviour
     }
 
 
-    public bool isGrounded = true; //점프 조건 bool변수 
-    public float jumpForce = 8f;
+
 
     void PlayerJump()
     {
@@ -169,7 +181,7 @@ public class PlayerControllerRope : MonoBehaviour
 
     }
 
-    public float curSpeed;
+   
 
 
 
@@ -247,12 +259,7 @@ public class PlayerControllerRope : MonoBehaviour
         }
     }
 
-    public float swingForce = 5f;  // 단진자 운동에 가해지는 힘
 
-
-
-    public float swing_x;
-    public float swing_y;
     public void SwingPlayer()
     {
         Hooking hook = GameObject.Find("Hook").GetComponent<Hooking>();
@@ -358,10 +365,7 @@ public class PlayerControllerRope : MonoBehaviour
 
         hook.joint2D.connectedAnchor = currentConnectedAnchor;
     }
-    
-    public float playerdir;
-
-    
+       
     public void flyAction(float swingForce)
     {
 
@@ -384,22 +388,6 @@ public class PlayerControllerRope : MonoBehaviour
     }
 
 
-    public float initialDistance = 2.0f;
-    public float distanceSpeed = 0.1f;       // 가속도
-
-    public float releaseDeceleration = 0.9f;
-
-    public float initialGraplingSpeed = 0.0f;  // 초기 속도
-
-    public float graplingMaxSpeed_X = 5.0f; // 최대 속도
-    public float graplingMaxSpeed_Y = 5.0f; // 최대 속도
-
-    public float accelerationRate = 2.5f;       // 가속도
-   
-
-    public Transform attackpos;
-    public Vector2 baseAtkboxSize;
-    public float baseAtkCount = 0.0f;
 
     IEnumerator PlayerAttack()
     {
@@ -411,16 +399,16 @@ public class PlayerControllerRope : MonoBehaviour
         {
             if (collider.CompareTag("Enemy"))
             {
-                //cameraShake.VibrateForTime(0.5f);//흔들리는 시간 0.5를 넘김(UI매니저 스크립트 참고)              
-                //baseAtkCount += 1.0f;
 
-                //collider.GetComponent<SkullController>().OnDamaged(1);
-                ////collider.GetComponent<SkullController>().TakeDamaged(1);
-                //StartCoroutine(enemySkull.EnemyDamaged(1, collider));
-                //animatorPlayer.SetFloat("Atk_Blend", (float)baseAtkCount);
-
-                CritureController enemyCr = Objcr.GetComponent<CritureController>();
-                StartCoroutine(enemyCr.baseDamagedCriture());
+                Enemies enemyScript = collider.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                if (enemyScript != null)
+                {
+                    StartCoroutine(enemyScript.baseDamagedCriture());
+                }
+                else
+                {
+                    Debug.Log("Enemies인터페이스 찾지 못함");
+                }
 
                 animatorPlayer.SetTrigger("PlayerAttack");
 

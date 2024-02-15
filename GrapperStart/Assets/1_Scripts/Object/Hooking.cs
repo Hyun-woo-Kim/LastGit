@@ -38,7 +38,7 @@ public class Hooking : MonoBehaviour
         }
 
 
-        if (grappling.isenemyGrapling)
+        if (grappling.isenemyGrapling) //적에게 갈고리 날렸을 때 , 갈고리는 적을 추격한다.
         {
             targetToEnemy();
         }
@@ -56,7 +56,6 @@ public class Hooking : MonoBehaviour
         if (target != null && grappling.grapCount == 1)
         {
             transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * hookToEnemyspeed);
-            //transform.Translate((target.position - transform.position).normalized * hookToEnemyspeed * Time.deltaTime);
         }
     }
 
@@ -88,13 +87,9 @@ public class Hooking : MonoBehaviour
     {
         if (collision.CompareTag("Ring"))
         {
-            //PlayerControllerRope player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
-            //player.hookAnchorSet();
-
             GetComponent<SpriteRenderer>().sprite = defaultSprite;
             //joint2D.enabled = false;
             graplingRange.isobjSkill = false;
-            grappling.isAttatch = false;
             GrapplingObjManager.Instance.brightnessDown(collision);
         }
     }

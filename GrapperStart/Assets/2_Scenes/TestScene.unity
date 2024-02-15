@@ -7956,10 +7956,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1079117456}
+  - component: {fileID: 1079117467}
   - component: {fileID: 1079117462}
   - component: {fileID: 1079117461}
   - component: {fileID: 1079117464}
-  - component: {fileID: 1079117467}
   - component: {fileID: 1079117455}
   - component: {fileID: 1079117458}
   - component: {fileID: 1079117459}
@@ -8097,23 +8097,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 70cee63220071b34ba699e145c313f38, type: 2}
-  baseSwingForce: 10
-  playerPos: {fileID: 1708068920}
-  playerColliderBox: {x: 1.16, y: 2.52}
-  isSelectUI: 0
-  isElevator: 0
-  isFlyAction: 0
-  isStopMove: 0
-  baseAtkTime: 1.5
-  atkcount: 0
-  isGrounded: 1
-  jumpForce: 8
-  curSpeed: 8
-  swingForce: 15
-  swing_x: -5
-  swing_y: 3
-  playerdir: 0
-  initialDistance: 3
   distanceSpeed: 1
   releaseDeceleration: 1
   initialGraplingSpeed: 0
@@ -8123,6 +8106,18 @@ MonoBehaviour:
   attackpos: {fileID: 895073156}
   baseAtkboxSize: {x: 1.83, y: 2.2}
   baseAtkCount: 0
+  baseAtkTime: 1.5
+  atkcount: 0
+  curSpeed: 8
+  playerPos: {fileID: 1708068920}
+  playerColliderBox: {x: 1.16, y: 2.52}
+  isGrounded: 1
+  jumpForce: 8
+  isSelectUI: 0
+  isElevator: 0
+  isFlyAction: 0
+  isStopMove: 0
+  baseSwingForce: 10
 --- !u!114 &1079117462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8137,11 +8132,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: {fileID: 1336568153}
   hook: {fileID: 1916087128}
+  playerArm: {fileID: 1528347223}
   isHookActive: 0
-  isLineMax: 0
   isAttatch: 0
   hookDelSpeed: 8
-  hookMoveSpeed: 19
+  hookMoveSpeed: 15
+  rotationSpeed: 15
+  isFlyReady: 0
+  isEKeyHeld: 0
+  PlayerGraplingAnimCount: 0
+  baseSwingForce: 15
+  isLineMax: 0
   iscollObj: 0
   iscollenemy: 0
   grapCount: 0
@@ -8149,18 +8150,11 @@ MonoBehaviour:
   isLerping: 0
   lerpTime: 0.8
   enemyPosition: {fileID: 0}
-  playerArm: {fileID: 1528347223}
-  rotationSpeed: 15
+  enemyHookPos: {fileID: 1092360306}
+  isenemyGrapling: 0
   hookDistance: 3
   hookisLeft: 0
   hookisRight: 0
-  isFlyReady: 0
-  isEKeyHeld: 0
-  PlayerGraplingAnimCount: 0
-  baseSwingForce: 15
-  isGrapplingActive: 0
-  enemyHookPos: {fileID: 1092360306}
-  isenemyGrapling: 0
 --- !u!114 &1079117464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13563,7 +13557,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565152433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.94, y: -7.3, z: 0}
+  m_LocalPosition: {x: 4.72, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17274,7 +17268,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

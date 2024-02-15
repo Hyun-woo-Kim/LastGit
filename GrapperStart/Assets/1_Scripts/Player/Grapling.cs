@@ -4,38 +4,47 @@ using UnityEngine;
 
 public class Grapling : MonoBehaviour
 {
+    [Header("#Hook Object")]
     public LineRenderer line;
     public Transform hook; //갈고리의 위치를 나타내는 Transform 변수입니다.
 
 
     GraplingRange graplingRange;
     Animator animPlayer;
-
-
-
     Aiming aim;
 
-    [Header("#PlayerSkill")]
-    //Vector2 mousedir;
+    [Header("##Obj Grapling")]
+    public Transform playerArm;
     public bool isHookActive = false;
-    public bool isLineMax = false;
     public bool isAttatch = false;
     public float hookDelSpeed;
     public float hookMoveSpeed;
-    // public float hookLength;
-
+    public float rotationSpeed = 5.0f; // 조절 가능한 회전 속도
+    private PlayerArm playerArmScr;
+    public bool isFlyReady = false; //공중제비 준비 여부
+    public bool isEKeyHeld = false; //E키 눌림여부
+    private float eKeyHoldTime = 0f; //E키 누르는 시간
+    public float PlayerGraplingAnimCount; //그래플링 관련 블렌드 트리 애니메이션 변수 
+    public float baseSwingForce; //공중제비 세기 값 변수 
+    private Quaternion originalRotation; // 원래의 회전값을 저장할 변수
+    public bool isLineMax;
+    [Header("##Aim & Grapling")]
     public bool iscollObj = false;
     public bool iscollenemy = false;
+
+    [Header("##Enemy Grapling")]
     public float grapCount = 0.0f;
     public bool isGrap = false;
     public bool isLerping = false; // Lerp 중인지 여부를 나타내는 변수
     public float lerpTime;
     public Transform enemyPosition;
+    private float grapanimdelay = 0.3f;
+    public Transform enemyHookPos;
+    public bool isenemyGrapling;
 
 
-    public Transform playerArm;
 
-    private Quaternion originalRotation; // 원래의 회전값을 저장할 변수
+  
 
     //라인을 그리는 포지션을 두개로 설정.
     //한 점은 Player의 포지션: positionCount
@@ -135,7 +144,7 @@ public class Grapling : MonoBehaviour
 
         }
 
-        if (isHookActive )
+        if (isHookActive)
         {
             RotData();
         }
@@ -185,10 +194,7 @@ public class Grapling : MonoBehaviour
 
     }
 
-    public float rotationSpeed = 5.0f; // 조절 가능한 회전 속도
 
-
-    private PlayerArm playerArmScr;
 
     public void RotData()
     {
@@ -198,7 +204,7 @@ public class Grapling : MonoBehaviour
         //PlayerArm arm = GameObject.FindObjectsOfType("Player_Arm").GetComponentInChildren<PlayerArm>();
         if (playerArmScr != null)
         {
-            playerArmScr.rotationArm(hook.transform.position);
+            playerArmScr.rotationArm(hook.transform.position); //팔이 회전하는 메서드 호출
 
 
             Vector3 playerdir = hook.transform.position - transform.position;
@@ -206,7 +212,7 @@ public class Grapling : MonoBehaviour
             float hookangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.AngleAxis(hookangle - 90f, Vector3.forward);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);//플레이어 회전하는 메서드 호출
         }
 
         else
@@ -237,6 +243,9 @@ public class Grapling : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) &&
             isHookActive == false && iscollObj == true)
         {
+            //animPlayer.SetTrigger("Player_Grapling_Ready");
+
+            //hook의 라인 시작 위치는 playerAimPos
             line.SetPosition(0, aim.playerAimPos.position);
             iscollObj = false;
 
@@ -303,7 +312,7 @@ public class Grapling : MonoBehaviour
 
             if (Input.GetKey(KeyCode.E) && isAttatch) //공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             {
-                //hook.position = Vector2.MoveTowards(hook.position, transform.position, Time.deltaTime * hookDelSpeed);
+
 
                 if (!isEKeyHeld)
                 {
@@ -321,8 +330,9 @@ public class Grapling : MonoBehaviour
                 if (isEKeyHeld)
                 {
                     // E 키가 놓였을 때 실행할 코드
-                   
+
                     PlayerGraplingAnimCount++;
+
 
                     isFlyReady = true;
                     isAttatch = false;
@@ -333,15 +343,13 @@ public class Grapling : MonoBehaviour
                     {
                         baseSwingForce = 20.0f;
                         player.flyAction(baseSwingForce);
-
                     }
                     else
                     {
                         baseSwingForce = 15.0f;
                         player.flyAction(baseSwingForce);
-                       
                     }
-                   
+
                     isEKeyHeld = false;
                     eKeyHoldTime = 0f; // 누르고 있던 시간 초기화
                 }
@@ -379,24 +387,9 @@ public class Grapling : MonoBehaviour
 
 
 
-    public bool isFlyReady = false; //공중제비 준비 여부
-
-    public bool isEKeyHeld = false; //E키 눌림여부
-    private float eKeyHoldTime = 0f; //E키 누르는 시간
-
-    public float PlayerGraplingAnimCount; //그래플링 관련 블렌드 트리 애니메이션 변수 
-
-
-    public float baseSwingForce; //공중제비 세기 값 변수 
 
     //1. 오브젝트 걸린 상태. 2. e키를 누름 . 3.공중제비 시작. 4. playerArm과 hook이 가까워지면 두 오브젝트 삭제.
 
-    private float grapanimdelay = 0.3f;
-    public bool isGrapplingActive = false;
-    public Transform enemyHookPos;
-
-
-    public bool isenemyGrapling;
     public void GrapHandling(GameObject target)
     {
         isenemyGrapling = true;
