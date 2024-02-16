@@ -198,6 +198,7 @@ public class Grapling : MonoBehaviour
 
     public void RotData()
     {
+     
 
         playerArmScr = FindObjectOfType<PlayerArm>();
 
@@ -205,10 +206,7 @@ public class Grapling : MonoBehaviour
         if (playerArmScr != null)
         {
             playerArmScr.rotationArm(hook.transform.position); //팔이 회전하는 메서드 호출
-
-
             Vector3 playerdir = hook.transform.position - transform.position;
-
             float hookangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.AngleAxis(hookangle - 90f, Vector3.forward);
 
@@ -243,7 +241,7 @@ public class Grapling : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) &&
             isHookActive == false && iscollObj == true)
         {
-            //animPlayer.SetTrigger("Player_Grapling_Ready");
+            hook.gameObject.SetActive(true);
 
             //hook의 라인 시작 위치는 playerAimPos
             line.SetPosition(0, aim.playerAimPos.position);
@@ -253,7 +251,7 @@ public class Grapling : MonoBehaviour
 
             isHookActive = true;
             isLineMax = false;
-            hook.gameObject.SetActive(true);
+         
 
 
             if (transform.position.x > hook.transform.position.x)
@@ -350,6 +348,9 @@ public class Grapling : MonoBehaviour
                         player.flyAction(baseSwingForce);
                     }
 
+                    aim.aimMousedir.x = 0;
+                    aim.aimMousedir.y = 0;
+                    aim.aimLength = 0.0f;
                     isEKeyHeld = false;
                     eKeyHoldTime = 0f; // 누르고 있던 시간 초기화
                 }

@@ -6,10 +6,9 @@ public class PlayerArm : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    Hooking hook;
     void Start()
     {
-        hook = FindAnyObjectByType<Hooking>();
+
     }
 
     // Update is called once per frame

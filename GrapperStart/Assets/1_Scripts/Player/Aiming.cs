@@ -73,27 +73,28 @@ public class Aiming : MonoBehaviour
                     //lineAim.material.mainTextureScale = new Vector2((dashLength + gapLength) / dashLength, 1f);
                     //lineAim.material.mainTextureOffset -= new Vector2(Time.deltaTime / (dashLength + gapLength), 0f);
                     lineAim.SetPosition(0, aimStarPos); //조준 시작 위치는 aimStarPos이다.
+                    Vector3 mousedir = hookAim.transform.position - aimStarPos; //조준선 방향 구하기
+                    float aimDistance = Vector2.Distance(aimStarPos, hookAim.transform.position); //조준선 사이 길이 구하기 
+
+                    aimMousedir = mousedir;
+                    aimLength = aimDistance;
 
                     if (hit.collider == collider) //마우스 포인터와 Ring or Enemy 오브젝트의 충돌이 같을 때
                     {
-                        Vector3 aimEndPos = collider.transform.position;
-                        
-                        //hookAim.position = this.transform.position;
+                       
 
-                        if (collider.CompareTag("Ring") && isAimEnemy == false && grapling.isFlyReady == false)
+                        if (collider.CompareTag("Ring") && isAimEnemy == false && grapling.isFlyReady == false && grapling.isHookActive == false)
                         {
+                            Debug.Log("b");
+
                             grapling.iscollObj = true;
 
                             hookAim.gameObject.SetActive(true);
 
-                            
+                            Vector3 aimEndPos = collider.transform.position;
                             hookAim.position = aimEndPos;
                             lineAim.SetPosition(1, aimEndPos); //조준 마지막 위치는 aimEndPos(충돌한 오브젝트)이다.
-                           
-                            float aimDistance = Vector2.Distance(aimStarPos, hookAim.transform.position); //조준선 사이 길이 구하기 
-                            Vector3 mousedir = hookAim.transform.position - aimStarPos; //조준선 방향 구하기
-                            Debug.Log(mousedir);
-                            AimData(aimDistance, mousedir);
+             
                             MouseManager.Instance.SetCursorType(MouseManager.CursorType.objIdle);
                         }
 
@@ -151,7 +152,7 @@ public class Aiming : MonoBehaviour
             hookAim.gameObject.SetActive(false);
             MouseManager.Instance.SetCursorType(MouseManager.CursorType.Idle);
 
-
+       
         }
 
         if ((graplingRange.isobjSkill == false && graplingRange.isRange == false) ||
@@ -174,12 +175,7 @@ public class Aiming : MonoBehaviour
 
     public Vector2 aimMousedir;
     public float aimLength;
-    public void AimData(float length, Vector3 dir) //조준선 길이 및 방향과 갈고리 길이 및 방향을 일치시키기.
-    {
-        aimLength = length;
-        aimMousedir = dir;
 
-    }
 
 
 }
