@@ -21,8 +21,9 @@ public class Hooking : MonoBehaviour
 
         joint2D = GetComponent<DistanceJoint2D>();
         //hookSpr = GetComponent<SpriteRenderer>();
-
-
+        Debug.Log(grappling.transform.rotation);
+     
+       
     }
 
 
@@ -32,6 +33,7 @@ public class Hooking : MonoBehaviour
     {
         if (grappling.isHookActive)
         {
+            Debug.Log("HOOK이 돌아간다");
             transform.rotation = grappling.transform.rotation;
 
 
@@ -45,10 +47,6 @@ public class Hooking : MonoBehaviour
 
     }
 
-
-
-
-
     public Transform target;
     public float hookToEnemyspeed;
     void targetToEnemy()
@@ -58,10 +56,6 @@ public class Hooking : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * hookToEnemyspeed);
         }
     }
-
-
-
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -75,13 +69,7 @@ public class Hooking : MonoBehaviour
 
     }
 
-
-
-
     public float dealy;
-
-
-
 
     private void OnTriggerExit2D(Collider2D collision)
     {
