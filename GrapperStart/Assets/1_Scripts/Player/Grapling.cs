@@ -331,8 +331,8 @@ public class Grapling : MonoBehaviour
 
                     PlayerGraplingAnimCount++;
 
-
                     isFlyReady = true;
+                    isStop = true;
                     isAttatch = false;
                     isHookActive = false;
                     isLineMax = false;
@@ -348,6 +348,7 @@ public class Grapling : MonoBehaviour
                         player.flyAction(baseSwingForce);
                     }
 
+                    
                     aim.aimMousedir.x = 0;
                     aim.aimMousedir.y = 0;
                     aim.aimLength = 0.0f;
@@ -361,6 +362,7 @@ public class Grapling : MonoBehaviour
         if (isFlyReady == true)
         {
             transform.rotation = originalRotation;
+            Debug.Log("공중제비 중");
             animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
 
             GameObject playerObj = GameObject.Find("Player");
@@ -387,8 +389,8 @@ public class Grapling : MonoBehaviour
     }
 
 
-
-
+    public bool isStop;
+    public float delay;
     //1. 오브젝트 걸린 상태. 2. e키를 누름 . 3.공중제비 시작. 4. playerArm과 hook이 가까워지면 두 오브젝트 삭제.
 
     public void GrapHandling(GameObject target)

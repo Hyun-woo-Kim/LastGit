@@ -194,7 +194,7 @@ public class PlayerControllerRope : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        if (grapling.grapCount != 1.0f && grapling.isAttatch == false) //&& grapling.isAttatch == false
+        if (grapling.grapCount != 1.0f && grapling.isAttatch == false && grapling.isFlyReady  == false) //&& grapling.isAttatch == false
         {
 
             if(grapling.isLerping == false )
