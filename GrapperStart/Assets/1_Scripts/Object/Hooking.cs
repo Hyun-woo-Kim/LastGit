@@ -66,9 +66,15 @@ public class Hooking : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = attachedSprite;
             GrapplingObjManager.Instance.brightnessUp(collision);
         }
+        if(collision.CompareTag("Player"))
+        {
+            isRingPlayer = true;
+            Debug.Log(isRingPlayer);
+        }
 
     }
 
+    public bool isRingPlayer;
     public float dealy;
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -79,6 +85,11 @@ public class Hooking : MonoBehaviour
             //joint2D.enabled = false;
             graplingRange.isobjSkill = false;
             GrapplingObjManager.Instance.brightnessDown(collision);
+        }
+        if (collision.CompareTag("Player"))
+        {
+            isRingPlayer = false;
+            Debug.Log(isRingPlayer);
         }
     }
 
