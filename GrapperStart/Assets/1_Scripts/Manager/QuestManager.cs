@@ -9,12 +9,48 @@ public class QuestManager : MonoBehaviour
     private void Awake()
     {
         questMap = CreateQuestMap();
+    }
 
-        //Quest quest = GetQuestById("게임 퀘스트 이름");
-        //Debug.Log(quest.info.displayName);
-       // Debug.Log(quest.info.levelRequirement);
-        //Debug.Log(quest.info.state);
-        //Debug.Log(quest.info.currentStepExists());
+    //활성화
+    private void OnEnable()
+    {
+        GameEventManager.instance.questEvents.onStartQuest += StartQuest;
+        GameEventManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
+        GameEventManager.instance.questEvents.onFinishQuest += FinishQuest;
+    }
+    
+    //비활성화
+    private void OnDisable()
+    {
+        GameEventManager.instance.questEvents.onStartQuest -= StartQuest;
+        GameEventManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
+        GameEventManager.instance.questEvents.onFinishQuest -= FinishQuest;
+    }
+
+    private void Start()
+    {
+        foreach(Quest quest in questMap.Values)
+        {
+            GameEventManager.instance.questEvents.QuestStateChange(quest);
+        }
+    }
+
+    //시작한테 불러오는
+    private void StartQuest(string id)
+    {
+        Debug.Log("start Quest" + id);
+    }
+
+    //진행중
+    private void AdvanceQuest(string id)
+    {
+        Debug.Log("Advance Quest" + id);
+    }
+
+    //퀘스트 끝
+    private void FinishQuest(string id)
+    {
+        Debug.Log("Finish Quest" + id);
     }
 
     private Dictionary<string, Quest> CreateQuestMap()
