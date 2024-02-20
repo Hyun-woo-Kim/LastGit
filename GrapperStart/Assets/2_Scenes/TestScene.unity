@@ -8108,7 +8108,7 @@ MonoBehaviour:
   baseAtkCount: 0
   baseAtkTime: 1.5
   atkcount: 0
-  curSpeed: 8
+  InitSpeed: 8
   playerPos: {fileID: 1708068920}
   playerColliderBox: {x: 1.16, y: 2.52}
   isGrounded: 1
@@ -8155,6 +8155,8 @@ MonoBehaviour:
   hookDistance: 3
   hookisLeft: 0
   hookisRight: 0
+  isStop: 0
+  delay: 0
 --- !u!114 &1079117464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8217,6 +8219,7 @@ MonoBehaviour:
   isGrapplingReady: 0
   aimMousedir: {x: 0, y: 0}
   aimLength: 0
+  targetRing: {fileID: 0}
 --- !u!1 &1087405583
 GameObject:
   m_ObjectHideFlags: 0
