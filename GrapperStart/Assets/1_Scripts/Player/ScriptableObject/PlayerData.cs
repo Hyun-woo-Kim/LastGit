@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     public int playerHp = 10;
+    public float curSpeed = 8;
+
     public void DamagedHp(int amount)
     {
         playerHp -= amount;

@@ -28,6 +28,8 @@ public class Grapling : MonoBehaviour
     public float baseSwingForce; //공중제비 세기 값 변수 
     private Quaternion originalRotation; // 원래의 회전값을 저장할 변수
     public bool isLineMax;
+    public bool hookisLeft;
+    public bool hookisRight;
     [Header("##Aim & Grapling")]
     public bool iscollObj = false;
     public bool iscollenemy = false;
@@ -144,12 +146,6 @@ public class Grapling : MonoBehaviour
 
         }
 
-        if (isHookActive)
-        {
-            RotData();
-        }
-
-
     }
 
     public void GraplingEnmeyHookPos()
@@ -196,21 +192,15 @@ public class Grapling : MonoBehaviour
 
 
 
-    public void RotData()
+    public void RotPlayerArm()
     {
-     
-
+        playerArm.gameObject.SetActive(true);
         playerArmScr = FindObjectOfType<PlayerArm>();
 
-        //PlayerArm arm = GameObject.FindObjectsOfType("Player_Arm").GetComponentInChildren<PlayerArm>();
         if (playerArmScr != null)
         {
+            Debug.Log("5");
             playerArmScr.rotationArm(hook.transform.position); //팔이 회전하는 메서드 호출
-            Vector3 playerdir = hook.transform.position - transform.position;
-            float hookangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.AngleAxis(hookangle - 90f, Vector3.forward);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);//플레이어 회전하는 메서드 호출
         }
 
         else
@@ -221,19 +211,25 @@ public class Grapling : MonoBehaviour
 
     }
 
+    void RotPlayer()
+    {
+        Vector3 playerdir = hook.transform.position - transform.position;
+        float hookangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.AngleAxis(hookangle - 90f, Vector3.forward);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);//플레이어 회전하는 메서드 호출
+
+    }
 
 
-    public float hookDistance;
-
-    public bool hookisLeft;
-    public bool hookisRight;
+   
 
 
 
 
     public void GraplingSkill() //링 로브젝트 기준 그래플링 스킬 
     {
-
+        
         // line.SetPosition(0, playerArm.position);
 
         line.SetPosition(1, hook.GetComponent<Hooking>().hooklinePos.position);
@@ -241,18 +237,23 @@ public class Grapling : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) &&
             isHookActive == false && iscollObj == true)
         {
-            hook.gameObject.SetActive(true);
+            Debug.Log("1");
+
+
+          
+           
 
             //hook의 라인 시작 위치는 playerAimPos
             line.SetPosition(0, aim.playerAimPos.position);
             iscollObj = false;
 
             hook.position = aim.playerAimPos.position; //hook의 시작 위치는 playerAimPos.
-
+           
             isHookActive = true;
+           
             isLineMax = false;
-         
 
+           
 
             if (transform.position.x > hook.transform.position.x)
             {
@@ -275,8 +276,10 @@ public class Grapling : MonoBehaviour
             float distanceFromHookPos = Vector2.Distance(aim.playerAimPos.position, transform.position); //팔 위치
 
             //Hook오브젝트가 날아갈 때구문.
-
+            hook.gameObject.SetActive(true);
             hook.Translate(aim.aimMousedir.normalized * Time.deltaTime * hookMoveSpeed * 1.5f);
+
+            RotPlayer();
 
         }
         else if (isHookActive == true && isLineMax == true)
@@ -298,15 +301,18 @@ public class Grapling : MonoBehaviour
         }
         else if (isAttatch == true)
         {
+            RotPlayerArm();
+           
+            animPlayer.SetBool("PlayerGrapling", true);
             player.SwingPlayer();
 
             PlayerGraplingAnimCount = 0.0f;
-            animPlayer.SetBool("PlayerGrapling", true);
+           
             animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
 
             line.SetPosition(0, playerArm.position);
 
-            playerArm.gameObject.SetActive(true);
+           
 
             if (Input.GetKey(KeyCode.E) && isAttatch) //공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             {

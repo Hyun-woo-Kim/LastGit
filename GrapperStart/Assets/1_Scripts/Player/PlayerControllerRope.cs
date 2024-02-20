@@ -31,7 +31,7 @@ public class PlayerControllerRope : MonoBehaviour
     public int atkcount = 0;
 
     [Header("##Player Basic")]
-    public float curSpeed;
+    public float InitSpeed = 8.0f; //기본 초기값 속도
     public Transform playerPos;
     public Vector2 playerColliderBox;
     public bool isGrounded = true; //점프 조건 bool변수 
@@ -45,7 +45,7 @@ public class PlayerControllerRope : MonoBehaviour
 
     void Start()
     {
-        
+        playerData.curSpeed = InitSpeed;
         grapling = GetComponent<Grapling>();
         
         rigid = GetComponent<Rigidbody2D>();
@@ -227,7 +227,7 @@ public class PlayerControllerRope : MonoBehaviour
             {
                 
                 Vector2 moveDirection = new Vector2(horizontalInput, 0);
-                rigid.velocity = new Vector2(moveDirection.x * curSpeed, rigid.velocity.y);
+                rigid.velocity = new Vector2(moveDirection.x * playerData.curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(1, 1, 1);
 
                 //transform.eulerAngles = new Vector3(0, 0, 0);
@@ -243,7 +243,7 @@ public class PlayerControllerRope : MonoBehaviour
             {
                 Debug.Log("일반적인 움직임");
                 Vector2 moveDirection = new Vector2(-horizontalInput, 0);
-                rigid.velocity = new Vector2(-moveDirection.x * curSpeed, rigid.velocity.y);
+                rigid.velocity = new Vector2(-moveDirection.x * playerData.curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(-1, 1, 1);
                 //transform.eulerAngles = new Vector3(0, 180, 0);
                 //sprPlayer.flipX = true;
