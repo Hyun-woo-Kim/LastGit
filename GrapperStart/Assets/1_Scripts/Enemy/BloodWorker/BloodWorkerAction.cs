@@ -19,6 +19,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     public BwData bwData;
     Animator bloodWorkerAnim;
     CapsuleCollider2D capsuleColl;
+    SpriteRenderer bwSpr;
     Enemies enemies;
 
 
@@ -46,24 +47,11 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     [Header("##Is Reaction")]
     public bool isReact;
     public Sprite reactSprite;
-
-    public IEnumerator GraplingAtkDamaged()
-    {
-        // 데미지 처리 로직
-        Debug.Log("데미지를 입음");
-        bwData.bwHp--;
-        yield return null;
-    }
-    public IEnumerator baseDamagedCriture()
-    {
-      
-        bwData.bwHp--;
-        yield return new WaitForSeconds(1.0f);
-    }
     void Start()
     {
         capsuleColl = GetComponent<CapsuleCollider2D>();
         bloodWorkerAnim = GetComponent<Animator>();
+        bwSpr = GetComponent<SpriteRenderer>();
         enemies = GetComponentInParent<Enemies>();
 
 
@@ -77,9 +65,26 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         startPosition = transform.position;
         patrolDirection = Vector2.right;
 
-
-
     }
+    public IEnumerator GraplingAtkDamaged()
+    {
+        // 데미지 처리 로직
+        bwSpr.color = Color.red;
+        Debug.Log("데미지를 입음");
+        bwData.bwHp--;
+        bloodWorkerAnim.SetTrigger("BWKnockBack");
+        yield return new WaitForSeconds(1.0f);
+        bwSpr.color = Color.white;
+    }
+    public IEnumerator baseDamagedCriture()
+    {
+        bwSpr.color = Color.red;
+        bwData.bwHp--;
+        bloodWorkerAnim.SetTrigger("BWKnockBack");
+        yield return new WaitForSeconds(1.0f);
+        bwSpr.color = Color.white;
+    }
+
 
 
     public void setActionType(BloodState _bloodState)
@@ -121,8 +126,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                     myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
 
                     handChild.gameObject.SetActive(true);
-
-                    StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos)); //투사체 던지기.        
+                    StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos)); //투사체 던지기.
                     this.bloodState = BloodState.STATE_FOLLOW;
                 }
                 break;
@@ -137,7 +141,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
         }
     }
-
     void Update()
     {
         switch (bloodState)
@@ -169,9 +172,9 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     }
     IEnumerator PatTrolTurn()
     {
-        bloodWorkerAnim.SetBool("EnemyStop", true);
+        bloodWorkerAnim.SetBool("BWStop", true);
         yield return new WaitForSeconds(2.0f); //정지 후 기다리는 시간.
-        bloodWorkerAnim.SetBool("EnemyStop", false);
+        bloodWorkerAnim.SetBool("BWStop", false);
         this.bloodState = BloodState.STATE_PATROL;
 
 
@@ -199,7 +202,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
     }
 
-    public Transform teamEnemy;
     void PatrolRange()
     {
         isReact = false;
@@ -225,7 +227,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         if (isTargetPlayer && bloodState == BloodState.STATE_PATROL)//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
         {
             FlipEnemy(target);
-            bloodWorkerAnim.SetTrigger("RockAttack");
+            bloodWorkerAnim.SetTrigger("BWRockAttack");
             this.bloodState = BloodState.STATE_ROCKATTACK; //돌멩이 투척상태
 
         }
@@ -244,11 +246,11 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         Debug.Log("방향뒤집기");
         if (transform.position.x > target.position.x)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(1, 1, 1);
         }
         else if (transform.position.x < target.position.x)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
     }
     void PatrolReaction(SpriteRenderer spriteRenderer)
@@ -267,7 +269,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == ("Wall"))
+        if (collision.gameObject.tag == ("Wall") )
         {
             isWall = true;
         }

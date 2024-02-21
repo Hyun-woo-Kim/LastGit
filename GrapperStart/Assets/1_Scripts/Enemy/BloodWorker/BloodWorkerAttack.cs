@@ -6,15 +6,13 @@ public class BloodWorkerAttack : BloodWorkerAttackReady
 {
     public override IEnumerator InstanRock(BloodState state, GameObject rockPref, Transform rockPos)
     {
-        Vector3 rockVec = rockPos.position;
+
         yield return new WaitForSeconds(0.1f);
+        Vector3 rockVec = rockPos.position;
         Instantiate(rockPref, rockVec, Quaternion.identity);
-
-
-
+        Debug.Log("돌 생성");
         // 이후에 원하는 작업을 추가할 수 있습니다.
     }
-
     public override void RenchAttack(BloodState state, Collider2D[] collider, Animator renchAnim)
     {
         foreach (Collider2D renchCollider in collider)
@@ -23,7 +21,7 @@ public class BloodWorkerAttack : BloodWorkerAttackReady
             {
                 Flip(renchCollider);
                 Debug.Log("타격");
-                renchAnim.SetTrigger("RenchAttack");
+                renchAnim.SetTrigger("BWRenchAttack");
             }
         }
     }

@@ -237,11 +237,11 @@ public class Grapling : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) &&
             isHookActive == false && iscollObj == true)
         {
-            Debug.Log("1");
+            isHookActive = true;
 
 
-          
-           
+
+            hook.gameObject.SetActive(true);
 
             //hook의 라인 시작 위치는 playerAimPos
             line.SetPosition(0, aim.playerAimPos.position);
@@ -249,8 +249,7 @@ public class Grapling : MonoBehaviour
 
             hook.position = aim.playerAimPos.position; //hook의 시작 위치는 playerAimPos.
            
-            isHookActive = true;
-           
+            
             isLineMax = false;
 
            
@@ -276,10 +275,9 @@ public class Grapling : MonoBehaviour
             float distanceFromHookPos = Vector2.Distance(aim.playerAimPos.position, transform.position); //팔 위치
 
             //Hook오브젝트가 날아갈 때구문.
-            hook.gameObject.SetActive(true);
             hook.Translate(aim.aimMousedir.normalized * Time.deltaTime * hookMoveSpeed * 1.5f);
 
-            RotPlayer();
+            
 
         }
         else if (isHookActive == true && isLineMax == true)
@@ -302,7 +300,7 @@ public class Grapling : MonoBehaviour
         else if (isAttatch == true)
         {
             RotPlayerArm();
-           
+            RotPlayer();
             animPlayer.SetBool("PlayerGrapling", true);
             player.SwingPlayer();
 
