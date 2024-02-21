@@ -14,12 +14,13 @@ public class BloodWorkerPatrol : BloodWorkerState
         //이동 애니메이션 추가. 
 
         if (patrolDir == Vector2.right)
-        {       
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
             transform.Translate(Vector2.right * patrolSpeed * Time.deltaTime);
         }
         else if (patrolDir == Vector2.left )
         {
-           
+            transform.localScale = new Vector3(1, 1, 1);
             transform.Translate(Vector2.left * patrolSpeed * Time.deltaTime);
         }
 
