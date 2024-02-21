@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4514032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.72, y: 0, z: 0}
+  m_LocalPosition: {x: -1.03, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -925,7 +925,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156668925}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.469, y: 1.53, z: 0}
+  m_LocalPosition: {x: -0.36, y: 1.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8031,7 +8031,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079117453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.7, y: -7.3, z: 0}
+  m_LocalPosition: {x: -11, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8136,13 +8136,15 @@ MonoBehaviour:
   isHookActive: 0
   isAttatch: 0
   hookDelSpeed: 8
-  hookMoveSpeed: 15
+  hookMoveSpeed: 1
   rotationSpeed: 15
   isFlyReady: 0
   isEKeyHeld: 0
   PlayerGraplingAnimCount: 0
   baseSwingForce: 15
   isLineMax: 0
+  hookisLeft: 0
+  hookisRight: 0
   iscollObj: 0
   iscollenemy: 0
   grapCount: 0
@@ -8152,9 +8154,6 @@ MonoBehaviour:
   enemyPosition: {fileID: 0}
   enemyHookPos: {fileID: 1092360306}
   isenemyGrapling: 0
-  hookDistance: 3
-  hookisLeft: 0
-  hookisRight: 0
   isStop: 0
   delay: 0
 --- !u!114 &1079117464
@@ -11041,7 +11040,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1421090587
 Transform:
   m_ObjectHideFlags: 0
@@ -13451,19 +13450,18 @@ MonoBehaviour:
   patrolSpeed: 5
   patrolDistance: 30
   patrolPos: {fileID: 851663973}
-  patrolBoxSize: {x: 10.1, y: 2.59}
+  patrolBoxSize: {x: 15, y: 2.59}
   renchAttackPos: {fileID: 4514033}
-  renchAttackSize: {x: 2.5, y: 2.36}
+  renchAttackSize: {x: 1, y: 2}
   isTargetPlayer: 0
   target: {fileID: 0}
-  followSpeed: 1
+  followSpeed: 0.2
   rockPref: {fileID: 1796564198561512541, guid: 4abc9e708c0be47448822edaa33fe033, type: 3}
   rockPos: {fileID: 2140732893}
   isTeamEnemy: 0
   playerTarget: {fileID: 2140732893}
   isReact: 0
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
-  teamEnemy: {fileID: 0}
 --- !u!50 &1565152436
 Rigidbody2D:
   serializedVersion: 4
@@ -13498,8 +13496,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.12}
-  m_Size: {x: 1.03, y: 2.85}
+  m_Offset: {x: 0, y: -0.2}
+  m_Size: {x: 1.03, y: 2.46}
   m_Direction: 0
 --- !u!212 &1565152438
 SpriteRenderer:
@@ -13542,8 +13540,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -9207324096461601957, guid: c122e7b9aa279824f8fe5e868d93ab66, type: 3}
-  m_Color: {r: 0.8207547, g: 0.6257286, b: 0.19667137, a: 1}
+  m_Sprite: {fileID: -597534187, guid: c7b7c31afee34134f8ae435d91b94ebb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -13561,7 +13559,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565152433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.72, y: -7.3, z: 0}
+  m_LocalPosition: {x: 15.35, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

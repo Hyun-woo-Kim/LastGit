@@ -18,31 +18,46 @@ public class Hooking : MonoBehaviour
     void Start()
     {
         grappling = GameObject.Find("Player").GetComponent<Grapling>();
-        aiming = GameObject.Find("Player").GetComponent<Aiming>();
+       
         graplingRange = FindAnyObjectByType<GraplingRange>();
         joint2D = GetComponent<DistanceJoint2D>();
         //hookSpr = GetComponent<SpriteRenderer>();
-        transform.rotation = grappling.transform.rotation;
+
         Debug.Log(grappling.transform.rotation);
 
     }
-
-    public void rotateHook(Transform player)
+    private void Awake()
     {
-        
-            transform.rotation = player.transform.rotation;
-        
-        
+        aiming = FindAnyObjectByType<Aiming>();
+        // hook 오브젝트를 회전시킵니다.
+        //if (aiming != null)
+        //{
+
+        //    Vector3 aimMousedirWithZ = new Vector3(aiming.aimMousedir.x, aiming.aimMousedir.y, 1f);
+        //    Debug.LogWarning(aimMousedirWithZ);
+        //    transform.rotation = Quaternion.LookRotation(aimMousedirWithZ);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Aiming component or aimMousedir is null!");
+        //}
+        Vector3 playerdir = transform.position - aiming.transform.position;
+        float hookangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.AngleAxis(hookangle - 90f, Vector3.forward);
+        Debug.Log(targetRotation);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);//플레이어 회전하는 메서드 호출
+
     }
+
     private void Update()
     {
-        //if (grappling.isAttatch)
-        //{
-        //    Debug.Log("HOOK이 돌아간다");
-        //    transform.rotation = grappling.transform.rotation;
+        if (grappling.isHookActive)
+        {
+            Debug.Log("HOOK이 돌아간다");
+            //transform.rotation = grappling.transform.rotation;
+           
+        }
 
-        //}
-        
 
         if (grappling.isenemyGrapling) //적에게 갈고리 날렸을 때 , 갈고리는 적을 추격한다.
         {
