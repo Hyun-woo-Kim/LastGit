@@ -7,4 +7,8 @@ public class BwData : ScriptableObject
 {
 
     public int bwHp = 10;
+    public void DamagedHp(int amount)
+    {
+        bwHp -= amount;
+    }
 }

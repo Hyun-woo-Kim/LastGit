@@ -403,7 +403,7 @@ public class PlayerControllerRope : MonoBehaviour
                 Enemies enemyScript = collider.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 if (enemyScript != null)
                 {
-                    StartCoroutine(enemyScript.baseDamagedCriture());
+                    StartCoroutine(enemyScript.baseDamaged());
                 }
                 else
                 {
