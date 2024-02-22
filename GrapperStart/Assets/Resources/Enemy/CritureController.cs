@@ -97,7 +97,7 @@ public class CritureController : MonoBehaviour, Enemies
         Think();
     }
 
-    public IEnumerator baseDamagedCriture()
+    public IEnumerator baseDamaged()
     {
         // Debug.Log("크리쳐가 피해를 입었다.");
         sprCr.color = Color.red;
@@ -108,11 +108,17 @@ public class CritureController : MonoBehaviour, Enemies
         Think();
     }
 
+    public IEnumerator Died()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+    }
+
     public Transform Enemyattackpos;
     public Vector2 EnemyattackBoxSize;
 
 
-    Transform targetPos;
+    public Transform targetPos;
     public bool isEnemyAttack;
     public bool isTeamBW;
     void EnemyToAttack()
@@ -184,5 +190,5 @@ public class CritureController : MonoBehaviour, Enemies
         Gizmos.DrawWireCube(Enemyattackpos.position, EnemyattackBoxSize);//DrawWireCube(pos.position,boxsize) 
     }
 
-
+   
 }

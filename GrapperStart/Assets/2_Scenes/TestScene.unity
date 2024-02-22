@@ -4047,7 +4047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &521793342
 Rigidbody2D:
   serializedVersion: 4
@@ -4145,7 +4145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521793341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.39, y: -7.16, z: 0}
+  m_LocalPosition: {x: 3.09, y: -7.16, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4172,6 +4172,7 @@ MonoBehaviour:
   isbaseMove: 0
   Enemyattackpos: {fileID: 739916938}
   EnemyattackBoxSize: {x: 15, y: 2.71}
+  targetPos: {fileID: 0}
   isEnemyAttack: 0
   isTeamBW: 0
   attackSpeed: 0.1
@@ -13430,7 +13431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1565152434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13458,8 +13459,7 @@ MonoBehaviour:
   followSpeed: 0.2
   rockPref: {fileID: 1796564198561512541, guid: 4abc9e708c0be47448822edaa33fe033, type: 3}
   rockPos: {fileID: 2140732893}
-  isTeamEnemy: 0
-  playerTarget: {fileID: 2140732893}
+  hasThrownRock: 0
   isReact: 0
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
 --- !u!50 &1565152436
@@ -13559,7 +13559,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565152433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.35, y: -7.3, z: 0}
+  m_LocalPosition: {x: -5.8, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

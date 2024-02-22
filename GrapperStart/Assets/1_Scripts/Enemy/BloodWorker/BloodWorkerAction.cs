@@ -7,6 +7,7 @@ public enum BloodState
     STATE_ROCKATTACK,
     STATE_STOP,
     STATE_FOLLOW,
+    STATE_DIE,
 
 }
 
@@ -21,6 +22,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     CapsuleCollider2D capsuleColl;
     SpriteRenderer bwSpr;
     Enemies enemies;
+    CritureController criture;
 
 
     public bool isWall;
@@ -42,8 +44,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     public GameObject rockPref;
     public Transform rockPos;
     [Header("##Bw Interaction")]
-    public bool isTeamEnemy;
-    public Transform playerTarget;
+    public bool hasThrownRock;
     [Header("##Is Reaction")]
     public bool isReact;
     public Sprite reactSprite;
@@ -52,6 +53,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         capsuleColl = GetComponent<CapsuleCollider2D>();
         bloodWorkerAnim = GetComponent<Animator>();
         bwSpr = GetComponent<SpriteRenderer>();
+        criture = GameObject.Find("Enemy").GetComponent<CritureController>();
         enemies = GetComponentInParent<Enemies>();
 
 
@@ -66,24 +68,41 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         patrolDirection = Vector2.right;
 
     }
-    public IEnumerator GraplingAtkDamaged()
+    public IEnumerator GraplingAtkDamaged() //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
     {
         // 데미지 처리 로직
         bwSpr.color = Color.red;
         Debug.Log("데미지를 입음");
-        bwData.bwHp--;
+        bwData.DamagedHp(1);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
         yield return new WaitForSeconds(1.0f);
         bwSpr.color = Color.white;
     }
-    public IEnumerator baseDamagedCriture()
+    public IEnumerator baseDamaged()  //BW가 플레이어로 부터 기본공격에 맞았을 때 호출 하는 함수
     {
         bwSpr.color = Color.red;
-        bwData.bwHp--;
+        bwData.DamagedHp(1);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.1f);
         bwSpr.color = Color.white;
+        if(bwData.bwHp <= float.Epsilon)
+        {
+            this.bloodState = BloodState.STATE_DIE;
+            bloodWorkerAnim.SetTrigger("BWDie");
+            Debug.Log("1");
+            StartCoroutine(Died());
+        }
     }
+
+    public IEnumerator Died()
+    {
+      
+        yield return new WaitForSeconds(0.5f);
+        bloodWorkerAnim.enabled = false;
+        Destroy(this.gameObject);
+
+    }
+
 
 
 
@@ -141,8 +160,30 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
         }
     }
+    
+
     void Update()
     {
+        Transform thirdChild = transform.GetChild(3);
+        SpriteRenderer spriteRenderer = thirdChild.GetComponent<SpriteRenderer>();
+        PatrolReaction(spriteRenderer);
+
+        if (criture.isEnemyAttack == true && !hasThrownRock)
+        {
+            Debug.Log("아군 발견");
+            target = criture.targetPos;
+            FlipEnemy(target);
+            bloodWorkerAnim.SetTrigger("BWRockAttack");
+            setActionType(BloodState.STATE_ROCKATTACK);//돌멩이 투척상태
+
+            hasThrownRock = true;
+            //StartCoroutine(teamEnemySkill());
+        }
+        else if(criture.isEnemyAttack == false)
+        {
+            hasThrownRock = false;
+        }
+
         switch (bloodState)
         {
             case BloodState.STATE_PATROL:
@@ -150,7 +191,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 {
                     this.bloodState = BloodState.STATE_STOP;
                     setActionType(BloodState.STATE_STOP);
-                    isWall = false;
+                    isWall = false;              
                 }
                 else
                 {
@@ -206,10 +247,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     {
         isReact = false;
         isTargetPlayer = false; //적 감지 확인 x
-        isTeamEnemy = false; //적 감지 확인 x
 
-        Transform thirdChild = transform.GetChild(3);
-        SpriteRenderer spriteRenderer = thirdChild.GetComponent<SpriteRenderer>();
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(patrolPos.position, patrolBoxSize, 0);
 
@@ -224,19 +262,19 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
             }
 
         }
-        if (isTargetPlayer && bloodState == BloodState.STATE_PATROL)//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
+        if ((isTargetPlayer && bloodState == BloodState.STATE_PATROL ))//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
         {
-            FlipEnemy(target);
+            Debug.Log("적 발견");
+             FlipEnemy(target);
             bloodWorkerAnim.SetTrigger("BWRockAttack");
             this.bloodState = BloodState.STATE_ROCKATTACK; //돌멩이 투척상태
 
         }
-        else if (isTargetPlayer == false)
+        else if (isTargetPlayer == false && criture.isEnemyAttack == false)
         {
             this.bloodState = BloodState.STATE_PATROL;
         }
-
-        PatrolReaction(spriteRenderer);
+        
     }
 
 
@@ -255,12 +293,12 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     }
     void PatrolReaction(SpriteRenderer spriteRenderer)
     {
-        if (isReact)
+        if (isReact || criture.isEnemyAttack)
         {
             spriteRenderer.sprite = reactSprite;
 
         }
-        else if (isReact == false)
+        else if (isReact == false || criture.isEnemyAttack == false)
         {
             spriteRenderer.sprite = null;
 
@@ -292,5 +330,5 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         Gizmos.DrawWireCube(renchAttackPos.position, renchAttackSize);//DrawWireCube(pos.position,boxsize)      
     }
 
-
+ 
 }
