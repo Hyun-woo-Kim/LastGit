@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public Image image;
     private GameObject button;
     public GameObject soundop;
+
+ 
+
     private void Start()
     {
         button = GameObject.Find("StartButton");
