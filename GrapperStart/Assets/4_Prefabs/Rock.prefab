@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa9a69745c21264baa19116c48b890b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 30
-  gravityScaleDecreaseRate: 0.01
+  throwForce: 15
+  gravityScaleDecreaseRate: 0.1
 --- !u!50 &7658559056275289821
 Rigidbody2D:
   serializedVersion: 4

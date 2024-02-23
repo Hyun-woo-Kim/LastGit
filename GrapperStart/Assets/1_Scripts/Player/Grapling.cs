@@ -397,9 +397,33 @@ public class Grapling : MonoBehaviour
     public float delay;
     //1. 오브젝트 걸린 상태. 2. e키를 누름 . 3.공중제비 시작. 4. playerArm과 hook이 가까워지면 두 오브젝트 삭제.
 
+    public GameObject comboBarUI;
+    public Vector2 comboBarPos;
+    private GameObject instantiatedComboBar;
+    public void InstanComboBar()
+    {
+        // UI_Canvas를 찾기
+        GameObject uiCanvas = GameObject.Find("UI_Canvas");
+
+        if (uiCanvas != null)
+        { 
+            instantiatedComboBar = Instantiate(comboBarUI, comboBarPos, Quaternion.identity);
+
+            // comboBarUI를 UI_Canvas의 하위로 설정
+            instantiatedComboBar.transform.SetParent(uiCanvas.transform, false);
+        }
+        else
+        {
+            Debug.LogError("UI_Canvas not found");
+        }
+    }
     public void GrapHandling(GameObject target)
     {
+      
+       InstanComboBar();
+        
         isenemyGrapling = true;
+
         GraplingPlayerFlip(target);
 
         hook.position = enemyHookPos.position; //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
@@ -416,6 +440,7 @@ public class Grapling : MonoBehaviour
             hook.gameObject.SetActive(true);
             hook.GetComponent<Hooking>().target = target.transform;
 
+         
         }
         if (grapCount == 2.0f)
         {
@@ -424,7 +449,13 @@ public class Grapling : MonoBehaviour
 
             hook.position = target.transform.position;
 
+            if (instantiatedComboBar.transform.IsChildOf(GameObject.Find("UI_Canvas").transform))
+            {
+                Debug.Log("삭제"+ comboBarUI);
+                Destroy(comboBarUI);
+            }
             StartCoroutine(LerpToTarget(target.transform, target));
+         
         }
 
     }
@@ -432,6 +463,7 @@ public class Grapling : MonoBehaviour
 
     IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj)
     {
+      
         enemyPosition = targetPosition;
 
         aim.isAimEnemy = false;
