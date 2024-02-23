@@ -4145,7 +4145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521793341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.09, y: -7.16, z: 0}
+  m_LocalPosition: {x: 7.63, y: -7.16, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4171,7 +4171,7 @@ MonoBehaviour:
   speedCr: 0
   isbaseMove: 0
   Enemyattackpos: {fileID: 739916938}
-  EnemyattackBoxSize: {x: 15, y: 2.71}
+  EnemyattackBoxSize: {x: 7, y: 2.71}
   targetPos: {fileID: 0}
   isEnemyAttack: 0
   isTeamBW: 0
@@ -8032,7 +8032,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079117453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11, y: -7.3, z: 0}
+  m_LocalPosition: {x: -12.08, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8157,6 +8157,8 @@ MonoBehaviour:
   isenemyGrapling: 0
   isStop: 0
   delay: 0
+  comboBarUI: {fileID: 5538907338766232488, guid: b2f663c999acd2242b0aceb970d96f84, type: 3}
+  comboBarPos: {x: 50, y: 150}
 --- !u!114 &1079117464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13431,7 +13433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1565152434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13449,7 +13451,7 @@ MonoBehaviour:
   isWall: 0
   patrolDirection: {x: 0, y: 0}
   patrolSpeed: 5
-  patrolDistance: 30
+  patrolDistance: 15
   patrolPos: {fileID: 851663973}
   patrolBoxSize: {x: 15, y: 2.59}
   renchAttackPos: {fileID: 4514033}
@@ -13559,7 +13561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565152433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.8, y: -7.3, z: 0}
+  m_LocalPosition: {x: 10.22, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14732,7 +14734,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1708068919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

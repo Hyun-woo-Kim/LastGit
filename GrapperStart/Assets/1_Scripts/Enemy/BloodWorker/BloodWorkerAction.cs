@@ -8,7 +8,7 @@ public enum BloodState
     STATE_STOP,
     STATE_FOLLOW,
     STATE_DIE,
-
+    STATE_TEAMROCKATTACK,
 }
 
 
@@ -68,6 +68,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         patrolDirection = Vector2.right;
 
     }
+
     public IEnumerator GraplingAtkDamaged() //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
     {
         // 데미지 처리 로직
@@ -145,17 +146,33 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                     myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
 
                     handChild.gameObject.SetActive(true);
+
                     StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos)); //투사체 던지기.
                     this.bloodState = BloodState.STATE_FOLLOW;
+                }
+                break;
+            case BloodState.STATE_TEAMROCKATTACK:
+                if (myAttackState == null)
+                {
+                    myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
+
+                    handChild.gameObject.SetActive(true);
+
+                    StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos)); //투사체 던지기.
+                        this.bloodState = BloodState.STATE_FOLLOW;
+                   
                 }
                 break;
             case BloodState.STATE_FOLLOW:
                 FollowPlayer();
                 Collider2D[] coliderRench = Physics2D.OverlapBoxAll(renchAttackPos.position, renchAttackSize, 0);
                 myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
+                if(isTargetPlayer)
+                {
+                    renchChild.gameObject.SetActive(true);
+                    myAttackState.RenchAttack(bloodState, coliderRench, bloodWorkerAnim);
+                }
 
-                renchChild.gameObject.SetActive(true);
-                myAttackState.RenchAttack(bloodState, coliderRench, bloodWorkerAnim);
                 break;
 
         }
@@ -174,7 +191,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
             target = criture.targetPos;
             FlipEnemy(target);
             bloodWorkerAnim.SetTrigger("BWRockAttack");
-            setActionType(BloodState.STATE_ROCKATTACK);//돌멩이 투척상태
+            setActionType(BloodState.STATE_TEAMROCKATTACK);//돌멩이 투척상태
 
             hasThrownRock = true;
             //StartCoroutine(teamEnemySkill());
@@ -205,6 +222,9 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
             case BloodState.STATE_ROCKATTACK:
                 setActionType(BloodState.STATE_ROCKATTACK);
                 break;
+             case BloodState.STATE_TEAMROCKATTACK:
+                setActionType(BloodState.STATE_TEAMROCKATTACK);
+                break; ;
             case BloodState.STATE_FOLLOW:
                 PatrolRange();
                 setActionType(BloodState.STATE_FOLLOW);
