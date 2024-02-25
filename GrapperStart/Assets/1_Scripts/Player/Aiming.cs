@@ -48,9 +48,9 @@ public class Aiming : MonoBehaviour
 
  
     public bool isAimEnemy = false;
-    public bool isAimObject = false;
     public bool isGrapplingReady = false;
 
+    public GameObject EnemyObj;
     private void AimGrap()
     {
 
@@ -105,13 +105,13 @@ public class Aiming : MonoBehaviour
 
                         if (collider.CompareTag("Enemy"))
                         {
-
+                            isAimEnemy = true;
 
                             Vector3 rotEndPos = collider.transform.position;
 
                             lineAim.SetPosition(1, rotEndPos);
 
-                            GameObject colliderGo = collider.gameObject;
+                             EnemyObj = collider.gameObject;
 
 
                             MouseManager.Instance.SetCursorType(MouseManager.CursorType.enemyIdle);
@@ -128,13 +128,16 @@ public class Aiming : MonoBehaviour
                                 hookAim.gameObject.SetActive(false);
                             }
 
-                            if (Input.GetKeyDown(KeyCode.E))
-                            {
 
-                                isAimEnemy = true;
-                                //grapling.isGrapplingActive = false;
-                                grapling.GrapHandling(colliderGo);
-                            }
+                            //if (Input.GetKeyDown(KeyCode.E))
+                            //{
+
+                            //    isAimEnemy = true;
+                            //    //grapling.isGrapplingActive = false;
+                            //    //grapling.GrapHandling(colliderGo);
+                            //    grapling.InstanComboBar();
+                            //    grapling.SetComboSlider();
+                            //}
 
 
                         }
@@ -152,6 +155,8 @@ public class Aiming : MonoBehaviour
             anim = GetComponent<Animator>();
             anim.SetBool("PlayerAimEnemy", false);
             grapling.iscollObj = false;
+
+            isAimEnemy = false; //슬라이더 구현 중 추가 했음. 24_2_25
 
             hookAim.gameObject.SetActive(false);
             MouseManager.Instance.SetCursorType(MouseManager.CursorType.Idle);
