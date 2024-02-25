@@ -8290,8 +8290,11 @@ MonoBehaviour:
   isenemyGrapling: 0
   isStop: 0
   delay: 0
-  comboBarUI: {fileID: 5538907338766232488, guid: b2f663c999acd2242b0aceb970d96f84, type: 3}
   comboBarPos: {x: 50, y: 150}
+  comboSlider: {fileID: 4444858353250634089, guid: b2f663c999acd2242b0aceb970d96f84, type: 3}
+  sliderSpeed: 300
+  minPos: 0
+  maxPos: 0
 --- !u!114 &1079117464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8350,8 +8353,8 @@ MonoBehaviour:
   hookAim: {fileID: 772777227}
   playerAimPos: {fileID: 189950970}
   isAimEnemy: 0
-  isAimObject: 0
   isGrapplingReady: 0
+  EnemyObj: {fileID: 0}
   aimMousedir: {x: 0, y: 0}
   aimLength: 0
   targetRing: {fileID: 0}

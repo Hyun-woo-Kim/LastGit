@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Grapling : MonoBehaviour
 {
@@ -146,6 +147,11 @@ public class Grapling : MonoBehaviour
 
         }
 
+
+        if (Input.GetKeyDown(KeyCode.E) && aim.isAimEnemy)
+        {
+            SetComboSlider();
+        }
     }
 
     public void GraplingEnmeyHookPos()
@@ -301,17 +307,14 @@ public class Grapling : MonoBehaviour
         {
             RotPlayerArm();
             RotPlayer();
-            animPlayer.SetBool("PlayerGrapling", true);
+          
             player.SwingPlayer();
-
             PlayerGraplingAnimCount = 0.0f;
-           
-            animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
-
             line.SetPosition(0, playerArm.position);
 
-           
-
+            animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
+            animPlayer.SetBool("PlayerGrapling", true);
+            
             if (Input.GetKey(KeyCode.E) && isAttatch) //공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             {
 
@@ -397,64 +400,106 @@ public class Grapling : MonoBehaviour
     public float delay;
     //1. 오브젝트 걸린 상태. 2. e키를 누름 . 3.공중제비 시작. 4. playerArm과 hook이 가까워지면 두 오브젝트 삭제.
 
-    public GameObject comboBarUI;
+
     public Vector2 comboBarPos;
-    private GameObject instantiatedComboBar;
+
+
+    private Slider comboSliderPrefab;
+    public Slider comboSlider;
+    public float sliderSpeed;
+    public float minPos;
+    public float maxPos;
+    private RectTransform pass;
     public void InstanComboBar()
     {
-        // UI_Canvas를 찾기
+      
+
+      
+    }
+
+    public void SetComboSlider()
+    {  // UI_Canvas를 찾기
+
         GameObject uiCanvas = GameObject.Find("UI_Canvas");
 
-        if (uiCanvas != null)
-        { 
-            instantiatedComboBar = Instantiate(comboBarUI, comboBarPos, Quaternion.identity);
-
+        if (uiCanvas != null && comboSliderPrefab == null)
+        {
+            comboSliderPrefab = Instantiate(comboSlider, comboBarPos, Quaternion.identity);
             // comboBarUI를 UI_Canvas의 하위로 설정
-            instantiatedComboBar.transform.SetParent(uiCanvas.transform, false);
+            comboSliderPrefab.transform.SetParent(uiCanvas.transform, false);
+
         }
+
         else
         {
             Debug.LogError("UI_Canvas not found");
         }
+        Debug.Log("슬라이더 움직임 준비");
+        Transform passTransform = comboSlider.transform.GetChild(1);
+        pass = passTransform as RectTransform;
+
+        comboSliderPrefab.value = 0.0f;
+        //슬라이더의 밸류가 초록색 바 안에 있는 지 알려면 이미지의 앵커 포지션과 델타 사이즈의 x값을 알아야 함.
+        minPos = pass.anchoredPosition.x; //pass.anchoredPosition.x는 최소값을 나타내야함.
+        maxPos = pass.sizeDelta.x + minPos;
+        StartCoroutine(comboEnemyGrapling());
     }
-    public void GrapHandling(GameObject target)
+
+    IEnumerator comboEnemyGrapling()
     {
-      
-       InstanComboBar();
-        
-        isenemyGrapling = true;
-
-        GraplingPlayerFlip(target);
-
-        hook.position = enemyHookPos.position; //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
-
-        grapCount += 1.0f;
-
-        animPlayer.SetBool("EnemyGrapling", true);
-        animPlayer.SetFloat("EnemyGraplingCount", grapCount);
-
-        if (grapCount == 1.0f && graplingRange.isenemySkill == true)
+        while(!(Input.GetKeyDown(KeyCode.E)|| comboSliderPrefab .value == comboSliderPrefab.maxValue))
         {
-            aim.isAimObject = false;
-
-            hook.gameObject.SetActive(true);
-            hook.GetComponent<Hooking>().target = target.transform;
-
-         
+            Debug.Log("슬라이더 움직이는 중");
+            comboSliderPrefab.value += Time.deltaTime * sliderSpeed;
+            yield return null;
         }
+        if(comboSliderPrefab.value >= minPos && comboSliderPrefab.value <= maxPos)
+        {
+            Debug.Log("초록색 바에 위치했을 때 그래플링 시작");
+            isenemyGrapling = true;
+
+            GraplingPlayerFlip(aim.EnemyObj);
+
+            hook.position = enemyHookPos.position; //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
+
+            grapCount += 1.0f;
+
+            animPlayer.SetBool("EnemyGrapling", true);
+            animPlayer.SetFloat("EnemyGraplingCount", grapCount);
+
+            if (grapCount == 1.0f && graplingRange.isenemySkill == true)
+            {
+
+                hook.gameObject.SetActive(true);
+                hook.GetComponent<Hooking>().target = aim.EnemyObj.transform;
+
+            }
+            GrapHandling(aim.EnemyObj);
+        }
+        yield return null;
+    }
+    public void GrapHandling(GameObject enemy)
+    {
+
+        //if (comboSliderPrefab != null)
+        //{
+        //    DestroyImmediate(comboSliderPrefab.gameObject);
+        //}
+
+ 
         if (grapCount == 2.0f)
         {
-
+         
             aim.isAimEnemy = false;
 
-            hook.position = target.transform.position;
+            hook.position = enemy.transform.position;
 
-            if (instantiatedComboBar.transform.IsChildOf(GameObject.Find("UI_Canvas").transform))
-            {
-                Debug.Log("삭제"+ comboBarUI);
-                Destroy(comboBarUI);
-            }
-            StartCoroutine(LerpToTarget(target.transform, target));
+            Debug.Log("1");
+            DestroyImmediate(comboSliderPrefab.gameObject);
+
+            //Destroy(comboBarUI);
+
+            StartCoroutine(LerpToTarget(enemy.transform, enemy));
          
         }
 
