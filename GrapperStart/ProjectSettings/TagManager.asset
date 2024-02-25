@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - Hook
   - Elevator
+  - Icon
   layers:
   - Default
   - TransparentFX
