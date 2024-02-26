@@ -85,7 +85,7 @@ public class CritureController : MonoBehaviour, Enemies
         }
       
     }
-    public IEnumerator GraplingAtkDamaged()
+    public IEnumerator GraplingAtkDamaged(float damage)
     {
         Debug.Log("크리쳐가 피해를 입었다.");
         sprCr.color = Color.red;

@@ -53,7 +53,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         capsuleColl = GetComponent<CapsuleCollider2D>();
         bloodWorkerAnim = GetComponent<Animator>();
         bwSpr = GetComponent<SpriteRenderer>();
-        criture = GameObject.Find("Enemy").GetComponent<CritureController>();
+        criture = FindAnyObjectByType<CritureController>(); //나중에 이 스크립트 빼야함.
         enemies = GetComponentInParent<Enemies>();
 
 
@@ -69,12 +69,12 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
     }
 
-    public IEnumerator GraplingAtkDamaged() //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
+    public IEnumerator GraplingAtkDamaged(float damage) //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
     {
         // 데미지 처리 로직
         bwSpr.color = Color.red;
         Debug.Log("데미지를 입음");
-        bwData.DamagedHp(1);
+        bwData.DamagedHp(damage);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
         yield return new WaitForSeconds(1.0f);
         bwSpr.color = Color.white;
