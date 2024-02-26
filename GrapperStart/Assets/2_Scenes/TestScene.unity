@@ -4278,7 +4278,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521793341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.63, y: -7.16, z: 0}
+  m_LocalPosition: {x: -13.89, y: -7.16, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8284,17 +8284,20 @@ MonoBehaviour:
   grapCount: 0
   isGrap: 0
   isLerping: 0
-  lerpTime: 0.8
+  lerpTime: 0
   enemyPosition: {fileID: 0}
   enemyHookPos: {fileID: 1092360306}
   isenemyGrapling: 0
+  graplingDamage: 0
   isStop: 0
   delay: 0
   comboBarPos: {x: 50, y: 150}
-  comboSlider: {fileID: 4444858353250634089, guid: b2f663c999acd2242b0aceb970d96f84, type: 3}
+  comboSlider: {fileID: 9206310771010407858, guid: b2f663c999acd2242b0aceb970d96f84, type: 3}
   sliderSpeed: 300
   minPos: 0
   maxPos: 0
+  direction: 1
+  playerToEnemyDistance: 3
 --- !u!114 &1079117464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9470,9 +9473,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.107547104, b: 0.107547104, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -9489,7 +9492,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213388300}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

@@ -44,7 +44,7 @@ public class Grapling : MonoBehaviour
     private float grapanimdelay = 0.3f;
     public Transform enemyHookPos;
     public bool isenemyGrapling;
-
+    public float graplingDamage;
 
 
   
@@ -149,8 +149,23 @@ public class Grapling : MonoBehaviour
 
 
         if (Input.GetKeyDown(KeyCode.E) && aim.isAimEnemy)
-        {
-            SetComboSlider();
+        {       
+            if(grapCount >= 0 )
+            {
+                grapCount += 1.0f;
+                if(grapCount == 1.0f)
+                {
+                    InstanComboSlider();
+                    //SetComboSlider();
+                }
+                grapCounting();
+                
+                
+            }
+           
+            animPlayer.SetFloat("EnemyGraplingCount", grapCount);
+            animPlayer.SetBool("EnemyGrapling", true);
+
         }
     }
 
@@ -226,11 +241,6 @@ public class Grapling : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);//플레이어 회전하는 메서드 호출
 
     }
-
-
-   
-
-
 
 
     public void GraplingSkill() //링 로브젝트 기준 그래플링 스킬 
@@ -410,16 +420,9 @@ public class Grapling : MonoBehaviour
     public float minPos;
     public float maxPos;
     private RectTransform pass;
-    public void InstanComboBar()
+
+    public void InstanComboSlider()
     {
-      
-
-      
-    }
-
-    public void SetComboSlider()
-    {  // UI_Canvas를 찾기
-
         GameObject uiCanvas = GameObject.Find("UI_Canvas");
 
         if (uiCanvas != null && comboSliderPrefab == null)
@@ -434,7 +437,39 @@ public class Grapling : MonoBehaviour
         {
             Debug.LogError("UI_Canvas not found");
         }
-        Debug.Log("슬라이더 움직임 준비");
+
+        SetComboSlider();
+    }
+    public void grapCounting()
+    {
+        isenemyGrapling = true;
+
+        GraplingPlayerFlip(aim.EnemyObj);
+
+        hook.position = enemyHookPos.position;
+
+        if (grapCount == 1.0f && graplingRange.isenemySkill == true)
+        {
+            Debug.Log(grapCount + "a");
+
+            hook.gameObject.SetActive(true);
+            hook.GetComponent<Hooking>().target = aim.EnemyObj.transform;
+
+           
+            //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
+
+        }
+        else if(grapCount == 2.0f)
+        {
+            aim.isAimEnemy = false;
+
+            hook.position = aim.EnemyObj.transform.position;
+
+            //GrapHandling(aim.EnemyObj);     
+        }
+    }
+    public void SetComboSlider()
+    {  
         Transform passTransform = comboSlider.transform.GetChild(1);
         pass = passTransform as RectTransform;
 
@@ -442,78 +477,74 @@ public class Grapling : MonoBehaviour
         //슬라이더의 밸류가 초록색 바 안에 있는 지 알려면 이미지의 앵커 포지션과 델타 사이즈의 x값을 알아야 함.
         minPos = pass.anchoredPosition.x; //pass.anchoredPosition.x는 최소값을 나타내야함.
         maxPos = pass.sizeDelta.x + minPos;
+
         StartCoroutine(comboEnemyGrapling());
     }
 
+    public float direction = 1.0f;
     IEnumerator comboEnemyGrapling()
     {
-        while(!(Input.GetKeyDown(KeyCode.E)|| comboSliderPrefab .value == comboSliderPrefab.maxValue))
+        yield return null;
+
+        // 슬라이더 이동 방향
+
+        while (!(Input.GetKeyDown(KeyCode.E) || comboSliderPrefab.value == comboSliderPrefab.maxValue))
         {
-            Debug.Log("슬라이더 움직이는 중");
-            comboSliderPrefab.value += Time.deltaTime * sliderSpeed;
+
+            comboSliderPrefab.value += Time.deltaTime * sliderSpeed * direction;
+
+            // 슬라이더 값이 max값을 초과하면 이동 방향 반전
+            if (comboSliderPrefab.value >= comboSliderPrefab.maxValue)
+            {
+                direction = -1f; // 이동 방향 반전
+                comboSliderPrefab.value += Time.deltaTime * sliderSpeed * direction;
+            }
+
+            // 슬라이더 값이 min값 미만이면 이동 방향 반전
+            if (comboSliderPrefab.value <= comboSliderPrefab.minValue)
+            {
+                direction = 1f;
+                comboSliderPrefab.value += Time.deltaTime * sliderSpeed * direction;
+            }
+
             yield return null;
         }
-        if(comboSliderPrefab.value >= minPos && comboSliderPrefab.value <= maxPos)
+
+        // 슬라이더가 초록색 바에 위치 하지 않았을 떄
+        if (comboSliderPrefab.value >= minPos && comboSliderPrefab.value <= maxPos)
         {
-            Debug.Log("초록색 바에 위치했을 때 그래플링 시작");
-            isenemyGrapling = true;
-
-            GraplingPlayerFlip(aim.EnemyObj);
-
-            hook.position = enemyHookPos.position; //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
-
-            grapCount += 1.0f;
-
-            animPlayer.SetBool("EnemyGrapling", true);
-            animPlayer.SetFloat("EnemyGraplingCount", grapCount);
-
-            if (grapCount == 1.0f && graplingRange.isenemySkill == true)
-            {
-
-                hook.gameObject.SetActive(true);
-                hook.GetComponent<Hooking>().target = aim.EnemyObj.transform;
-
-            }
-            GrapHandling(aim.EnemyObj);
+            Debug.Log("슬라이더가 초록색 바에 위치 하지 않았을 떄");
+            lerpTime = 0.8f;
+            graplingDamage = 1.0f;
+            GrapHandling(aim.EnemyObj, lerpTime, graplingDamage);
         }
-        yield return null;
-    }
-    public void GrapHandling(GameObject enemy)
-    {
-
-        //if (comboSliderPrefab != null)
-        //{
-        //    DestroyImmediate(comboSliderPrefab.gameObject);
-        //}
-
- 
-        if (grapCount == 2.0f)
+        else if(comboSliderPrefab.value <= minPos || comboSliderPrefab.value >= maxPos)
         {
-         
-            aim.isAimEnemy = false;
+            Debug.Log("슬라이더가 초록색 바에 위치했을 때");
+            lerpTime = 0.5f;
+            graplingDamage = 2.0f;
+            GrapHandling(aim.EnemyObj, lerpTime, graplingDamage);
+        }
+    }
+    public void GrapHandling(GameObject enemy,float graplingTime,float damage)
+    {
+           // hook.position = enemy.transform.position;
 
-            hook.position = enemy.transform.position;
-
-            Debug.Log("1");
             DestroyImmediate(comboSliderPrefab.gameObject);
 
-            //Destroy(comboBarUI);
-
-            StartCoroutine(LerpToTarget(enemy.transform, enemy));
-         
-        }
-
+            StartCoroutine(LerpToTarget(enemy.transform, enemy, graplingTime, damage));
     }
 
-
-    IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj)
+    public float playerToEnemyDistance;
+    IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj,float graplingTime,float damage)
     {
       
         enemyPosition = targetPosition;
 
-        aim.isAimEnemy = false;
         gameObject.layer = 8;
-
+        aim.isAimEnemy = false;
+       
+        lerpTime = graplingTime;
         if (enemyObj != null)
         {
             isLerping = true;
@@ -527,21 +558,22 @@ public class Grapling : MonoBehaviour
                 //targetPosition = enemyPosition.position;
 
                 hook.position = enemyObj.transform.position;
-                transform.position = Vector3.Lerp(startingPos, enemyPosition.transform.position, Mathf.SmoothStep(0f, 1f, elapsedTime / lerpTime));
+                transform.position = Vector3.Lerp(startingPos, enemyPosition.GetChild(1).position, Mathf.SmoothStep(0f, 1f, elapsedTime / lerpTime));
                 //Mathf.SmoothStep(float edge0, float edge1, float t); -> Mathf.SmoothStep(시작 값, 끝 값 , 시작 값과 끝 값의 보간 인수)
                 // t가 0이하 일때 시작 값이며, t가 1 이상 일때 결과 값.
                 //이 함수는 특히 시작과 끝 부분을 부드럽게 만들어 중간 부분이 더 빠르게 가속되거나 감속되는 등의 효과를 생성하는 데 사용
                 //Vector3.Lerp함수와 같이 사용시 부드러워짐. 
-
+                Debug.Log(enemyPosition.GetChild(1).position + name);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
 
 
-            if (Vector2.Distance(transform.position, enemyObj.transform.position) < 3.0f)
+            if (Vector2.Distance(transform.position, enemyObj.transform.position) < playerToEnemyDistance)
             {
-                gameObject.layer = 7;
+             
+                Debug.Log("aa" + playerToEnemyDistance);
                 hook.gameObject.SetActive(false);
 
                 animPlayer.SetBool("EnemyGrapling", false);
@@ -554,7 +586,7 @@ public class Grapling : MonoBehaviour
                 Enemies enemyScript = enemyObj.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 if (enemyScript != null)
                 {
-                    StartCoroutine(enemyScript.GraplingAtkDamaged());
+                    StartCoroutine(enemyScript.GraplingAtkDamaged(damage));
                 }
                 else
                 {
@@ -564,11 +596,13 @@ public class Grapling : MonoBehaviour
 
             transform.rotation = originalRotation;
 
-
+           
             grapCount = 0.0f;
             animPlayer.SetFloat("EnemyGraplingCount", grapCount);
+            gameObject.layer = 7;
             isLerping = false; // Lerp 종료
             isenemyGrapling = false; //적 그래플링 종료
+            
         }
 
     }

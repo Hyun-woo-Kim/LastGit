@@ -6,8 +6,8 @@ using UnityEngine;
 public class BwData : ScriptableObject
 {
 
-    public int bwHp = 10;
-    public void DamagedHp(int amount)
+    public float bwHp = 10.0f;
+    public void DamagedHp(float amount)
     {
         bwHp -= amount;
     }
