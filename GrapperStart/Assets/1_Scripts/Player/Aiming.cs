@@ -71,7 +71,11 @@ public class Aiming : MonoBehaviour
                     && graplingRange.isRange && graplingRange.isobjSkill
                     && grapling.isAttatch == false) //범위 안에 있어야 하며, 범위 안에 obj가 있어야 하며 , Hook가 Ring과 충돌하지 않을때.
                 {
-                    player.playerData.curSpeed = 3.0f;
+                    if(grapling.isLerping == false)
+                    {
+                        player.playerData.curSpeed = 3.0f;
+                    }
+                   
                     //lineAim.material.mainTextureScale = new Vector2((dashLength + gapLength) / dashLength, 1f);
                     //lineAim.material.mainTextureOffset -= new Vector2(Time.deltaTime / (dashLength + gapLength), 0f);
                     lineAim.SetPosition(0, aimStarPos); //조준 시작 위치는 aimStarPos이다.
@@ -128,18 +132,6 @@ public class Aiming : MonoBehaviour
                                 hookAim.gameObject.SetActive(false);
                             }
 
-
-                            //if (Input.GetKeyDown(KeyCode.E))
-                            //{
-
-                            //    isAimEnemy = true;
-                            //    //grapling.isGrapplingActive = false;
-                            //    //grapling.GrapHandling(colliderGo);
-                            //    grapling.InstanComboBar();
-                            //    grapling.SetComboSlider();
-                            //}
-
-
                         }
 
 
@@ -156,7 +148,7 @@ public class Aiming : MonoBehaviour
             anim.SetBool("PlayerAimEnemy", false);
             grapling.iscollObj = false;
 
-            isAimEnemy = false; //슬라이더 구현 중 추가 했음. 24_2_25
+            //isAimEnemy = false; //슬라이더 구현 중 추가 했음. 24_2_25
 
             hookAim.gameObject.SetActive(false);
             MouseManager.Instance.SetCursorType(MouseManager.CursorType.Idle);
