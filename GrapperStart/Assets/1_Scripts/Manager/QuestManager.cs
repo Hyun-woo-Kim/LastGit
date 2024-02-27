@@ -29,6 +29,7 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
+        //
         foreach(Quest quest in questMap.Values)
         {
             GameEventManager.instance.questEvents.QuestStateChange(quest);
