@@ -28,12 +28,26 @@ public class QuestPoint : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.instance.questEvents.onQuestStateChange += QuestStateChange;
-        GameEventManager.instance.inputEvents
+        GameEventManager.instance.inputEvents.onSubmitPressed += SubmitPressed;
     }
 
     private void OnDisable()
     {
         GameEventManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
+        GameEventManager.instance.inputEvents.onSubmitPressed -= SubmitPressed;
+    }
+
+    //플레이어가 근처에 없으면 아무일도 없지만 근처에 있으면 이벤트3개를 모두 전송함
+    private void SubmitPressed()
+    {
+       if(!playerIsNear)
+        {
+            return;
+        }
+
+        GameEventManager.instance.questEvents.StartQuest(questId);
+        GameEventManager.instance.questEvents.AdvanceQuest(questId);
+        GameEventManager.instance.questEvents.FinishQuest(questId);
     }
 
     //퀘스트의 id가 이 퀘스트 포인트id와 일치하는지 확인
