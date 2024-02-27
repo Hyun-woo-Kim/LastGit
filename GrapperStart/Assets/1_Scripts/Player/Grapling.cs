@@ -149,22 +149,23 @@ public class Grapling : MonoBehaviour
 
 
         if (Input.GetKeyDown(KeyCode.E) && aim.isAimEnemy)
-        {       
-            if(grapCount >= 0 )
+        {
+           
+
+            if (grapCount >= 0 )
             {
                 grapCount += 1.0f;
-                if(grapCount == 1.0f)
+
+                if (grapCount == 1.0f)
                 {
                     InstanComboSlider();
-                    //SetComboSlider();
                 }
                 grapCounting();
-                
-                
             }
-           
-            animPlayer.SetFloat("EnemyGraplingCount", grapCount);
+
+
             animPlayer.SetBool("EnemyGrapling", true);
+            animPlayer.SetFloat("EnemyGraplingCount", grapCount);
 
         }
     }
@@ -173,7 +174,7 @@ public class Grapling : MonoBehaviour
     {
         if (isLerping == false)
         {
-            Transform aimPos = transform.GetChild(5);
+            Transform aimPos = transform.GetChild(6);
             line.SetPosition(0, aimPos.position);
         }
         else if (isLerping == true)
@@ -431,6 +432,8 @@ public class Grapling : MonoBehaviour
             // comboBarUI를 UI_Canvas의 하위로 설정
             comboSliderPrefab.transform.SetParent(uiCanvas.transform, false);
 
+            SetComboSlider();
+
         }
 
         else
@@ -438,10 +441,11 @@ public class Grapling : MonoBehaviour
             Debug.LogError("UI_Canvas not found");
         }
 
-        SetComboSlider();
+    
     }
     public void grapCounting()
     {
+        
         isenemyGrapling = true;
 
         GraplingPlayerFlip(aim.EnemyObj);
@@ -451,7 +455,7 @@ public class Grapling : MonoBehaviour
         if (grapCount == 1.0f && graplingRange.isenemySkill == true)
         {
             Debug.Log(grapCount + "a");
-
+            //InstanComboSlider();
             hook.gameObject.SetActive(true);
             hook.GetComponent<Hooking>().target = aim.EnemyObj.transform;
 
@@ -570,10 +574,10 @@ public class Grapling : MonoBehaviour
 
 
 
-            if (Vector2.Distance(transform.position, enemyObj.transform.position) < playerToEnemyDistance)
+            if (Vector2.Distance(transform.position, enemyPosition.position) <= playerToEnemyDistance)
             {
-             
-                Debug.Log("aa" + playerToEnemyDistance);
+                gameObject.layer = 7;
+
                 hook.gameObject.SetActive(false);
 
                 animPlayer.SetBool("EnemyGrapling", false);
@@ -599,7 +603,7 @@ public class Grapling : MonoBehaviour
            
             grapCount = 0.0f;
             animPlayer.SetFloat("EnemyGraplingCount", grapCount);
-            gameObject.layer = 7;
+            
             isLerping = false; // Lerp 종료
             isenemyGrapling = false; //적 그래플링 종료
             
