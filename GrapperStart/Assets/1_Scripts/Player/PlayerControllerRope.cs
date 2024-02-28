@@ -162,6 +162,7 @@ public class PlayerControllerRope : MonoBehaviour
 
     }
 
+    public bool isLava;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -169,6 +170,12 @@ public class PlayerControllerRope : MonoBehaviour
             isGrounded = true;
             
         }
+        if (collision.gameObject.name == "Lava")
+        {
+            Debug.Log("용암 충돌");
+            isLava = true;
+        }
+
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -178,7 +185,11 @@ public class PlayerControllerRope : MonoBehaviour
             isGrounded = false;
             
         }
-
+        if (collision.gameObject.name == "Lava")
+        {
+            Debug.Log("용암 충돌");
+            isLava = false;
+        }
     }
 
    
