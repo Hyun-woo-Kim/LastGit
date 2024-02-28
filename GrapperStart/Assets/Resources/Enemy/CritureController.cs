@@ -63,7 +63,7 @@ public class CritureController : MonoBehaviour, Enemies
             {
                 localScale();
             }
-            Debug.Log("기본 움직임 시작");
+            //Debug.Log("기본 움직임 시작");
 
             Invoke("Think", 3);//재귀
         }
@@ -145,7 +145,7 @@ public class CritureController : MonoBehaviour, Enemies
             
             if (isEnemyAttack == true)
             {
-                Debug.Log("타겟 넘김");
+                //Debug.Log("타겟 넘김");
                 Attack(targetPos);
             }
         
@@ -165,7 +165,7 @@ public class CritureController : MonoBehaviour, Enemies
     public float attackSpeed;
     void Attack(Transform target)
     {
-        Debug.Log("추격 시작");
+        //Debug.Log("추격 시작");
         
         if (transform.position.x > target.position.x)
         {
