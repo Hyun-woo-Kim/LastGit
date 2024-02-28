@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60a968d441e40bd488c66b4c1676ffe0, type: 3}
-  m_Name: Kill_Enemy
+  m_Name: CollectCoinsQuest
   m_EditorClassIdentifier: 
-  <id>k__BackingField: Kill_Enemy
-  displayName: "\uC801\uC744 \uCC98\uCE58\uD574"
+  <id>k__BackingField: CollectCoinsQuest
+  displayName: Collect the Coins!
   questStepPrefabs:
-  - {fileID: 3648532496654902464, guid: 97cf6f3a844dffc409bb1dfed74b032a, type: 3}
+  - {fileID: 5314948759837668792, guid: a722b7281a838114986b0c3fc4ac811b, type: 3}
   reward: 0

@@ -252,7 +252,7 @@ public class PlayerControllerRope : MonoBehaviour
             }
             else if (horizontalInput < 0) // else if (horizontalInput < 0 && grapling.isLerping == false)
             {
-                Debug.Log("일반적인 움직임");
+                //Debug.Log("일반적인 움직임");
                 Vector2 moveDirection = new Vector2(-horizontalInput, 0);
                 rigid.velocity = new Vector2(-moveDirection.x * playerData.curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(-1, 1, 1);
