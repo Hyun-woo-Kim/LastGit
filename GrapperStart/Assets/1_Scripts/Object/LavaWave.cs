@@ -27,6 +27,7 @@ public class LavaWave : MonoBehaviour
     {
         columns.Clear();
         float space = width / columnCount;
+        
         for(int i = 0; i< columnCount + 1; i++)
         {
             columns.Add(new LavaColumn(i * space - width * 0.5f, height, k, m, drag));
@@ -46,17 +47,9 @@ public class LavaWave : MonoBehaviour
 
     PlayerControllerRope playerScr;
 
-    private float minX = -5f;
-    private float maxX = 5f;
-    private float minY = -5f;
-    private float maxY = 5f;
+
     private void Update()
     {
-        //int? column = WorldToColumn(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        //if (Input.GetMouseButtonDown(0)&&column.HasValue)
-        //{
-        //    columns[column.Value].velocity = power;
-        //}
         MeshRenderer renderer = GetComponent<MeshRenderer>();
 
         float minX = renderer.bounds.min.x;
@@ -70,23 +63,26 @@ public class LavaWave : MonoBehaviour
         );
 
         int? column = WorldToColumn(playerScr.isLava ? playerScr.transform.position : randomPosition);
-        if (playerScr.isLava && column.HasValue)
+        if (column.HasValue) // Null Ã¼Å© Ãß°¡
         {
-            Debug.Log("Ç³µ¢");
-            columns[column.Value].velocity = isLavaPower;
-        }
-        else
-        {
-            Debug.Log("Ç³µ¢X"+ randomPosition);
-
-            columns[column.Value].velocity = isNotLavaPower;
+            if (playerScr.isLava)
+            {
+                columns[column.Value].velocity = isLavaPower;
+            }
+            else
+            {
+                columns[column.Value].velocity = isNotLavaPower;
+            }
         }
     }
+
+    public float LavaIncreaseTime;
     private void FixedUpdate()
     {
         for (int i = 0; i< columns.Count; i++)
         {
             columns[i].UpdateColum();
+            columns[i].targetHeight += Time.fixedDeltaTime * LavaIncreaseTime;
         }
         float[] leftDeltas = new float[columns.Count];
         float[] rightDeltas = new float[columns.Count];
