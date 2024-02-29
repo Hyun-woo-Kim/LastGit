@@ -269,20 +269,9 @@ public class Grapling : MonoBehaviour
             
             isLineMax = false;
 
-           
 
-            if (transform.position.x > hook.transform.position.x)
-            {
-                hookisLeft = true;
-                hookisRight = false;
-                hook.GetComponent<Hooking>().hookSpr.flipX = false;
-            }
-            else if (transform.position.x < hook.transform.position.x)
-            {
-                hookisRight = true;
-                hookisLeft = false;
-                hook.GetComponent<Hooking>().hookSpr.flipX = true;
-            }
+
+            hookRightLeft();
 
 
         }
@@ -346,8 +335,8 @@ public class Grapling : MonoBehaviour
                 if (isEKeyHeld)
                 {
                     // E 키가 놓였을 때 실행할 코드
-
-                    PlayerGraplingAnimCount++;
+                    hookRightLeft();
+                    //PlayerGraplingAnimCount++;
 
                     isFlyReady = true;
                     isStop = true;
@@ -381,7 +370,17 @@ public class Grapling : MonoBehaviour
         {
             transform.rotation = originalRotation;
             Debug.Log("공중제비 중");
-            animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
+            if(hookisLeft)
+            {
+                PlayerGraplingAnimCount = 1.0f;
+                animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
+            }
+            else if(hookisRight )
+            {
+                PlayerGraplingAnimCount = -1.0f;
+                animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
+            }
+
 
             GameObject playerObj = GameObject.Find("Player");
             Transform playerArm = playerObj.transform.GetChild(7);
@@ -406,7 +405,22 @@ public class Grapling : MonoBehaviour
 
     }
 
-
+    public void hookRightLeft()
+    {
+        Debug.Log("후크 왼쪽 , 오른쪽 판별");
+        if (transform.position.x > hook.transform.position.x)
+        {
+            hookisLeft = true;
+            hookisRight = false;
+            hook.GetComponent<Hooking>().hookSpr.flipX = false;
+        }
+        else if (transform.position.x < hook.transform.position.x)
+        {
+            hookisRight = true;
+            hookisLeft = false;
+            hook.GetComponent<Hooking>().hookSpr.flipX = true;
+        }
+    }
     public bool isStop;
     public float delay;
     //1. 오브젝트 걸린 상태. 2. e키를 누름 . 3.공중제비 시작. 4. playerArm과 hook이 가까워지면 두 오브젝트 삭제.

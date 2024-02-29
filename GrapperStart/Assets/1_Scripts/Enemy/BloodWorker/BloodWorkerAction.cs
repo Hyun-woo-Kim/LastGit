@@ -8,7 +8,7 @@ public enum BloodState
     STATE_STOP,
     STATE_FOLLOW,
     STATE_DIE,
-    STATE_TEAMROCKATTACK,
+    STATE_TEAMFOLLOW,
 }
 
 
@@ -43,8 +43,9 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     public float followSpeed = 1.0f;
     public GameObject rockPref;
     public Transform rockPos;
-    [Header("##Bw Interaction")]
+    [Header("##Bw Team Interaction")]
     public bool hasThrownRock;
+    public bool isMyTeam;
     [Header("##Is Reaction")]
     public bool isReact;
     public Sprite reactSprite;
@@ -112,7 +113,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         Component bwState = gameObject.GetComponent<BloodWorkerState>();
         Component bwAttackReady = gameObject.GetComponent<BloodWorkerAttackReady>();
         Transform renchChild = transform.GetChild(4);
-        Transform handChild = transform.GetChild(5);
         if (bwState != null)
         {
             Destroy(bwState);
@@ -128,7 +128,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 if (myState == null)
                 {
                     myState = gameObject.AddComponent<BloodWorkerPatrol>();
-                    handChild.gameObject.SetActive(false);
                     renchChild.gameObject.SetActive(false);
                     myState.Patrol(_bloodState, patrolSpeed, patrolDistance, patrolDirection, startPosition);
                 }
@@ -136,7 +135,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
             case BloodState.STATE_STOP:
                 myState = gameObject.AddComponent<BloodWorkerPatrol>();
                 myState.Stop(_bloodState);
-                handChild.gameObject.SetActive(false);
                 renchChild.gameObject.SetActive(false);
                 StartCoroutine(PatTrolTurn());
                 break;
@@ -145,30 +143,25 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 {
                     myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
 
-                    handChild.gameObject.SetActive(true);
-
+                    Debug.Log("B");
                     StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos)); //투사체 던지기.
                     this.bloodState = BloodState.STATE_FOLLOW;
+                    return;
                 }
                 break;
-            case BloodState.STATE_TEAMROCKATTACK:
+            case BloodState.STATE_TEAMFOLLOW:
                 if (myAttackState == null)
                 {
                     myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
-
-                    handChild.gameObject.SetActive(true);
-
-                    StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos)); //투사체 던지기.
-                        this.bloodState = BloodState.STATE_FOLLOW;
-                   
+                    this.bloodState = BloodState.STATE_FOLLOW;             
                 }
                 break;
             case BloodState.STATE_FOLLOW:
                 FollowPlayer();
                 Collider2D[] coliderRench = Physics2D.OverlapBoxAll(renchAttackPos.position, renchAttackSize, 0);
                 myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
-                if(isTargetPlayer)
-                {
+                if (isTargetPlayer)
+                {         
                     renchChild.gameObject.SetActive(true);
                     myAttackState.RenchAttack(bloodState, coliderRench, bloodWorkerAnim);
                 }
@@ -177,27 +170,25 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
         }
     }
-    
 
+   
     void Update()
     {
         Transform thirdChild = transform.GetChild(3);
         SpriteRenderer spriteRenderer = thirdChild.GetComponent<SpriteRenderer>();
         PatrolReaction(spriteRenderer);
 
-        if (criture.isEnemyAttack == true && !hasThrownRock)
+        if (criture.isEnemyAttack == true)
         {
             Debug.Log("아군 발견");
+            isMyTeam = true;
             target = criture.targetPos;
             FlipEnemy(target);
-            bloodWorkerAnim.SetTrigger("BWRockAttack");
-            setActionType(BloodState.STATE_TEAMROCKATTACK);//돌멩이 투척상태
-
-            hasThrownRock = true;
-            //StartCoroutine(teamEnemySkill());
+            setActionType(BloodState.STATE_TEAMFOLLOW);//아군이 적 발견시 추격상태
         }
         else if(criture.isEnemyAttack == false)
         {
+            isMyTeam = false;
             hasThrownRock = false;
         }
 
@@ -222,9 +213,9 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
             case BloodState.STATE_ROCKATTACK:
                 setActionType(BloodState.STATE_ROCKATTACK);
                 break;
-             case BloodState.STATE_TEAMROCKATTACK:
-                setActionType(BloodState.STATE_TEAMROCKATTACK);
-                break; ;
+             case BloodState.STATE_TEAMFOLLOW:
+                setActionType(BloodState.STATE_TEAMFOLLOW);
+                break; 
             case BloodState.STATE_FOLLOW:
                 PatrolRange();
                 setActionType(BloodState.STATE_FOLLOW);
@@ -285,16 +276,25 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         if ((isTargetPlayer && bloodState == BloodState.STATE_PATROL ))//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
         {
             Debug.Log("적 발견");
-             FlipEnemy(target);
+            FlipEnemy(target);
             bloodWorkerAnim.SetTrigger("BWRockAttack");
             this.bloodState = BloodState.STATE_ROCKATTACK; //돌멩이 투척상태
-
+            return;
         }
         else if (isTargetPlayer == false && criture.isEnemyAttack == false)
         {
             this.bloodState = BloodState.STATE_PATROL;
         }
-        
+        else if (!hasThrownRock && isTargetPlayer && isMyTeam && bloodState == BloodState.STATE_FOLLOW)
+        {
+            Debug.Log("A");
+            bloodWorkerAnim.SetTrigger("BWRockAttack");
+            myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
+            StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos));
+            hasThrownRock = true;
+            return;
+        }
+
     }
 
 
