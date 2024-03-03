@@ -82,7 +82,11 @@ public class LavaWave : MonoBehaviour
         for (int i = 0; i< columns.Count; i++)
         {
             columns[i].UpdateColum();
-            columns[i].targetHeight += Time.fixedDeltaTime * LavaIncreaseTime;
+            if(columns[i].targetHeight < 20.0f)
+            {
+                columns[i].targetHeight += Time.fixedDeltaTime * LavaIncreaseTime;
+            }
+          
         }
         float[] leftDeltas = new float[columns.Count];
         float[] rightDeltas = new float[columns.Count];
@@ -170,6 +174,8 @@ public class LavaWave : MonoBehaviour
         }
         public void UpdateColum()
         {
+            
+
             float a = -k / m * (height - targetHeight); //용수철 만들기
             velocity += a; //가속도를 계산하고 속도를 추가
             velocity -= drag * velocity; //공기저항 만들기

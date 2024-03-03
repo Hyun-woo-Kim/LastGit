@@ -40,7 +40,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     public Vector2 renchAttackSize;
     public bool isTargetPlayer;
     public Transform target;
-    public float followSpeed = 1.0f;
+    public float followSpeed;
     public GameObject rockPref;
     public Transform rockPos;
     [Header("##Bw Team Interaction")]
@@ -68,6 +68,19 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         startPosition = transform.position;
         patrolDirection = Vector2.right;
 
+    }
+
+    public void  EnemySet()//플레이어가 전등 조준하지 않았을 때 초기값
+    {
+        Debug.Log("플레이어가 전등을 조준 하지 않음");
+        patrolSpeed = 2.0f;
+        
+    }
+    public void SpeedDown() //플레이어가 전등 조준시 속도 낮추는 함수
+    {
+        Debug.Log("플레이어가 전등을 조준 함");
+        patrolSpeed = 0.5f;
+        followSpeed = 0.1f;
     }
 
     public IEnumerator GraplingAtkDamaged(float damage) //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
@@ -350,5 +363,5 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         Gizmos.DrawWireCube(renchAttackPos.position, renchAttackSize);//DrawWireCube(pos.position,boxsize)      
     }
 
- 
+
 }

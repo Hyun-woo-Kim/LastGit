@@ -26,6 +26,16 @@ public class CritureController : MonoBehaviour, Enemies
         aiMoveCriture();
         EnemyToAttack();
     }
+
+    public void EnemySet()
+    {
+        speedCr = 5.0f;
+    }
+    public void SpeedDown()//인터페이스 Enemies를 통해 구현해야 할 전등 조준시 속도 낮추는 메서드.
+    {
+        speedCr = 2.0f;
+    }
+
     public void PlayerToDamaged() //인터페이스 Enemies를 통해 구현해야 할 플레이어에게 데미지 주는 메서드.
     {
         Debug.Log("플레이어 타격");
@@ -44,7 +54,7 @@ public class CritureController : MonoBehaviour, Enemies
         {
             speedCr = 5.0f;
         }
-        //rigidCr.velocity = new Vector2(moveCr * speedCr, rigidCr.velocity.y); Test용
+        rigidCr.velocity = new Vector2(moveCr * speedCr, rigidCr.velocity.y); 
         animEnemy.SetFloat("PosionX", moveCr);
     }
 
@@ -190,5 +200,5 @@ public class CritureController : MonoBehaviour, Enemies
         Gizmos.DrawWireCube(Enemyattackpos.position, EnemyattackBoxSize);//DrawWireCube(pos.position,boxsize) 
     }
 
-
+    
 }

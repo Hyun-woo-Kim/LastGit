@@ -12,6 +12,7 @@ public class SingleTonSetting : MonoBehaviour //메인카메라에 들어있음.
         DialogueManager.Instance.DialogueSingleTonSet();
         GrapplingObjManager.Instance.ObjManagerSingleTonSet();
         SelectManager.Instance.SelectSingleTonSet();
+        ScenesManager.Instance.SceneSingleTonSet();
     }
 
     // Update is called once per frame

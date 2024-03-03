@@ -54,7 +54,7 @@ public class Hooking : MonoBehaviour
         if (grappling.isHookActive)
         {
             Debug.Log("HOOK이 돌아간다");
-            //transform.rotation = grappling.transform.rotation;
+            transform.rotation = grappling.transform.rotation;
            
         }
 
