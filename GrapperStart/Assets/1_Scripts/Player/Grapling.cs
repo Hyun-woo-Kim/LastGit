@@ -305,27 +305,32 @@ public class Grapling : MonoBehaviour
         }
         else if (isAttatch == true)
         {
+          
             RotPlayerArm();
             RotPlayer();
           
             player.SwingPlayer();
+
+            
             PlayerGraplingAnimCount = 0.0f;
             line.SetPosition(0, playerArm.position);
 
             animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
             animPlayer.SetBool("PlayerGrapling", true);
-            
+          
             if (Input.GetKey(KeyCode.E) && isAttatch) //공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             {
+                 rotation = transform .rotation.eulerAngles;
 
-
+                // z값 출력하기
+                
                 if (!isEKeyHeld)
                 {
                     // E 키가 처음으로 눌렸을 때 실행할 코드
 
                     isEKeyHeld = true;
                 }
-
+;
                 // E 키를 누르고 있는 동안 계속 실행할 코드
                 eKeyHoldTime += Time.deltaTime;
 
@@ -335,7 +340,7 @@ public class Grapling : MonoBehaviour
                 if (isEKeyHeld)
                 {
                     // E 키가 놓였을 때 실행할 코드
-                    hookRightLeft();
+                    hookDetailDir();
                     //PlayerGraplingAnimCount++;
 
                     isFlyReady = true;
@@ -369,18 +374,20 @@ public class Grapling : MonoBehaviour
         if (isFlyReady == true)
         {
             transform.rotation = originalRotation;
-            Debug.Log("공중제비 중");
-            if(hookisLeft)
+
+            if (hookisLeft)
             {
+                Debug.Log("왼쪽 공중제비 애니메이션" + rotation.z);
                 PlayerGraplingAnimCount = 1.0f;
                 animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
             }
-            else if(hookisRight )
+            else if(hookisRight )//후크는 오른쪽
             {
+                Debug.Log("오른쪽 공중제비 애니메이션" + rotation.z);
                 PlayerGraplingAnimCount = -1.0f;
                 animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
             }
-
+            
 
             GameObject playerObj = GameObject.Find("Player");
             Transform playerArm = playerObj.transform.GetChild(7);
@@ -394,7 +401,6 @@ public class Grapling : MonoBehaviour
             if (verticalDistanceToGround < 3f && player.isFlyAction == true)
             {
                 Debug.Log("공중제비 후 바닥에 닿기 직전 공중제비 종료");
-
                 player.isFlyAction = false;
                 isFlyReady = false;
                 animPlayer.SetBool("PlayerGrapling", false);
@@ -404,12 +410,44 @@ public class Grapling : MonoBehaviour
 
 
     }
-
+    Vector3 rotation;
+    void hookDetailDir()
+    {
+        if (transform.localScale.x == 1)
+        {
+            Debug.Log("후크 왼쪽 , 오른쪽 판별");
+            if ((rotation.z >= 0.0f && rotation.z <= 90.0f) || (rotation.z > 180.0f && rotation.z < 270.0f))
+            {
+                hookisLeft = true;
+                hookisRight = false;
+            }
+            else if ((rotation.z > 90.0f && rotation.z < 180.0f) || (rotation.z < 360.0f && rotation.z > 270.0f))//후크는 오른쪽
+            {
+                hookisRight = true;
+                hookisLeft = false;
+            }
+        }
+        else if(transform.localScale.x == -1)
+        {
+            if ((rotation.z >= 0.0f && rotation.z <= 90.0f) || (rotation.z > 180.0f && rotation.z < 270.0f))
+            {
+                hookisRight = true;
+                hookisLeft = false;
+            }
+            else if ((rotation.z > 90.0f && rotation.z < 180.0f) || (rotation.z < 360.0f && rotation.z > 270.0f))//후크는 오른쪽
+            {
+                hookisLeft = true;
+                hookisRight = false;
+            }
+        }
+       
+    }
     public void hookRightLeft()
     {
-        Debug.Log("후크 왼쪽 , 오른쪽 판별");
+    
         if (transform.position.x > hook.transform.position.x)
         {
+           
             hookisLeft = true;
             hookisRight = false;
             hook.GetComponent<Hooking>().hookSpr.flipX = false;

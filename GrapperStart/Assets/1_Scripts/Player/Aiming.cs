@@ -31,7 +31,7 @@ public class Aiming : MonoBehaviour
         //initialAimPos = playerAimPos;
 
 
-
+        
     }
 
     //public Material dashedLineMaterial; // 점선 이미지를 사용한 머티리얼
@@ -48,6 +48,7 @@ public class Aiming : MonoBehaviour
 
  
     public bool isAimEnemy = false;
+    public bool isAimRing = false;
     public bool isGrapplingReady = false;
 
     public GameObject EnemyObj;
@@ -92,6 +93,7 @@ public class Aiming : MonoBehaviour
                         if (collider.CompareTag("Ring") && isAimEnemy == false && grapling.isFlyReady == false && grapling.isHookActive == false)
                         {
                             targetRing = collider.transform;
+                            isAimRing = true;
                             Debug.Log("b");
 
                             grapling.iscollObj = true;
@@ -101,7 +103,8 @@ public class Aiming : MonoBehaviour
                             Vector3 aimEndPos = collider.transform.position;
                             hookAim.position = aimEndPos;
                             lineAim.SetPosition(1, aimEndPos); //조준 마지막 위치는 aimEndPos(충돌한 오브젝트)이다.
-             
+
+                            ScenesManager.Instance.FindEnemiesInScene();
                             MouseManager.Instance.SetCursorType(MouseManager.CursorType.objIdle);
                         }
 
@@ -142,15 +145,15 @@ public class Aiming : MonoBehaviour
         }
         if (hit.collider == null || grapling.isAttatch) //링에 걸려있거나 마우스 포인터와 충돌하지 않았다면 
         {
-            player.playerData.curSpeed = player.InitSpeed;
+            player.playerData.curSpeed = player.InitSpeed; //플레이어가 링을 조준하지 않았을 때 원래 스피드로 돌아감.
+            isAimRing = false;
             isGrapplingReady = false;
             anim = GetComponent<Animator>();
             anim.SetBool("PlayerAimEnemy", false);
             grapling.iscollObj = false;
 
-            //isAimEnemy = false; //슬라이더 구현 중 추가 했음. 24_2_25
-
             hookAim.gameObject.SetActive(false);
+            ScenesManager.Instance.FindEnemiesInScene();
             MouseManager.Instance.SetCursorType(MouseManager.CursorType.Idle);
 
        

@@ -10,6 +10,8 @@ public interface Enemies
 
     public abstract IEnumerator Died();
 
+    public abstract void SpeedDown();
+    public abstract void EnemySet();
   
 
 
