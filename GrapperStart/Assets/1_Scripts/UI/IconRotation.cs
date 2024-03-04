@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems; //지시문 추가
 
-public class IconRotation : MonoBehaviour
+public class IconRotation : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image image; // 이미지 UI
     public Color defaultColor; // 기본 색상
@@ -12,19 +12,28 @@ public class IconRotation : MonoBehaviour
     public Animator animator;
     public Slider slider;
 
-   
-
-    private void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        image.color = highlightColor;
-
-        animator.SetTrigger("OnMouseEnter");
+        if(slider.value >=3)
+        {
+            animator.SetBool("MouseBool",true);
+        }
+        else
+        {
+            animator.SetBool("MouseBool", false);
+        }
+       
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
-        image.color = defaultColor;
-        animator.ResetTrigger("OnMouseEnter");
+        if(slider.value >=3)
+        {
+            animator.SetBool("MouseBool", false);
+        }
     }
+
+
+
 }
 
