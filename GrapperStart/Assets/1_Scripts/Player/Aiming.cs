@@ -176,7 +176,7 @@ public class Aiming : MonoBehaviour
 
     }
 
-
+    
     public Vector2 aimMousedir;
     public float aimLength;
     public Transform targetRing;
