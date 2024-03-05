@@ -42,13 +42,11 @@ public class BManAction : MonoBehaviour,Enemies
 
         BManim.SetTrigger("BmNockBack");
         yield return new WaitForSeconds(0.5f);
-        hand.gameObject.SetActive(true);
         for (int i =0; i< 2; i++)
         {
             BManim.SetTrigger("BmHandAttack");
             yield return new WaitForSeconds(0.5f);
         }
-        hand.gameObject.SetActive(false);
         isDamage = false;
     }
 
@@ -82,25 +80,21 @@ public class BManAction : MonoBehaviour,Enemies
         {
             if(collider.CompareTag("Player"))
             {
+                Vector2 colliderBm = new Vector2(1.3f, 3.0f);
+                collder.size = colliderBm;
                 target = collider.transform;
                 isFindPlayer = true;
 
                 if (!hasAttacked)
                 {
                     Debug.Log("A");
-                    hand.gameObject.SetActive(true);
-                    BManim.SetTrigger("BmBoomHandAttack");
-                    StartCoroutine(stopMove());
-
+                    StartCoroutine(StopAttack());
                 }
             }
         }
 
-        if(isFindPlayer)
+        if(isFindPlayer && isMove)
         {
-            Debug.Log("B");
-            hasAttacked = true;
-           
             BmMove();
 
         }
@@ -111,21 +105,24 @@ public class BManAction : MonoBehaviour,Enemies
         }
      
     }
-    IEnumerator stopMove()
-    {
-
-        Debug.Log("C");
-        yield return new WaitForSeconds(delay);
-        hand.gameObject.SetActive(false);
-        isMove = true;
-
-        Debug.Log("D");
-    }
     public float delay;
+
+    IEnumerator StopAttack()
+    {
+        BManim.SetTrigger("BmBoomHandAttack");
+        hasAttacked = true;
+        isMove = false;
+        followSpeed = 0.0f;
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("1");
+        followSpeed = 0.5f;
+        isMove = true;
+        Debug.Log("2");
+    }
     void BmMove()
     {
-        Debug.Log("E");
-        if (isDamage == false && isMove)
+
+        if (isDamage == false)
         {
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
             BManim.SetBool("BmMove", true);
