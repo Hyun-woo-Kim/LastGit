@@ -13,6 +13,8 @@ public class BManAction : MonoBehaviour,Enemies
         BManim = GetComponent<Animator>();
         collder = GetComponent<CapsuleCollider2D>();
         Bmrigid = GetComponent<Rigidbody2D>();
+        hand = transform.GetChild(2);
+        hand.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,6 +28,7 @@ public class BManAction : MonoBehaviour,Enemies
     public Transform target;
     public bool isFindPlayer;
     public float followSpeed;
+    Transform hand;
 
     public IEnumerator GraplingAtkDamaged(float damage)
     {
@@ -36,15 +39,16 @@ public class BManAction : MonoBehaviour,Enemies
     public IEnumerator baseDamaged()
     {
         bmdata.DamagedHp(1);
-        // BManim.SetTrigger("BmNockBack");
 
         BManim.SetTrigger("BmNockBack");
-        for (int i =0; i< 3; i++)
+        yield return new WaitForSeconds(0.5f);
+        hand.gameObject.SetActive(true);
+        for (int i =0; i< 2; i++)
         {
-        
             BManim.SetTrigger("BmHandAttack");
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
         }
+        hand.gameObject.SetActive(false);
         isDamage = false;
     }
 
@@ -68,6 +72,8 @@ public class BManAction : MonoBehaviour,Enemies
        
     }
 
+    public bool hasAttacked;
+    public bool isMove;
     void FindedPlayer()
     {
         isFindPlayer = false;
@@ -78,24 +84,54 @@ public class BManAction : MonoBehaviour,Enemies
             {
                 target = collider.transform;
                 isFindPlayer = true;
+
+                if (!hasAttacked)
+                {
+                    Debug.Log("A");
+                    hand.gameObject.SetActive(true);
+                    BManim.SetTrigger("BmBoomHandAttack");
+                    StartCoroutine(stopMove());
+
+                }
             }
         }
+
         if(isFindPlayer)
         {
+            Debug.Log("B");
+            hasAttacked = true;
+           
             BmMove();
-        }
-    }
 
+        }
+        else if (!isFindPlayer && hasAttacked)
+        {
+            hasAttacked = false;
+            isMove = false;
+        }
+     
+    }
+    IEnumerator stopMove()
+    {
+
+        Debug.Log("C");
+        yield return new WaitForSeconds(delay);
+        hand.gameObject.SetActive(false);
+        isMove = true;
+
+        Debug.Log("D");
+    }
+    public float delay;
     void BmMove()
     {
-        transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
-        if(isDamage == false)
+        Debug.Log("E");
+        if (isDamage == false && isMove)
         {
+            transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
             BManim.SetBool("BmMove", true);
         }
       
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
