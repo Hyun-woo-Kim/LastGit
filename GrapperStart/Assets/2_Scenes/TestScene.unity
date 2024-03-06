@@ -2773,7 +2773,6 @@ GameObject:
   - component: {fileID: 336291284}
   - component: {fileID: 336291286}
   - component: {fileID: 336291285}
-  - component: {fileID: 336291287}
   - component: {fileID: 336291288}
   m_Layer: 5
   m_Name: Player_Icon
@@ -2840,23 +2839,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336291283}
   m_CullTransparentMesh: 1
---- !u!114 &336291287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336291283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5d57fcb1d4eca4e806389575c83942, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 120119272}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightColor: {r: 0, g: 0, b: 0, a: 0}
-  animator: {fileID: 0}
-  slider: {fileID: 85640154}
 --- !u!114 &336291288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19191,7 +19173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5d57fcb1d4eca4e806389575c83942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 336291285}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
   highlightColor: {r: 0, g: 0, b: 0, a: 0}
   animator: {fileID: 120119275}
