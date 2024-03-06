@@ -20,15 +20,25 @@ public class QuestManager : MonoBehaviour
     }
 
     //킬관련 퀘스트 타입에 어떤 적을 처치, 아이템 획득했는데 어떤 아이템인지
-    //public void ProcessQuest(QuestType type, int targetId)
-    //{
+    public void ProcessQuest(QuestType type, int targetId)
+    {
 
-    //    foreach (QuestObject questObject in questDatabase.questObjects)
-    //    {
-    //        if (questObject.status == QuestStatus.Accepted 
-    //            && questObject.data.type == type && UQ);
-    //    }
-    //}
+        foreach (QuestObject questObject in questDatabase.questObjects)
+        {
+            //3가지 모두가 충족하면 내가 퀘스트를 진행중이라는 것을 확인
+            if (questObject.status == QuestStatus.Accepted
+                && questObject.data.type == type && questObject.data.targetID == targetId)
+            {
+                questObject.data.completedCount++;
+
+                if(questObject.data.completedCount >= questObject.data.count)
+                {
+                    questObject.status = QuestStatus.Completed;
+                    OnCompletedQuest?.Invoke(questObject); //어떠한 퀘스트가 완료되었다라는뜻
+                }
+            }
+        }
+    }
 
 
 
