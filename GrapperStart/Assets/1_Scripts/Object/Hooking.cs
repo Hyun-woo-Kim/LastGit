@@ -41,11 +41,13 @@ public class Hooking : MonoBehaviour
         //{
         //    Debug.LogWarning("Aiming component or aimMousedir is null!");
         //}
-        Vector3 playerdir = transform.position - aiming.transform.position;
-        float hookangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.AngleAxis(hookangle - 90f, Vector3.forward);
-        Debug.Log(targetRotation);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);//플레이어 회전하는 메서드 호출
+
+        //3.6 수정
+        //Vector3 playerdir = transform.position - aiming.transform.position;
+        //float hookangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
+        //Quaternion targetRotation = Quaternion.AngleAxis(hookangle - 90f, Vector3.forward);
+        //Debug.Log(targetRotation);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);//플레이어 회전하는 메서드 호출
 
     }
 
