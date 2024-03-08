@@ -41,6 +41,7 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isDamage;
     public IEnumerator baseDamaged()
     {
+        isMove = false;
         if(bmdata.bmHp <= float.Epsilon)
         {
             StartCoroutine(Died());
@@ -50,16 +51,17 @@ public class BManAction : MonoBehaviour,Enemies
         
         BManim.SetBool("BmAtk", true);
         BManim.SetFloat("BmAtkCount", -1.0f);
-        yield return new WaitForSeconds(0.5f);
+
         for (int i =0; i< 2; i++)
         {
            BManim.SetFloat("BmAtkCount", 0.0f);                 
-           yield return new WaitForSeconds(0.8f);
+           yield return new WaitForSeconds(0.5f);
             Debug.Log("잽 공격");
         }
         
-        BManim.SetBool("BmAtk", false);
+        //BManim.SetBool("BmAtk", false);
         isDamage = false;
+        isMove = true;
     }
 
     public void PlayerToDamaged()
@@ -70,14 +72,29 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isDied;
     public IEnumerator Died()
     {
-        Debug.Log("죽음");
-        //Vector2 direction = (target.position - transform.position).normalized;
 
-        // 플레이어 방향으로 이동
-        BManim.SetTrigger("BmBoomMove");
-        transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        Debug.Log("죽음");
         isDied = true;
-        yield return null;
+        BManim.SetTrigger("BmBoomMove");
+        Debug.Log(target.position);
+
+        float elapsedTime = 0f;
+        Vector2 initialPosition = transform.position;
+
+        while (!isColliderPlayer && elapsedTime < 1.0f)
+        {
+            transform.position = Vector2.Lerp(initialPosition, target.position, elapsedTime);
+            elapsedTime += Time.deltaTime * moveSpeed;
+
+            yield return null;
+        }
+
+        if (isColliderPlayer)
+        {
+           
+            DestroyBM(1.0f);
+        }
+
     }
 
     public void SpeedDown()
@@ -117,6 +134,7 @@ public class BManAction : MonoBehaviour,Enemies
 
         if(isFindPlayer && isMove)
         {
+            BManim.SetBool("BmAtk", false);
             BmMove();
 
         }
@@ -125,15 +143,29 @@ public class BManAction : MonoBehaviour,Enemies
             hasAttacked = false;
             isMove = false;
         }
+        //if(isDied)
+        //{
+        //    BManim.SetTrigger("BmBoomMove");
+        //    Debug.Log(target.position);
+        //    transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * moveSpeed);
+        //    if(isColliderPlayer)
+        //    {
+        //        DestroyBM(1.0f);
+        //    }
+        //}
 
      
+    }
+
+    void DestroyBM(float delay)
+    {
+        Destroy(this.gameObject, delay);
     }
     public float delay;
     IEnumerator Find()
     {
         //움직이기 전
         hasFoundPlayer = true;
-        Debug.Log("움직이기 전");
         BManim.SetTrigger("BmFinded");
         BManim.SetFloat("BmAnimCount",0.0f);
         yield return new WaitForSeconds(1.0f);
@@ -156,7 +188,7 @@ public class BManAction : MonoBehaviour,Enemies
         {
             if (collider.CompareTag("Player"))
             {
-                if (!hasAttacked)
+                if (!hasAttacked && !isDamage)
                 {
                     StartCoroutine(StopAttack());
                 }
@@ -165,46 +197,43 @@ public class BManAction : MonoBehaviour,Enemies
     }
     IEnumerator StopAttack()
     {
-       
-        if(isDamage == false)
+        isMove = false;
+
+        if (isDamage == false)
         {
             Debug.Log("강화 잽 공격");
             BManim.SetBool("BmAtk", true);
             BManim.SetFloat("BmAtkCount", 1.0f);
-        }
-        
-        isMove = false;
+        }   
         hasAttacked = true;
-        followSpeed = 0.0f;
         yield return new WaitForSeconds(1.0f);
-        BManim.SetBool("BmAtk", false);
-        BManim.SetFloat("BmAnimCount", 1.0f);
-        followSpeed = 0.5f;
+        //BManim.SetBool("BmAtk", false);
         hasAttacked = false;
         isMove = true;
     }
     void BmMove()
     {
 
-        if (isDamage == false)
+        if (isDamage == false && isDied == false)
         {
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
-            if (isDamage == false)
+            if (!BManim.GetBool("BmAtk"))
             {
+                Debug.Log("이동 중");
                 BManim.SetFloat("BmAnimCount", 1.0f);
             }
         }
       
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    public bool isColliderPlayer;
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collider.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if(isDied)
-            {
-                Destroy(this.gameObject);
-            }
+            isColliderPlayer = true;
+
+
         }
     }
 
