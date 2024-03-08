@@ -14,7 +14,8 @@ public class BManAction : MonoBehaviour,Enemies
         collder = GetComponent<CapsuleCollider2D>();
         Bmrigid = GetComponent<Rigidbody2D>();
         hand = transform.GetChild(2);
-        hand.gameObject.SetActive(false);
+        //hand.gameObject.SetActive(false);
+        Debug.Log(hand.gameObject.name);
     }
 
     // Update is called once per frame
@@ -28,7 +29,8 @@ public class BManAction : MonoBehaviour,Enemies
     public Transform target;
     public bool isFindPlayer;
     public float followSpeed;
-    Transform hand;
+
+    public Transform hand;
 
     public IEnumerator GraplingAtkDamaged(float damage)
     {
@@ -84,12 +86,9 @@ public class BManAction : MonoBehaviour,Enemies
                 collder.size = colliderBm;
                 target = collider.transform;
                 isFindPlayer = true;
-
-                if (!hasAttacked)
-                {
-                    Debug.Log("A");
-                    StartCoroutine(StopAttack());
-                }
+                FunchCollider();
+                StartCoroutine(Find());
+           
             }
         }
 
@@ -103,29 +102,64 @@ public class BManAction : MonoBehaviour,Enemies
             hasAttacked = false;
             isMove = false;
         }
+
      
     }
     public float delay;
+    IEnumerator Find()
+    {
+        Debug.Log("움직이기 전");
+        BManim.SetBool("BmFind",true);
+        BManim.SetFloat("BmAnimCount",0.0f);
+        yield return new WaitForSeconds(2.0f);
+        isMove = true;
+        Debug.Log("움직이기 시작");
+    }
 
+    public Transform Punchboxpos;
+    public Vector2 PunchboxSize;
+
+    void FunchCollider()
+    {
+        Debug.Log("0");
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.transform.position, PunchboxSize, 0);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                //hand.gameObject.SetActive(true);
+                Debug.Log("AA");
+                if (!hasAttacked)
+                {
+
+                    StartCoroutine(StopAttack());
+                }
+            }
+        }
+    }
     IEnumerator StopAttack()
     {
-        BManim.SetTrigger("BmBoomHandAttack");
-        hasAttacked = true;
+        Debug.Log("2");
+        BManim.SetBool("BmBoomHandAtk",true);
         isMove = false;
+        hasAttacked = true;
         followSpeed = 0.0f;
         yield return new WaitForSeconds(1.0f);
-        Debug.Log("1");
+        BManim.SetBool("BmBoomHandAtk", false);
         followSpeed = 0.5f;
-        isMove = true;
-        Debug.Log("2");
+        hasAttacked = false;
+        isMove = true; 
+        
+        Debug.Log("3");
     }
     void BmMove()
     {
 
         if (isDamage == false)
         {
+            Debug.Log("추적 중");
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
-            BManim.SetBool("BmMove", true);
+            BManim.SetFloat("BmAnimCount", 1.0f);
         }
       
     }
@@ -134,6 +168,7 @@ public class BManAction : MonoBehaviour,Enemies
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireCube(Findboxpos.position, FindboxSize);//DrawWireCube(pos.position,boxsize)          
+        Gizmos.DrawWireCube(Punchboxpos.position, PunchboxSize);//DrawWireCube(pos.position,boxsize)          
     }
 
 
