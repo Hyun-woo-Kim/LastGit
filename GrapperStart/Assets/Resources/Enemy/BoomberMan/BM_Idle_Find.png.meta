@@ -125,7 +125,7 @@ TextureImporter:
         width: 500
         height: 500
       alignment: 9
-      pivot: {x: 0.57375926, y: 0.38198486}
+      pivot: {x: 0.61799127, y: 0.41147265}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,7 +162,7 @@ TextureImporter:
       name: BM_Idle_Find_2
       rect:
         serializedVersion: 2
-        x: 1004
+        x: 1008
         y: 500
         width: 500
         height: 500
