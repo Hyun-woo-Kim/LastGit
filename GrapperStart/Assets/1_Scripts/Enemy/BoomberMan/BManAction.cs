@@ -29,6 +29,7 @@ public class BManAction : MonoBehaviour,Enemies
     public Transform target;
     public bool isFindPlayer;
     public float followSpeed;
+    public float moveSpeed;
 
     public Transform hand;
 
@@ -40,15 +41,24 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isDamage;
     public IEnumerator baseDamaged()
     {
+        if(bmdata.bmHp <= float.Epsilon)
+        {
+            StartCoroutine(Died());
+        }
+        isDamage = true;
         bmdata.DamagedHp(1);
-
-        BManim.SetTrigger("BmNockBack");
+        
+        BManim.SetBool("BmAtk", true);
+        BManim.SetFloat("BmAtkCount", -1.0f);
         yield return new WaitForSeconds(0.5f);
         for (int i =0; i< 2; i++)
         {
-            BManim.SetTrigger("BmHandAttack");
-            yield return new WaitForSeconds(0.5f);
+           BManim.SetFloat("BmAtkCount", 0.0f);                 
+           yield return new WaitForSeconds(0.8f);
+            Debug.Log("잽 공격");
         }
+        
+        BManim.SetBool("BmAtk", false);
         isDamage = false;
     }
 
@@ -57,8 +67,16 @@ public class BManAction : MonoBehaviour,Enemies
         
     }
 
+    public bool isDied;
     public IEnumerator Died()
     {
+        Debug.Log("죽음");
+        //Vector2 direction = (target.position - transform.position).normalized;
+
+        // 플레이어 방향으로 이동
+        BManim.SetTrigger("BmBoomMove");
+        transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        isDied = true;
         yield return null;
     }
 
@@ -73,6 +91,7 @@ public class BManAction : MonoBehaviour,Enemies
     }
 
     public bool hasAttacked;
+    public bool hasFoundPlayer;
     public bool isMove;
     void FindedPlayer()
     {
@@ -82,12 +101,16 @@ public class BManAction : MonoBehaviour,Enemies
         {
             if(collider.CompareTag("Player"))
             {
-                Vector2 colliderBm = new Vector2(1.3f, 3.0f);
-                collder.size = colliderBm;
+                //Vector2 colliderBm = new Vector2(1.3f, 3.0f);
+                //collder.size = colliderBm;
                 target = collider.transform;
                 isFindPlayer = true;
                 FunchCollider();
-                StartCoroutine(Find());
+                if (!hasFoundPlayer)
+                {
+                    StartCoroutine(Find());
+                }
+                   
            
             }
         }
@@ -108,12 +131,19 @@ public class BManAction : MonoBehaviour,Enemies
     public float delay;
     IEnumerator Find()
     {
+        //움직이기 전
+        hasFoundPlayer = true;
         Debug.Log("움직이기 전");
-        BManim.SetBool("BmFind",true);
+        BManim.SetTrigger("BmFinded");
         BManim.SetFloat("BmAnimCount",0.0f);
+        yield return new WaitForSeconds(1.0f);
+        
+        Vector2 colliderBm = new Vector2(1, 2.6f);
+        collder.size = colliderBm;
         yield return new WaitForSeconds(2.0f);
         isMove = true;
-        Debug.Log("움직이기 시작");
+
+        //움직이기 
     }
 
     public Transform Punchboxpos;
@@ -121,17 +151,13 @@ public class BManAction : MonoBehaviour,Enemies
 
     void FunchCollider()
     {
-        Debug.Log("0");
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.transform.position, PunchboxSize, 0);
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Player"))
             {
-                //hand.gameObject.SetActive(true);
-                Debug.Log("AA");
                 if (!hasAttacked)
                 {
-
                     StartCoroutine(StopAttack());
                 }
             }
@@ -139,30 +165,49 @@ public class BManAction : MonoBehaviour,Enemies
     }
     IEnumerator StopAttack()
     {
-        Debug.Log("2");
-        BManim.SetBool("BmBoomHandAtk",true);
+       
+        if(isDamage == false)
+        {
+            Debug.Log("강화 잽 공격");
+            BManim.SetBool("BmAtk", true);
+            BManim.SetFloat("BmAtkCount", 1.0f);
+        }
+        
         isMove = false;
         hasAttacked = true;
         followSpeed = 0.0f;
         yield return new WaitForSeconds(1.0f);
-        BManim.SetBool("BmBoomHandAtk", false);
+        BManim.SetBool("BmAtk", false);
+        BManim.SetFloat("BmAnimCount", 1.0f);
         followSpeed = 0.5f;
         hasAttacked = false;
-        isMove = true; 
-        
-        Debug.Log("3");
+        isMove = true;
     }
     void BmMove()
     {
 
         if (isDamage == false)
         {
-            Debug.Log("추적 중");
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
-            BManim.SetFloat("BmAnimCount", 1.0f);
+            if (isDamage == false)
+            {
+                BManim.SetFloat("BmAnimCount", 1.0f);
+            }
         }
       
     }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.CompareTag("Player"))
+        {
+            if(isDied)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

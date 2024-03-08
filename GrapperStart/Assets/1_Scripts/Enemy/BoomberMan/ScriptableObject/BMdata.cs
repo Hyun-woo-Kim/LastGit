@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BM Data")]
 public class BMdata : ScriptableObject
 {
-    public float bwHp = 10.0f;
+    public float bmHp = 10.0f;
     public void DamagedHp(float amount)
     {
-        bwHp -= amount;
+        bmHp -= amount;
     }
 }
