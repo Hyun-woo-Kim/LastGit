@@ -148,7 +148,7 @@ public class Grapling : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.E) && aim.isAimEnemy)
+        if (Input.GetKeyDown(KeyCode.E) && aim.isCollEnemy)
         {
            
 
@@ -461,7 +461,7 @@ public class Grapling : MonoBehaviour
     }
     public bool isStop;
     public float delay;
-    //1. 오브젝트 걸린 상태. 2. e키를 누름 . 3.공중제비 시작. 4. playerArm과 hook이 가까워지면 두 오브젝트 삭제.
+  
 
 
     public Vector2 comboBarPos;
@@ -619,7 +619,6 @@ public class Grapling : MonoBehaviour
                 // t가 0이하 일때 시작 값이며, t가 1 이상 일때 결과 값.
                 //이 함수는 특히 시작과 끝 부분을 부드럽게 만들어 중간 부분이 더 빠르게 가속되거나 감속되는 등의 효과를 생성하는 데 사용
                 //Vector3.Lerp함수와 같이 사용시 부드러워짐. 
-                Debug.Log(enemyPosition.GetChild(1).position + name);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }

@@ -16,6 +16,7 @@ public class BManAction : MonoBehaviour,Enemies
         hand = transform.GetChild(2);
         //hand.gameObject.SetActive(false);
         Debug.Log(hand.gameObject.name);
+        animSpeed = BManim.speed;
     }
 
     // Update is called once per frame
@@ -30,6 +31,8 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isFindPlayer;
     public float followSpeed;
     public float moveSpeed;
+    public float animAimSpeed;
+    public float animSpeed;
 
     public Transform hand;
 
@@ -66,7 +69,9 @@ public class BManAction : MonoBehaviour,Enemies
 
     public void PlayerToDamaged()
     {
-        
+        PlayerControllerRope player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
+        PlayerData playerData = player.playerData;
+        playerData.DamagedHp(1);
     }
 
     public bool isDied;
@@ -99,20 +104,30 @@ public class BManAction : MonoBehaviour,Enemies
 
     public void SpeedDown()
     {
-
+        followSpeed = 0.1f;
+        animAimSpeed = BManim.speed ;
     }
 
     public void EnemySet()
     {
-       
+        Debug.Log("플레이어가 전등을 조준 하지 않음");
+        followSpeed = 0.2f;
+        BManim.speed = animSpeed;
     }
 
     public bool hasAttacked;
     public bool hasFoundPlayer;
     public bool isMove;
+
+
     void FindedPlayer()
     {
+        Transform fourChild = transform.GetChild(4);
+        SpriteRenderer spriteRenderer = fourChild.GetComponent<SpriteRenderer>();
+        
+
         isFindPlayer = false;
+        isReact = false;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Findboxpos.transform.position, FindboxSize, 0);
         foreach(Collider2D collider in colliders)
         {
@@ -122,6 +137,7 @@ public class BManAction : MonoBehaviour,Enemies
                 //collder.size = colliderBm;
                 target = collider.transform;
                 isFindPlayer = true;
+                isReact = true;
                 FunchCollider();
                 if (!hasFoundPlayer)
                 {
@@ -143,18 +159,8 @@ public class BManAction : MonoBehaviour,Enemies
             hasAttacked = false;
             isMove = false;
         }
-        //if(isDied)
-        //{
-        //    BManim.SetTrigger("BmBoomMove");
-        //    Debug.Log(target.position);
-        //    transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * moveSpeed);
-        //    if(isColliderPlayer)
-        //    {
-        //        DestroyBM(1.0f);
-        //    }
-        //}
 
-     
+        PatrolReaction(spriteRenderer);
     }
 
     void DestroyBM(float delay)
@@ -181,6 +187,8 @@ public class BManAction : MonoBehaviour,Enemies
     public Transform Punchboxpos;
     public Vector2 PunchboxSize;
 
+    public bool isReact;
+    public Sprite reactSprite;
     void FunchCollider()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.transform.position, PunchboxSize, 0);
@@ -195,6 +203,8 @@ public class BManAction : MonoBehaviour,Enemies
             }
         }
     }
+
+    public float UpgradePunchDelay;
     IEnumerator StopAttack()
     {
         isMove = false;
@@ -204,6 +214,7 @@ public class BManAction : MonoBehaviour,Enemies
             Debug.Log("강화 잽 공격");
             BManim.SetBool("BmAtk", true);
             BManim.SetFloat("BmAtkCount", 1.0f);
+            yield return new WaitForSeconds(UpgradePunchDelay);
         }   
         hasAttacked = true;
         yield return new WaitForSeconds(1.0f);
@@ -216,6 +227,7 @@ public class BManAction : MonoBehaviour,Enemies
 
         if (isDamage == false && isDied == false)
         {
+            FlipEnemy(target);
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
             if (!BManim.GetBool("BmAtk"))
             {
@@ -236,7 +248,42 @@ public class BManAction : MonoBehaviour,Enemies
 
         }
     }
+    void FlipEnemy(Transform _target)
+    {
+        Debug.Log("방향뒤집기");
+        if (transform.position.x > _target.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (transform.position.x < _target.position.x)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+    void PatrolReaction(SpriteRenderer spriteRenderer)
+    {
+        //if (isReact || criture.isEnemyAttack)
+        //{
+        //    spriteRenderer.sprite = reactSprite;
 
+        //}
+        //else if (isReact == false || criture.isEnemyAttack == false)
+        //{
+        //    spriteRenderer.sprite = null;
+
+        //}
+
+        if (isReact)
+        {
+            spriteRenderer.sprite = reactSprite;
+
+        }
+        else if (isReact == false)
+        {
+            spriteRenderer.sprite = null;
+
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

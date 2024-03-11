@@ -48,6 +48,7 @@ public class Aiming : MonoBehaviour
 
  
     public bool isAimEnemy = false;
+    public bool isCollEnemy = false;
     public bool isAimRing = false;
     public bool isGrapplingReady = false;
 
@@ -90,7 +91,7 @@ public class Aiming : MonoBehaviour
                     {
                        
 
-                        if (collider.CompareTag("Ring") && isAimEnemy == false && grapling.isFlyReady == false && grapling.isHookActive == false)
+                        if (collider.CompareTag("Ring") && isCollEnemy == false && grapling.isFlyReady == false && grapling.isHookActive == false)
                         {
                             targetRing = collider.transform;
                             isAimRing = true;
@@ -113,17 +114,17 @@ public class Aiming : MonoBehaviour
                         if (collider.CompareTag("Enemy"))
                         {
                             isAimEnemy = true;
-
+                            isCollEnemy = true;
                             Vector3 rotEndPos = collider.transform.position;
 
                             lineAim.SetPosition(1, rotEndPos);
 
-                             EnemyObj = collider.gameObject;
+                            EnemyObj = collider.gameObject;
 
 
                             MouseManager.Instance.SetCursorType(MouseManager.CursorType.enemyIdle);
 
-                            hookAim.position = this.transform.position;
+                            hookAim.position = collider.transform.position;
 
                             if (grapling.grapCount == 0)
                             {
@@ -147,6 +148,7 @@ public class Aiming : MonoBehaviour
         {
             player.playerData.curSpeed = player.InitSpeed; //플레이어가 링을 조준하지 않았을 때 원래 스피드로 돌아감.
             isAimRing = false;
+            isCollEnemy = false;
             isGrapplingReady = false;
             anim = GetComponent<Animator>();
             anim.SetBool("PlayerAimEnemy", false);

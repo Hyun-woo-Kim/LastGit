@@ -35,11 +35,23 @@ public class ItemTest : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && !hasBounced)
         {
-            isGrounded = true;
-            rb.velocity = Vector2.zero; // 아이템이 떨어지는 도중에 속도를 제로로 설정
-            rb.angularVelocity = 0f; // 아이템이 떨어진 후 회전을 멈춤
+            //isGrounded = true;
+            //rb.velocity = Vector2.zero; // 아이템이 떨어지는 도중에 속도를 제로로 설정
+            //rb.angularVelocity = 0f; // 아이템이 떨어진 후 회전을 멈춤
+
+            StartCoroutine(Bounce());
+            hasBounced = true;
         }
+    }
+    private bool hasBounced = false;
+    public float bounceForce;
+    IEnumerator Bounce()
+    {
+        // 아이템이 바운스할 때 잠시 대기한 후 특정 방향으로 힘을 가함
+        rb.angularVelocity = 1f;
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
     }
 }

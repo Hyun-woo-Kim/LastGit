@@ -49,6 +49,8 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     [Header("##Is Reaction")]
     public bool isReact;
     public Sprite reactSprite;
+    public float animAimSpeed; //전등 조준 시 애니메이션 속도 줄이는 코드.
+    public float animSpeed; //전등 조준 시 애니메이션 속도 줄이는 코드.
     void Start()
     {
         capsuleColl = GetComponent<CapsuleCollider2D>();
@@ -68,19 +70,21 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         startPosition = transform.position;
         patrolDirection = Vector2.right;
 
+        animSpeed = bloodWorkerAnim.speed;
     }
 
     public void  EnemySet()//플레이어가 전등 조준하지 않았을 때 초기값
     {
         Debug.Log("플레이어가 전등을 조준 하지 않음");
         patrolSpeed = 2.0f;
-        
+        bloodWorkerAnim.speed = animSpeed;
     }
     public void SpeedDown() //플레이어가 전등 조준시 속도 낮추는 함수
     {
         Debug.Log("플레이어가 전등을 조준 함");
         patrolSpeed = 0.5f;
         followSpeed = 0.1f;
+        bloodWorkerAnim.speed = animAimSpeed;
     }
 
     public IEnumerator GraplingAtkDamaged(float damage) //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
