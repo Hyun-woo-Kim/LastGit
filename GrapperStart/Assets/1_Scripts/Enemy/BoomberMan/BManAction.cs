@@ -143,8 +143,8 @@ public class BManAction : MonoBehaviour,Enemies
                 {
                     StartCoroutine(Find());
                 }
-                   
-           
+
+
             }
         }
 
