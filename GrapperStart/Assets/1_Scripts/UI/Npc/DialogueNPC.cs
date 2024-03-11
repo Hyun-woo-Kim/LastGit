@@ -27,7 +27,7 @@ public class DialogueNPC : MonoBehaviour, IInteractable
 
     public void Interact(GameObject other)
     {
-        float calcDistance = Vector3.Distance(other.transform.position, transform.position);
+        float calcDistance = Vector2.Distance(other.transform.position, transform.position);
         if (calcDistance > distance)
         {
             return;
@@ -36,6 +36,11 @@ public class DialogueNPC : MonoBehaviour, IInteractable
         if (isStartDialogue)
         {
             return;
+        }
+
+        if(calcDistance > distance && Input.GetKeyDown(KeyCode.K))
+        {
+            DialogueManager.Instance.StartDialogue(dialogue);
         }
 
         this.interactGO = other;
