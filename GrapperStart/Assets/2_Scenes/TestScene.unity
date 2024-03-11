@@ -1039,9 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 120119272}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightColor: {r: 0, g: 0, b: 0, a: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 120119275}
   slider: {fileID: 85640154}
 --- !u!95 &120119275
 Animator:
@@ -19353,8 +19351,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 336291285}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightColor: {r: 0, g: 0, b: 0, a: 0}
   animator: {fileID: 120119275}
   slider: {fileID: 85640154}
 --- !u!1 &2042176659
