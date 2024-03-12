@@ -430,7 +430,15 @@ public class PlayerControllerRope : MonoBehaviour
         yield return null;
 
     }
+    public void BMSkillMove(Transform bmPos,float _nockbackForce)
+    {
+        Vector2 knockbackVector = bmPos.position.x > transform.position.x ? Vector2.left : Vector2.right;
 
+        // ³Ë¹é º¤ÅÍ¸¦ ÀÌ¿ëÇÏ¿© ³Ë¹é ½ÇÇà
+        Debug.Log(knockbackVector);
+        rigid.AddForce(knockbackVector * _nockbackForce, ForceMode2D.Impulse);
+
+    }
 
     private void OnDrawGizmos()
     {

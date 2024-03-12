@@ -15,24 +15,24 @@ public class ItemTest : MonoBehaviour
 
     void Update()
     {
-        if (!isGrounded)
-        {
-            // 아이템이 지면과 부딪히면 1초당 90도씩 회전
-            Debug.Log("지면과 부딪히기 전 회전");
-            transform.Rotate(Vector3.up * 90 * Time.deltaTime);
-        }
-        else if(isGrounded)
-        {
-            Invoke("BasicItemRotate", 1.0f);
-        }
+        //if (!isGrounded)
+        //{
+        //    // 아이템이 지면과 부딪히면 1초당 90도씩 회전
+        //    Debug.Log("지면과 부딪히기 전 회전");
+        //    transform.Rotate(Vector3.up * 90 * Time.deltaTime);
+        //}
+        //else if(isGrounded)
+        //{
+        //    Invoke("BasicItemRotate", 1.0f);
+        //}
         
     }
 
-    void BasicItemRotate()
-    {
-        Debug.Log("1초당 1번씩 회전");
-        transform.Rotate(Vector3.up * 90 * Time.deltaTime);
-    }
+    //void BasicItemRotate()
+    //{
+    //    Debug.Log("1초당 1번씩 회전");
+    //    transform.Rotate(Vector3.up * 90 * Time.deltaTime);
+    //}
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground") && !hasBounced)
@@ -41,17 +41,15 @@ public class ItemTest : MonoBehaviour
             //rb.velocity = Vector2.zero; // 아이템이 떨어지는 도중에 속도를 제로로 설정
             //rb.angularVelocity = 0f; // 아이템이 떨어진 후 회전을 멈춤
 
-            StartCoroutine(Bounce());
-            hasBounced = true;
+            BounceItem();
+             hasBounced = true;
         }
     }
     private bool hasBounced = false;
     public float bounceForce;
-    IEnumerator Bounce()
+
+    void BounceItem()
     {
-        // 아이템이 바운스할 때 잠시 대기한 후 특정 방향으로 힘을 가함
-        rb.angularVelocity = 1f;
-        yield return new WaitForSeconds(0.1f);
         rb.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
     }
 }
