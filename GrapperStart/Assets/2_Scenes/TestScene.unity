@@ -4262,7 +4262,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464977478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4577,7 +4577,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521793341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.87, y: -6.69, z: 0}
+  m_LocalPosition: {x: 18.27, y: -16.53, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4962,7 +4962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b2b5315d4c0a34a838b8979ba40f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 3
+  bounceForce: 5
 --- !u!212 &624820616
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5023,7 +5023,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624820612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.32, y: -4.83, z: 0}
+  m_LocalPosition: {x: 4.78, y: -0.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5847,18 +5847,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bmdata: {fileID: 11400000, guid: 12b101f82b3e0674b8f264b9b19848c8, type: 2}
   Findboxpos: {fileID: 464977479}
-  FindboxSize: {x: 8.95, y: 2.67}
+  FindboxSize: {x: 8.95, y: 5.16}
   target: {fileID: 0}
   isFindPlayer: 0
   followSpeed: 0.5
   moveSpeed: 3
-  animAimSpeed: 0.7
+  animAimSpeed: 0.5
   animSpeed: 0
-  hand: {fileID: 343749987}
   isDamage: 0
   isDied: 0
+  nockbackForce: 10
   hasAttacked: 0
-  hasFoundPlayer: 0
   isMove: 0
   delay: 0
   Punchboxpos: {fileID: 1248433073}
@@ -5971,7 +5970,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -8941,7 +8940,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079117453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.49, y: -7.03, z: 0}
+  m_LocalPosition: {x: -0.04, y: -7.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14292,7 +14291,7 @@ MonoBehaviour:
   isMyTeam: 0
   isReact: 0
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
-  animAimSpeed: 0.7
+  animAimSpeed: 0.5
   animSpeed: 0
 --- !u!50 &1565152436
 Rigidbody2D:
@@ -18654,7 +18653,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954910683}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.84, y: -3.71, z: 0}
+  m_LocalPosition: {x: -5.51, y: -3.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
