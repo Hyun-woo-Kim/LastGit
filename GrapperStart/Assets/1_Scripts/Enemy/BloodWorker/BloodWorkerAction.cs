@@ -46,6 +46,8 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     [Header("##Bw Team Interaction")]
     public bool hasThrownRock;
     public bool isMyTeam;
+    public bool isGraplingDamaged;
+    public bool isBasicDamaged;
     [Header("##Is Reaction")]
     public bool isReact;
     public Sprite reactSprite;
@@ -90,6 +92,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     public IEnumerator GraplingAtkDamaged(float damage) //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
     {
         // 데미지 처리 로직
+        isGraplingDamaged = true;
         bwSpr.color = Color.red;
         Debug.Log("데미지를 입음");
         bwData.DamagedHp(damage);
@@ -99,6 +102,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     }
     public IEnumerator baseDamaged()  //BW가 플레이어로 부터 기본공격에 맞았을 때 호출 하는 함수
     {
+        isBasicDamaged = true;
         bwSpr.color = Color.red;
         bwData.DamagedHp(1);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
