@@ -145,16 +145,21 @@ public class BManAction : MonoBehaviour,Enemies
                 isFindPlayer = true;
                 isReact = true;
                 FunchCollider();
-                if (isFindPlayer && isMove == false)
+                if ((isFindPlayer || isFindEnemy)  && isMove == false)
                 {
+                    Debug.Log("일어서기");
                     StartCoroutine(Find()); //1
                 }
 
 
             }
+            if(collider.CompareTag("Enemy"))
+            {
+                isFindEnemy = true;
+            }
         }
 
-        if(isFindPlayer && isMove)
+        if((isFindPlayer || isFindEnemy )&& isMove)
         {
            
             BmMove(); //3
@@ -165,9 +170,11 @@ public class BManAction : MonoBehaviour,Enemies
             StartCoroutine(NotFind());
         }
 
+        
 
         PatrolReaction(spriteRenderer);
     }
+    public bool isFindEnemy;
     void BmMove()
     {
 
@@ -252,6 +259,20 @@ public class BManAction : MonoBehaviour,Enemies
 
     }
 
+    public IEnumerator TeamEnemy()
+    {
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        BloodWorkerAction bwScr = FindFirstObjectByType<BloodWorkerAction>();
+        if (bwScr.isBasicDamaged || bwScr.isGraplingDamaged)
+        {
+            Debug.Log("이동");
+            isFindEnemy = true;
+            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(Find());
+            isFindEnemy = false;
+        }
+    }
+
     public bool isColliderPlayer;
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -288,7 +309,7 @@ public class BManAction : MonoBehaviour,Enemies
         //    spriteRenderer.sprite = null;
 
         //}
-
+        
         if (isReact)
         {
             spriteRenderer.sprite = reactSprite;
