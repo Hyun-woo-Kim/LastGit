@@ -5821,9 +5821,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 769229558}
+  - component: {fileID: 769229554}
   - component: {fileID: 769229557}
   - component: {fileID: 769229555}
-  - component: {fileID: 769229554}
   - component: {fileID: 769229560}
   - component: {fileID: 769229559}
   m_Layer: 9
@@ -5859,6 +5859,7 @@ MonoBehaviour:
   nockbackForce: 10
   hasAttacked: 0
   isMove: 0
+  isTeamDamage: 0
   isFindEnemy: 0
   delay: 0
   isStandUp: 0
@@ -8942,7 +8943,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079117453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.36, y: -7.32, z: 0}
+  m_LocalPosition: {x: -7.95, y: -7.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
