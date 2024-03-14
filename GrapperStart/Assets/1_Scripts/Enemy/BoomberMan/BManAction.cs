@@ -18,6 +18,7 @@ public class BManAction : MonoBehaviour,Enemies
         //hand.gameObject.SetActive(false);
         animSpeed = BManim.speed;
         InitCollSize = collder.size;
+
     }
 
     // Update is called once per frame
@@ -141,38 +142,68 @@ public class BManAction : MonoBehaviour,Enemies
             {
                 //Vector2 colliderBm = new Vector2(1.3f, 3.0f);
                 //collder.size = colliderBm;
-                target = collider.transform;
+                
                 isFindPlayer = true;
                 isReact = true;
                 FunchCollider();
-                if ((isFindPlayer || isFindEnemy)  && isMove == false)
+                if (isFindPlayer  && isMove == false)
                 {
-                    Debug.Log("일어서기");
                     StartCoroutine(Find()); //1
                 }
-
-
+ 
             }
             if(collider.CompareTag("Enemy"))
             {
                 isFindEnemy = true;
+                if (!isStandUp)
+                {
+                    Debug.Log("내팀");
+                    //TeamEnemy();
+                    StartCoroutine(Find());
+                }
             }
         }
 
-        if((isFindPlayer || isFindEnemy )&& isMove)
+        if((isFindPlayer || isFindEnemy )&& isStandUp && isMove)
         {
-           
             BmMove(); //3
         }
-        else if (!isFindPlayer)
+        else if (isFindPlayer == false && isFindEnemy == false)
         {
             
             StartCoroutine(NotFind());
         }
 
         
-
         PatrolReaction(spriteRenderer);
+    }
+    void TeamEnemy()
+    {
+        GameObject[] allies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject ally in allies)
+        {
+            // 아군 스크립트가 부착되어 있는지 확인
+            BloodWorkerAction allyScript = ally.GetComponent<BloodWorkerAction>();
+            if (allyScript != null)
+            {
+                Debug.Log("1");
+                // 아군 스크립트가 적대적인 상태인지 확인
+                if (allyScript.isBasicDamaged || allyScript.isGraplingDamaged)
+                {
+                    Debug.Log("아군이 공격 받음");
+                    // 아군이 공격을 받았을 때의 처리 수행
+                }
+                else
+                {
+                    Debug.Log("아군이 공격 받지 않음");
+                    // 아군이 공격을 받지 않았을 때의 처리 수행
+                }
+            }
+            else
+            {
+                Debug.Log("아군 스크립트를 찾을 수 없습니다.");
+            }
+        }
     }
     public bool isFindEnemy;
     void BmMove()
@@ -193,7 +224,7 @@ public class BManAction : MonoBehaviour,Enemies
     IEnumerator  NotFind()
     {
         isMove = false;
-
+        isStandUp = false;
         yield return new WaitForSeconds(1.0f);
         BManim.SetBool("BmAtk", false);
         //스탠딩 애니메이션 여기다 추가.
@@ -202,6 +233,7 @@ public class BManAction : MonoBehaviour,Enemies
        
     }
     public float delay;
+    public bool isStandUp;
     IEnumerator Find()
     {
         //움직이기 전
@@ -214,7 +246,9 @@ public class BManAction : MonoBehaviour,Enemies
         collder.size = colliderBm;
         yield return new WaitForSeconds(2.0f);
         isMove = true; //2
-
+        isStandUp = true;
+        PlayerControllerRope playeScr = FindAnyObjectByType<PlayerControllerRope>();
+        target = playeScr.transform;
         //움직이기 
     }
 
@@ -259,19 +293,7 @@ public class BManAction : MonoBehaviour,Enemies
 
     }
 
-    public IEnumerator TeamEnemy()
-    {
-        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        BloodWorkerAction bwScr = FindFirstObjectByType<BloodWorkerAction>();
-        if (bwScr.isBasicDamaged || bwScr.isGraplingDamaged)
-        {
-            Debug.Log("이동");
-            isFindEnemy = true;
-            yield return new WaitForSeconds(0.5f);
-            StartCoroutine(Find());
-            isFindEnemy = false;
-        }
-    }
+
 
     public bool isColliderPlayer;
     private void OnCollisionEnter2D(Collision2D collision)
