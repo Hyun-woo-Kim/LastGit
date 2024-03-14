@@ -63,7 +63,6 @@ public class BManAction : MonoBehaviour,Enemies
         {
            BManim.SetFloat("BmAtkCount", 0.0f);                 
            yield return new WaitForSeconds(0.5f);
-            Debug.Log("잽 공격");
         }
         
         //BManim.SetBool("BmAtk", false);
@@ -118,7 +117,6 @@ public class BManAction : MonoBehaviour,Enemies
 
     public void EnemySet()
     {
-        Debug.Log("플레이어가 전등을 조준 하지 않음");
         followSpeed = 0.2f;
         BManim.speed = animSpeed;
     }
@@ -131,7 +129,6 @@ public class BManAction : MonoBehaviour,Enemies
     {
         Transform fourChild = transform.GetChild(4);
         SpriteRenderer spriteRenderer = fourChild.GetComponent<SpriteRenderer>();
-        
 
         isFindPlayer = false;
         isReact = false;
@@ -146,7 +143,7 @@ public class BManAction : MonoBehaviour,Enemies
                 isFindPlayer = true;
                 isReact = true;
                 FunchCollider();
-                if (isFindPlayer  && isMove == false)
+                if (isFindPlayer  && isMove == false && isStandUp == false)
                 {
                     StartCoroutine(Find()); //1
                 }
@@ -155,28 +152,26 @@ public class BManAction : MonoBehaviour,Enemies
             if(collider.CompareTag("Enemy"))
             {
                 isFindEnemy = true;
-                if (!isStandUp)
+                if (isFindEnemy == true)
                 {
-                    Debug.Log("내팀");
-                    //TeamEnemy();
-                    StartCoroutine(Find());
+                    TeamEnemy();
+                    //StartCoroutine(Find());
                 }
             }
         }
 
-        if((isFindPlayer || isFindEnemy )&& isStandUp && isMove)
+        if((isFindPlayer || isFindEnemy) && isStandUp && isMove)
         {
             BmMove(); //3
         }
-        else if (isFindPlayer == false && isFindEnemy == false)
+        else if ((isFindPlayer == false || isFindEnemy == false) && isStandUp)
         {
-            
+            Debug.Log("멈춰라");
             StartCoroutine(NotFind());
-        }
-
-        
+        }      
         PatrolReaction(spriteRenderer);
     }
+    public bool isTeamDamage;
     void TeamEnemy()
     {
         GameObject[] allies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -186,22 +181,23 @@ public class BManAction : MonoBehaviour,Enemies
             BloodWorkerAction allyScript = ally.GetComponent<BloodWorkerAction>();
             if (allyScript != null)
             {
-                Debug.Log("1");
                 // 아군 스크립트가 적대적인 상태인지 확인
                 if (allyScript.isBasicDamaged || allyScript.isGraplingDamaged)
                 {
+                    isTeamDamage = true;
+                    StartCoroutine(Find());
                     Debug.Log("아군이 공격 받음");
                     // 아군이 공격을 받았을 때의 처리 수행
                 }
-                else
+                else if(!allyScript.isBasicDamaged || !allyScript.isGraplingDamaged)
                 {
+                    //isFindEnemy = false;
                     Debug.Log("아군이 공격 받지 않음");
-                    // 아군이 공격을 받지 않았을 때의 처리 수행
                 }
             }
             else
             {
-                Debug.Log("아군 스크립트를 찾을 수 없습니다.");
+
             }
         }
     }
@@ -224,13 +220,14 @@ public class BManAction : MonoBehaviour,Enemies
     IEnumerator  NotFind()
     {
         isMove = false;
-        isStandUp = false;
         yield return new WaitForSeconds(1.0f);
         BManim.SetBool("BmAtk", false);
         //스탠딩 애니메이션 여기다 추가.
         BManim.SetBool("BmFind", false);
+        isStandUp = false;
+        isFindEnemy = false;
         collder.size = InitCollSize;
-       
+
     }
     public float delay;
     public bool isStandUp;
@@ -238,6 +235,8 @@ public class BManAction : MonoBehaviour,Enemies
     {
         //움직이기 전
         isMove = false;
+        isStandUp = true;
+
         BManim.SetBool("BmFind",true);
         BManim.SetFloat("BmAnimCount",0.0f);
         yield return new WaitForSeconds(1.0f);
@@ -246,7 +245,6 @@ public class BManAction : MonoBehaviour,Enemies
         collder.size = colliderBm;
         yield return new WaitForSeconds(2.0f);
         isMove = true; //2
-        isStandUp = true;
         PlayerControllerRope playeScr = FindAnyObjectByType<PlayerControllerRope>();
         target = playeScr.transform;
         //움직이기 
@@ -285,7 +283,6 @@ public class BManAction : MonoBehaviour,Enemies
     public float UpgradePunchDelay;
     IEnumerator StopAttack()
     {
-        Debug.Log("강화 잽 공격");
         BManim.SetBool("BmAtk", true);
         BManim.SetFloat("BmAtkCount", 1.0f);
         yield return new WaitForSeconds(UpgradePunchDelay);
@@ -309,7 +306,6 @@ public class BManAction : MonoBehaviour,Enemies
     }
     void FlipEnemy(Transform _target)
     {
-        Debug.Log("방향뒤집기");
         if (transform.position.x > _target.position.x)
         {
             transform.localScale = new Vector3(1, 1, 1);
@@ -320,19 +316,8 @@ public class BManAction : MonoBehaviour,Enemies
         }
     }
     void PatrolReaction(SpriteRenderer spriteRenderer)
-    {
-        //if (isReact || criture.isEnemyAttack)
-        //{
-        //    spriteRenderer.sprite = reactSprite;
-
-        //}
-        //else if (isReact == false || criture.isEnemyAttack == false)
-        //{
-        //    spriteRenderer.sprite = null;
-
-        //}
-        
-        if (isReact)
+    {        
+        if (isReact || isTeamDamage)
         {
             spriteRenderer.sprite = reactSprite;
         }

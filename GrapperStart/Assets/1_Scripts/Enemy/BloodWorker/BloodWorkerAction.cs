@@ -99,6 +99,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         bloodWorkerAnim.SetTrigger("BWKnockBack");
         yield return new WaitForSeconds(1.0f);
         bwSpr.color = Color.white;
+        isGraplingDamaged = false;
     }
     public IEnumerator baseDamaged()  //BW가 플레이어로 부터 기본공격에 맞았을 때 호출 하는 함수
     {
@@ -115,6 +116,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
             Debug.Log("1");
             StartCoroutine(Died());
         }
+        isBasicDamaged = false;
     }
 
     public IEnumerator Died()
