@@ -1307,7 +1307,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5847,7 +5847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bmdata: {fileID: 11400000, guid: 12b101f82b3e0674b8f264b9b19848c8, type: 2}
   Findboxpos: {fileID: 464977479}
-  FindboxSize: {x: 8.95, y: 5.16}
+  FindboxSize: {x: 19.57, y: 5.16}
   target: {fileID: 0}
   isFindPlayer: 0
   followSpeed: 0.5
@@ -5861,6 +5861,7 @@ MonoBehaviour:
   isMove: 0
   isFindEnemy: 0
   delay: 0
+  isStandUp: 0
   Punchboxpos: {fileID: 1248433073}
   PunchboxSize: {x: 1.2, y: 2.6}
   isReact: 0
@@ -10172,7 +10173,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
