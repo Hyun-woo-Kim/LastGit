@@ -15,7 +15,6 @@ public class Aiming : MonoBehaviour
 
     Vector3 mouse;
     public Transform playerAimPos;
-    private Transform initialAimPos;
     private void Start()
     {
         grapling = FindAnyObjectByType<Grapling>();
@@ -27,10 +26,6 @@ public class Aiming : MonoBehaviour
         lineAim.positionCount = 2;
         lineAim.startWidth = lineAim.endWidth = 0.05f;
         lineAim.useWorldSpace = true;
-
-        //initialAimPos = playerAimPos;
-
-
         
     }
 
@@ -41,8 +36,6 @@ public class Aiming : MonoBehaviour
     private void Update()
     {
         AimGrap();
-
-        
 
     }
 
@@ -148,7 +141,8 @@ public class Aiming : MonoBehaviour
         {
             player.playerData.curSpeed = player.InitSpeed; //플레이어가 링을 조준하지 않았을 때 원래 스피드로 돌아감.
             isAimRing = false;
-            isCollEnemy = false;
+            isCollEnemy  = false;
+
             isGrapplingReady = false;
             anim = GetComponent<Animator>();
             anim.SetBool("PlayerAimEnemy", false);
@@ -177,8 +171,14 @@ public class Aiming : MonoBehaviour
         }
 
     }
+   public Vector3 GetAimDirection()
+    {
+        // 마우스 포인터 위치를 월드 좌표로 변환
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // 플레이어 위치와 마우스 위치 사이의 방향 벡터를 반환
+        return (mousePosition - transform.position).normalized;
+    }
 
-    
     public Vector2 aimMousedir;
     public float aimLength;
     public Transform targetRing;

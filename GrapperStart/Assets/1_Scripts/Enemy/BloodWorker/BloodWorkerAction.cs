@@ -197,7 +197,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
    
     void Update()
     {
-        Transform thirdChild = transform.GetChild(3);
+        Transform thirdChild = transform.GetChild(4);
         SpriteRenderer spriteRenderer = thirdChild.GetComponent<SpriteRenderer>();
         PatrolReaction(spriteRenderer);
 

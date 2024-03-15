@@ -29,25 +29,6 @@ public class Hooking : MonoBehaviour
     private void Awake()
     {
         aiming = FindAnyObjectByType<Aiming>();
-        // hook 오브젝트를 회전시킵니다.
-        //if (aiming != null)
-        //{
-
-        //    Vector3 aimMousedirWithZ = new Vector3(aiming.aimMousedir.x, aiming.aimMousedir.y, 1f);
-        //    Debug.LogWarning(aimMousedirWithZ);
-        //    transform.rotation = Quaternion.LookRotation(aimMousedirWithZ);
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("Aiming component or aimMousedir is null!");
-        //}
-
-        //3.6 수정
-        //Vector3 playerdir = transform.position - aiming.transform.position;
-        //float hookangle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
-        //Quaternion targetRotation = Quaternion.AngleAxis(hookangle - 90f, Vector3.forward);
-        //Debug.Log(targetRotation);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);//플레이어 회전하는 메서드 호출
 
     }
 
@@ -63,19 +44,25 @@ public class Hooking : MonoBehaviour
 
         if (grappling.isenemyGrapling) //적에게 갈고리 날렸을 때 , 갈고리는 적을 추격한다.
         {
-            targetToEnemy();
+            if (target != null && grappling.grapCount == 1)
+            {
+                transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * hookToEnemyspeed);
+          
+            }
         }
 
     }
 
     public Transform target;
     public float hookToEnemyspeed;
-    void targetToEnemy()
+
+    public void rotationHook(Vector3 hookdir)
     {
-        if (target != null && grappling.grapCount == 1)
-        {
-            transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * hookToEnemyspeed);
-        }
+        Vector3 playerdir = hookdir - transform.position;
+
+        float angle = Mathf.Atan2(playerdir.y, playerdir.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15.0f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
