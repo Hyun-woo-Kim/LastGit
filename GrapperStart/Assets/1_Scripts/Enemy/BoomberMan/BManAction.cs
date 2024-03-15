@@ -127,7 +127,7 @@ public class BManAction : MonoBehaviour,Enemies
 
     void FindedPlayer()
     {
-        Transform fourChild = transform.GetChild(4);
+        Transform fourChild = transform.GetChild(5);
         SpriteRenderer spriteRenderer = fourChild.GetComponent<SpriteRenderer>();
 
         isFindPlayer = false;
