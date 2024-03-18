@@ -46,23 +46,28 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isDamage;
     public IEnumerator baseDamaged()
     {
-        BManim.SetBool("BmAtk", true);
-        BManim.SetFloat("BmAtkCount", -1.0f);
-
         isMove = false;
-        isDamage = true;
         bmdata.DamagedHp(1);
 
-        
-        isMove = true;
-
-        if (bmdata.bmHp <= 0.0f)
+        if (bmdata.bmHp <= 1.0f)
         {
             StartCoroutine(Died());
         }
-        BManim.SetBool("BmAtk", false);
-        yield return null;
-       
+        isDamage = true;
+        
+        
+        BManim.SetBool("BmAtk", true);
+        BManim.SetFloat("BmAtkCount", -1.0f);
+
+        for (int i =0; i< 2; i++)
+        {
+           BManim.SetFloat("BmAtkCount", 0.0f);                 
+           yield return new WaitForSeconds(0.5f);
+        }
+        
+        //BManim.SetBool("BmAtk", false);
+        isDamage = false;
+        isMove = true;
     }
 
     public void PlayerToDamaged()
@@ -262,40 +267,31 @@ public class BManAction : MonoBehaviour,Enemies
             }
         }
 
-        if(isDamage == true)
+        if (isFindPlayer && !isDamage && hasAttacked)
         {
-            StartCoroutine(HandAttack());
+            Debug.Log("공격범위 안에 있음");
+            StartCoroutine(StopAttack());
         }
-       
-    }
-    IEnumerator HandAttack()
-    {
-        //비선공 몬스터일 때 공격 코드. 시야에 플레이어가 있어야 하고, 데미지를 입어야하고,펀치 콜라이더 안에 플레이어가 있어야함.
-        //선공 몬스터 일 때 공격 코드. 시야에 플레이어가 있어야 하고, 펀치 콜라이더 안에 플레이어가 있어야하고
-        Debug.Log("a");
-        while (isFindPlayer && hasAttacked && isDamage)
+        else if(isFindPlayer && hasAttacked == false)
         {
-            BManim.SetBool("BmAtk", true);
-            BManim.SetFloat("BmAtkCount", 0); // 잽 공격 실행
-            yield return new WaitUntil(() => IsAnimationFinished()); // 첫 번째 애니메이션 종료를 기다림
-
-            BManim.SetFloat("BmAtkCount", 1); // 강화 펀치 공격 실행
-            yield return new WaitUntil(() => IsAnimationFinished()); // 두 번째 애니메이션 종료를 기다림
-            isDamage = false;
-        }
-
-
-        if (isFindPlayer && hasAttacked == false)
-        {
+            Debug.Log("공격범위 안에 없음음");
             BManim.SetBool("BmAtk", false);
             BmMove();
         }
     }
-    bool IsAnimationFinished()
+
+    public float UpgradePunchDelay;
+    IEnumerator StopAttack()
     {
-        // 애니메이션이 끝났는지 여부를 여기에서 확인
-        return BManim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f;
+        BManim.SetBool("BmAtk", true);
+        BManim.SetFloat("BmAtkCount", 1.0f);
+        yield return new WaitForSeconds(UpgradePunchDelay);
+        
+
     }
+
+
+
     public bool isColliderPlayer;
     private void OnCollisionEnter2D(Collision2D collision)
     {
