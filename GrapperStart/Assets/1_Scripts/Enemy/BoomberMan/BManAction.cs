@@ -289,37 +289,21 @@ public class BManAction : MonoBehaviour,Enemies
       
     }
 
-    public bool firstAnimationFinished = true;
-    public bool secondAnimationFinished = false;
-
+    public float atkAnimSpeed;
     IEnumerator HandAttack()
     {
         while (isFindPlayer && hasAttacked)
         {
-            if (firstAnimationFinished)
-            {
-                BManim.SetBool("BmAtk", true);
-                BManim.SetFloat("BmAtkCount", 0); // 첫 번째 애니메이션 실행
-                firstAnimationFinished = false;
+            BManim.SetBool("BmAtk", true);
+            float atkCount = Mathf.PingPong(Time.time, 1.0f);
 
-                // 애니메이션 종료 대기
-                yield return new WaitUntil(() => BManim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-                secondAnimationFinished = true;
-                Debug.Log("첫 번째 애니메이션 실행");
-            }
-            else if (secondAnimationFinished)
+            // 0.45와 0.55 사이 값 제외
+            if (atkCount < 0.45f || atkCount > 0.55f)
             {
-                BManim.SetBool("BmAtk", true);
-                BManim.SetFloat("BmAtkCount", 1); // 두 번째 애니메이션 실행
-                secondAnimationFinished = false;
-
-                // 애니메이션 종료 대기
-                yield return new WaitUntil(() => BManim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-                firstAnimationFinished = true;
-                Debug.Log("두 번째 애니메이션 실행");
+                BManim.SetFloat("BmAtkCount", atkCount);
             }
 
-            Debug.Log("한 프레임 대기");
+            // 한 프레임 대기
             yield return null;
         }
 
