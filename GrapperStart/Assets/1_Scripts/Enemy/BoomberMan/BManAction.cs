@@ -18,7 +18,8 @@ public class BManAction : MonoBehaviour,Enemies
         //hand.gameObject.SetActive(false);
         animSpeed = BManim.speed;
         InitCollSize = collder.size;
-
+       
+ 
     }
 
     // Update is called once per frame
@@ -66,7 +67,7 @@ public class BManAction : MonoBehaviour,Enemies
         }
         
         //BManim.SetBool("BmAtk", false);
-        isDamage = false;
+        
         isMove = true;
     }
 
@@ -130,47 +131,61 @@ public class BManAction : MonoBehaviour,Enemies
         Transform fourChild = transform.GetChild(5);
         SpriteRenderer spriteRenderer = fourChild.GetComponent<SpriteRenderer>();
 
+
         isFindPlayer = false;
         isReact = false;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Findboxpos.transform.position, FindboxSize, 0);
-        foreach(Collider2D collider in colliders)
+        foreach (Collider2D collider in colliders)
         {
-            if(collider.CompareTag("Player"))
+            if (collider.CompareTag("Player"))
             {
                 //Vector2 colliderBm = new Vector2(1.3f, 3.0f);
                 //collder.size = colliderBm;
-                
+                target = collider.transform;
                 isFindPlayer = true;
                 isReact = true;
                 FunchCollider();
-                if (isFindPlayer  && isMove == false && isStandUp == false)
+                if ((isFindPlayer || isFindEnemy) && isMove == false)
                 {
+                    Debug.Log("일어서기");
                     StartCoroutine(Find()); //1
                 }
- 
+
+
             }
-            if(collider.CompareTag("Enemy"))
+            if (collider.CompareTag("Enemy"))
             {
-                isFindEnemy = true;
-                if (isFindEnemy == true)
-                {
-                    TeamEnemy();
-                    //StartCoroutine(Find());
-                }
+                //if (isFindEnemy == false)
+                //{
+                //    BloodWorkerAction bwScr = FindFirstObjectByType<BloodWorkerAction>();
+                //    if (bwScr.isBasicDamaged || bwScr.isGraplingDamaged)
+                //    {
+                //        Debug.Log("아군 발견");
+                //        isFindEnemy = true;
+                //    }
+
+                //}
             }
         }
 
-        if((isFindPlayer || isFindEnemy) && isStandUp && isMove)
+        if ((isFindPlayer ||isFindEnemy)&& isMove)
         {
+
             BmMove(); //3
         }
-        else if ((isFindPlayer == false || isFindEnemy == false) && isStandUp)
+        else if (!isFindPlayer)
         {
-            Debug.Log("멈춰라");
+
             StartCoroutine(NotFind());
-        }      
+        }
+
+
+
         PatrolReaction(spriteRenderer);
     }
+   
+
+
     public bool isTeamDamage;
     void TeamEnemy()
     {
@@ -267,30 +282,51 @@ public class BManAction : MonoBehaviour,Enemies
             }
         }
 
-        if (isFindPlayer && !isDamage && hasAttacked)
+        if(isDamage)
         {
-            Debug.Log("공격범위 안에 있음");
-            StartCoroutine(StopAttack());
+            StartCoroutine(HandAttack());
         }
-        else if(isFindPlayer && hasAttacked == false)
-        {
-            Debug.Log("공격범위 안에 없음음");
-            BManim.SetBool("BmAtk", false);
-            BmMove();
-        }
+      
     }
 
-    public float UpgradePunchDelay;
-    IEnumerator StopAttack()
+    public bool firstAnimationFinished = true;
+    public bool secondAnimationFinished = false;
+
+    IEnumerator HandAttack()
     {
-        BManim.SetBool("BmAtk", true);
-        BManim.SetFloat("BmAtkCount", 1.0f);
-        yield return new WaitForSeconds(UpgradePunchDelay);
-        
+        while (isFindPlayer && hasAttacked)
+        {
+            if (firstAnimationFinished)
+            {
+                BManim.SetBool("BmAtk", true);
+                BManim.SetFloat("BmAtkCount", 0); // 첫 번째 애니메이션 실행
+                firstAnimationFinished = false;
 
+                // 애니메이션 종료 대기
+                yield return new WaitUntil(() => BManim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+                secondAnimationFinished = true;
+                Debug.Log("첫 번째 애니메이션 실행");
+            }
+            else if (secondAnimationFinished)
+            {
+                BManim.SetBool("BmAtk", true);
+                BManim.SetFloat("BmAtkCount", 1); // 두 번째 애니메이션 실행
+                secondAnimationFinished = false;
+
+                // 애니메이션 종료 대기
+                yield return new WaitUntil(() => BManim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+                firstAnimationFinished = true;
+                Debug.Log("두 번째 애니메이션 실행");
+            }
+
+            Debug.Log("한 프레임 대기");
+            yield return null;
+        }
+
+        isDamage = false;
+        BManim.SetBool("BmAtk", false);
+        BmMove();
     }
-
-
 
     public bool isColliderPlayer;
     private void OnCollisionEnter2D(Collision2D collision)
