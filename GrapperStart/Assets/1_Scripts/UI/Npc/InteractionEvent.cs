@@ -5,15 +5,10 @@ using UnityEngine;
 public class InteractionEvent : MonoBehaviour
 {
     [SerializeField] DialogueEvent dialogue;
-    // Start is called before the first frame update
-    void Start()
+   
+    public Dialogue[] GetDialogue()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        dialogue.dialogues = DatabaseManager.instance.GetDialogue((int)dialogue.line.x, (int)dialogue.line.y);
+        return dialogue.dialogues;
     }
 }

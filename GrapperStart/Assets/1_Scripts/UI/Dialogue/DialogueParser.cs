@@ -18,7 +18,6 @@ public class DialogueParser : MonoBehaviour
             Dialogue dialogue = new Dialogue(); //대사 리스트 생성
 
             dialogue.name = row[1];
-            Debug.Log(row[1]);
 
             List<string> contextList = new List<string>();
 

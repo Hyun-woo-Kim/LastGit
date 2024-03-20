@@ -30,5 +30,7 @@ public class Interaction : MonoBehaviour
             dialogueUI.SetActive(true);
         }
     }
+
+
 }
 
