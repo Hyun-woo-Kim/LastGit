@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: da8875cc34b35d249a843188ae102865
+guid: f2c331ef3d7592141bcd9c57906eb1ac
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,169 +117,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BM_HandAttack_0
+      name: BM_HandAttack (2)_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 500
-        width: 500
-        height: 500
-      alignment: 9
-      pivot: {x: 0.5777, y: 0.55283606}
+        x: 108
+        y: 499
+        width: 376
+        height: 501
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9314ed2ae1d260845bbafd3ae9ad5ba0
-      internalID: -453352932
+      spriteID: d29adf283bf768242b4a2f5bc7bb43dc
+      internalID: 767460348
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BM_HandAttack_1
+      name: BM_HandAttack (2)_1
       rect:
         serializedVersion: 2
-        x: 500
-        y: 500
-        width: 500
-        height: 500
-      alignment: 9
-      pivot: {x: 0.5870239, y: 0.55283606}
+        x: 594
+        y: 499
+        width: 384
+        height: 501
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86679172a4e209f4a9b3a48aaae9db74
-      internalID: 1026251562
+      spriteID: e252615c392788048999d539022e7bdf
+      internalID: -2136548635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BM_HandAttack_2
+      name: BM_HandAttack (2)_2
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 500
-        width: 500
-        height: 500
-      alignment: 9
-      pivot: {x: 0.5901318, y: 0.54972804}
+        x: 1097
+        y: 499
+        width: 375
+        height: 501
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cea33f9180a2f54c819de7d0462950f
-      internalID: -446529019
+      spriteID: a5dea8cc169a6db4b84cfd2e57af9d2e
+      internalID: 331130329
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BM_HandAttack_3
+      name: BM_HandAttack (2)_3
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 500
-        width: 500
-        height: 500
-      alignment: 9
-      pivot: {x: 0.6025635, y: 0.5404041}
+        x: 1599
+        y: 499
+        width: 371
+        height: 472
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 227afd0b9a3f67743b0a934869cfbe23
-      internalID: -676497310
+      spriteID: e09b493f8a03fa846b746421fba9d44a
+      internalID: -1738272817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BM_HandAttack_4
+      name: BM_HandAttack (2)_4
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2039
+        y: 499
+        width: 440
+        height: 473
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bde9aa5f9b761d448d279380223a819
+      internalID: -832544804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BM_HandAttack (2)_5
+      rect:
+        serializedVersion: 2
+        x: 9
         y: 0
-        width: 500
-        height: 500
-      alignment: 9
-      pivot: {x: 0.5777, y: 0.524864}
+        width: 471
+        height: 473
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5beae26e19ae39047b34dd34dcf6e606
-      internalID: 1123647078
+      spriteID: f2353d846c8371b4188787f1c931e05f
+      internalID: -1706687236
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BM_HandAttack_5
+      name: BM_HandAttack (2)_6
       rect:
         serializedVersion: 2
-        x: 500
+        x: 528
         y: 0
-        width: 500
-        height: 500
-      alignment: 9
-      pivot: {x: 0.5497278, y: 0.51243186}
+        width: 455
+        height: 476
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb24b69b86859ea419b9dcabc773bf89
-      internalID: -1611074290
+      spriteID: 4b85c12249b37434391d6f90c2df26d7
+      internalID: 826623915
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BM_HandAttack_6
+      name: BM_HandAttack (2)_7
       rect:
         serializedVersion: 2
-        x: 1000
+        x: 1049
         y: 0
-        width: 500
-        height: 500
-      alignment: 9
-      pivot: {x: 0.55905175, y: 0.524864}
+        width: 435
+        height: 478
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9521b7e230038ad4684fe399bfa80af1
-      internalID: -14999085
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BM_HandAttack_7
-      rect:
-        serializedVersion: 2
-        x: 1500
-        y: 0
-        width: 500
-        height: 500
-      alignment: 9
-      pivot: {x: 0.565323, y: 0.5342165}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 67acc8f57636ba540982e14d199c7d7a
-      internalID: 562468800
+      spriteID: b03ca45af3468b946a3d09b43da0030e
+      internalID: 1337255437
       vertices: []
       indices: 
       edges: []
@@ -295,14 +295,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BM_HandAttack_0: -453352932
-      BM_HandAttack_1: 1026251562
-      BM_HandAttack_2: -446529019
-      BM_HandAttack_3: -676497310
-      BM_HandAttack_4: 1123647078
-      BM_HandAttack_5: -1611074290
-      BM_HandAttack_6: -14999085
-      BM_HandAttack_7: 562468800
+      BM_HandAttack (2)_0: 767460348
+      BM_HandAttack (2)_1: -2136548635
+      BM_HandAttack (2)_2: 331130329
+      BM_HandAttack (2)_3: -1738272817
+      BM_HandAttack (2)_4: -832544804
+      BM_HandAttack (2)_5: -1706687236
+      BM_HandAttack (2)_6: 826623915
+      BM_HandAttack (2)_7: 1337255437
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
