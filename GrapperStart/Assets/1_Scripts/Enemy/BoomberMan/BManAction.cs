@@ -290,23 +290,21 @@ public class BManAction : MonoBehaviour,Enemies
     }
 
     public float atkAnimSpeed;
+    public float AnimSpeed;
+    private float atkCount;
     IEnumerator HandAttack()
     {
+
         while (isFindPlayer && hasAttacked)
         {
             BManim.SetBool("BmAtk", true);
-            float atkCount = Mathf.PingPong(Time.time, 1.0f);
+            // 차징
+            float atkCount = Mathf.Lerp(0.2f, 0.8f, Mathf.PingPong(Time.time * atkAnimSpeed, 1.0f));
+            BManim.CrossFade("Atk_Nockback_BT", atkCount);
+            BManim.SetFloat("BmAtkCount", atkCount);
 
-            // 0.45와 0.55 사이 값 제외
-            if (atkCount < 0.45f || atkCount > 0.55f)
-            {
-                BManim.SetFloat("BmAtkCount", atkCount);
-            }
-
-            // 한 프레임 대기
             yield return null;
         }
-
         isDamage = false;
         BManim.SetBool("BmAtk", false);
         BmMove();

@@ -6191,7 +6191,8 @@ MonoBehaviour:
   PunchboxSize: {x: 1.2, y: 2.6}
   isReact: 0
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
-  atkAnimSpeed: 0.5
+  atkAnimSpeed: 1
+  AnimSpeed: 0.2
   isColliderPlayer: 0
 --- !u!95 &769229555
 Animator:
