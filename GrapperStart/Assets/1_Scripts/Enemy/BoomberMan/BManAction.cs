@@ -299,8 +299,8 @@ public class BManAction : MonoBehaviour,Enemies
         {
             BManim.SetBool("BmAtk", true);
             // ย๗ยก
-            float atkCount = Mathf.Lerp(0.2f, 0.8f, Mathf.PingPong(Time.time * atkAnimSpeed, 1.0f));
-            BManim.CrossFade("Atk_Nockback_BT", atkCount);
+            float atkCount = Mathf.Lerp(0.0f, 1.0f, Mathf.PingPong(Time.time , 1.0f));
+            //BManim.CrossFade("Atk_Nockback_BT", atkCount);
             BManim.SetFloat("BmAtkCount", atkCount);
 
             yield return null;

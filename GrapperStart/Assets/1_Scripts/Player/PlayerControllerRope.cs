@@ -205,7 +205,8 @@ public class PlayerControllerRope : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        if (grapling.grapCount != 1.0f && grapling.isAttatch == false && grapling.isFlyReady  == false) //&& grapling.isAttatch == false
+        //if (grapling.grapCount != 1.0f && grapling.isAttatch == false && grapling.isFlyReady  == false) 
+        if (grapling.grapCount != 1.0f && grapling.isFlyReady == false)
         {
 
             if(grapling.isLerping == false )
@@ -231,7 +232,8 @@ public class PlayerControllerRope : MonoBehaviour
 
     void MoveToPlayer(float horizontalInput)
     {
-        if (grapling.isAttatch == false && SelectManager.Instance.isSelectUI == false)
+        //if (grapling.isAttatch == false && SelectManager.Instance.isSelectUI == false)
+        if (SelectManager.Instance.isSelectUI == false)
         {
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)
