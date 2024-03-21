@@ -26,7 +26,7 @@ public class Aiming : MonoBehaviour
         lineAim.positionCount = 2;
         lineAim.startWidth = lineAim.endWidth = 0.05f;
         lineAim.useWorldSpace = true;
-        
+
     }
 
     //public Material dashedLineMaterial; // 점선 이미지를 사용한 머티리얼
@@ -39,7 +39,7 @@ public class Aiming : MonoBehaviour
 
     }
 
- 
+
     public bool isAimEnemy = false;
     public bool isCollEnemy = false;
     public bool isAimRing = false;
@@ -66,11 +66,11 @@ public class Aiming : MonoBehaviour
                     && graplingRange.isRange && graplingRange.isobjSkill
                     && grapling.isAttatch == false) //범위 안에 있어야 하며, 범위 안에 obj가 있어야 하며 , Hook가 Ring과 충돌하지 않을때.
                 {
-                    if(grapling.isLerping == false)
+                    if (grapling.isLerping == false)
                     {
                         player.playerData.curSpeed = 3.0f;
                     }
-                   
+
                     //lineAim.material.mainTextureScale = new Vector2((dashLength + gapLength) / dashLength, 1f);
                     //lineAim.material.mainTextureOffset -= new Vector2(Time.deltaTime / (dashLength + gapLength), 0f);
                     lineAim.SetPosition(0, aimStarPos); //조준 시작 위치는 aimStarPos이다.
@@ -82,7 +82,7 @@ public class Aiming : MonoBehaviour
 
                     if (hit.collider == collider) //마우스 포인터와 Ring or Enemy 오브젝트의 충돌이 같을 때
                     {
-                       
+
 
                         if (collider.CompareTag("Ring") && isCollEnemy == false && grapling.isFlyReady == false && grapling.isHookActive == false)
                         {
@@ -104,7 +104,7 @@ public class Aiming : MonoBehaviour
 
 
 
-                        if (collider.CompareTag("Enemy"))
+                        if (collider.CompareTag("Enemy") && grapling.isGraplingEnemy == false)
                         {
                             isAimEnemy = true;
                             isCollEnemy = true;
@@ -141,7 +141,7 @@ public class Aiming : MonoBehaviour
         {
             player.playerData.curSpeed = player.InitSpeed; //플레이어가 링을 조준하지 않았을 때 원래 스피드로 돌아감.
             isAimRing = false;
-            isCollEnemy  = false;
+            isCollEnemy = false;
 
             isGrapplingReady = false;
             anim = GetComponent<Animator>();
@@ -152,7 +152,7 @@ public class Aiming : MonoBehaviour
             ScenesManager.Instance.FindEnemiesInScene();
             MouseManager.Instance.SetCursorType(MouseManager.CursorType.Idle);
 
-       
+
         }
 
         if ((graplingRange.isobjSkill == false && graplingRange.isRange == false) ||
@@ -171,7 +171,7 @@ public class Aiming : MonoBehaviour
         }
 
     }
-   public Vector3 GetAimDirection()
+    public Vector3 GetAimDirection()
     {
         // 마우스 포인터 위치를 월드 좌표로 변환
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -18415,10 +18415,10 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 3}
+  m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
   m_Distance: 4
-  m_MaxDistanceOnly: 1
+  m_MaxDistanceOnly: 0
 --- !u!50 &1916087126
 Rigidbody2D:
   serializedVersion: 4
