@@ -35,7 +35,7 @@ public class DatabaseManager : MonoBehaviour
     {
         List<Dialogue> dialogueList = new List<Dialogue>();
 
-        for(int i = 0; i<=EndNum -StartNum; i++)
+        for(int i = 0; i<=EndNum - StartNum; i++)
         {
             dialogueList.Add(dialogueDIc[StartNum + i]); //대화 줄 꺼내오기 처음부터 반복되는 수만큼
 
