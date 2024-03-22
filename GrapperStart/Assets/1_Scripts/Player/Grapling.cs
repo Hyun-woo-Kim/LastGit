@@ -75,6 +75,8 @@ public class Grapling : MonoBehaviour
 
         originalRotation = transform.rotation;
 
+
+
         #region Line컴포넌트 정리
         //정리
         //시작하면 점의 갯수는 2개로 설정되어 처음 라인 위치의 점과 마지막 라인의 위치의 점 . 총 2개로 설정된다.
@@ -278,6 +280,13 @@ public class Grapling : MonoBehaviour
             RotPlayerArm();
             RotPlayer();
             hookRigid();
+
+            Collider2D childCollider = aim.targetRing.GetChild(1).GetComponent<Collider2D>();
+            childCollider.isTrigger = false; //충돌 불가능
+
+
+
+
             PlayerGraplingAnimCount = 0.0f;
             line.SetPosition(0, playerArm.position);
             //Collider2D childCollider = aim.targetRing.GetChild(1).GetComponent<Collider2D>();
@@ -285,12 +294,16 @@ public class Grapling : MonoBehaviour
             animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
             animPlayer.SetBool("PlayerGrapling", true);
 
+
+
+
             if (Input.GetKey(KeyCode.E) && isAttatch) //공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             {
                 rotationhook = transform.rotation.eulerAngles;
 
-                Collider2D childCollider = aim.targetRing.GetChild(1).GetComponent<Collider2D>();
-                childCollider.isTrigger = true ; //충돌 무시
+           
+               
+       
 
                 if (!isEKeyHeld)
                 {
@@ -317,7 +330,7 @@ public class Grapling : MonoBehaviour
                     isLineMax = false;
 
                     player.flyAction(baseSwingForce);
-
+                    childCollider.isTrigger = true; //충돌 불가능
                     aim.aimMousedir.x = 0;
                     aim.aimMousedir.y = 0;
                     aim.aimLength = 0.0f;
