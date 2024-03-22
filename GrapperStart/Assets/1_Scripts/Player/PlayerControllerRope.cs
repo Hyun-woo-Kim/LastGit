@@ -233,7 +233,7 @@ public class PlayerControllerRope : MonoBehaviour
     void MoveToPlayer(float horizontalInput)
     {
         //if (grapling.isAttatch == false && SelectManager.Instance.isSelectUI == false)
-        if (SelectManager.Instance.isSelectUI == false)
+        if (SelectManager.Instance.isSelectUI == false && grapling.isAttatch == false)
         {
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)
@@ -272,114 +272,115 @@ public class PlayerControllerRope : MonoBehaviour
         }
     }
 
+    #region 전등 그래플링 360도 회전 메서드
+    //public void SwingPlayer()
+    //{
+    //    Hooking hook = GameObject.Find("Hook").GetComponent<Hooking>();
+    //    Vector2 currentConnectedAnchor = hook.joint2D.connectedAnchor;
 
-    public void SwingPlayer()
-    {
-        Hooking hook = GameObject.Find("Hook").GetComponent<Hooking>();
-        Vector2 currentConnectedAnchor = hook.joint2D.connectedAnchor;
+    //    if (grapling.hookisLeft && grapling.isAttatch)
+    //    {
 
-        if (grapling.hookisLeft && grapling.isAttatch)
-        {
-           
-            if (Input.GetKey(KeyCode.A))
-            {
-              
-                currentConnectedAnchor.x -= accelerationRate * Time.deltaTime;
-               
+    //        if (Input.GetKey(KeyCode.A))
+    //        {
 
-                currentConnectedAnchor.x = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_X); //1
-                                                                                                     //currentConnectedAnchor.y  = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_Y);
-             
-                if (currentConnectedAnchor.y < 3.0f)
-                {
-                    currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
-                }
+    //            currentConnectedAnchor.x -= accelerationRate * Time.deltaTime;
 
 
-            }
+    //            currentConnectedAnchor.x = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_X); //1
+    //                                                                                                 //currentConnectedAnchor.y  = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_Y);
+
+    //            if (currentConnectedAnchor.y < 3.0f)
+    //            {
+    //                currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
+    //            }
 
 
-            else if (Input.GetKey(KeyCode.D))
-            {
+    //        }
 
 
-                currentConnectedAnchor.x += accelerationRate * Time.deltaTime;
+    //        else if (Input.GetKey(KeyCode.D))
+    //        {
 
 
-
-                if (currentConnectedAnchor.y < 3.0f)
-                {
-                    currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
-                }
-
-                currentConnectedAnchor.x = Mathf.Min(currentConnectedAnchor.x, graplingMaxSpeed_X);
-
-
-            }
-
-            else
-            {
-                //currentConnectedAnchor.x = 0.0f;
-
-                //currentConnectedAnchor.y = 0.0f;
-                currentConnectedAnchor.x = Mathf.Lerp(currentConnectedAnchor.x, initialGraplingSpeed, releaseDeceleration * Time.deltaTime);
-                currentConnectedAnchor.y = Mathf.Lerp(currentConnectedAnchor.y, initialGraplingSpeed, releaseDeceleration * Time.deltaTime);
-
-
-            }
-
-        }
-        else if (grapling.hookisRight)
-        {
-           
-            if (Input.GetKey(KeyCode.A))
-            {
-
-                currentConnectedAnchor.x += accelerationRate * Time.deltaTime;
+    //            currentConnectedAnchor.x += accelerationRate * Time.deltaTime;
 
 
 
-                if (currentConnectedAnchor.y < 3.0f)
-                {
-                    currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
-                }
+    //            if (currentConnectedAnchor.y < 3.0f)
+    //            {
+    //                currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
+    //            }
 
-                currentConnectedAnchor.x = Mathf.Min(currentConnectedAnchor.x, graplingMaxSpeed_X);
-
-
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                currentConnectedAnchor.x -= accelerationRate * Time.deltaTime;
-                //currentConnectedAnchor.y -= accelerationRate * Time.deltaTime;
-
-                currentConnectedAnchor.x = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_X); //1
-                                                                                                     //currentConnectedAnchor.y  = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_Y);
-
-                if (currentConnectedAnchor.y < 3.0f)
-                {
-                    currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
-                }
+    //            currentConnectedAnchor.x = Mathf.Min(currentConnectedAnchor.x, graplingMaxSpeed_X);
 
 
-            }
+    //        }
 
-            else
-            {
-                //currentConnectedAnchor.x = 0.0f;
+    //        else
+    //        {
+    //            //currentConnectedAnchor.x = 0.0f;
 
-                //currentConnectedAnchor.y = 0.0f;
-                currentConnectedAnchor.x = Mathf.Lerp(currentConnectedAnchor.x, initialGraplingSpeed, releaseDeceleration * Time.deltaTime);
-                currentConnectedAnchor.y = Mathf.Lerp(currentConnectedAnchor.y, initialGraplingSpeed, releaseDeceleration * Time.deltaTime);
+    //            //currentConnectedAnchor.y = 0.0f;
+    //            currentConnectedAnchor.x = Mathf.Lerp(currentConnectedAnchor.x, initialGraplingSpeed, releaseDeceleration * Time.deltaTime);
+    //            currentConnectedAnchor.y = Mathf.Lerp(currentConnectedAnchor.y, initialGraplingSpeed, releaseDeceleration * Time.deltaTime);
 
 
-            }
-        }
+    //        }
 
-        hook.joint2D.connectedAnchor = currentConnectedAnchor;
-    }
-       
-    public void flyAction(float swingForce)
+    //    }
+    //    else if (grapling.hookisRight)
+    //    {
+
+    //        if (Input.GetKey(KeyCode.A))
+    //        {
+
+    //            currentConnectedAnchor.x += accelerationRate * Time.deltaTime;
+
+
+
+    //            if (currentConnectedAnchor.y < 3.0f)
+    //            {
+    //                currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
+    //            }
+
+    //            currentConnectedAnchor.x = Mathf.Min(currentConnectedAnchor.x, graplingMaxSpeed_X);
+
+
+    //        }
+    //        else if (Input.GetKey(KeyCode.D))
+    //        {
+    //            currentConnectedAnchor.x -= accelerationRate * Time.deltaTime;
+    //            //currentConnectedAnchor.y -= accelerationRate * Time.deltaTime;
+
+    //            currentConnectedAnchor.x = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_X); //1
+    //                                                                                                 //currentConnectedAnchor.y  = Mathf.Max(currentConnectedAnchor.x, -graplingMaxSpeed_Y);
+
+    //            if (currentConnectedAnchor.y < 3.0f)
+    //            {
+    //                currentConnectedAnchor.y += distanceSpeed * Time.deltaTime;
+    //            }
+
+
+    //        }
+
+    //        else
+    //        {
+    //            //currentConnectedAnchor.x = 0.0f;
+
+    //            //currentConnectedAnchor.y = 0.0f;
+    //            currentConnectedAnchor.x = Mathf.Lerp(currentConnectedAnchor.x, initialGraplingSpeed, releaseDeceleration * Time.deltaTime);
+    //            currentConnectedAnchor.y = Mathf.Lerp(currentConnectedAnchor.y, initialGraplingSpeed, releaseDeceleration * Time.deltaTime);
+
+
+    //        }
+    //    }
+
+    //    hook.joint2D.connectedAnchor = currentConnectedAnchor;
+    //} 
+    #endregion  //제외 함수
+
+    public void flyAction(float swingForce) //공중제비 메서드
     {
 
         Debug.Log(swingForce);
@@ -394,7 +395,7 @@ public class PlayerControllerRope : MonoBehaviour
         rigid.velocity = flyDirection * swingForce;
         //rigid.AddForce(flyDirection * swingForce, ForceMode2D.Impulse);
 
-        hookingScr.joint2D.connectedAnchor = new Vector2(0.0f, 2.0f);
+        hookingScr.joint2D.connectedAnchor = new Vector2(0.0f, 0.0f);
 
         hookingScr.joint2D.enabled = false;
 

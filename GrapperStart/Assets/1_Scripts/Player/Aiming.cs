@@ -169,6 +169,10 @@ public class Aiming : MonoBehaviour
             anim = GetComponent<Animator>();
             anim.SetBool("PlayerAimEnemy", true);
         }
+        else if(grapling.isGraplingEnemy == true)
+        {
+            hookAim.gameObject.SetActive(false);
+        }
 
     }
     public Vector3 GetAimDirection()
