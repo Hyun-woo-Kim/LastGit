@@ -9314,7 +9314,7 @@ MonoBehaviour:
   graplingDamage: 0
   isGraplingEnemy: 0
   maxSwingAngle: 180
-  swingForce: 20
+  swingForce: 25
   hookDistance: 4
   isStop: 0
   delay: 0
@@ -9325,6 +9325,7 @@ MonoBehaviour:
   maxPos: 0
   direction: 1
   playerToEnemyDistance: 3
+  isWall: 0
 --- !u!114 &1079117464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12443,7 +12444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469517492}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.861, y: -2.6, z: 0}
+  m_LocalPosition: {x: -1.51, y: -3.66, z: 0}
   m_LocalScale: {x: 1.5749999, y: 1.8125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19066,7 +19067,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954910683}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.51, y: -3.49, z: 0}
+  m_LocalPosition: {x: -8.08, y: -3.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

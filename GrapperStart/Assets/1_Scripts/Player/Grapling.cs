@@ -14,6 +14,7 @@ public class Grapling : MonoBehaviour
     Animator animPlayer;
     Aiming aim;
     Rigidbody2D rigid;
+    CapsuleCollider2D playerColl;
 
     [Header("##Obj Grapling")]
     public Transform playerArm;
@@ -65,6 +66,7 @@ public class Grapling : MonoBehaviour
 
         animPlayer = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
+        playerColl = GetComponent<CapsuleCollider2D>();
 
 
         graplingRange = FindAnyObjectByType<GraplingRange>();
@@ -281,15 +283,8 @@ public class Grapling : MonoBehaviour
             RotPlayer();
             hookRigid();
 
-            Collider2D childCollider = aim.targetRing.GetChild(1).GetComponent<Collider2D>();
-            childCollider.isTrigger = false; //충돌 불가능
-
-
-
-
             PlayerGraplingAnimCount = 0.0f;
             line.SetPosition(0, playerArm.position);
-            //Collider2D childCollider = aim.targetRing.GetChild(1).GetComponent<Collider2D>();
 
             animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
             animPlayer.SetBool("PlayerGrapling", true);
@@ -330,7 +325,7 @@ public class Grapling : MonoBehaviour
                     isLineMax = false;
 
                     player.flyAction(baseSwingForce);
-                    childCollider.isTrigger = true; //충돌 불가능
+
                     aim.aimMousedir.x = 0;
                     aim.aimMousedir.y = 0;
                     aim.aimLength = 0.0f;
@@ -358,6 +353,18 @@ public class Grapling : MonoBehaviour
         {
             transform.rotation = originalRotation;
 
+            if (isWall == true)
+            {
+                Debug.Log("벽에 부딪히기 직전");
+                playerColl.isTrigger = false;
+            }
+            else
+            {
+                playerColl.isTrigger = true;
+            }
+
+          
+
             if (hookisLeft)
             {
                 PlayerGraplingAnimCount = 1.0f;
@@ -383,8 +390,8 @@ public class Grapling : MonoBehaviour
             {
                 player.isFlyAction = false;
                 isFlyReady = false;
-                Collider2D childCollider = aim.targetRing.GetChild(1).GetComponent<Collider2D>();
-                childCollider.isTrigger = false; //충돌 무시
+                playerColl.isTrigger = false;
+                isWall = false;
                 animPlayer.SetBool("PlayerGrapling", false);
 
             }
@@ -756,6 +763,15 @@ public class Grapling : MonoBehaviour
 
     }
 
+    public bool isWall;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Wall" && isFlyReady)
+        {
+            Debug.Log("벽 충돌");
+            isWall = true;
+        }
+    }
 
 
 
