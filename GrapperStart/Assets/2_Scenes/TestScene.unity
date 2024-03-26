@@ -6295,6 +6295,7 @@ MonoBehaviour:
   animAimSpeed: 0.5
   animSpeed: 0
   isDamage: 0
+  isAtk: 0
   isDied: 0
   nockbackForce: 10
   hasAttacked: 0
@@ -6376,7 +6377,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.125, y: 3.128052}
+  m_Size: {x: 2.125, y: 3.03125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9118,7 +9119,7 @@ GameObject:
   - component: {fileID: 1079117455}
   - component: {fileID: 1079117458}
   - component: {fileID: 1079117459}
-  - component: {fileID: 1079117466}
+  - component: {fileID: 1079117468}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -9348,26 +9349,6 @@ MonoBehaviour:
   radius: 7
   isUnViewObjRangeRunning: 0
   isFifthchild: 0
---- !u!95 &1079117466
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079117453}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5b001cc75cc0e0a4ba47a9bab57ac446, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &1079117467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9391,6 +9372,26 @@ MonoBehaviour:
   aimMousedir: {x: 0, y: 0}
   aimLength: 0
   targetRing: {fileID: 0}
+--- !u!95 &1079117468
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079117453}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b001cc75cc0e0a4ba47a9bab57ac446, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1081191985
 GameObject:
   m_ObjectHideFlags: 0
