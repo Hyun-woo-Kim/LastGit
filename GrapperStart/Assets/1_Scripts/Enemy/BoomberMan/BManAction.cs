@@ -45,6 +45,7 @@ public class BManAction : MonoBehaviour,Enemies
     }
 
     public bool isDamage;
+    public bool isAtk;
     public IEnumerator baseDamaged()
     {
         isMove = false;
@@ -55,19 +56,14 @@ public class BManAction : MonoBehaviour,Enemies
             StartCoroutine(Died());
         }
         isDamage = true;
-        
-        
-        BManim.SetBool("BmAtk", true);
-        BManim.SetFloat("BmAtkCount", -1.0f);
-
-        for (int i =0; i< 2; i++)
+        if (isDamage == true)
         {
-           BManim.SetFloat("BmAtkCount", 0.0f);                 
-           yield return new WaitForSeconds(0.5f);
+            BManim.SetBool("BmAtk", true);
+            BManim.SetFloat("BmAtkCount", -1.0f);
         }
-        
-        //BManim.SetBool("BmAtk", false);
-        
+        yield return new WaitForSeconds(0.5f);
+        isDamage = false;
+        isAtk = true;
         isMove = true;
     }
 
@@ -145,7 +141,7 @@ public class BManAction : MonoBehaviour,Enemies
                 isFindPlayer = true;
                 isReact = true;
                 FunchCollider();
-                if ((isFindPlayer || isFindEnemy) && isMove == false)
+                if ((isFindPlayer || isFindEnemy) && isMove == false && isDamage == true)
                 {
                     Debug.Log("일어서기");
                     StartCoroutine(Find()); //1
@@ -170,7 +166,7 @@ public class BManAction : MonoBehaviour,Enemies
 
         if ((isFindPlayer ||isFindEnemy)&& isMove)
         {
-
+            BManim.SetBool("BmIdle", false);
             BmMove(); //3
         }
         else if (!isFindPlayer)
@@ -235,13 +231,13 @@ public class BManAction : MonoBehaviour,Enemies
     IEnumerator  NotFind()
     {
         isMove = false;
-        yield return new WaitForSeconds(1.0f);
         BManim.SetBool("BmAtk", false);
         //스탠딩 애니메이션 여기다 추가.
-        BManim.SetBool("BmFind", false);
+        BManim.SetBool("BmIdle", true);
+        yield return new WaitForSeconds(1.0f);
         isStandUp = false;
         isFindEnemy = false;
-        collder.size = InitCollSize;
+
 
     }
     public float delay;
@@ -251,10 +247,9 @@ public class BManAction : MonoBehaviour,Enemies
         //움직이기 전
         isMove = false;
         isStandUp = true;
-
+        yield return new WaitForSeconds(1.0f); //
         BManim.SetBool("BmFind",true);
-        BManim.SetFloat("BmAnimCount",0.0f);
-        yield return new WaitForSeconds(1.0f);
+        BManim.SetFloat("BmAnimCount",0.0f); //일어서기 애니메이션 재생
         
         Vector2 colliderBm = new Vector2(1, 2.6f);
         collder.size = colliderBm;
@@ -279,12 +274,17 @@ public class BManAction : MonoBehaviour,Enemies
             if (collider.CompareTag("Player"))
             {
                 hasAttacked = true;
+
+                if(isDamage == false && hasAttacked)
+                {
+                    isAtk = true;
+                }
             }
         }
 
-        if(isDamage)
+        if(isAtk)
         {
-            StartCoroutine(HandAttack());
+            HandAttack();
         }
       
     }
@@ -292,22 +292,32 @@ public class BManAction : MonoBehaviour,Enemies
     public float atkAnimSpeed;
     public float AnimSpeed;
     private float atkCount;
-    IEnumerator HandAttack()
+    void HandAttack()
     {
 
-        while (isFindPlayer && hasAttacked)
+        //while (isFindPlayer && hasAttacked)
+        //{
+        //    BManim.SetBool("BmAtk", true);
+        //    // 차징
+        //    float atkCount = Mathf.Lerp(0.0f, 1.0f, Mathf.PingPong(Time.time , 1.0f));
+        //    //BManim.CrossFade("Atk_Nockback_BT", atkCount);
+        //    BManim.SetFloat("BmAtkCount", atkCount);
+
+        //    yield return null;
+        //}
+        if(hasAttacked)
         {
             BManim.SetBool("BmAtk", true);
-            // 차징
-            float atkCount = Mathf.Lerp(0.0f, 1.0f, Mathf.PingPong(Time.time , 1.0f));
-            //BManim.CrossFade("Atk_Nockback_BT", atkCount);
-            BManim.SetFloat("BmAtkCount", atkCount);
-
-            yield return null;
+            BManim.SetFloat("BmAtkCount", 1.0f);
         }
-        isDamage = false;
-        BManim.SetBool("BmAtk", false);
-        BmMove();
+       
+        else
+        {
+            BManim.SetBool("BmAtk", false);
+            isAtk = false;
+            BmMove();
+        }
+
     }
 
     public bool isColliderPlayer;

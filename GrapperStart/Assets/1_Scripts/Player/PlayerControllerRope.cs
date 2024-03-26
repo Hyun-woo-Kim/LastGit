@@ -175,7 +175,7 @@ public class PlayerControllerRope : MonoBehaviour
             Debug.Log("용암 충돌");
             isLava = true;
         }
-
+      
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
