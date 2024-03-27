@@ -105,6 +105,8 @@ public class BManAction : MonoBehaviour,Enemies
     public bool hasAttacked;
     public bool isMove;
     public bool isPlayerFindCoroutineRunning = false;
+    public bool isStand = false;
+    public bool isPlayerMissing = false;
 
 
     void FindedPlayer()
@@ -115,6 +117,7 @@ public class BManAction : MonoBehaviour,Enemies
 
         
         isReact = false;
+        isFindPlayer = false;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Findboxpos.transform.position, FindboxSize, 0);
         foreach (Collider2D collider in colliders)
         {
@@ -124,7 +127,7 @@ public class BManAction : MonoBehaviour,Enemies
                 //collder.size = colliderBm;
                 target = collider.transform;
                 isFindPlayer = true;
-
+                isReact = true;
                 if (!isPlayerFindCoroutineRunning && isFindPlayer) // 코루틴이 실행 중이 아닌 경우에만 실행
                 {
                     StartCoroutine(playerFind());
@@ -144,17 +147,113 @@ public class BManAction : MonoBehaviour,Enemies
                 //}
             }
         }
-
+        if(isFindPlayer && isStand)
+        {
+            isMove = true;
+            isPlayerMissing = false;
+            BmMove();
+        }
+        else if(isFindPlayer == false && isStand)
+        {
+            isMove = false;
+            isPlayerMissing = true;
+            StartCoroutine(NotFindPlayer(spriteRenderer));
+            //필드 순회
+        }
         PatrolReaction(spriteRenderer);
     }
     public float growthRate = 0.9f; //일어나는 속도
+    public float notFindDelayAnim; //플레이어를 찾지 못했을 때 스탠딩 상태 딜레이
+
+    public Sprite missSprite; //플레이어를 놓쳤을 때 물음표 스프라이트.
+
+    public Vector2 patrolDirection;
+    public Vector2 startPosition;
+    public float patrolSpeed = 2.0f;
+    public float patrolDistance = 5.0f; // 순찰 거리
+    public bool hasReachedStartPosition;
+
+    IEnumerator NotFindPlayer(SpriteRenderer sprite)
+    {
+        sprite.sprite = missSprite;
+
+
+
+        if (!hasReachedStartPosition)
+        {
+            startPosition = transform.position;
+            Debug.Log("1");
+            if (target.position.x < transform.position.x)
+            {
+                Debug.Log("2");
+                patrolDirection = Vector2.right;
+            }
+            else if (target.position.x > transform.position.x)
+            {
+                Debug.Log("3");
+                patrolDirection = Vector2.left;
+            }
+
+            BManim.SetBool("BmIdle", true);
+            yield return new WaitForSeconds(notFindDelayAnim);
+            hasReachedStartPosition = true;
+        }
+
+
+        yield return null;
+
+       PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
+        BManim.SetBool("BmIdle", false);
+        if (!BManim.GetBool("BmAtk"))
+        {
+            Debug.Log("이동 중");
+
+            BManim.SetFloat("BmAnimCount", 1.0f);
+        }
+    }
+
+     void PatrolMovement(float patrolSpeed, float patrolDis, Vector2 patrolDir, Vector2 starPos)
+    {
+
+        bool hasChangedDirection = false;
+
+        if (!hasChangedDirection && Mathf.Abs(transform.position.x - startPosition.x) >= patrolDis)
+        {
+            Debug.Log("방향전환");
+            patrolDirection *= -1;
+            startPosition = transform.position;
+            hasChangedDirection = true;
+        }
+
+      
+
+
+
+        //이동 애니메이션 추가. 
+
+
+
+        if (patrolDir == Vector2.right)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            transform.Translate(patrolDir * patrolSpeed * Time.deltaTime);
+        }
+        else if (patrolDir == Vector2.left)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            transform.Translate(patrolDir * patrolSpeed * Time.deltaTime);
+        }
+
+
+
+    }
     IEnumerator playerFind()
     {
         isPlayerFindCoroutineRunning = true;
         BManim.SetBool("BmFind", true);
 
         float sizeY = 1.7f;
-        float targetSizeY = 2.7f; // 목표 크기
+        float targetSizeY = 2.6f; // 목표 크기
 
         while (sizeY <= targetSizeY)
         {
@@ -162,7 +261,7 @@ public class BManAction : MonoBehaviour,Enemies
             sizeY += delta;
 
             // 크기가 목표 크기를 초과하는 경우 종료
-            if (sizeY > 2.6f)
+            if (sizeY > 2.5f)
             {
                 break;
             }
@@ -175,12 +274,11 @@ public class BManAction : MonoBehaviour,Enemies
             yield return null;
             Debug.Log("반복");
         }
-        //Vector2 offsetBm = new Vector2(0.3f, 0.0f);
-        //collder.offset  = offsetBm;
         BManim.SetBool("BmIdle",true);
+        isStand = true;
         yield return null;
         Debug.Log("종료");
-    }
+    }//일어서는 메서드
 
 
     public bool isTeamDamage;
@@ -216,17 +314,16 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isFindEnemy;
     void BmMove()
     {
-
-        if (isDamage == false && isDied == false && isMove)
-        {
+            BManim.SetBool("BmIdle", false);
             FlipEnemy(target);
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
             if (!BManim.GetBool("BmAtk"))
             {
                 Debug.Log("이동 중");
+                
                 BManim.SetFloat("BmAnimCount", 1.0f);
             }
-        }
+        
 
     }
 
@@ -271,7 +368,7 @@ public class BManAction : MonoBehaviour,Enemies
         {
             spriteRenderer.sprite = reactSprite;
         }
-        else if (isReact == false)
+        else if (isReact == false && isPlayerMissing == false)
         {
             spriteRenderer.sprite = null;
 
