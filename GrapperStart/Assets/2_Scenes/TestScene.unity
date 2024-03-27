@@ -6300,10 +6300,10 @@ MonoBehaviour:
   nockbackForce: 10
   hasAttacked: 0
   isMove: 0
+  isPlayerFindCoroutineRunning: 0
+  growthRate: 0.3
   isTeamDamage: 0
   isFindEnemy: 0
-  delay: 0
-  isStandUp: 0
   Punchboxpos: {fileID: 1248433073}
   PunchboxSize: {x: 1.2, y: 2.6}
   isReact: 0
@@ -6372,12 +6372,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 719149953, guid: 965124167a55ec34590445f7b436fddd, type: 3}
+  m_Sprite: {fileID: -1856569702, guid: 965124167a55ec34590445f7b436fddd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.125, y: 3.03125}
+  m_Size: {x: 2.06875, y: 2.4523928}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -6438,8 +6438,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: 0, y: -0.31}
+  m_Size: {x: 1, y: 1.73}
   m_Direction: 0
 --- !u!114 &769229561
 MonoBehaviour:
