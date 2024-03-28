@@ -23,10 +23,6 @@ public class SpriteOutline : MonoBehaviour
         UpdateOutline(false);
     }
 
-    void Update()
-    {
-        UpdateOutline(true);
-    }
 
     void UpdateOutline(bool outline)
     {

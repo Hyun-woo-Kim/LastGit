@@ -6294,10 +6294,6 @@ MonoBehaviour:
   moveSpeed: 3
   animAimSpeed: 0.5
   animSpeed: 0
-  isDamage: 0
-  isAtk: 0
-  isDied: 0
-  nockbackForce: 10
   hasAttacked: 0
   isMove: 0
   isPlayerFindCoroutineRunning: 0
@@ -6311,14 +6307,17 @@ MonoBehaviour:
   patrolSpeed: 2
   patrolDistance: 5
   hasReachedStartPosition: 0
+  nockbackForce: 10
+  isDied: 0
+  isDamage: 0
+  isAtk: 0
   isTeamDamage: 0
   isFindEnemy: 0
   Punchboxpos: {fileID: 1248433073}
   PunchboxSize: {x: 1.2, y: 2.6}
   isReact: 0
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
-  atkAnimSpeed: 1
-  AnimSpeed: 0.2
+  isPuch: 0
   isColliderPlayer: 0
 --- !u!95 &769229555
 Animator:
@@ -6457,7 +6456,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769229553}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de91f8b9878fb614b99c757ca0c1e765, type: 3}
   m_Name: 
