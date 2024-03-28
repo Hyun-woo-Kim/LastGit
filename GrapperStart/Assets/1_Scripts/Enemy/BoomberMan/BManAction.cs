@@ -37,8 +37,25 @@ public class BManAction : MonoBehaviour,Enemies
     public float animAimSpeed;
     public float animSpeed;
 
-    
 
+    public bool hasAttacked;
+    public bool isMove;
+    public bool isPlayerFindCoroutineRunning = false;
+    public bool isStand = false;
+    public bool isPlayerMissing = false;
+
+    public float growthRate = 0.9f; //일어나는 속도
+    public float notFindDelayAnim; //플레이어를 찾지 못했을 때 스탠딩 상태 딜레이
+
+    public Sprite missSprite; //플레이어를 놓쳤을 때 물음표 스프라이트.
+
+    public Vector2 patrolDirection;
+    public Vector2 startPosition;
+    public float patrolSpeed = 2.0f;
+    public float patrolDistance = 5.0f; // 순찰 거리
+    public bool hasReachedStartPosition;
+    public float nockbackForce;
+    public bool isDied;
     public IEnumerator GraplingAtkDamaged(float damage)
     {
         yield return null;
@@ -48,6 +65,15 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isAtk;
     public IEnumerator baseDamaged()
     {
+        isDamage = true;
+        if (isStand)
+        {
+            BManim.SetBool("BmAtk", true);
+            BManim.SetFloat("BmAtkCount", -1.0f);
+            yield return new WaitForSeconds(0.3f);
+            BManim.SetBool("BmAtk", false);
+            isDamage = false;
+        }
         yield return null;
     }
 
@@ -58,7 +84,7 @@ public class BManAction : MonoBehaviour,Enemies
         playerData.DamagedHp(1);
     }
 
-    public bool isDied;
+
     public IEnumerator Died()
     {
 
@@ -89,7 +115,6 @@ public class BManAction : MonoBehaviour,Enemies
         }
 
     }
-    public float nockbackForce;
     public void SpeedDown()
     {
         followSpeed = 0.1f;
@@ -101,13 +126,6 @@ public class BManAction : MonoBehaviour,Enemies
         followSpeed = 0.2f;
         BManim.speed = animSpeed;
     }
-
-    public bool hasAttacked;
-    public bool isMove;
-    public bool isPlayerFindCoroutineRunning = false;
-    public bool isStand = false;
-    public bool isPlayerMissing = false;
-
 
     void FindedPlayer()
     {
@@ -128,10 +146,12 @@ public class BManAction : MonoBehaviour,Enemies
                 target = collider.transform;
                 isFindPlayer = true;
                 isReact = true;
-                if (!isPlayerFindCoroutineRunning && isFindPlayer) // 코루틴이 실행 중이 아닌 경우에만 실행
+                if (!isPlayerFindCoroutineRunning && isFindPlayer && isDamage) // 코루틴이 실행 중이 아닌 경우에만 실행
                 {
+                    isDamage = false;
                     StartCoroutine(playerFind());
                 }
+                PunchCollider();
             }
             if (collider.CompareTag("Enemy"))
             {
@@ -147,7 +167,7 @@ public class BManAction : MonoBehaviour,Enemies
                 //}
             }
         }
-        if(isFindPlayer && isStand)
+        if(isFindPlayer && isStand && isDamage == false)
         {
             isMove = true;
             isPlayerMissing = false;
@@ -162,16 +182,7 @@ public class BManAction : MonoBehaviour,Enemies
         }
         PatrolReaction(spriteRenderer);
     }
-    public float growthRate = 0.9f; //일어나는 속도
-    public float notFindDelayAnim; //플레이어를 찾지 못했을 때 스탠딩 상태 딜레이
-
-    public Sprite missSprite; //플레이어를 놓쳤을 때 물음표 스프라이트.
-
-    public Vector2 patrolDirection;
-    public Vector2 startPosition;
-    public float patrolSpeed = 2.0f;
-    public float patrolDistance = 5.0f; // 순찰 거리
-    public bool hasReachedStartPosition;
+ 
 
     IEnumerator NotFindPlayer(SpriteRenderer sprite)
     {
@@ -334,12 +345,27 @@ public class BManAction : MonoBehaviour,Enemies
     public Sprite reactSprite;
 
 
-    public float atkAnimSpeed;
-    public float AnimSpeed;
-    private float atkCount;
+    public bool isPuch;
+    void PunchCollider()
+    {
+        isPuch = false;
+
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.transform.position, PunchboxSize, 0);
+        foreach (Collider2D collider in colliders)
+        {
+            if(collider.CompareTag("Player"))
+            {
+                isPuch = true;
+            }
+        }
+
+    }
+
 
 
     public bool isColliderPlayer;
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -364,7 +390,7 @@ public class BManAction : MonoBehaviour,Enemies
     }
     void PatrolReaction(SpriteRenderer spriteRenderer)
     {        
-        if (isReact || isTeamDamage)
+        if ((isReact || isTeamDamage) && isStand)
         {
             spriteRenderer.sprite = reactSprite;
         }
