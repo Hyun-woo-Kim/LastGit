@@ -200,5 +200,8 @@ public class CritureController : MonoBehaviour, Enemies
         Gizmos.DrawWireCube(Enemyattackpos.position, EnemyattackBoxSize);//DrawWireCube(pos.position,boxsize) 
     }
 
-    
+    public void UpdateOutline(bool outline)
+    {
+        throw new System.NotImplementedException();
+    }
 }

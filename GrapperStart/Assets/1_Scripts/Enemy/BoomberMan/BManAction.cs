@@ -6,6 +6,7 @@ public class BManAction : MonoBehaviour,Enemies
 {
     Animator BManim;
     CapsuleCollider2D collder;
+    SpriteRenderer bmSpr;
     Rigidbody2D Bmrigid;
     public BMdata bmdata;
 
@@ -13,13 +14,14 @@ public class BManAction : MonoBehaviour,Enemies
     void Start()
     {
         BManim = GetComponent<Animator>();
+        bmSpr = GetComponent<SpriteRenderer>();
         collder = GetComponent<CapsuleCollider2D>();
         Bmrigid = GetComponent<Rigidbody2D>();
         //hand.gameObject.SetActive(false);
         animSpeed = BManim.speed;
         InitCollSize = collder.size;
-       
- 
+
+        UpdateOutline(false);
     }
 
     // Update is called once per frame
@@ -213,7 +215,8 @@ public class BManAction : MonoBehaviour,Enemies
 
         yield return null;
 
-       PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
+        PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
+
         BManim.SetBool("BmIdle", false);
         if (!BManim.GetBool("BmAtk"))
         {
@@ -345,24 +348,43 @@ public class BManAction : MonoBehaviour,Enemies
     public Sprite reactSprite;
 
 
-    public bool isPuch;
+    public bool isPunch;
     void PunchCollider()
     {
-        isPuch = false;
-
+        Transform bmHand = transform.GetChild(3);
+        isPunch = false;
+        UpdateOutline(false);
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.transform.position, PunchboxSize, 0);
         foreach (Collider2D collider in colliders)
         {
             if(collider.CompareTag("Player"))
             {
-                isPuch = true;
+                if(isStand)
+                {
+                    isPunch = true;
+                }
+             
+               
             }
+        }
+
+        if(isPunch && isDamage == false)
+        {
+            UpdateOutline(true);
+            bmHand.gameObject.SetActive(true);
+            BManim.SetBool("BmAtk", true);
+            BManim.SetFloat("BmAtkCount", 1.0f);
+        }
+        else
+        {
+            bmHand.gameObject.SetActive(false);
+            BManim.SetBool("BmAtk", false);
         }
 
     }
 
 
-
+    public float distance;
     public bool isColliderPlayer;
 
 
@@ -411,6 +433,17 @@ public class BManAction : MonoBehaviour,Enemies
         Gizmos.DrawWireCube(Findboxpos.position, FindboxSize);//DrawWireCube(pos.position,boxsize)          
         Gizmos.DrawWireCube(Punchboxpos.position, PunchboxSize);//DrawWireCube(pos.position,boxsize)          
     }
+    public Color OutLineEnemycolor = Color.yellow;
 
-
+    [Range(0, 16)]
+    public int outlineSize = 2;
+    public void UpdateOutline(bool outline)
+    {
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        bmSpr.GetPropertyBlock(mpb);
+        mpb.SetFloat("_Outline", outline ? 1f : 0);
+        mpb.SetColor("_OutlineColor", OutLineEnemycolor);
+        mpb.SetFloat("_OutlineSize", outlineSize);
+        bmSpr.SetPropertyBlock(mpb);
+    }
 }
