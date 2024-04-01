@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpriteOutline : MonoBehaviour
+public  class SpriteOutline : MonoBehaviour
 {
     public Color color = Color.white;
 
@@ -11,17 +11,23 @@ public class SpriteOutline : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    void OnEnable()
+    //void OnEnable()
+    //{
+    //    spriteRenderer = GetComponent<SpriteRenderer>();
+
+    //    UpdateOutline(true);
+    //}
+
+    private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         UpdateOutline(true);
     }
-
-    void OnDisable()
-    {
-        UpdateOutline(false);
-    }
+    //void OnDisable()
+    //{
+    //    UpdateOutline(false);
+    //}
 
 
     void UpdateOutline(bool outline)

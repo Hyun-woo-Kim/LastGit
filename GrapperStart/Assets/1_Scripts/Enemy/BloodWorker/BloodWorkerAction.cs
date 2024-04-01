@@ -360,7 +360,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     {
         if (collision.gameObject.tag == ("Wall"))
         {
-
             isWall = false;
         }
     }
@@ -373,5 +372,18 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         Gizmos.DrawWireCube(renchAttackPos.position, renchAttackSize);//DrawWireCube(pos.position,boxsize)      
     }
 
+    public Color color = Color.white;
 
+    [Range(0, 16)]
+    public int outlineSize = 1;
+
+    public void UpdateOutline(bool outline)
+    {
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        bwSpr.GetPropertyBlock(mpb);
+        mpb.SetFloat("_Outline", outline ? 1f : 0);
+        mpb.SetColor("_OutlineColor", color);
+        mpb.SetFloat("_OutlineSize", outlineSize);
+        bwSpr.SetPropertyBlock(mpb);
+    }
 }
