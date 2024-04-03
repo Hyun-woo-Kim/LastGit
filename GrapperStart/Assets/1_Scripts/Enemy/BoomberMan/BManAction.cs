@@ -351,11 +351,11 @@ public class BManAction : MonoBehaviour,Enemies
 
 
     public bool isPunch;
+    public bool isAttack;
     void PunchCollider()
     {
         Transform bmHand = transform.GetChild(3);
         isPunch = false;
-        UpdateOutline(false);
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.transform.position, PunchboxSize, 0);
         foreach (Collider2D collider in colliders)
         {
@@ -364,6 +364,7 @@ public class BManAction : MonoBehaviour,Enemies
                 if(isStand)
                 {
                     isPunch = true;
+                    
                 }
 
 
@@ -371,18 +372,20 @@ public class BManAction : MonoBehaviour,Enemies
         }
 
 
-         if (isPunch && isDamage == false)
+        if (isPunch && isDamage == false)
         {
-            Debug.Log("¤±¤±");
+            isMove = false;
+            isAttack = true;
+            //bmHand.gameObject.SetActive(true);
+            UpdateOutline(true);
             StartCoroutine(delayAttack());
-            bmHand.gameObject.SetActive(true);
             BManim.SetBool("BmAtk", true);
             BManim.SetFloat("BmAtkCount", 1.0f);
 
         }
-
         else if (isPunch == false)
         {
+            isMove = true;
             bmHand.gameObject.SetActive(false);
             BManim.SetBool("BmAtk", false);
             UpdateOutline(false);
@@ -391,8 +394,10 @@ public class BManAction : MonoBehaviour,Enemies
 
     IEnumerator delayAttack()
     {
-        yield return new WaitForSeconds(0.3f);
-        UpdateOutline(true);
+       
+        yield return new WaitForSecondsRealtime(1.0f);
+
+
     }
     public float distance;
     public bool isColliderPlayer;
@@ -458,7 +463,6 @@ public class BManAction : MonoBehaviour,Enemies
         mpb.SetColor("_OutlineColor", OutLineEnemycolor);
         mpb.SetFloat("_OutlineSize", outlineSize);
         bmSpr.SetPropertyBlock(mpb);
-
 
     }
 }
