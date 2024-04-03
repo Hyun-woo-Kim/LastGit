@@ -202,6 +202,6 @@ public class CritureController : MonoBehaviour, Enemies
 
     public void UpdateOutline(bool outline)
     {
-        throw new System.NotImplementedException();
+    
     }
 }

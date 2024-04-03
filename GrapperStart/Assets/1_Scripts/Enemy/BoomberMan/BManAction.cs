@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class BManAction : MonoBehaviour,Enemies
 {
@@ -68,13 +69,15 @@ public class BManAction : MonoBehaviour,Enemies
     public IEnumerator baseDamaged()
     {
         isDamage = true;
+        isMove = false;
         if (isStand)
         {
             BManim.SetBool("BmAtk", true);
             BManim.SetFloat("BmAtkCount", -1.0f);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.5f);
             BManim.SetBool("BmAtk", false);
             isDamage = false;
+            isMove = true;
         }
         yield return null;
     }
@@ -146,6 +149,7 @@ public class BManAction : MonoBehaviour,Enemies
                 //Vector2 colliderBm = new Vector2(1.3f, 3.0f);
                 //collder.size = colliderBm;
                 target = collider.transform;
+                hasReachedStartPosition = false;
                 isFindPlayer = true;
                 isReact = true;
                 if (!isPlayerFindCoroutineRunning && isFindPlayer && isDamage) // 코루틴이 실행 중이 아닌 경우에만 실행
@@ -208,21 +212,22 @@ public class BManAction : MonoBehaviour,Enemies
             }
 
             BManim.SetBool("BmIdle", true);
-            yield return new WaitForSeconds(notFindDelayAnim);
+            if(isFindPlayer == false)
+            {
+                yield return new WaitForSeconds(notFindDelayAnim);
+            }
+           
             hasReachedStartPosition = true;
         }
 
 
         yield return null;
 
-        PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
-
-        BManim.SetBool("BmIdle", false);
         if (!BManim.GetBool("BmAtk"))
         {
-            Debug.Log("이동 중");
-
+            BManim.SetBool("BmIdle", false);
             BManim.SetFloat("BmAnimCount", 1.0f);
+            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
         }
     }
 
@@ -286,12 +291,10 @@ public class BManAction : MonoBehaviour,Enemies
             BManim.SetFloat("BmAnimCount", -1.0f);
 
             yield return null;
-            Debug.Log("반복");
         }
         BManim.SetBool("BmIdle",true);
         isStand = true;
         yield return null;
-        Debug.Log("종료");
     }//일어서는 메서드
 
 
@@ -328,14 +331,13 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isFindEnemy;
     void BmMove()
     {
-            BManim.SetBool("BmIdle", false);
+         
             FlipEnemy(target);
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
             if (!BManim.GetBool("BmAtk"))
             {
-                Debug.Log("이동 중");
-                
-                BManim.SetFloat("BmAnimCount", 1.0f);
+            BManim.SetBool("BmIdle", false);
+            BManim.SetFloat("BmAnimCount", 1.0f);
             }
         
 
@@ -363,27 +365,35 @@ public class BManAction : MonoBehaviour,Enemies
                 {
                     isPunch = true;
                 }
-             
-               
+
+
             }
         }
 
-        if(isPunch && isDamage == false)
+
+         if (isPunch && isDamage == false)
         {
-            UpdateOutline(true);
+            Debug.Log("ㅁㅁ");
+            StartCoroutine(delayAttack());
             bmHand.gameObject.SetActive(true);
             BManim.SetBool("BmAtk", true);
             BManim.SetFloat("BmAtkCount", 1.0f);
+
         }
-        else
+
+        else if (isPunch == false)
         {
             bmHand.gameObject.SetActive(false);
             BManim.SetBool("BmAtk", false);
+            UpdateOutline(false);
         }
-
     }
 
-
+    IEnumerator delayAttack()
+    {
+        yield return new WaitForSeconds(0.3f);
+        UpdateOutline(true);
+    }
     public float distance;
     public bool isColliderPlayer;
 
@@ -433,17 +443,22 @@ public class BManAction : MonoBehaviour,Enemies
         Gizmos.DrawWireCube(Findboxpos.position, FindboxSize);//DrawWireCube(pos.position,boxsize)          
         Gizmos.DrawWireCube(Punchboxpos.position, PunchboxSize);//DrawWireCube(pos.position,boxsize)          
     }
+
+
     public Color OutLineEnemycolor = Color.yellow;
 
     [Range(0, 16)]
     public int outlineSize = 2;
     public void UpdateOutline(bool outline)
     {
+       
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         bmSpr.GetPropertyBlock(mpb);
         mpb.SetFloat("_Outline", outline ? 1f : 0);
         mpb.SetColor("_OutlineColor", OutLineEnemycolor);
         mpb.SetFloat("_OutlineSize", outlineSize);
         bmSpr.SetPropertyBlock(mpb);
+
+
     }
 }
