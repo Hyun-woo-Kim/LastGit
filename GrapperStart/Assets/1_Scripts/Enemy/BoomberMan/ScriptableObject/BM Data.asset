@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2748240e1aa6b47b718977007fc70f, type: 3}
   m_Name: BM Data
   m_EditorClassIdentifier: 
-  bmHp: 47
+  bmHp: 5526

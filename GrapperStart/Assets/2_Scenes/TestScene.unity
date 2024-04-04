@@ -6519,6 +6519,7 @@ MonoBehaviour:
   patrolDistance: 5
   isDamage: 0
   isAtk: 0
+  isDelay: 0
   dieEffPrefab: {fileID: 3816636789055737438, guid: 3a44a36367846ad40902840bb51f327f, type: 3}
   OutLineEnemycolor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   outlineSize: 2
@@ -9452,7 +9453,7 @@ Transform:
   m_GameObject: {fileID: 1079117453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.63, y: -7.32, z: 0}
+  m_LocalPosition: {x: 3.01, y: -7.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9658,6 +9659,7 @@ MonoBehaviour:
   isAimRing: 0
   isGrapplingReady: 0
   EnemyObj: {fileID: 0}
+  isCollPlayer: 0
   aimMousedir: {x: 0, y: 0}
   aimLength: 0
   targetRing: {fileID: 0}
@@ -14928,6 +14930,8 @@ MonoBehaviour:
   bloodState: 0
   bwData: {fileID: 11400000, guid: 47fb9f6a2abd8df47a7bf805f00d1fea, type: 2}
   isWall: 0
+  damagedDelay: 0.5
+  attackDelay: 0.3
   patrolDirection: {x: 0, y: 0}
   patrolSpeed: 5
   patrolDistance: 15
@@ -15073,7 +15077,7 @@ Transform:
   m_GameObject: {fileID: 1565152433}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.1, y: -7.3, z: 0}
+  m_LocalPosition: {x: 12.57, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

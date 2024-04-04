@@ -12,18 +12,24 @@ public class BloodWorkerAttack : BloodWorkerAttackReady
         Instantiate(rockPref, rockVec, Quaternion.identity);
         // 이후에 원하는 작업을 추가할 수 있습니다.
     }
-    public override void RenchAttack(BloodState state, Collider2D[] collider, Animator renchAnim)
+    public override void RenchAttack(BloodState state, Collider2D[] collider, Animator renchAnim, float attackDelay)
     {
         foreach (Collider2D renchCollider in collider)
         {
             if (renchCollider.CompareTag("Player"))
             {
+
                 Flip(renchCollider);
-                renchAnim.SetTrigger("BWRenchAttack");
+                StartCoroutine(attackAnimDelay(renchAnim, attackDelay));
             }
         }
     }
 
+    IEnumerator attackAnimDelay(Animator renchAnim,float _attackDelay)
+    {
+        yield return new WaitForSeconds(_attackDelay);
+        renchAnim.SetTrigger("BWRenchAttack");
+    }
     void Flip(Collider2D player)
     {
 
