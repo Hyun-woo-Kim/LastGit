@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] TMP_Text text_dialogue;
     [SerializeField] TMP_Text text_name;
-
+  
     Dialogue[] dialogues;
 
     bool isDialogue = false;
@@ -24,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         interaction = FindObjectOfType<Interaction>();
+        
     }
 
     // Update is called once per frame

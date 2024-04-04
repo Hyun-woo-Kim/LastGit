@@ -43,6 +43,9 @@ public class PlayerControllerRope : MonoBehaviour
     public bool isFlyAction = false;
     public bool isStopMove = false;
 
+
+   
+
     void Start()
     {
         playerData.curSpeed = InitSpeed;
@@ -89,11 +92,10 @@ public class PlayerControllerRope : MonoBehaviour
             }
         }
 
-       
+
 
         AttackCool();
     }
-
 
     void PlayerCollider()
     {
@@ -175,7 +177,8 @@ public class PlayerControllerRope : MonoBehaviour
             Debug.Log("용암 충돌");
             isLava = true;
         }
-      
+       
+
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -190,6 +193,7 @@ public class PlayerControllerRope : MonoBehaviour
             Debug.Log("용암 충돌");
             isLava = false;
         }
+      
     }
 
    
