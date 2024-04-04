@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.XR;
 
 public class BManAction : MonoBehaviour,Enemies
@@ -30,35 +31,49 @@ public class BManAction : MonoBehaviour,Enemies
     {
         FindedPlayer();
     }
-
+    [Header("##Basic")]
     public Transform Findboxpos;
     public Vector2 FindboxSize;
     public Transform target;
     public bool isFindPlayer;
     public float followSpeed;
     public float moveSpeed;
-    public float animAimSpeed;
-    public float animSpeed;
-
-
-    public bool hasAttacked;
-    public bool isMove;
-    public bool isPlayerFindCoroutineRunning = false;
     public bool isStand = false;
-    public bool isPlayerMissing = false;
-
     public float growthRate = 0.9f; //일어나는 속도
-    public float notFindDelayAnim; //플레이어를 찾지 못했을 때 스탠딩 상태 딜레이
+    public float notFindDelayAnim; //플레이어를 찾지 못했을 때 스탠딩 상태 애니메이션 딜레이
+    public bool isMove;
+    public bool isPlayerMissing = false; //플레이어를 놓쳤을 때 bool
+    public bool isDied; //죽었을 때
+    public float animAimSpeed; //플레이어가 전등을 조준했을 때 애니메이션 속도를 느려지게하는 변수
+    public float animSpeed; //원래 애니메이션 속도로 바뀌는 변수
 
+    [Header("##Reaction")]
+    public bool isReact;
+    public Sprite reactSprite;//플레이어를 찾았을 때 스프라이트
     public Sprite missSprite; //플레이어를 놓쳤을 때 물음표 스프라이트.
 
-    public Vector2 patrolDirection;
-    public Vector2 startPosition;
-    public float patrolSpeed = 2.0f;
+
+
+    [Header("##Attack")]
+    public float nockbackForce; //죽었을 때 플레이어게 넉백 힘 얼마나 줄지
+    public bool hasAttacked; //공격했을 때 true
+    public bool isPlayerFindCoroutineRunning = false;
+    public Transform Punchboxpos;
+    public Vector2 PunchboxSize;
+    public bool isColliderPlayer; 
+    public bool isPunch;
+    public bool isAttack;
+    public float DamagedValue; //플레이어에게 얼마나 데미지를 입을지
+    public float basicDamage; //잽 공격 데미지
+    public float powerDamage; //강화 공격 데미지
+
+    [Header("##Patrol")]
+    public Vector2 patrolDirection; //순찰 방향
+    public Vector2 startPosition; //순찰 했을 때 처음 위치
+    public float patrolSpeed = 2.0f; //순찰 속도
     public float patrolDistance = 5.0f; // 순찰 거리
-    public bool hasReachedStartPosition;
-    public float nockbackForce;
-    public bool isDied;
+    private bool hasReachedStartPosition;
+
     public IEnumerator GraplingAtkDamaged(float damage)
     {
         yield return null;
@@ -68,33 +83,59 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isAtk;
     public IEnumerator baseDamaged()
     {
-        isDamage = true;
-        isMove = false;
-        if (isStand)
+        if(bmdata.bmHp >= 0)
         {
-            BManim.SetBool("BmAtk", true);
-            BManim.SetFloat("BmAtkCount", -1.0f);
-            yield return new WaitForSeconds(0.5f);
-            BManim.SetBool("BmAtk", false);
-            isDamage = false;
-            isMove = true;
+            bmdata.DamagedHp(DamagedValue);
+
+            isDamage = true;
+            isMove = false;
+            if (isStand)
+            {
+                BManim.SetBool("BmAtk", true);
+                BManim.SetFloat("BmAtkCount", -1.0f);
+                yield return new WaitForSeconds(0.5f);
+                BManim.SetBool("BmAtk", false);
+                isDamage = false;
+                isMove = true;
+            }
+          
         }
+
+        else
+        {
+            StartCoroutine(Died());
+        }
+
+
         yield return null;
     }
 
+
+
     public void PlayerToDamaged()
     {
-        PlayerControllerRope player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
-        PlayerData playerData = player.playerData;
-        playerData.DamagedHp(1);
+        ApplyDamageToPlayer(basicDamage);
     }
 
-
+    public void PlayerToPowerDamaged()
+    {
+        ApplyDamageToPlayer(powerDamage);
+    }
+    private void ApplyDamageToPlayer(float damage)
+    {
+        PlayerControllerRope player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
+        if (player != null)
+        {
+            PlayerData playerData = player.playerData;
+            playerData.DamagedHp(damage);
+        }
+    }
     public IEnumerator Died()
     {
 
         Debug.Log("죽음");
         isDied = true;
+        FlipEnemy(target.transform);
         BManim.SetTrigger("BmBoomMove");
         Debug.Log(target.position);
 
@@ -116,7 +157,7 @@ public class BManAction : MonoBehaviour,Enemies
             {
                 playerController.BMSkillMove(transform, nockbackForce); // 적의 위치를 전달
             }
-            DestroyBM(1.0f);
+            DestroyBM();
         }
 
     }
@@ -173,7 +214,7 @@ public class BManAction : MonoBehaviour,Enemies
                 //}
             }
         }
-        if(isFindPlayer && isStand && isDamage == false)
+        if(isFindPlayer && isStand && isDamage == false && isPunch == false)
         {
             isMove = true;
             isPlayerMissing = false;
@@ -298,7 +339,6 @@ public class BManAction : MonoBehaviour,Enemies
     }//일어서는 메서드
 
 
-    public bool isTeamDamage;
     void TeamEnemy()
     {
         //GameObject[] allies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -328,7 +368,7 @@ public class BManAction : MonoBehaviour,Enemies
         //    }
         //}
     }
-    public bool isFindEnemy;
+   
     void BmMove()
     {
          
@@ -343,15 +383,7 @@ public class BManAction : MonoBehaviour,Enemies
 
     }
 
-    public Transform Punchboxpos;
-    public Vector2 PunchboxSize;
 
-    public bool isReact;
-    public Sprite reactSprite;
-
-
-    public bool isPunch;
-    public bool isAttack;
     void PunchCollider()
     {
         Transform bmHand = transform.GetChild(3);
@@ -399,8 +431,8 @@ public class BManAction : MonoBehaviour,Enemies
 
 
     }
-    public float distance;
-    public bool isColliderPlayer;
+   
+
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -427,7 +459,7 @@ public class BManAction : MonoBehaviour,Enemies
     }
     void PatrolReaction(SpriteRenderer spriteRenderer)
     {        
-        if ((isReact || isTeamDamage) && isStand)
+        if (isReact  && isStand)
         {
             spriteRenderer.sprite = reactSprite;
         }
@@ -437,9 +469,14 @@ public class BManAction : MonoBehaviour,Enemies
 
         }
     }
-    void DestroyBM(float delay)
+
+    public GameObject dieEffPrefab;
+    private GameObject dieEff;
+    void DestroyBM()
     {
-        Destroy(this.gameObject, delay);
+        Destroy(this.gameObject);
+        dieEff = Instantiate(dieEffPrefab, transform.position, Quaternion.identity);
+        dieEff.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
     }
     private void OnDrawGizmos()
     {
@@ -453,7 +490,7 @@ public class BManAction : MonoBehaviour,Enemies
     public Color OutLineEnemycolor = Color.yellow;
 
     [Range(0, 16)]
-    public int outlineSize = 2;
+    public int outlineSize;
     public void UpdateOutline(bool outline)
     {
        

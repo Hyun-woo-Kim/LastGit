@@ -3105,7 +3105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce8766f5ae1069459f5ef95532e1b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionParticlesPrefab: {fileID: 538028776693002460, guid: 70fd2966f0ea65f4e85b7dbc03cbeb97, type: 3}
+  explosionParticlesPrefab: {fileID: 3816636789055737438, guid: 70fd2966f0ea65f4e85b7dbc03cbeb97, type: 3}
+  particleDel: 0.5
 --- !u!58 &343749992
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6490,37 +6491,37 @@ MonoBehaviour:
   isFindPlayer: 0
   followSpeed: 0.5
   moveSpeed: 3
-  animAimSpeed: 0.5
-  animSpeed: 0
-  hasAttacked: 0
-  isMove: 0
-  isPlayerFindCoroutineRunning: 0
   isStand: 0
-  isPlayerMissing: 0
   growthRate: 0.5
   notFindDelayAnim: 2
+  isMove: 0
+  isPlayerMissing: 0
+  isDied: 0
+  animAimSpeed: 0.5
+  animSpeed: 0
+  isReact: 0
+  reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
   missSprite: {fileID: 21300000, guid: 6d01503afda11de478bbcba2e7c7067e, type: 3}
+  nockbackForce: 10
+  hasAttacked: 0
+  isPlayerFindCoroutineRunning: 0
+  Punchboxpos: {fileID: 1248433073}
+  PunchboxSize: {x: 1.2, y: 2.6}
+  isColliderPlayer: 0
+  isPunch: 0
+  isAttack: 0
+  DamagedValue: 1
+  basicDamage: 1
+  powerDamage: 2
   patrolDirection: {x: 0, y: 0}
   startPosition: {x: 0, y: 0}
   patrolSpeed: 2
   patrolDistance: 5
-  hasReachedStartPosition: 0
-  nockbackForce: 10
-  isDied: 0
   isDamage: 0
   isAtk: 0
-  isTeamDamage: 0
-  isFindEnemy: 0
-  Punchboxpos: {fileID: 1248433073}
-  PunchboxSize: {x: 1.2, y: 2.6}
-  isReact: 0
-  reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
-  isPunch: 0
-  isAttack: 0
-  distance: 0
-  isColliderPlayer: 0
+  dieEffPrefab: {fileID: 3816636789055737438, guid: 3a44a36367846ad40902840bb51f327f, type: 3}
   OutLineEnemycolor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  outlineSize: 1
+  outlineSize: 2
 --- !u!95 &769229555
 Animator:
   serializedVersion: 5
