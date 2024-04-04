@@ -26,7 +26,8 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
 
     public bool isWall;
-
+    public float damagedDelay;
+    public float attackDelay;
 
     [Header("##PaTrol")]
     public Vector2 patrolDirection;
@@ -77,13 +78,11 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
     public void  EnemySet()//플레이어가 전등 조준하지 않았을 때 초기값
     {
-        Debug.Log("플레이어가 전등을 조준 하지 않음");
         patrolSpeed = 2.0f;
         bloodWorkerAnim.speed = animSpeed;
     }
     public void SpeedDown() //플레이어가 전등 조준시 속도 낮추는 함수
     {
-        Debug.Log("플레이어가 전등을 조준 함");
         patrolSpeed = 0.5f;
         followSpeed = 0.1f;
         bloodWorkerAnim.speed = animAimSpeed;
@@ -94,10 +93,9 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         // 데미지 처리 로직
         isGraplingDamaged = true;
         bwSpr.color = Color.red;
-        Debug.Log("데미지를 입음");
         bwData.DamagedHp(damage);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(damagedDelay);
         bwSpr.color = Color.white;
         isGraplingDamaged = false;
     }
@@ -107,7 +105,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         bwSpr.color = Color.red;
         bwData.DamagedHp(1);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(damagedDelay);
         bwSpr.color = Color.white;
         if(bwData.bwHp <= float.Epsilon)
         {
@@ -186,7 +184,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 if (isTargetPlayer)
                 {         
                     renchChild.gameObject.SetActive(true);
-                    myAttackState.RenchAttack(bloodState, coliderRench, bloodWorkerAnim);
+                    myAttackState.RenchAttack(bloodState, coliderRench, bloodWorkerAnim,attackDelay);
                 }
 
                 break;
@@ -203,7 +201,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
         if (criture.isEnemyAttack == true)
         {
-            Debug.Log("아군 발견");
             isMyTeam = true;
             target = criture.targetPos;
             FlipEnemy(target);
@@ -298,7 +295,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         }
         if ((isTargetPlayer && bloodState == BloodState.STATE_PATROL ))//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
         {
-            Debug.Log("적 발견");
             FlipEnemy(target);
             bloodWorkerAnim.SetTrigger("BWRockAttack");
             this.bloodState = BloodState.STATE_ROCKATTACK; //돌멩이 투척상태
@@ -310,7 +306,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         }
         else if (!hasThrownRock && isTargetPlayer && isMyTeam && bloodState == BloodState.STATE_FOLLOW)
         {
-            Debug.Log("A");
+
             bloodWorkerAnim.SetTrigger("BWRockAttack");
             myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
             StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos));
@@ -324,7 +320,6 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
     void FlipEnemy(Transform target)
     {
-        Debug.Log("방향뒤집기");
         if (transform.position.x > target.position.x)
         {
             transform.localScale = new Vector3(1, 1, 1);

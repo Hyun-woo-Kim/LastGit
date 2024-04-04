@@ -31,6 +31,6 @@ public class SingleTonGeneric<T> : MonoBehaviour where T : MonoBehaviour
         {
             DontDestroyOnLoad(this.transform.root.gameObject);
         }
-        DontDestroyOnLoad(this.gameObject); //만약 이 스크립트가 자식 오브젝트에 있다면 제대로 동작하지 않는다.
+       
     }
 }

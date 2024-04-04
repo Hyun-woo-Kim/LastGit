@@ -46,6 +46,7 @@ public class PlayerControllerRope : MonoBehaviour
     void Start()
     {
         playerData.curSpeed = InitSpeed;
+
         grapling = GetComponent<Grapling>();
         
         rigid = GetComponent<Rigidbody2D>();

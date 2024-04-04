@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab01984efb818443a7a470b7d99bfca, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
-  playerHp: -4
+  playerHp: 10
+  curSpeed: 8

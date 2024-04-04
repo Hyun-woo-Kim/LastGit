@@ -200,19 +200,6 @@ public class BManAction : MonoBehaviour,Enemies
                 }
                 PunchCollider();
             }
-            if (collider.CompareTag("Enemy"))
-            {
-                //if (isFindEnemy == false)
-                //{
-                //    BloodWorkerAction bwScr = FindFirstObjectByType<BloodWorkerAction>();
-                //    if (bwScr.isBasicDamaged || bwScr.isGraplingDamaged)
-                //    {
-                //        Debug.Log("아군 발견");
-                //        isFindEnemy = true;
-                //    }
-
-                //}
-            }
         }
         if(isFindPlayer && isStand && isDamage == false && isPunch == false)
         {
@@ -335,7 +322,7 @@ public class BManAction : MonoBehaviour,Enemies
         }
         BManim.SetBool("BmIdle",true);
         isStand = true;
-        yield return null;
+  
     }//일어서는 메서드
 
 
@@ -398,37 +385,46 @@ public class BManAction : MonoBehaviour,Enemies
                     isPunch = true;
                     
                 }
-
+             
 
             }
         }
 
 
-        if (isPunch && isDamage == false)
-        {
-            isMove = false;
-            isAttack = true;
-            //bmHand.gameObject.SetActive(true);
-            UpdateOutline(true);
-            StartCoroutine(delayAttack());
-            BManim.SetBool("BmAtk", true);
-            BManim.SetFloat("BmAtkCount", 1.0f);
 
-        }
-        else if (isPunch == false)
+        if (isPunch == false)
         {
             isMove = true;
             bmHand.gameObject.SetActive(false);
             BManim.SetBool("BmAtk", false);
             UpdateOutline(false);
         }
+        else if (isPunch && isDamage == false)
+        {
+            isMove = false;
+            isAttack = true;
+            //bmHand.gameObject.SetActive(true);
+            UpdateOutline(true);
+            StartCoroutine(delayAttack());
+            Debug.Log("0");
+            if (isDelay == false)
+            {
+                BManim.SetBool("BmAtk", true);
+                BManim.SetFloat("BmAtkCount", 1.0f);
+            }
+
+
+        }
     }
 
+    public bool isDelay;
     IEnumerator delayAttack()
     {
-       
+        Debug.Log("1");
+        isDelay = true;
         yield return new WaitForSecondsRealtime(1.0f);
-
+        isDelay = false;
+        Debug.Log("2");
 
     }
    
