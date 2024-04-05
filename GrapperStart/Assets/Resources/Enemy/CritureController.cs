@@ -204,4 +204,9 @@ public class CritureController : MonoBehaviour, Enemies
     {
     
     }
+
+    public IEnumerator NotFindPlayer(SpriteRenderer sprite)
+    {
+        throw new System.NotImplementedException();
+    }
 }

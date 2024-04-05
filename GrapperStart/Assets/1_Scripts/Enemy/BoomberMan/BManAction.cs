@@ -218,46 +218,7 @@ public class BManAction : MonoBehaviour,Enemies
     }
  
 
-    IEnumerator NotFindPlayer(SpriteRenderer sprite)
-    {
-        sprite.sprite = missSprite;
-
-
-
-        if (!hasReachedStartPosition)
-        {
-            startPosition = transform.position;
-            Debug.Log("1");
-            if (target.position.x < transform.position.x)
-            {
-                Debug.Log("2");
-                patrolDirection = Vector2.right;
-            }
-            else if (target.position.x > transform.position.x)
-            {
-                Debug.Log("3");
-                patrolDirection = Vector2.left;
-            }
-
-            BManim.SetBool("BmIdle", true);
-            if(isFindPlayer == false)
-            {
-                yield return new WaitForSeconds(notFindDelayAnim);
-            }
-           
-            hasReachedStartPosition = true;
-        }
-
-
-        yield return null;
-
-        if (!BManim.GetBool("BmAtk"))
-        {
-            BManim.SetBool("BmIdle", false);
-            BManim.SetFloat("BmAnimCount", 1.0f);
-            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
-        }
-    }
+    
 
      void PatrolMovement(float patrolSpeed, float patrolDis, Vector2 patrolDir, Vector2 starPos)
     {
@@ -498,4 +459,46 @@ public class BManAction : MonoBehaviour,Enemies
         bmSpr.SetPropertyBlock(mpb);
 
     }
+
+    public IEnumerator NotFindPlayer(SpriteRenderer sprite)
+    {
+        sprite.sprite = missSprite;
+
+
+
+        if (!hasReachedStartPosition)
+        {
+            startPosition = transform.position;
+            Debug.Log("1");
+            if (target.position.x < transform.position.x)
+            {
+                Debug.Log("2");
+                patrolDirection = Vector2.right;
+            }
+            else if (target.position.x > transform.position.x)
+            {
+                Debug.Log("3");
+                patrolDirection = Vector2.left;
+            }
+
+            BManim.SetBool("BmIdle", true);
+            if (isFindPlayer == false)
+            {
+                yield return new WaitForSeconds(notFindDelayAnim);
+            }
+
+            hasReachedStartPosition = true;
+        }
+
+
+        yield return null;
+
+        if (!BManim.GetBool("BmAtk"))
+        {
+            BManim.SetBool("BmIdle", false);
+            BManim.SetFloat("BmAnimCount", 1.0f);
+            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
+        }
+    }
+    
 }
