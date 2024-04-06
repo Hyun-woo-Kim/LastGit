@@ -14954,9 +14954,6 @@ MonoBehaviour:
   animSpeed: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   outlineSize: 1
-  missSprite: {fileID: 21300000, guid: 6d01503afda11de478bbcba2e7c7067e, type: 3}
-  notFindDelayAnim: 0.5
-  isStop: 0
 --- !u!50 &1565152436
 Rigidbody2D:
   serializedVersion: 4
