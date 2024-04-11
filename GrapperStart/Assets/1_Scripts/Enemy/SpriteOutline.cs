@@ -4,30 +4,30 @@ using UnityEngine;
 
 public  class SpriteOutline : MonoBehaviour
 {
-    public Color color = Color.white;
+    public Color color = Color.red;
 
     [Range(0, 16)]
-    public int outlineSize = 1;
+    public int outlineSize;
 
     private SpriteRenderer spriteRenderer;
 
-    //void OnEnable()
-    //{
-    //    spriteRenderer = GetComponent<SpriteRenderer>();
-
-    //    UpdateOutline(true);
-    //}
-
-    private void Start()
+    void OnEnable()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         UpdateOutline(true);
     }
-    //void OnDisable()
+
+    //private void Start()
     //{
-    //    UpdateOutline(false);
+    //    spriteRenderer = GetComponent<SpriteRenderer>();
+
+    //    UpdateOutline(true);
     //}
+    void OnDisable()
+    {
+        UpdateOutline(false);
+    }
 
 
     void UpdateOutline(bool outline)
