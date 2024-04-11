@@ -14988,8 +14988,10 @@ MonoBehaviour:
   RockCreateDelay: 2
   bwStopDelay: 1
   isMove: 0
-  color: {r: 1, g: 1, b: 1, a: 1}
-  outlineSize: 1
+  color: {r: 0.99548566, g: 1, b: 0.07058823, a: 1}
+  outlineSize: 2
+  missSprite: {fileID: 21300000, guid: 6d01503afda11de478bbcba2e7c7067e, type: 3}
+  isNotFindPlayer: 0
 --- !u!50 &1565152436
 Rigidbody2D:
   serializedVersion: 4
