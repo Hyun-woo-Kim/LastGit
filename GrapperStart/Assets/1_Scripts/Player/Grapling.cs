@@ -175,8 +175,16 @@ public class Grapling : MonoBehaviour
         {
             hook.GetComponent<Hooking>().rotationHook(transform.position);
         }
+
+      
+            // 플레이어의 머리 위치에 UI를 업데이트
+            headPosition = transform.GetChild(9).position; // 플레이어의 머리 위치
+            comboBarPos = headPosition + comboBarOffset;
+        
     }
 
+    public Vector3 headPosition;
+    private Vector3 comboBarOffset = new Vector3(0f, 1f, 0f); // 머리 위로의 오프셋
 
     public void ResetGrap()
     {
@@ -534,6 +542,7 @@ public class Grapling : MonoBehaviour
 
         if (uiCanvas != null && comboSliderPrefab == null)
         {
+            //comboBarPos = Camera.main.WorldToScreenPoint(transform.GetChild(9).position);
             comboSliderPrefab = Instantiate(comboSlider, comboBarPos, Quaternion.identity);
             // comboBarUI를 UI_Canvas의 하위로 설정
             comboSliderPrefab.transform.SetParent(uiCanvas.transform, false);
@@ -647,6 +656,15 @@ public class Grapling : MonoBehaviour
     public float playerToEnemyDistance;
     IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj, float graplingTime, float damage)
     {
+        Enemies enemyScript = enemyObj.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        if (enemyScript != null)
+        {
+            StartCoroutine(enemyScript.EnemyAtkStop());
+        }
+        else
+        {
+            Debug.Log("인터페이스 못 찾음");
+        }
         enemyPosition = targetPosition;
 
         gameObject.layer = 8;
@@ -686,7 +704,7 @@ public class Grapling : MonoBehaviour
                     animPlayer.SetTrigger("PlayerAttack");
                     yield return new WaitForSeconds(grapanimdelay);
 
-                    Enemies enemyScript = enemyObj.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                   
                     if (enemyScript != null)
                     {
                         StartCoroutine(enemyScript.GraplingAtkDamaged(damage));

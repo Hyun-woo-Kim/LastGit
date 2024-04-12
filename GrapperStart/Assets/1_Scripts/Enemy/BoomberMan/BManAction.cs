@@ -500,5 +500,9 @@ public class BManAction : MonoBehaviour,Enemies
             PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
         }
     }
-    
+
+    public IEnumerator EnemyAtkStop()
+    {
+        throw new System.NotImplementedException();
+    }
 }

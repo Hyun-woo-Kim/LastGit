@@ -9238,6 +9238,7 @@ Transform:
   - {fileID: 1092360306}
   - {fileID: 1528347223}
   - {fileID: 1708068920}
+  - {fileID: 1971580425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1079117458
@@ -9376,6 +9377,7 @@ MonoBehaviour:
   isenemyGrapling: 0
   graplingDamage: 0
   isGraplingEnemy: 0
+  headPosition: {x: 0, y: 0, z: 0}
   maxSwingAngle: 180
   swingForce: 25
   hookDistance: 4
@@ -14597,8 +14599,12 @@ MonoBehaviour:
   bloodState: 0
   bwData: {fileID: 11400000, guid: 47fb9f6a2abd8df47a7bf805f00d1fea, type: 2}
   isWall: 0
+  isRockDelayMoveRunning: 0
   damagedDelay: 0.5
   attackDelay: 2
+  bwStopDelay: 1
+  RockCreateDelay: 2
+  OutlineDealy: 0.5
   patrolDirection: {x: 0, y: 0}
   patrolSpeed: 5
   patrolDistance: 15
@@ -14613,20 +14619,19 @@ MonoBehaviour:
   rockPos: {fileID: 146201071}
   hasThrownRock: 0
   isMyTeam: 0
-  isGraplingDamaged: 0
   isBasicDamaged: 0
   isReact: 0
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
   animAimSpeed: 0.5
   animSpeed: 0
-  isRockDelayMoveRunning: 0
-  RockCreateDelay: 2
-  bwStopDelay: 1
+  handChild: {fileID: 1017176673}
   isMove: 0
+  isCollHook: 0
   color: {r: 0.99548566, g: 1, b: 0.07058823, a: 1}
   outlineSize: 2
   missSprite: {fileID: 21300000, guid: 6d01503afda11de478bbcba2e7c7067e, type: 3}
   isNotFindPlayer: 0
+  isAtkStop: 0
 --- !u!50 &1565152436
 Rigidbody2D:
   serializedVersion: 4
@@ -14639,7 +14644,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -18735,7 +18740,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -731081203, guid: 5874c8e0924524745b4b25a7d88f46ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19377,6 +19382,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965601546}
   m_CullTransparentMesh: 1
+--- !u!1 &1971580424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1971580425}
+  m_Layer: 7
+  m_Name: HeadPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1971580425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971580424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.78, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1079117456}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1979434551
 GameObject:
   m_ObjectHideFlags: 0
