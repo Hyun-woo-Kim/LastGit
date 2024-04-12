@@ -176,15 +176,8 @@ public class Grapling : MonoBehaviour
             hook.GetComponent<Hooking>().rotationHook(transform.position);
         }
 
-      
-            // 플레이어의 머리 위치에 UI를 업데이트
-            headPosition = transform.GetChild(9).position; // 플레이어의 머리 위치
-            comboBarPos = headPosition + comboBarOffset;
-        
     }
 
-    public Vector3 headPosition;
-    private Vector3 comboBarOffset = new Vector3(0f, 1f, 0f); // 머리 위로의 오프셋
 
     public void ResetGrap()
     {
