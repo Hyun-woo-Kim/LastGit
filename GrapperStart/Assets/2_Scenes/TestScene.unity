@@ -9377,7 +9377,6 @@ MonoBehaviour:
   isenemyGrapling: 0
   graplingDamage: 0
   isGraplingEnemy: 0
-  headPosition: {x: 0, y: 0, z: 0}
   maxSwingAngle: 180
   swingForce: 25
   hookDistance: 4
