@@ -503,6 +503,7 @@ public class BManAction : MonoBehaviour,Enemies
 
     public IEnumerator EnemyAtkStop()
     {
-        throw new System.NotImplementedException();
+       
+        yield return null;
     }
 }

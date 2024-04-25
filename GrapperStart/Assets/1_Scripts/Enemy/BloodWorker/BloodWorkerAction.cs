@@ -271,9 +271,9 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
     void FollowPlayer()
     {
-      
+
         //렌치들고 추격하는 애니메이션 필요.
-        if(isMove)
+        if (isMove)
         {
             Debug.Log("추격");
             FlipEnemy();
@@ -294,7 +294,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(patrolPos.position, patrolBoxSize, 0);
 
-
+        
         foreach (Collider2D collider in colliders) //피의노동자의 시야.
         {
             if (collider.CompareTag("Player")) //적 감지 
@@ -395,8 +395,8 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         {
             bloodWorkerAnim.SetTrigger("BWRenchAtk");
         }
-       
-       
+
+        handChild.gameObject.SetActive(false);
         yield return new WaitForSeconds(_attackDelay);
         // 해당 플레이어의 코루틴을 제거
         if (bwAttackCoroutines.ContainsKey(playerTransform))
