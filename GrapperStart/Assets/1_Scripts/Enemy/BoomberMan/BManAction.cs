@@ -29,7 +29,10 @@ public class BManAction : MonoBehaviour,Enemies
     // Update is called once per frame
     void Update()
     {
-        FindedPlayer();
+        
+            FindedPlayer();
+        
+        
     }
     [Header("##Basic")]
     public Transform Findboxpos;
@@ -79,26 +82,26 @@ public class BManAction : MonoBehaviour,Enemies
         yield return null;
     }
 
-    public bool isDamage;
-    public bool isAtk;
+    public bool isAtkStop;
+    public bool chaneAttackMon;
     public IEnumerator baseDamaged()
     {
-        if(bmdata.bmHp >= 0)
+        chaneAttackMon = true;
+        if (bmdata.bmHp >= 0)
         {
             bmdata.DamagedHp(DamagedValue);
-
-            isDamage = true;
             isMove = false;
             if (isStand)
             {
-                BManim.SetBool("BmAtk", true);
-                BManim.SetFloat("BmAtkCount", -1.0f);
-                yield return new WaitForSeconds(0.5f);
                 BManim.SetBool("BmAtk", false);
-                isDamage = false;
+                BManim.SetFloat("BmAnimCount", 0.0f);
+
+                yield return new WaitForSeconds(0.1f);
+                //BManim.SetBool("BmAtk", false);
+              
                 isMove = true;
             }
-          
+            isAtkStop = false;
         }
 
         else
@@ -106,8 +109,8 @@ public class BManAction : MonoBehaviour,Enemies
             StartCoroutine(Died());
         }
 
-
-        yield return null;
+     
+      
     }
 
 
@@ -193,15 +196,17 @@ public class BManAction : MonoBehaviour,Enemies
                 hasReachedStartPosition = false;
                 isFindPlayer = true;
                 isReact = true;
-                if (!isPlayerFindCoroutineRunning && isFindPlayer && isDamage) // 코루틴이 실행 중이 아닌 경우에만 실행
+                if (!isPlayerFindCoroutineRunning && isFindPlayer && chaneAttackMon) // 코루틴이 실행 중이 아닌 경우에만 실행
                 {
-                    isDamage = false;
                     StartCoroutine(playerFind());
                 }
-                PunchCollider();
+                if(isStand)
+                {
+                    PunchCollider();
+                }
             }
         }
-        if(isFindPlayer && isStand && isDamage == false && isPunch == false)
+        if(isFindPlayer && isStand  && isPunch == false)
         {
             isMove = true;
             isPlayerMissing = false;
@@ -232,14 +237,6 @@ public class BManAction : MonoBehaviour,Enemies
             startPosition = transform.position;
             hasChangedDirection = true;
         }
-
-      
-
-
-
-        //이동 애니메이션 추가. 
-
-
 
         if (patrolDir == Vector2.right)
         {
@@ -324,14 +321,14 @@ public class BManAction : MonoBehaviour,Enemies
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
             if (!BManim.GetBool("BmAtk"))
             {
-            BManim.SetBool("BmIdle", false);
-            BManim.SetFloat("BmAnimCount", 1.0f);
+                 BManim.SetBool("BmIdle", false);
+                 BManim.SetFloat("BmAnimCount", 1.0f);
             }
         
 
     }
 
-
+    private Dictionary<Transform, Coroutine> bmAttackCroutine = new Dictionary<Transform, Coroutine>();
     void PunchCollider()
     {
         Transform bmHand = transform.GetChild(3);
@@ -346,7 +343,18 @@ public class BManAction : MonoBehaviour,Enemies
                     isPunch = true;
                     
                 }
-             
+
+                if (!bmAttackCroutine.ContainsKey(target))
+                {
+                    if(isHandAttack == false)
+                    {
+                        Coroutine coroutine = StartCoroutine(delayAttack(target, puhchAttackDelay)); //코루틴 호출과 동시에 아웃라인 보여줌
+                        bmAttackCroutine.Add(target, coroutine);
+                    }
+                 
+                
+                   
+                }
 
             }
         }
@@ -356,37 +364,44 @@ public class BManAction : MonoBehaviour,Enemies
         if (isPunch == false)
         {
             isMove = true;
-            bmHand.gameObject.SetActive(false);
-            BManim.SetBool("BmAtk", false);
             UpdateOutline(false);
+            bmHand.gameObject.SetActive(false);
+            //BmMove();
+            BManim.SetBool("BmAtk", false); //공격 범위에 벗어났으므로 공격애니메이션 해제.
+            //UpdateOutline(false);
         }
-        else if (isPunch && isDamage == false)
-        {
-            isMove = false;
-            isAttack = true;
-            //bmHand.gameObject.SetActive(true);
-            UpdateOutline(true);
-            StartCoroutine(delayAttack());
-            Debug.Log("0");
-            if (isDelay == false)
-            {
-                BManim.SetBool("BmAtk", true);
-                BManim.SetFloat("BmAtkCount", 1.0f);
-            }
-
-
-        }
+      
     }
 
-    public bool isDelay;
-    IEnumerator delayAttack()
+    public bool isHandAttack;
+    public float Outlinedelay;
+    public float puhchAttackDelay;
+    IEnumerator delayAttack(Transform playerTransform, float _attackDelay)
     {
-        Debug.Log("1");
-        isDelay = true;
-        yield return new WaitForSecondsRealtime(1.0f);
-        isDelay = false;
-        Debug.Log("2");
 
+        BManim.SetBool("BmIdle", true); // 아웃라인 보여준 상태에서 스탠딩 상태 유지
+        UpdateOutline(true);
+        yield return new WaitForSecondsRealtime(Outlinedelay); // 딜레이 걸고
+
+        if (isAtkStop == false)
+        {
+            BManim.SetBool("BmIdle", false); // 이전 스탠딩 상태 해제.
+            BManim.SetBool("BmAtk", true); // 공격 애니메이션1
+            BManim.SetFloat("BmAtkCount", 1.0f); // 공격 애니메이션2
+        }
+        
+        yield return new WaitForSeconds(_attackDelay); // 공격 애니메이션 발동 전에 추가된 딜레이
+        UpdateOutline(false);
+
+        if (bmAttackCroutine.ContainsKey(playerTransform)) // 다시 초기화.
+        {
+            
+            bmAttackCroutine.Remove(playerTransform);
+        }
+
+        // 공격 애니메이션을 코루틴 밖에서 호출
+     
+       
     }
    
 
@@ -490,20 +505,16 @@ public class BManAction : MonoBehaviour,Enemies
             hasReachedStartPosition = true;
         }
 
-
+        BManim.SetBool("BmIdle", false);
+        BManim.SetFloat("BmAnimCount", 1.0f);
+        PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
         yield return null;
-
-        if (!BManim.GetBool("BmAtk"))
-        {
-            BManim.SetBool("BmIdle", false);
-            BManim.SetFloat("BmAnimCount", 1.0f);
-            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
-        }
     }
 
     public IEnumerator EnemyAtkStop()
     {
-       
+        isAtkStop = true;
+        StartCoroutine(baseDamaged());
         yield return null;
     }
 }
