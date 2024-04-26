@@ -6211,7 +6211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &769229554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6257,9 +6257,11 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0}
   patrolSpeed: 2
   patrolDistance: 5
-  isDamage: 0
-  isAtk: 0
-  isDelay: 0
+  isAtkStop: 0
+  chaneAttackMon: 0
+  isHandAttack: 0
+  Outlinedelay: 1
+  puhchAttackDelay: 1
   dieEffPrefab: {fileID: 3816636789055737438, guid: 3a44a36367846ad40902840bb51f327f, type: 3}
   OutLineEnemycolor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   outlineSize: 2
@@ -9225,7 +9227,7 @@ Transform:
   m_GameObject: {fileID: 1079117453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.01, y: -7.32, z: 0}
+  m_LocalPosition: {x: -0.16, y: -7.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14582,7 +14584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1565152434
 MonoBehaviour:
   m_ObjectHideFlags: 0
