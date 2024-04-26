@@ -6211,7 +6211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &769229554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14584,7 +14584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1565152434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14607,7 +14607,7 @@ MonoBehaviour:
   RockCreateDelay: 2
   OutlineDealy: 0.5
   patrolDirection: {x: 0, y: 0}
-  patrolSpeed: 5
+  patrolSpeed: 3
   patrolDistance: 15
   patrolPos: {fileID: 851663973}
   patrolBoxSize: {x: 15, y: 2.59}
@@ -14626,6 +14626,10 @@ MonoBehaviour:
   animAimSpeed: 0.5
   animSpeed: 0
   handChild: {fileID: 1017176673}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  rayDistance: 3
   isMove: 0
   isCollHook: 0
   color: {r: 0.99548566, g: 1, b: 0.07058823, a: 1}
@@ -17168,7 +17172,7 @@ GameObject:
   - component: {fileID: 1861096409}
   - component: {fileID: 1861096408}
   - component: {fileID: 1861096415}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Unview
   m_TagString: Wall
   m_Icon: {fileID: 0}

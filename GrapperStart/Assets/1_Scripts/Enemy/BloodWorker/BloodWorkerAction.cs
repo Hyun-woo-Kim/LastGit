@@ -201,23 +201,28 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         // 코루틴이 종료되었으므로 플래그를 다시 false로 설정합니다.
         isRockDelayMoveRunning = false;
     }
-
+    public LayerMask wallLayer;
     void Update()
     {
+        
 
         Transform thirdChild = transform.GetChild(4);
         SpriteRenderer spriteRenderer = thirdChild.GetComponent<SpriteRenderer>();
+
+        if (bloodState == BloodState.STATE_PATROL) //순찰 상태에서 레이를 쏘고 벽을 감지한다. 
+        {
+            WallTurn();
+        }
 
         PatrolReaction(spriteRenderer);
 
         switch (bloodState)
         {
             case BloodState.STATE_PATROL:
-                if ((Mathf.Abs(transform.position.x - startPosition.x) >= patrolDistance || isWall))
+                if ((Mathf.Abs(transform.position.x - startPosition.x) >= patrolDistance))
                 {
                     this.bloodState = BloodState.STATE_STOP;
-                    setActionType(BloodState.STATE_STOP);
-                    isWall = false;
+                    setActionType(BloodState.STATE_STOP);           
                 }
                 else
                 {
@@ -238,8 +243,24 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 break;
         }
     }
-   
-    
+    public float rayDistance = 5f; // Ray의 최대 거리
+    public void WallTurn()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, patrolDirection, Mathf.Infinity, wallLayer);
+        Debug.DrawRay(transform.position, patrolDirection * rayDistance, Color.red);
+        // Raycast가 벽과 충돌한 경우
+        if (hit.collider != null)
+        {
+            float distance = Mathf.Abs(hit.point.x - transform.position.x);
+
+            if (distance < rayDistance)
+            {
+                this.bloodState = BloodState.STATE_STOP;
+                setActionType(BloodState.STATE_STOP);
+            }
+        }
+       
+    }
 
 
     //정지 후 순찰 상태 구현
@@ -314,8 +335,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         {
             this.bloodState = BloodState.STATE_ROCKATTACK; //돌멩이 투척상태
             return;
-        }
-
+        }    
 
     }
     private Dictionary<GameObject, Coroutine> rockCoroutines = new Dictionary<GameObject, Coroutine>();
@@ -457,19 +477,13 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     public bool isCollHook;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == ("Wall"))
-        {
-            isWall = true;
-        }
+        
    
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == ("Wall"))
-        {
-            isWall = false;
-        }
+       
     
     }
 
@@ -510,6 +524,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     public IEnumerator EnemyAtkStop()
     {
         isAtkStop = true; //플레이어 그래플링 시작하면 적은 공격 못하게. 적 그래플링 피격 시 공격 가능.
+        StartCoroutine(baseDamaged());
         yield return null;
     }
 }
