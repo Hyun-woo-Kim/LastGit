@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
@@ -28,11 +29,8 @@ public class BManAction : MonoBehaviour,Enemies
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {       
             FindedPlayer();
-        
-        
     }
     [Header("##Basic")]
     public Transform Findboxpos;
@@ -84,6 +82,8 @@ public class BManAction : MonoBehaviour,Enemies
 
     public bool isAtkStop;
     public bool chaneAttackMon;
+    public float rayDistance = 5f; // Ray의 최대 거리
+    public LayerMask PlayerLayer;
     public IEnumerator baseDamaged()
     {
         chaneAttackMon = true;
@@ -109,8 +109,8 @@ public class BManAction : MonoBehaviour,Enemies
             StartCoroutine(Died());
         }
 
-     
       
+
     }
 
 
@@ -200,16 +200,17 @@ public class BManAction : MonoBehaviour,Enemies
                 {
                     StartCoroutine(playerFind());
                 }
-                if(isStand)
-                {
-                    PunchCollider();
-                }
+              
             }
         }
-        if(isFindPlayer && isStand  && isPunch == false)
+
+        if (isFindPlayer && isStand  && isPunch == false)
         {
             isMove = true;
             isPlayerMissing = false;
+
+           
+
             BmMove();
         }
         else if(isFindPlayer == false && isStand)
@@ -219,6 +220,8 @@ public class BManAction : MonoBehaviour,Enemies
             StartCoroutine(NotFindPlayer(spriteRenderer));
             //필드 순회
         }
+
+       
         PatrolReaction(spriteRenderer);
     }
  
@@ -313,47 +316,61 @@ public class BManAction : MonoBehaviour,Enemies
         //    }
         //}
     }
-   
+
+    public bool isAttackReady;
     void BmMove()
     {
-         
+       
             FlipEnemy(target);
-            transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
+        Vector3 previousPosition = transform.position;
+        transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
+            
             if (!BManim.GetBool("BmAtk"))
             {
                  BManim.SetBool("BmIdle", false);
                  BManim.SetFloat("BmAnimCount", 1.0f);
             }
-        
+        Vector2 movementDirection = (transform.position - previousPosition).normalized;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, movementDirection, Mathf.Infinity, PlayerLayer);
+        Debug.DrawRay(transform.position, movementDirection * rayDistance, Color.red);
+        if (hit.collider != null)
+        {
+            // 만약 충돌한 오브젝트가 Player 태그를 가진 경우
+            if (hit.collider.CompareTag("Player"))
+            {
+                isAttackReady = true;
+            }
 
+        }
     }
 
     private Dictionary<Transform, Coroutine> bmAttackCroutine = new Dictionary<Transform, Coroutine>();
-    void PunchCollider()
+   
+    IEnumerator HandAttack()
     {
         Transform bmHand = transform.GetChild(3);
         isPunch = false;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.transform.position, PunchboxSize, 0);
         foreach (Collider2D collider in colliders)
         {
-            if(collider.CompareTag("Player"))
+            if (collider.CompareTag("Player"))
             {
-                if(isStand)
+                if (isStand)
                 {
                     isPunch = true;
-                    
+
                 }
 
                 if (!bmAttackCroutine.ContainsKey(target))
                 {
-                    if(isHandAttack == false)
+                    if (isHandAttack == false)
                     {
                         Coroutine coroutine = StartCoroutine(delayAttack(target, puhchAttackDelay)); //코루틴 호출과 동시에 아웃라인 보여줌
                         bmAttackCroutine.Add(target, coroutine);
                     }
-                 
-                
-                   
+
+
+
                 }
 
             }
@@ -370,8 +387,9 @@ public class BManAction : MonoBehaviour,Enemies
             BManim.SetBool("BmAtk", false); //공격 범위에 벗어났으므로 공격애니메이션 해제.
             //UpdateOutline(false);
         }
-      
+        yield return null;
     }
+
 
     public bool isHandAttack;
     public float Outlinedelay;
