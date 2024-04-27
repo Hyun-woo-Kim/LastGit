@@ -6211,7 +6211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &769229554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6259,6 +6259,11 @@ MonoBehaviour:
   patrolDistance: 5
   isAtkStop: 0
   chaneAttackMon: 0
+  rayDistance: 5
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  isAttackReady: 0
   isHandAttack: 0
   Outlinedelay: 1
   puhchAttackDelay: 1
@@ -14584,7 +14589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1565152434
 MonoBehaviour:
   m_ObjectHideFlags: 0
