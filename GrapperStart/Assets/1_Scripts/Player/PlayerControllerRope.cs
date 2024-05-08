@@ -423,7 +423,7 @@ public class PlayerControllerRope : MonoBehaviour
                 if (enemyScript != null)
                 {
                     StartCoroutine(enemyScript.EnemyAtkStop());
-                    //StartCoroutine(enemyScript.baseDamaged());
+                    StartCoroutine(enemyScript.baseDamaged());
                 }
                 else
                 {
