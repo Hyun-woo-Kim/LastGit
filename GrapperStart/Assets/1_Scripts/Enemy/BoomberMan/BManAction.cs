@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 
@@ -83,30 +84,36 @@ public class BManAction : MonoBehaviour,Enemies
     public LayerMask PlayerLayer;
     public IEnumerator baseDamaged()
     {
+        bmdata.DamagedHp(DamagedValue);
         chaneAttackMon = true;
-        if (bmdata.bmHp >= 0)
+        if(isStand)
         {
-            bmdata.DamagedHp(DamagedValue);
-            isMove = false;
-            if (isStand)
+            
+
+            if (bmdata.bmHp > 0)
             {
-                BManim.SetBool("BmAtk", false);
-                BManim.SetFloat("BmAnimCount", 0.0f);
+                isMove = false;
+                isDamaged = true;
 
-                yield return new WaitForSeconds(0.1f);
-                //BManim.SetBool("BmAtk", false);
-              
+                BManim.SetTrigger("BmNockBack");
+                yield return new WaitForSeconds(0.5f);
+                BManim.SetTrigger("BmNockBackToIdle");
+
+                isDamaged = false;
                 isMove = true;
+                isAtkStop = false;
             }
-            isAtkStop = false;
+
+            else if(bmdata.bmHp <= 0)
+            {
+                Debug.Log("0 미만");
+                StartCoroutine(Died());
+            }
+
         }
 
-        else
-        {
-            StartCoroutine(Died());
-        }
 
-      
+        yield return null;
 
     }
 
@@ -135,7 +142,7 @@ public class BManAction : MonoBehaviour,Enemies
 
         Debug.Log("죽음");
         isDied = true;
-        FlipEnemy(target.transform);
+        FlipEnemy(target);
         BManim.SetTrigger("BmBoomMove");
         Debug.Log(target.position);
 
@@ -202,17 +209,24 @@ public class BManAction : MonoBehaviour,Enemies
                 hasReachedStartPosition = false;
                 isFindPlayer = true;
                 isReact = true;
-
-                HandAttack();
+               
               
             }
         }
-        if (isFindPlayer && isStand  && isPunch == false)
+        if (isFindPlayer && isStand  && isAtk == false)
         {
             isMove = true;
             isPlayerMissing = false;
+            if (!hasFlipped)
+            {
+                FlipEnemy(target);
+                hasFlipped = true; // 뒤집었음을 표시
+            }
+            else if(isMove)
+            {
+                BmMove();
+            }
             
-             BmMove();
             
             
         }
@@ -224,14 +238,17 @@ public class BManAction : MonoBehaviour,Enemies
             //필드 순회
         }
 
-       
+        if(isFindPlayer == true && chaneAttackMon == true && isStand && !isAttacking)
+        {
+            HandAttack();
+        }       
         PatrolReaction(spriteRenderer);
     }
- 
 
-    
+    bool hasFlipped = false;
 
-     void PatrolMovement(float patrolSpeed, float patrolDis, Vector2 patrolDir, Vector2 starPos)
+
+    void PatrolMovement(float patrolSpeed, float patrolDis, Vector2 patrolDir, Vector2 starPos)
     {
 
         bool hasChangedDirection = false;
@@ -251,11 +268,13 @@ public class BManAction : MonoBehaviour,Enemies
         }
         else if (patrolDir == Vector2.left)
         {
+            Debug.Log("왼쪽 턴1");
             transform.localScale = new Vector3(1, 1, 1);
             transform.Translate(patrolDir * patrolSpeed * Time.deltaTime);
         }
 
-
+        BManim.SetBool("BmIdle", false);
+        BManim.SetFloat("BmAnimCount", 1.0f);
 
     }
     IEnumerator playerFind()
@@ -292,66 +311,54 @@ public class BManAction : MonoBehaviour,Enemies
 
 
     public bool isAttackReady;
+    public bool isAttacking;
     void BmMove()
-    {
-       
-        FlipEnemy(target);
-
-        transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
-            
+    {        
         if (!BManim.GetBool("BmAtk"))
         {
+            hasFlipped = false;
+            if (!hasFlipped)
+            {
+                FlipEnemy(target);
+                hasFlipped = true; // 뒤집었음을 표시
+            }
             BManim.SetBool("BmAtk", false);
             BManim.SetBool("BmIdle", false);
             BManim.SetFloat("BmAnimCount", 1.0f);
+
+            Debug.Log("이동중");
+            transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
         }
 
      
     }
 
+    public bool isAtk;
     void HandAttack()
     {
-        Transform bmHand = transform.GetChild(3);
-        //isPunch = false;
-        //Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.transform.position, PunchboxSize, 0);
-        //foreach (Collider2D collider in colliders)
-        //{
-        //    if (collider.CompareTag("Player"))
-        //    {
-        //        if (isStand)
-        //        {
-        //            isPunch = true;
-
-        //        }
-
-        //    }
-        //}
-        //if(isStand && isPunch)
-        //{
-        //    Debug.Log("박스에 들어왔으므로 공격 o");
-        //    StartCoroutine(delayAttack(0.5f));
-        //}
-        //if (isPunch == false)
-        //{
-        //    bmHand.gameObject.SetActive(false);
-        //    //BmMove();
-        //    //BManim.SetBool("BmAtk", false); //공격 범위에 벗어났으므로 공격애니메이션 해제.
-        //                                    //UpdateOutline(false);
-        //}
-
+        isAtk = false;
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.position, PunchboxSize, 0);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                isAtk = true;
+            }
+        }
 
         float distanceToPlayer = DistanceToPlayer(transform, target);
 
         // 만약 플레이어와의 거리가 최대 공격 거리 이내에 있다면
-        if (distanceToPlayer <= maxAttackDistance)
+        if (distanceToPlayer <= maxAttackDistance && isAtk && isDamaged == false)
         {
             // 적의 공격 애니메이션을 재생
-            PlayAttackAnimation();
+            isAttacking = true;
+            StartCoroutine(PlayAttackAnimation());
         }
         else
         {
             BManim.SetBool("BmAtk", false);
-            BmMove();
+            
         }
 
     }
@@ -361,35 +368,30 @@ public class BManAction : MonoBehaviour,Enemies
         return Vector3.Distance(playerTransform.position, enemyTransform.position);
     }
 
-    void PlayAttackAnimation()
+    public bool isDamaged;
+    IEnumerator PlayAttackAnimation()
     {
-        // 공격 애니메이션 재생 코드를 여기에 추가
-        BManim.SetBool("BmIdle", false); // 이전 스탠딩 상태 해제.
-        BManim.SetBool("BmAtk", true); // 공격 애니메이션1
-        BManim.SetFloat("BmAtkCount", 1.0f); // 공격 애니메이션2
-    }
-
-    public bool isHandAttack;
-    public float Outlinedelay;
-    public float puhchAttackDelay;
-    IEnumerator delayAttack(float _attackDelay)
-    {
-
-        BManim.SetBool("BmIdle", true); // 아웃라인 보여준 상태에서 스탠딩 상태 유지
-        yield return new WaitForSecondsRealtime(Outlinedelay); // 딜레이 걸고
-        UpdateOutline(true);
-
-        if (isAtkStop == false)
+        
+        if(isDamaged == false)
         {
-            yield return new WaitForSecondsRealtime(0.5f); // 딜레이 걸고
+            isMove = false;
+            UpdateOutline(true);
+            BManim.SetBool("BmIdle", true); // 이전 스탠딩 상태 해제.
+            yield return new WaitForSeconds(1.0f);
+            Debug.Log("공격대기");
             BManim.SetBool("BmIdle", false); // 이전 스탠딩 상태 해제.
             BManim.SetBool("BmAtk", true); // 공격 애니메이션1
             BManim.SetFloat("BmAtkCount", 1.0f); // 공격 애니메이션2
+            Debug.Log("공격끝");
+            UpdateOutline(false);
+
+            isAttacking = false; // 공격 종료
         }
-        UpdateOutline(false);
-      
-        isAttackReady = false;
+        
+
     }
+
+
    
 
 
@@ -409,6 +411,7 @@ public class BManAction : MonoBehaviour,Enemies
     {
         if (transform.position.x > _target.position.x)
         {
+            Debug.Log("왼쪽 턴2");
             transform.localScale = new Vector3(1, 1, 1);
         }
         else if (transform.position.x < _target.position.x)
@@ -487,20 +490,21 @@ public class BManAction : MonoBehaviour,Enemies
             {
                 yield return new WaitForSeconds(notFindDelayAnim);
             }
-
+            
             hasReachedStartPosition = true;
         }
+        if(isFindPlayer == false)
+        {
+            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);       
+        }
 
-        BManim.SetBool("BmIdle", false);
-        BManim.SetFloat("BmAnimCount", 1.0f);
-        PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
         yield return null;
     }
 
     public IEnumerator EnemyAtkStop()
     {
         isAtkStop = true;
-        StartCoroutine(baseDamaged());
+        //StartCoroutine(baseDamaged());
         yield return null;
     }
 }
