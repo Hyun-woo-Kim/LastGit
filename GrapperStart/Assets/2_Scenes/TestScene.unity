@@ -3051,6 +3051,7 @@ GameObject:
   - component: {fileID: 343749988}
   - component: {fileID: 343749989}
   - component: {fileID: 343749992}
+  - component: {fileID: 343749993}
   m_Layer: 9
   m_Name: Hand
   m_TagString: Untagged
@@ -3138,7 +3139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionParticlesPrefab: {fileID: 7154479068642879497, guid: 5ecf162ef0ff73348bd380774112e9c1, type: 3}
-  particleDel: 0.5
+  effPunch: {fileID: 2964169393605021718, guid: 5ecf162ef0ff73348bd380774112e9c1, type: 3}
 --- !u!58 &343749992
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3174,6 +3175,33 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.55
+--- !u!50 &343749993
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343749986}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &344013757
 GameObject:
   m_ObjectHideFlags: 0
@@ -6259,10 +6287,14 @@ MonoBehaviour:
   patrolDistance: 5
   isAtkStop: 0
   chaneAttackMon: 0
-  rayDistance: 5
+  WallrayDistance: 5
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  isWall: 0
   isAttackReady: 0
   isAttacking: 0
   isAtk: 0
@@ -6353,7 +6385,7 @@ Transform:
   m_GameObject: {fileID: 769229553}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.55, y: -7.59, z: 0}
+  m_LocalPosition: {x: 3.55, y: -7.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6380,7 +6412,7 @@ Rigidbody2D:
   m_Mass: 3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -6424,7 +6456,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.31}
+  m_Offset: {x: 0, y: 0.13}
   m_Size: {x: 1, y: 1.73}
   m_Direction: 0
 --- !u!1 &772777223
@@ -14651,7 +14683,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565152433}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

@@ -80,7 +80,7 @@ public class BManAction : MonoBehaviour,Enemies
 
     public bool isAtkStop;
     public bool chaneAttackMon;
-    public float rayDistance = 5f; // Ray의 최대 거리
+    public float WallrayDistance = 5f; // 벽을 감지할 길이.
     public LayerMask PlayerLayer;
     public IEnumerator baseDamaged()
     {
@@ -253,12 +253,15 @@ public class BManAction : MonoBehaviour,Enemies
 
         bool hasChangedDirection = false;
 
-        if (!hasChangedDirection && Mathf.Abs(transform.position.x - startPosition.x) >= patrolDis)
+        WallTurn(); //순찰 시에만 벽을 감지
+
+        if (!hasChangedDirection && Mathf.Abs(transform.position.x - startPosition.x) >= patrolDis && isWall)
         {
             Debug.Log("방향전환");
             patrolDirection *= -1;
             startPosition = transform.position;
             hasChangedDirection = true;
+            isWall = false;
         }
 
         if (patrolDir == Vector2.right)
@@ -277,8 +280,27 @@ public class BManAction : MonoBehaviour,Enemies
         BManim.SetFloat("BmAnimCount", 1.0f);
 
     }
+    public LayerMask wallLayer;
+    public bool isWall;
+    public void WallTurn()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, patrolDirection, Mathf.Infinity, wallLayer);
+        Debug.DrawRay(transform.position, patrolDirection * WallrayDistance, Color.red);
+        // Raycast가 벽과 충돌한 경우
+        if (hit.collider != null)
+        {
+            float distance = Mathf.Abs(hit.point.x - transform.position.x);
+
+            if (distance < WallrayDistance)
+            {
+                isWall = true;
+            }
+        }
+
+    }
     IEnumerator playerFind()
     {
+        gameObject.layer = 9; // Enemy레이어 변경
         isPlayerFindCoroutineRunning = true;
         BManim.SetBool("BmFind", true);
 
@@ -374,15 +396,14 @@ public class BManAction : MonoBehaviour,Enemies
         
         if(isDamaged == false)
         {
+            Debug.Log("공격 시작");
             isMove = false;
             UpdateOutline(true);
             BManim.SetBool("BmIdle", true); // 이전 스탠딩 상태 해제.
             yield return new WaitForSeconds(1.0f);
-            Debug.Log("공격대기");
             BManim.SetBool("BmIdle", false); // 이전 스탠딩 상태 해제.
             BManim.SetBool("BmAtk", true); // 공격 애니메이션1
             BManim.SetFloat("BmAtkCount", 1.0f); // 공격 애니메이션2
-            Debug.Log("공격끝");
             UpdateOutline(false);
 
             isAttacking = false; // 공격 종료
@@ -468,7 +489,7 @@ public class BManAction : MonoBehaviour,Enemies
     public IEnumerator NotFindPlayer(SpriteRenderer sprite)
     {
         sprite.sprite = missSprite;
-
+        BManim.SetBool("BmAtk", false);
 
         if (!hasReachedStartPosition)
         {
