@@ -5,39 +5,31 @@ using static UnityEngine.ParticleSystem;
 
 public class BoomBerManHand : MonoBehaviour
 {
-    public GameObject explosionParticlesPrefab; // 파티클 시스템을 할당할 변수
+    public GameObject explosionParticlesPrefab; // 파티클 시스템을 할당할 프리팹 변수
+    public ParticleSystem effPunch; // 충돌 이펙트를 재생할 파티클 시스템
 
-    private GameObject explosion;
-    public float particleDel;
+    private bool isParticleSpawned = false; // 이펙트가 생성되었는지 여부를 나타내는 플래그
 
-    private bool isParticleSpawned = false;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    // 충돌이 감지되었을 때 호출되는 메서드
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player") && !isParticleSpawned)
+        // 충돌한 객체가 플레이어인지 확인
+        if (collision.gameObject.CompareTag("Player"))
         {
-            // 충돌한 위치를 파악하여 파티클 생성 및 삭제 코루틴 호출
-            Vector3 collisionPosition = other.transform.position;
-            StartCoroutine(InstantiateAndDestroyParticles(collisionPosition));
+            Debug.Log("플레이어와의 충돌");
+            // 이펙트가 생성되지 않았다면
+            if (!isParticleSpawned)
+            {
+                // 파티클 시스템 프리팹을 인스턴스화하여 생성
+                Debug.Log("이펙트 생성");
+                    // 파티클 시스템 프리팹을 인스턴스화하여 생성
+                    GameObject explosion = Instantiate(explosionParticlesPrefab, transform.position, Quaternion.identity);
+                    // 이펙트 재생
+                    explosion.GetComponent<ParticleSystem>().Play();
+                    // 이펙트가 생성되었음을 표시
+                    isParticleSpawned = true;
+                
+            }
         }
     }
-
-    IEnumerator InstantiateAndDestroyParticles(Vector3 position)
-    {
-        // 파티클 생성
-        explosion = Instantiate(explosionParticlesPrefab, position, Quaternion.identity);
-        isParticleSpawned = true;
-
-        // 대기 후 파티클 삭제
-        yield return new WaitForSeconds(particleDel);
-        DestroyExplosion();
-    }
-
-    void DestroyExplosion()
-    {
-        // 파티클 삭제
-        Destroy(explosion);
-        isParticleSpawned = false;
-    }
-
 }
