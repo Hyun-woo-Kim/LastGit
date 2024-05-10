@@ -1,35 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
+using UnityEngine.Pool;
+using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class BoomBerManHand : MonoBehaviour
 {
-    public GameObject explosionParticlesPrefab; // 파티클 시스템을 할당할 프리팹 변수
-    public ParticleSystem effPunch; // 충돌 이펙트를 재생할 파티클 시스템
+    [SerializeField]
+    private GameObject effPrefab;
+    public Transform collisionPos; // 충돌한 오브젝트의 충돌체를 저장할 변수
+    public bool isParticleSpawned = false; // 이펙트가 생성되었는지 여부를 나타내는 플래그
+    
+    private IObjectPool<BMPunchEff> _Pool;
 
-    private bool isParticleSpawned = false; // 이펙트가 생성되었는지 여부를 나타내는 플래그
-
-    // 충돌이 감지되었을 때 호출되는 메서드
-    private void OnCollisionEnter(Collision collision)
+    private void Awake()
     {
-        // 충돌한 객체가 플레이어인지 확인
+
+        _Pool = new ObjectPool<BMPunchEff>(CreateEff, OnGetEff, OnReleaseEff, OnDestroyEff, maxSize: 3);
+    }
+   
+   
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("플레이어와의 충돌");
-            // 이펙트가 생성되지 않았다면
-            if (!isParticleSpawned)
-            {
-                // 파티클 시스템 프리팹을 인스턴스화하여 생성
-                Debug.Log("이펙트 생성");
-                    // 파티클 시스템 프리팹을 인스턴스화하여 생성
-                    GameObject explosion = Instantiate(explosionParticlesPrefab, transform.position, Quaternion.identity);
-                    // 이펙트 재생
-                    explosion.GetComponent<ParticleSystem>().Play();
-                    // 이펙트가 생성되었음을 표시
-                    isParticleSpawned = true;
-                
-            }
+           
+            Debug.Log("BB");
+            collisionPos = collision.transform;
+            var eff = _Pool.Get();
+            eff.TransformEff();
+            isParticleSpawned = true;
         }
+    }
+
+
+    private BMPunchEff CreateEff()
+    {
+        SpriteRenderer effSpr = effPrefab.GetComponent<SpriteRenderer>();
+        if (collisionPos.transform.position.x < transform.position.x)
+        {
+            effSpr.flipX = false;
+        }
+        else
+        {
+            effSpr.flipX = true;
+        }
+
+        BMPunchEff eff = Instantiate(effPrefab, collisionPos.transform.position, UnityEngine.Quaternion.identity).GetComponent<BMPunchEff>();
+        eff.SetManagedPool(_Pool);
+     
+        return eff;
+    }
+
+    private void OnGetEff(BMPunchEff eff)
+    {
+        eff.gameObject.SetActive(true);
+    }
+    private void OnReleaseEff(BMPunchEff eff)
+    {
+        eff.gameObject.SetActive(false);
+    }
+
+    private void OnDestroyEff(BMPunchEff eff)
+    {
+        
+        Destroy(eff.gameObject);
     }
 }
