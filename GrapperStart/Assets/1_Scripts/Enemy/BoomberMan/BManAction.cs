@@ -5,13 +5,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
+using static System.Net.Mime.MediaTypeNames;
 
 public class BManAction : MonoBehaviour,Enemies
 {
     Animator BManim;
     CapsuleCollider2D collder;
+    protected CircleCollider2D childCollider;
     SpriteRenderer bmSpr;
     Rigidbody2D Bmrigid;
+
     public BMdata bmdata;
 
     Vector2 InitCollSize;
@@ -20,6 +23,9 @@ public class BManAction : MonoBehaviour,Enemies
         BManim = GetComponent<Animator>();
         bmSpr = GetComponent<SpriteRenderer>();
         collder = GetComponent<CapsuleCollider2D>();
+
+      
+
         Bmrigid = GetComponent<Rigidbody2D>();
         //hand.gameObject.SetActive(false);
         animSpeed = BManim.speed;
@@ -28,6 +34,21 @@ public class BManAction : MonoBehaviour,Enemies
         UpdateOutline(false);
     }
 
+ 
+
+    IEnumerator test()
+    {
+
+        childCollider = GetComponentInChildren<CircleCollider2D>();
+        // 자식 클래스의 콜라이더가 존재하면 비활성화
+        if (childCollider != null)
+        {
+            Debug.Log("ss");
+            childCollider.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+            childCollider.enabled = false;
+        }
+    }
     // Update is called once per frame
 
     [Header("##Basic")]
@@ -121,11 +142,13 @@ public class BManAction : MonoBehaviour,Enemies
 
     public void PlayerToDamaged()
     {
+        StartCoroutine(test());
         ApplyDamageToPlayer(basicDamage);
     }
 
     public void PlayerToPowerDamaged()
     {
+        StartCoroutine(test());
         ApplyDamageToPlayer(powerDamage);
     }
     private void ApplyDamageToPlayer(float damage)
@@ -189,6 +212,11 @@ public class BManAction : MonoBehaviour,Enemies
 
         FindedPlayer();
 
+        if (hasReachedStartPosition == true)
+        {
+            Debug.Log("이동");
+            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
+        }
     }
 
     void FindedPlayer()
@@ -266,12 +294,12 @@ public class BManAction : MonoBehaviour,Enemies
 
         if (patrolDir == Vector2.right)
         {
+            Debug.Log("이동1");
             transform.localScale = new Vector3(-1, 1, 1);
             transform.Translate(patrolDir * patrolSpeed * Time.deltaTime);
         }
         else if (patrolDir == Vector2.left)
         {
-            Debug.Log("왼쪽 턴1");
             transform.localScale = new Vector3(1, 1, 1);
             transform.Translate(patrolDir * patrolSpeed * Time.deltaTime);
         }
@@ -332,7 +360,7 @@ public class BManAction : MonoBehaviour,Enemies
 
 
 
-    public bool isAttackReady;
+  
     public bool isAttacking;
     void BmMove()
     {        
@@ -348,7 +376,6 @@ public class BManAction : MonoBehaviour,Enemies
             BManim.SetBool("BmIdle", false);
             BManim.SetFloat("BmAnimCount", 1.0f);
 
-            Debug.Log("이동중");
             transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
         }
 
@@ -393,15 +420,15 @@ public class BManAction : MonoBehaviour,Enemies
     public bool isDamaged;
     IEnumerator PlayAttackAnimation()
     {
-        
-        if(isDamaged == false)
+        UpdateOutline(true);
+        BManim.SetBool("BmIdle", true); // 이전 스탠딩 상태 해제.
+        yield return new WaitForSeconds(1.0f);
+        BManim.SetBool("BmIdle", false); // 이전 스탠딩 상태 해제.
+
+        if (isDamaged == false && isAttacking == true)
         {
             Debug.Log("공격 시작");
-            isMove = false;
-            UpdateOutline(true);
-            BManim.SetBool("BmIdle", true); // 이전 스탠딩 상태 해제.
-            yield return new WaitForSeconds(1.0f);
-            BManim.SetBool("BmIdle", false); // 이전 스탠딩 상태 해제.
+            isMove = false;  
             BManim.SetBool("BmAtk", true); // 공격 애니메이션1
             BManim.SetFloat("BmAtkCount", 1.0f); // 공격 애니메이션2
             UpdateOutline(false);
@@ -412,8 +439,6 @@ public class BManAction : MonoBehaviour,Enemies
 
     }
 
-
-   
 
 
 
@@ -446,12 +471,16 @@ public class BManAction : MonoBehaviour,Enemies
         {
             spriteRenderer.sprite = reactSprite;
         }
-        else if (isReact == false && isPlayerMissing == false)
+        else if (isReact == false)
         {
             spriteRenderer.sprite = null;
 
         }
     }
+    public GameObject punchEff;
+    private GameObject attEff;
+
+   
 
     public GameObject dieEffPrefab;
     private GameObject dieEff;
@@ -488,7 +517,6 @@ public class BManAction : MonoBehaviour,Enemies
 
     public IEnumerator NotFindPlayer(SpriteRenderer sprite)
     {
-        sprite.sprite = missSprite;
         BManim.SetBool("BmAtk", false);
 
         if (!hasReachedStartPosition)
@@ -507,18 +535,11 @@ public class BManAction : MonoBehaviour,Enemies
             }
 
             BManim.SetBool("BmIdle", true);
-            if (isFindPlayer == false)
-            {
-                yield return new WaitForSeconds(notFindDelayAnim);
-            }
+
+           yield return new WaitForSeconds(notFindDelayAnim);
             
             hasReachedStartPosition = true;
         }
-        if(isFindPlayer == false)
-        {
-            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);       
-        }
-
         yield return null;
     }
 
