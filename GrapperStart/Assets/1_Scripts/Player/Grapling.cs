@@ -649,15 +649,15 @@ public class Grapling : MonoBehaviour
     public float playerToEnemyDistance;
     IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj, float graplingTime, float damage)
     {
-        Enemies enemyScript = enemyObj.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        if (enemyScript != null)
-        {
-            StartCoroutine(enemyScript.EnemyAtkStop());
-        }
-        else
-        {
-            Debug.Log("인터페이스 못 찾음");
-        }
+       
+        //if (enemyScript != null)
+        //{
+        //    StartCoroutine(enemyScript.GraplingAtkDamaged());
+        //}
+        //else
+        //{
+        //    Debug.Log("인터페이스 못 찾음");
+        //}
         enemyPosition = targetPosition;
 
         gameObject.layer = 8;
@@ -695,17 +695,18 @@ public class Grapling : MonoBehaviour
 
                     GraplingPlayerFlip(enemyObj);
                     animPlayer.SetTrigger("PlayerAttack");
-                    yield return new WaitForSeconds(grapanimdelay);
-
-                   
+                    
+                    yield return new WaitForSeconds(0.1f);
+                    Enemies enemyScript = enemyObj.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                     if (enemyScript != null)
                     {
-                        StartCoroutine(enemyScript.GraplingAtkDamaged(damage));
+                        StartCoroutine(enemyScript.baseDamaged());
                     }
                     else
                     {
                         Debug.Log("Enemies인터페이스 찾지 못함");
                     }
+
                     break;
 
                 }

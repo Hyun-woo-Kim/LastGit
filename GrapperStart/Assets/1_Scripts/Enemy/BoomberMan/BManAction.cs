@@ -94,8 +94,10 @@ public class BManAction : MonoBehaviour,Enemies
     public float patrolDistance = 5.0f; // ¼øÂû °Å¸®
     private bool hasReachedStartPosition;
 
-    public IEnumerator GraplingAtkDamaged(float damage)
+    public IEnumerator GraplingAtkDamaged()
     {
+        StartCoroutine(baseDamaged());
+
         yield return null;
     }
 
