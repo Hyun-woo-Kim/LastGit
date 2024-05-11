@@ -94,11 +94,11 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         bloodWorkerAnim.speed = animAimSpeed;
     }
 
-    public IEnumerator GraplingAtkDamaged(float damage) //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
+    public IEnumerator GraplingAtkDamaged() //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
     {
         // 데미지 처리 로직
         bwSpr.color = Color.red;
-        bwData.DamagedHp(damage);
+        bwData.DamagedHp(1.0f);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
         yield return new WaitForSeconds(damagedDelay);
         bwSpr.color = Color.white;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.XR;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 
@@ -26,7 +27,7 @@ public class BoomBerManHand : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-           
+            
             Debug.Log("BB");
             collisionPos = collision.transform;
             var eff = _Pool.Get();
@@ -38,17 +39,12 @@ public class BoomBerManHand : MonoBehaviour
 
     private BMPunchEff CreateEff()
     {
-        SpriteRenderer effSpr = effPrefab.GetComponent<SpriteRenderer>();
-        if (collisionPos.transform.position.x < transform.position.x)
-        {
-            effSpr.flipX = false;
-        }
-        else
-        {
-            effSpr.flipX = true;
-        }
+       
 
         BMPunchEff eff = Instantiate(effPrefab, collisionPos.transform.position, UnityEngine.Quaternion.identity).GetComponent<BMPunchEff>();
+
+       
+
         eff.SetManagedPool(_Pool);
      
         return eff;
@@ -56,7 +52,24 @@ public class BoomBerManHand : MonoBehaviour
 
     private void OnGetEff(BMPunchEff eff)
     {
+       
+
+        if (collisionPos.transform.position.x < transform.position.x)
+        {
+            eff.effSpr.flipX = false;
+            Debug.Log("FlipX == false");
+
+        }
+        else
+        {
+            eff.effSpr.flipX = true;
+            Debug.Log("FlipX == true");
+
+        }
+
         eff.gameObject.SetActive(true);
+        
+        eff.transform.position = this.collisionPos.position;//이거 아니면 collision의 히트포인트
     }
     private void OnReleaseEff(BMPunchEff eff)
     {

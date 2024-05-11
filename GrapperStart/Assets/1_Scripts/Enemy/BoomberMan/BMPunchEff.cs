@@ -7,14 +7,23 @@ public class BMPunchEff : MonoBehaviour
 {
     private IObjectPool<BMPunchEff> _ManagedPool;
 
+    public SpriteRenderer effSpr;
+    public float effDestroySpeed;
+
     private void Start()
     {
        
     }
 
+    private void OnEnable()
+    {
+        
+    }
+
     public void TransformEff()
     {
-        Invoke("DestroyEff", 0.5f);
+       
+        Invoke("DestroyEff", effDestroySpeed);
     }
     public void SetManagedPool(IObjectPool<BMPunchEff> pool)
     {
