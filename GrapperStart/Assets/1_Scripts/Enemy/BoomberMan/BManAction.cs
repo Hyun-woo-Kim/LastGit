@@ -124,7 +124,7 @@ public class BManAction : MonoBehaviour,Enemies
 
                 isDamaged = false;
                 isMove = true;
-                isAtkStop = false;
+                
             }
 
             else if(bmdata.bmHp <= 0)
@@ -135,6 +135,7 @@ public class BManAction : MonoBehaviour,Enemies
 
         }
 
+        isAtkStop = false;
 
         yield return null;
 
@@ -268,7 +269,7 @@ public class BManAction : MonoBehaviour,Enemies
             //필드 순회
         }
 
-        if(isFindPlayer == true && chaneAttackMon == true && isStand && !isAttacking)
+        if(isFindPlayer == true && chaneAttackMon == true && isStand )
         {
             HandAttack();
         }       
@@ -388,11 +389,13 @@ public class BManAction : MonoBehaviour,Enemies
     void HandAttack()
     {
         isAtk = false;
+        UpdateOutline(false);
         Collider2D[] colliders = Physics2D.OverlapBoxAll(Punchboxpos.position, PunchboxSize, 0);
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Player"))
             {
+                
                 isAtk = true;
             }
         }
@@ -404,10 +407,12 @@ public class BManAction : MonoBehaviour,Enemies
         {
             // 적의 공격 애니메이션을 재생
             isAttacking = true;
+            
             StartCoroutine(PlayAttackAnimation());
         }
         else
         {
+            
             BManim.SetBool("BmAtk", false);
             
         }
@@ -433,7 +438,7 @@ public class BManAction : MonoBehaviour,Enemies
             isMove = false;  
             BManim.SetBool("BmAtk", true); // 공격 애니메이션1
             BManim.SetFloat("BmAtkCount", 1.0f); // 공격 애니메이션2
-            UpdateOutline(false);
+            //UpdateOutline(false);
 
             isAttacking = false; // 공격 종료
         }
