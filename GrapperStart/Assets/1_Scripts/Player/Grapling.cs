@@ -77,8 +77,6 @@ public class Grapling : MonoBehaviour
 
         originalRotation = transform.rotation;
 
-
-
         #region Line컴포넌트 정리
         //정리
         //시작하면 점의 갯수는 2개로 설정되어 처음 라인 위치의 점과 마지막 라인의 위치의 점 . 총 2개로 설정된다.
@@ -354,15 +352,15 @@ public class Grapling : MonoBehaviour
         {
             transform.rotation = originalRotation;
 
-            if (isWall == true)
-            {
-                Debug.Log("벽에 부딪히기 직전");
-                playerColl.isTrigger = false;
-            }
-            else
-            {
-                playerColl.isTrigger = true;
-            }
+            //if (isWall == true)
+            //{
+            //    Debug.Log("벽에 부딪히기 직전");
+            //    playerColl.isTrigger = false;
+            //}
+            //else
+            //{
+            //    playerColl.isTrigger = true;
+            //}
 
           
 
@@ -389,6 +387,7 @@ public class Grapling : MonoBehaviour
             float verticalDistanceToGround = Mathf.Abs(transform.position.y - groundPos.position.y);
             if (verticalDistanceToGround < 3f && player.isFlyAction == true)
             {
+                //aim.targetRing.GetComponentInChildren<BoxCollider2D>().isTrigger = true;
                 player.isFlyAction = false;
                 isFlyReady = false;
                 playerColl.isTrigger = false;
@@ -406,59 +405,21 @@ public class Grapling : MonoBehaviour
     void hookRigid()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-
-        //// Distance Joint의 거리를 설정하여 180도 각도로만 스윙하도록 함
-        //float targetDistance = Mathf.Sin(maxSwingAngle * Mathf.Deg2Rad) * Vector2.Distance(transform.position, aim.targetRing.position);
-        //hook.GetComponent<Hooking>().joint2D.distance = Mathf.Lerp(hook.GetComponent<Hooking>().joint2D.distance, targetDistance + hookDistance, Time.deltaTime * swingForce);
-
-        //// 좌우 입력에 따라 스윙 방향을 조절
-        //if (horizontalInput != 0)
-        //{
-        //    // 스윙 방향을 좌우 입력에 따라 결정
-        //    Vector2 swingDirection = new Vector2(horizontalInput, 0f);
-        //    rigid.AddForce(swingDirection * swingForce, ForceMode2D.Force);
-        //}
-
-        // 플레이어의 좌우 입력을 받음
-
-        // Distance Joint의 거리를 설정하여 180도 각도로만 스윙하도록 함
-        //float targetDistance = Mathf.Sin(maxSwingAngle * Mathf.Deg2Rad) * Vector2.Distance(transform.position, aim.targetRing.position);
-        //hook.GetComponent<Hooking>().joint2D.distance = Mathf.Lerp(hook.GetComponent<Hooking>().joint2D.distance, targetDistance + hookDistance, Time.deltaTime * swingForce);
-
-        // 현재 플레이어의 각도를 계산
-        Transform playerTransform = transform;
-
-        // 플레이어의 로테이션 각도 출력
-        float zRotation = playerTransform.eulerAngles.z;
-
         // 수평 입력을 받았을 때 180도 각도로 회전하도록 제한
         if (horizontalInput != 0)
         {
-            // 90도에 도달하면 왼쪽 방향으로 스윙을 허용하지 않고, 270도에 도달하면 오른쪽 방향으로 스윙을 허용하지 않음
+            
             if(horizontalInput > 0)
             {
-                if ((zRotation < 90f && horizontalInput > 0) )
-                {
-                    // 스윙 방향을 좌우 입력에 따라 결정
-                    Vector2 swingDirection = Vector2.right;
-                    rigid.AddForce(swingDirection * swingForce, ForceMode2D.Force);
+                Vector2 swingDirection = Vector2.right;
+                rigid.AddForce(swingDirection * swingForce, ForceMode2D.Force);
 
-                }
-                else
-                {
-                    Vector2 swingDirection = Vector2.zero;
-                    rigid.AddForce(swingDirection * swingForce, ForceMode2D.Force);
-                }
-                
             }
 
             else if(horizontalInput < 0)
             {
-                if(zRotation > 270f && horizontalInput < 0)
-                {
-                    Vector2 swingDirection = Vector2.left;
-                    rigid.AddForce(swingDirection * swingForce, ForceMode2D.Force);
-                }
+                Vector2 swingDirection = Vector2.left;
+                rigid.AddForce(swingDirection * swingForce, ForceMode2D.Force);
             }
             
             
@@ -642,22 +603,13 @@ public class Grapling : MonoBehaviour
         // hook.position = enemy.transform.position;
 
         DestroyImmediate(comboSliderPrefab.gameObject);
-
+       
         StartCoroutine(LerpToTarget(enemy.transform, enemy, graplingTime, damage));
     }
 
     public float playerToEnemyDistance;
     IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj, float graplingTime, float damage)
     {
-       
-        //if (enemyScript != null)
-        //{
-        //    StartCoroutine(enemyScript.GraplingAtkDamaged());
-        //}
-        //else
-        //{
-        //    Debug.Log("인터페이스 못 찾음");
-        //}
         enemyPosition = targetPosition;
 
         gameObject.layer = 8;
