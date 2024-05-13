@@ -8857,7 +8857,7 @@ Transform:
   m_GameObject: {fileID: 1079117453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.37, y: -7.29, z: 0}
+  m_LocalPosition: {x: 1.99, y: -7.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9009,6 +9009,9 @@ MonoBehaviour:
   isenemyGrapling: 0
   graplingDamage: 0
   isGraplingEnemy: 0
+  ghostDelay: 0.1
+  ghost: {fileID: 358662768315225562, guid: a206d2536e1f7ca40972e0edc8471049, type: 3}
+  isMakeGhost: 0
   maxSwingAngle: 180
   swingForce: 5
   hookDistance: 4

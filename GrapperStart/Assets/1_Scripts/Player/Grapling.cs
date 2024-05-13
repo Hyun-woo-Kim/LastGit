@@ -75,6 +75,7 @@ public class Grapling : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
         HookSet();
 
+        ghostDelaySeconds = ghostDelay;
         originalRotation = transform.rotation;
 
         #region Line컴포넌트 정리
@@ -174,8 +175,32 @@ public class Grapling : MonoBehaviour
             hook.GetComponent<Hooking>().rotationHook(transform.position);
         }
 
+        if(isMakeGhost)
+        {
+            GhostGraplingEffect();
+        }
+       
     }
-
+    public float ghostDelay;
+    private float ghostDelaySeconds;
+    public GameObject ghost;
+    public bool isMakeGhost;
+    void GhostGraplingEffect()
+    {
+        if (ghostDelaySeconds > 0)
+        {
+            ghostDelaySeconds -= Time.deltaTime;
+        }
+        else
+        {
+            GameObject currentGhost = Instantiate(ghost, transform.position, transform.rotation);
+            Sprite currentSprite = GetComponent<SpriteRenderer>().sprite;
+            currentGhost.transform.localScale = this.transform.localScale;
+            currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;
+            ghostDelaySeconds = ghostDelay;
+            Destroy(currentGhost, 1f);
+        }
+    }
 
     public void ResetGrap()
     {
@@ -478,40 +503,6 @@ public class Grapling : MonoBehaviour
     public bool isStop;
     public float delay;
 
-
-
-    public Vector2 comboBarPos;
-
-
-    private Slider comboSliderPrefab;
-    public Slider comboSlider;
-    public float sliderSpeed;
-    public float minPos;
-    public float maxPos;
-    private RectTransform pass;
-
-    public void InstanComboSlider()
-    {
-        GameObject uiCanvas = GameObject.Find("UI_Canvas");
-
-        if (uiCanvas != null && comboSliderPrefab == null)
-        {
-            //comboBarPos = Camera.main.WorldToScreenPoint(transform.GetChild(9).position);
-            comboSliderPrefab = Instantiate(comboSlider, comboBarPos, Quaternion.identity);
-            // comboBarUI를 UI_Canvas의 하위로 설정
-            comboSliderPrefab.transform.SetParent(uiCanvas.transform, false);
-
-            SetComboSlider();
-
-        }
-
-        else
-        {
-            Debug.LogError("UI_Canvas not found");
-        }
-
-
-    }
     public void grapCounting()
     {
 
@@ -542,6 +533,40 @@ public class Grapling : MonoBehaviour
             //GrapHandling(aim.EnemyObj);     
         }
     }
+
+    public Vector2 comboBarPos;
+
+
+    private Slider comboSliderPrefab;
+    public Slider comboSlider;
+    public float sliderSpeed;
+    public float minPos;
+    public float maxPos;
+    private RectTransform pass;
+
+    public void InstanComboSlider()
+    {
+        GameObject uiCanvas = GameObject.Find("UI_Canvas");
+
+        if (uiCanvas != null && comboSliderPrefab == null)
+        {
+            comboBarPos = Camera.main.WorldToScreenPoint(transform.GetChild(9).position);
+            comboSliderPrefab = Instantiate(comboSlider, comboBarPos, Quaternion.identity);
+            // comboBarUI를 UI_Canvas의 하위로 설정
+            comboSliderPrefab.transform.SetParent(uiCanvas.transform, false);
+
+            SetComboSlider();
+
+        }
+
+        else
+        {
+            Debug.LogError("UI_Canvas not found");
+        }
+
+
+    }
+
     public void SetComboSlider()
     {
         Transform passTransform = comboSlider.transform.GetChild(1);
@@ -625,6 +650,8 @@ public class Grapling : MonoBehaviour
 
             while (elapsedTime < lerpTime)
             {
+                isMakeGhost = true; //고스트 이펙트 true
+
                 //2. 플레이어 회전
                 //  transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, angle - 99.0f), rotationSpeed * Time.deltaTime); 
                 //targetPosition = enemyPosition.position;
@@ -672,6 +699,7 @@ public class Grapling : MonoBehaviour
             grapCount = 0.0f;
             animPlayer.SetFloat("EnemyGraplingCount", grapCount);
 
+            isMakeGhost = false; //Ghost 이펙트 종료.
             isLerping = false; // Lerp 종료
             isenemyGrapling = false; //적 그래플링 종료
             isGraplingEnemy = false;
