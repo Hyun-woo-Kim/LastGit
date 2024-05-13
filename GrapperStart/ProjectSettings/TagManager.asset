@@ -29,9 +29,9 @@ TagManager:
   - outerglow
   - hook
   - Elevator
-  - 
-  - 
-  - 
+  - RingChild
+  - Wall
+  - EnemyNotDamaged
   - 
   - 
   - 
@@ -50,4 +50,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Obj
+    uniqueID: 2610033679
     locked: 0

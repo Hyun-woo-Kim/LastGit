@@ -10,28 +10,32 @@ public class IconRotation : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Animator animator;
     public Slider slider;
 
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(slider.value >=3)
+        if (slider.value >= 3)
         {
-            animator.SetBool("MouseBool",true);
+            //animator.SetBool("MouseBool", true);
+            animator.speed = 2.0f;
         }
         else
         {
-            animator.SetBool("MouseBool", false);
+            //animator.SetBool("MouseBool", false);
+            animator.speed = 1.0f;
         }
-       
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(slider.value >=3)
+        if (slider.value >= 3)
         {
-            animator.SetBool("MouseBool", false);
+            //animator.SetBool("MouseBool", false);
+            animator.speed = 1.0f;
         }
+ 
+    
     }
-
-
-
 }
+
 

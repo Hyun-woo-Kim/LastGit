@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public enum BloodState
 {
@@ -8,7 +10,6 @@ public enum BloodState
     STATE_STOP,
     STATE_FOLLOW,
     STATE_DIE,
-    STATE_TEAMFOLLOW,
 }
 
 
@@ -22,12 +23,17 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     CapsuleCollider2D capsuleColl;
     SpriteRenderer bwSpr;
     Enemies enemies;
-    CritureController criture;
+
 
 
     public bool isWall;
-
-
+    public bool isRockDelayMoveRunning;
+    [Header("##Delay")]
+    public float damagedDelay; //피격시 딜레이
+    public float attackDelay; // 렌치공격 딜레이
+    public float bwStopDelay; //정지후 기다리는 딜레이
+    public float RockCreateDelay; //돌 던지고 나서 스탠딩 상태로 몇초 동안 보여줄지
+    public float OutlineDealy; //아웃라인 몇초 동안 보여주고 공격할지 정하는 변수
     [Header("##PaTrol")]
     public Vector2 patrolDirection;
     protected Vector2 startPosition;
@@ -46,7 +52,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     [Header("##Bw Team Interaction")]
     public bool hasThrownRock;
     public bool isMyTeam;
-    public bool isGraplingDamaged;
+ 
     public bool isBasicDamaged;
     [Header("##Is Reaction")]
     public bool isReact;
@@ -58,171 +64,165 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         capsuleColl = GetComponent<CapsuleCollider2D>();
         bloodWorkerAnim = GetComponent<Animator>();
         bwSpr = GetComponent<SpriteRenderer>();
-        criture = FindAnyObjectByType<CritureController>(); //나중에 이 스크립트 빼야함.
         enemies = GetComponentInParent<Enemies>();
 
 
         //기본적으로 시작하면 순찰 상태로 시작.
-        this.bloodState = BloodState.STATE_PATROL;
+        this.bloodState = BloodState.STATE_STOP;
         setActionType(bloodState);
-        myState = gameObject.AddComponent<BloodWorkerPatrol>();
 
 
         //순찰 기능 초기값 설정.
         startPosition = transform.position;
-        patrolDirection = Vector2.right;
+        patrolDirection = Vector2.left;
 
         animSpeed = bloodWorkerAnim.speed;
+        UpdateOutline(false);
+        isNotFindPlayer = false;
+
     }
 
-    public void  EnemySet()//플레이어가 전등 조준하지 않았을 때 초기값
+    public void EnemySet()//플레이어가 전등 조준하지 않았을 때 초기값
     {
-        Debug.Log("플레이어가 전등을 조준 하지 않음");
         patrolSpeed = 2.0f;
         bloodWorkerAnim.speed = animSpeed;
     }
     public void SpeedDown() //플레이어가 전등 조준시 속도 낮추는 함수
     {
-        Debug.Log("플레이어가 전등을 조준 함");
         patrolSpeed = 0.5f;
         followSpeed = 0.1f;
         bloodWorkerAnim.speed = animAimSpeed;
     }
 
-    public IEnumerator GraplingAtkDamaged(float damage) //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
+    public IEnumerator GraplingAtkDamaged() //BW가 그래플링 스킬에 맞았을 때 호출 하는 함수
     {
         // 데미지 처리 로직
-        isGraplingDamaged = true;
         bwSpr.color = Color.red;
-        Debug.Log("데미지를 입음");
-        bwData.DamagedHp(damage);
+        bwData.DamagedHp(1.0f);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(damagedDelay);
         bwSpr.color = Color.white;
-        isGraplingDamaged = false;
+        isAtkStop = false;
     }
     public IEnumerator baseDamaged()  //BW가 플레이어로 부터 기본공격에 맞았을 때 호출 하는 함수
     {
-        isBasicDamaged = true;
         bwSpr.color = Color.red;
         bwData.DamagedHp(1);
         bloodWorkerAnim.SetTrigger("BWKnockBack");
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(damagedDelay);
         bwSpr.color = Color.white;
-        if(bwData.bwHp <= float.Epsilon)
+        if (bwData.bwHp <= float.Epsilon)
         {
             this.bloodState = BloodState.STATE_DIE;
             bloodWorkerAnim.SetTrigger("BWDie");
             Debug.Log("1");
             StartCoroutine(Died());
         }
-        isBasicDamaged = false;
+        isAtkStop = false;
     }
 
     public IEnumerator Died()
     {
-      
+
         yield return new WaitForSeconds(0.5f);
         bloodWorkerAnim.enabled = false;
         Destroy(this.gameObject);
 
     }
 
-
+    public Transform handChild;
 
 
     public void setActionType(BloodState _bloodState)
     {
-        Component bwState = gameObject.GetComponent<BloodWorkerState>();
-        Component bwAttackReady = gameObject.GetComponent<BloodWorkerAttackReady>();
-        Transform renchChild = transform.GetChild(4);
-        if (bwState != null)
-        {
-            Destroy(bwState);
-        }
-        else if (bwAttackReady != null)
-        {
-            Destroy(bwAttackReady);
-        }
-
+        
         switch (_bloodState)
         {
             case BloodState.STATE_PATROL:
-                if (myState == null)
-                {
-                    myState = gameObject.AddComponent<BloodWorkerPatrol>();
-                    renchChild.gameObject.SetActive(false);
-                    myState.Patrol(_bloodState, patrolSpeed, patrolDistance, patrolDirection, startPosition);
-                }
+                    PatrolMovement(patrolSpeed, patrolDirection);         
                 break;
             case BloodState.STATE_STOP:
-                myState = gameObject.AddComponent<BloodWorkerPatrol>();
-                myState.Stop(_bloodState);
-                renchChild.gameObject.SetActive(false);
+                //myState.Stop(_bloodState);
+
                 StartCoroutine(PatTrolTurn());
                 break;
-            case BloodState.STATE_ROCKATTACK:
-                if (myAttackState == null)
-                {
-                    myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
-
-                    Debug.Log("B");
-                    StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos)); //투사체 던지기.
-                    this.bloodState = BloodState.STATE_FOLLOW;
-                    return;
-                }
+            case BloodState.STATE_ROCKATTACK:            
+                  StartCoroutine(RockDelayMove());
+                 isNotFindPlayer = false;
                 break;
-            case BloodState.STATE_TEAMFOLLOW:
-                if (myAttackState == null)
+            case BloodState.STATE_FOLLOW: //추격상태일때
+               
+                if (isTargetPlayer) //순찰범위에 플레이어 있으면
                 {
-                    myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
-                    this.bloodState = BloodState.STATE_FOLLOW;             
+                    isNotFindPlayer = false;
+                   
+                    FollowPlayer();
                 }
-                break;
-            case BloodState.STATE_FOLLOW:
-                FollowPlayer();
-                Collider2D[] coliderRench = Physics2D.OverlapBoxAll(renchAttackPos.position, renchAttackSize, 0);
-                myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
-                if (isTargetPlayer)
-                {         
-                    renchChild.gameObject.SetActive(true);
-                    myAttackState.RenchAttack(bloodState, coliderRench, bloodWorkerAnim);
+                else//순찰범위에 플레이어 없으면
+                {
+                    bloodWorkerAnim.SetBool("BWRenchRun", false);
+                    isNotFindPlayer = true;
+                    this.bloodState = BloodState.STATE_STOP;
+                    setActionType(BloodState.STATE_STOP);
                 }
 
                 break;
 
         }
     }
+    void PatrolMovement(float patrolSpeed, Vector2 patrolDir)
+    {
+       
+        transform.Translate(patrolDir * patrolSpeed * Time.deltaTime);
 
-   
+        Debug.Log("순찰");
+        bloodWorkerAnim.SetBool("BWStop", false); //걷는 애니메이션 재생
+
+    }
+  
+    IEnumerator RockDelayMove()
+    {
+ 
+
+        if (isRockDelayMoveRunning)
+        {
+            yield break;
+        }
+
+        isRockDelayMoveRunning = true;
+        isMove = false;
+        FlipEnemy();
+        StartCoroutine(InstanRock(rockPref, rockPos, attackDelay)); //돌 생성하는 메서드 호출.
+        bloodWorkerAnim.SetBool("BWStop", true);
+        yield return new WaitForSeconds(RockCreateDelay);
+        isMove = true;
+        this.bloodState = BloodState.STATE_FOLLOW;
+
+        // 코루틴이 종료되었으므로 플래그를 다시 false로 설정합니다.
+        isRockDelayMoveRunning = false;
+    }
+    public LayerMask wallLayer;
     void Update()
     {
+        
+
         Transform thirdChild = transform.GetChild(4);
         SpriteRenderer spriteRenderer = thirdChild.GetComponent<SpriteRenderer>();
-        PatrolReaction(spriteRenderer);
 
-        if (criture.isEnemyAttack == true)
+        if (bloodState == BloodState.STATE_PATROL) //순찰 상태에서 레이를 쏘고 벽을 감지한다. 
         {
-            Debug.Log("아군 발견");
-            isMyTeam = true;
-            target = criture.targetPos;
-            FlipEnemy(target);
-            setActionType(BloodState.STATE_TEAMFOLLOW);//아군이 적 발견시 추격상태
+            WallTurn();
         }
-        else if(criture.isEnemyAttack == false)
-        {
-            isMyTeam = false;
-            hasThrownRock = false;
-        }
+
+        PatrolReaction(spriteRenderer);
 
         switch (bloodState)
         {
             case BloodState.STATE_PATROL:
-                if (Mathf.Abs(transform.position.x - startPosition.x) >= patrolDistance || isWall)
+                if ((Mathf.Abs(transform.position.x - startPosition.x) >= patrolDistance))
                 {
                     this.bloodState = BloodState.STATE_STOP;
-                    setActionType(BloodState.STATE_STOP);
-                    isWall = false;              
+                    setActionType(BloodState.STATE_STOP);           
                 }
                 else
                 {
@@ -234,32 +234,52 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 //PatrolRange();
                 break;
             case BloodState.STATE_ROCKATTACK:
+                PatrolRange();
                 setActionType(BloodState.STATE_ROCKATTACK);
                 break;
-             case BloodState.STATE_TEAMFOLLOW:
-                setActionType(BloodState.STATE_TEAMFOLLOW);
-                break; 
             case BloodState.STATE_FOLLOW:
                 PatrolRange();
                 setActionType(BloodState.STATE_FOLLOW);
                 break;
         }
     }
+    public float rayDistance = 5f; // Ray의 최대 거리
+    public void WallTurn()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, patrolDirection, Mathf.Infinity, wallLayer);
+        Debug.DrawRay(transform.position, patrolDirection * rayDistance, Color.red);
+        // Raycast가 벽과 충돌한 경우
+        if (hit.collider != null)
+        {
+            float distance = Mathf.Abs(hit.point.x - transform.position.x);
+
+            if (distance < rayDistance)
+            {
+                this.bloodState = BloodState.STATE_STOP;
+                setActionType(BloodState.STATE_STOP);
+            }
+        }
+       
+    }
+
+
+    //정지 후 순찰 상태 구현
     IEnumerator PatTrolTurn()
     {
-        bloodWorkerAnim.SetBool("BWStop", true);
-        yield return new WaitForSeconds(2.0f); //정지 후 기다리는 시간.
-        bloodWorkerAnim.SetBool("BWStop", false);
-        this.bloodState = BloodState.STATE_PATROL;
+        if (this.bloodState == BloodState.STATE_STOP) 
+        {
+            
+            bloodWorkerAnim.SetBool("BWStop", true);
+            yield return new WaitForSeconds(bwStopDelay); //정지 후 기다리는 시간.
 
+            startPosition.x = transform.position.x;
+            FlipEnemy();
+          
+            this.bloodState = BloodState.STATE_PATROL;
+            setActionType(BloodState.STATE_PATROL);
+        }
+   
 
-        patrolDirection *= -1;
-        startPosition.x = transform.position.x;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
-
-        setActionType(BloodState.STATE_PATROL);
     }
 
     public void PlayerToDamaged() //인터페이스 Enemies를 통해 구현해야 할 메서드.
@@ -272,9 +292,18 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
     void FollowPlayer()
     {
-        FlipEnemy(target);
+
         //렌치들고 추격하는 애니메이션 필요.
-        transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
+        if (isMove)
+        {
+            Debug.Log("추격");
+            FlipEnemy();
+            transform.position = Vector2.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
+            bloodWorkerAnim.SetBool("BWRenchRun", true);
+            //bloodWorkerAnim.SetBool("BWStop", true);
+            //bloodWorkerAnim.SetBool("BWRenchRun", true);
+        }
+       
     }
 
     void PatrolRange()
@@ -283,86 +312,179 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         isTargetPlayer = false; //적 감지 확인 x
 
 
+
         Collider2D[] colliders = Physics2D.OverlapBoxAll(patrolPos.position, patrolBoxSize, 0);
 
-
+        
         foreach (Collider2D collider in colliders) //피의노동자의 시야.
         {
             if (collider.CompareTag("Player")) //적 감지 
             {
+                handChild.gameObject.SetActive(true);
                 target = collider.transform;
                 isReact = true;
                 isTargetPlayer = true; //적 감지 확인
+                
+                RenchAttack();
+
+
             }
 
         }
-        if ((isTargetPlayer && bloodState == BloodState.STATE_PATROL ))//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
+        if ((isTargetPlayer && bloodState == BloodState.STATE_PATROL))//손을 이용하여 돌멩이 던진다. 손 활성화, 돌멩이 투척 애니메이션 활성화, 돌멩이 투척 상태로 변경.
         {
-            Debug.Log("적 발견");
-            FlipEnemy(target);
-            bloodWorkerAnim.SetTrigger("BWRockAttack");
             this.bloodState = BloodState.STATE_ROCKATTACK; //돌멩이 투척상태
             return;
-        }
-        else if (isTargetPlayer == false && criture.isEnemyAttack == false)
-        {
-            this.bloodState = BloodState.STATE_PATROL;
-        }
-        else if (!hasThrownRock && isTargetPlayer && isMyTeam && bloodState == BloodState.STATE_FOLLOW)
-        {
-            Debug.Log("A");
-            bloodWorkerAnim.SetTrigger("BWRockAttack");
-            myAttackState = gameObject.AddComponent<BloodWorkerAttack>();
-            StartCoroutine(myAttackState.InstanRock(bloodState, rockPref, rockPos));
-            hasThrownRock = true;
-            return;
-        }
+        }    
 
     }
+    private Dictionary<GameObject, Coroutine> rockCoroutines = new Dictionary<GameObject, Coroutine>();
 
-
-
-    void FlipEnemy(Transform target)
+    
+    public IEnumerator InstanRock(GameObject rockPref, Transform rockPos, float _attackDelay)
     {
-        Debug.Log("방향뒤집기");
-        if (transform.position.x > target.position.x)
+        if (rockCoroutines.Count == 0) // 이미 돌이 생성되어 있는지 확인
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            UpdateOutline(true);
+            yield return new WaitForSeconds(OutlineDealy);
+            // 돌 생성
+           
+            Vector3 rockVec = rockPos.position;
+            bloodWorkerAnim.SetTrigger("BWRockAttack");
+            GameObject rockInstance = Instantiate(rockPref, rockVec, Quaternion.identity);
+            UpdateOutline(false);
+            // 코루틴 시작
+            Coroutine coroutine = StartCoroutine(RockDestroyCoroutine(rockInstance, _attackDelay));
+
+            // 딕셔너리에 돌과 코루틴 추가
+            rockCoroutines.Add(rockInstance, coroutine);
         }
-        else if (transform.position.x < target.position.x)
+    }
+
+    private IEnumerator RockDestroyCoroutine(GameObject rockInstance, float _attackDelay)
+    {
+        // 지정된 시간이 지나면 돌 제거
+        yield return new WaitForSeconds(_attackDelay);
+        Destroy(rockInstance);
+
+        // 딕셔너리에서 해당 돌의 코루틴 제거
+        if (rockCoroutines.ContainsKey(rockInstance))
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            rockCoroutines.Remove(rockInstance);
         }
+    }
+
+    private Dictionary<Transform, Coroutine> bwAttackCoroutines = new Dictionary<Transform, Coroutine>();
+    public bool isMove;
+
+    public void RenchAttack()
+    {
+        
+        Collider2D[] coliderRench = Physics2D.OverlapBoxAll(renchAttackPos.position, renchAttackSize, 0);
+        isMove = true;
+
+       
+
+        foreach (Collider2D renchCollider in coliderRench)
+        {
+            if (renchCollider.CompareTag("Player"))
+            {
+                
+                FlipEnemy();
+                isMove = false;
+                // 해당 플레이어의 코루틴을 시작
+                if (!bwAttackCoroutines.ContainsKey(target) )
+                {
+                    Coroutine coroutine = StartCoroutine(AttackAnimDelayCoroutine(target, attackDelay));
+                    bwAttackCoroutines.Add(target, coroutine);
+                    bloodWorkerAnim.SetBool("BWRenchRun", false);
+                    UpdateOutline(true);
+                }
+            }
+        }
+    }
+
+    IEnumerator AttackAnimDelayCoroutine(Transform playerTransform, float _attackDelay)
+    {
+      
+        //bloodWorkerAnim.SetBool("BWStop", true);
+        // bloodWorkerAnim.SetBool("BWRenchRun", true);
+        yield return new WaitForSeconds(OutlineDealy);
+        UpdateOutline(false);
+        if(isAtkStop == false)
+        {
+            bloodWorkerAnim.SetTrigger("BWRenchAtk");
+        }
+
+        handChild.gameObject.SetActive(false);
+        yield return new WaitForSeconds(_attackDelay);
+        // 해당 플레이어의 코루틴을 제거
+        if (bwAttackCoroutines.ContainsKey(playerTransform))
+        {
+            bwAttackCoroutines.Remove(playerTransform);
+            
+        }
+    }
+    void FlipEnemy()
+    {
+       if(this.bloodState == BloodState.STATE_FOLLOW || this.bloodState == BloodState.STATE_ROCKATTACK)
+        {
+            if (transform.position.x > target.position.x)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+
+            }
+            else if (transform.position.x < target.position.x)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+
+            }
+        }
+       else if(this.bloodState == BloodState.STATE_PATROL || this.bloodState == BloodState.STATE_STOP)
+        {
+            patrolDirection *= -1;
+
+            Debug.Log("출력");
+            if(patrolDirection == Vector2.right)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else if (patrolDirection == Vector2.left)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
+       
     }
     void PatrolReaction(SpriteRenderer spriteRenderer)
     {
-        if (isReact || criture.isEnemyAttack)
+        if (isReact && isNotFindPlayer == false)
         {
             spriteRenderer.sprite = reactSprite;
 
         }
-        else if (isReact == false || criture.isEnemyAttack == false)
+        else if(isReact == false && isNotFindPlayer == true)
+        {
+            spriteRenderer.sprite = missSprite;
+        }
+        else if (isReact == false && isNotFindPlayer == false)
         {
             spriteRenderer.sprite = null;
 
         }
     }
 
+    public bool isCollHook;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == ("Wall") )
-        {
-            isWall = true;
-        }
+        
+   
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == ("Wall"))
-        {
-
-            isWall = false;
-        }
+       
+    
     }
 
     private void OnDrawGizmos()
@@ -373,5 +495,36 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         Gizmos.DrawWireCube(renchAttackPos.position, renchAttackSize);//DrawWireCube(pos.position,boxsize)      
     }
 
+    public Color color = Color.yellow;
 
+    [Range(0, 16)]
+    public int outlineSize;
+
+    public void UpdateOutline(bool outline)
+    {
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        bwSpr.GetPropertyBlock(mpb);
+        mpb.SetFloat("_Outline", outline ? 1f : 0);
+        mpb.SetColor("_OutlineColor", color);
+        mpb.SetFloat("_OutlineSize", outlineSize);
+        bwSpr.SetPropertyBlock(mpb);
+    }
+
+    public Sprite missSprite;
+    public bool isNotFindPlayer;
+
+    public IEnumerator NotFindPlayer(SpriteRenderer sprite)
+    {
+       
+        yield return null;
+
+    }
+
+    public bool isAtkStop;
+    public IEnumerator EnemyAtkStop()
+    {
+        isAtkStop = true; //플레이어 그래플링 시작하면 적은 공격 못하게. 적 그래플링 피격 시 공격 가능.
+        StartCoroutine(baseDamaged());
+        yield return null;
+    }
 }

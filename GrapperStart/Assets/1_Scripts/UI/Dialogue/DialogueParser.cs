@@ -15,6 +15,9 @@ public class DialogueParser : MonoBehaviour
         {
             string[] row = data[i].Split(new char[] { ',' }); //, 단위로 쪼개서 row에 집어 넣는다
 
+            //Debug.Log(row[0]);
+            //Debug.Log(row[1]);
+            //Debug.Log(row[2]);
             Dialogue dialogue = new Dialogue(); //대사 리스트 생성
 
             dialogue.name = row[1];
@@ -24,17 +27,25 @@ public class DialogueParser : MonoBehaviour
             do
             {
                 contextList.Add(row[2]);
+                if (++i < data.Length)
+                {
+                    row = data[i].Split(new char[] { ',' });
+                }
+                else
+                {
+                    break;
+                }
             } while (row[0].ToString() == ""); //ID내용이 공백이면 
 
+            dialogue.contexts = contextList.ToArray(); //배열로 바꾸기
 
+            dialogueList.Add(dialogue);
 
         }
 
         return dialogueList.ToArray(); //dialogueList을 배열로 바꿔줌
     }
 
-    private void Start()
-    {
-        Parse("Dialogue");
-    }
 }
+
+  

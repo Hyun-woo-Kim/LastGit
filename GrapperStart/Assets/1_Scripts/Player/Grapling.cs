@@ -13,6 +13,8 @@ public class Grapling : MonoBehaviour
     GraplingRange graplingRange;
     Animator animPlayer;
     Aiming aim;
+    Rigidbody2D rigid;
+    CapsuleCollider2D playerColl;
 
     [Header("##Obj Grapling")]
     public Transform playerArm;
@@ -47,7 +49,7 @@ public class Grapling : MonoBehaviour
     public float graplingDamage;
 
 
-  
+
 
     //라인을 그리는 포지션을 두개로 설정.
     //한 점은 Player의 포지션: positionCount
@@ -63,6 +65,8 @@ public class Grapling : MonoBehaviour
 
 
         animPlayer = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
+        playerColl = GetComponent<CapsuleCollider2D>();
 
 
         graplingRange = FindAnyObjectByType<GraplingRange>();
@@ -71,6 +75,7 @@ public class Grapling : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
         HookSet();
 
+        ghostDelaySeconds = ghostDelay;
         originalRotation = transform.rotation;
 
         #region Line컴포넌트 정리
@@ -108,7 +113,7 @@ public class Grapling : MonoBehaviour
 
     }
 
-
+    public bool isGraplingEnemy;
 
     void Update()
     {
@@ -140,15 +145,15 @@ public class Grapling : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && aim.isAimEnemy)
         {
-          
+            isGraplingEnemy = true;
             line.SetPosition(0, transform.GetChild(5).position);
-            if (grapCount >= 0 )
+            if (grapCount >= 0)
             {
                 grapCount += 1.0f;
 
                 if (grapCount == 1.0f)
                 {
-                    
+
                     InstanComboSlider();
                 }
                 grapCounting();
@@ -160,17 +165,42 @@ public class Grapling : MonoBehaviour
 
         }
 
-        if(isenemyGrapling)
+        if (isenemyGrapling)
         {
             Debug.Log("호출");
             hook.GetComponent<Hooking>().rotationHook(transform.position);
         }
-        else if(isHookActive)
+        else if (isHookActive)
         {
             hook.GetComponent<Hooking>().rotationHook(transform.position);
         }
-    }
 
+        if(isMakeGhost)
+        {
+            GhostGraplingEffect();
+        }
+       
+    }
+    public float ghostDelay;
+    private float ghostDelaySeconds;
+    public GameObject ghost;
+    public bool isMakeGhost;
+    void GhostGraplingEffect()
+    {
+        if (ghostDelaySeconds > 0)
+        {
+            ghostDelaySeconds -= Time.deltaTime;
+        }
+        else
+        {
+            GameObject currentGhost = Instantiate(ghost, transform.position, transform.rotation);
+            Sprite currentSprite = GetComponent<SpriteRenderer>().sprite;
+            currentGhost.transform.localScale = this.transform.localScale;
+            currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;
+            ghostDelaySeconds = ghostDelay;
+            Destroy(currentGhost, 1f);
+        }
+    }
 
     public void ResetGrap()
     {
@@ -230,7 +260,7 @@ public class Grapling : MonoBehaviour
 
     public void GraplingSkill() //링 로브젝트 기준 그래플링 스킬 
     {
-        
+
         // line.SetPosition(0, playerArm.position);
 
         line.SetPosition(1, hook.GetComponent<Hooking>().hooklinePos.position);
@@ -243,7 +273,7 @@ public class Grapling : MonoBehaviour
             iscollObj = false;
             line.SetPosition(0, transform.GetChild(5).position);
             hook.position = aim.playerAimPos.position; //hook의 시작 위치는 playerAimPos.
-                   
+
             isLineMax = false;
 
             hookRightLeft();
@@ -273,43 +303,44 @@ public class Grapling : MonoBehaviour
         }
         else if (isAttatch == true)
         {
-          
             RotPlayerArm();
             RotPlayer();
-          
-            player.SwingPlayer();
+            hookRigid();
 
-            
             PlayerGraplingAnimCount = 0.0f;
             line.SetPosition(0, playerArm.position);
 
             animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
             animPlayer.SetBool("PlayerGrapling", true);
-          
+
+
+
+
             if (Input.GetKey(KeyCode.E) && isAttatch) //공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             {
-                 rotation = transform .rotation.eulerAngles;
+                rotationhook = transform.rotation.eulerAngles;
 
-                // z값 출력하기
-                
+           
+               
+       
+
                 if (!isEKeyHeld)
                 {
-                    // E 키가 처음으로 눌렸을 때 실행할 코드
 
                     isEKeyHeld = true;
                 }
 ;
                 // E 키를 누르고 있는 동안 계속 실행할 코드
-                eKeyHoldTime += Time.deltaTime;
+                //eKeyHoldTime += Time.deltaTime;
 
             }
             else
             {
+
                 if (isEKeyHeld)
                 {
                     // E 키가 놓였을 때 실행할 코드
                     hookDetailDir();
-                    //PlayerGraplingAnimCount++;
 
                     isFlyReady = true;
                     isStop = true;
@@ -317,23 +348,26 @@ public class Grapling : MonoBehaviour
                     isHookActive = false;
                     isLineMax = false;
 
-                    if (eKeyHoldTime >= 0.5f) // 1초 이상 눌렀을 때
-                    {
-                        baseSwingForce = 20.0f;
-                        player.flyAction(baseSwingForce);
-                    }
-                    else
-                    {
-                        baseSwingForce = 15.0f;
-                        player.flyAction(baseSwingForce);
-                    }
+                    player.flyAction(baseSwingForce);
 
-                    
                     aim.aimMousedir.x = 0;
                     aim.aimMousedir.y = 0;
                     aim.aimLength = 0.0f;
+
                     isEKeyHeld = false;
-                    eKeyHoldTime = 0f; // 누르고 있던 시간 초기화
+
+                    //if (eKeyHoldTime >= 0.5f) // 1초 이상 눌렀을 때
+                    //{
+                    //    baseSwingForce = 20.0f;
+                    //    player.flyAction(baseSwingForce);
+                    //}
+                    //else
+                    //{
+                    //    baseSwingForce = 15.0f;
+                    //    player.flyAction(baseSwingForce);
+                    //}
+
+                    //eKeyHoldTime = 0f; // 누르고 있던 시간 초기화
                 }
             }//공중제비 세기 조건 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -343,17 +377,29 @@ public class Grapling : MonoBehaviour
         {
             transform.rotation = originalRotation;
 
+            //if (isWall == true)
+            //{
+            //    Debug.Log("벽에 부딪히기 직전");
+            //    playerColl.isTrigger = false;
+            //}
+            //else
+            //{
+            //    playerColl.isTrigger = true;
+            //}
+
+          
+
             if (hookisLeft)
             {
                 PlayerGraplingAnimCount = 1.0f;
                 animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
             }
-            else if(hookisRight )//후크는 오른쪽
+            else if (hookisRight)//후크는 오른쪽
             {
                 PlayerGraplingAnimCount = -1.0f;
                 animPlayer.SetFloat("PlayerGraplingCount", PlayerGraplingAnimCount);
             }
-            
+
 
             GameObject playerObj = GameObject.Find("Player");
             Transform playerArm = playerObj.transform.GetChild(7);
@@ -366,9 +412,11 @@ public class Grapling : MonoBehaviour
             float verticalDistanceToGround = Mathf.Abs(transform.position.y - groundPos.position.y);
             if (verticalDistanceToGround < 3f && player.isFlyAction == true)
             {
+                //aim.targetRing.GetComponentInChildren<BoxCollider2D>().isTrigger = true;
                 player.isFlyAction = false;
                 isFlyReady = false;
-
+                playerColl.isTrigger = false;
+                isWall = false;
                 animPlayer.SetBool("PlayerGrapling", false);
 
             }
@@ -376,43 +424,71 @@ public class Grapling : MonoBehaviour
 
 
     }
-    Vector3 rotation;
+    public float maxSwingAngle = 180f; // 최대 스윙 각도
+    public float swingForce = 5f; // 스윙 힘
+    public float hookDistance;
+    void hookRigid()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        // 수평 입력을 받았을 때 180도 각도로 회전하도록 제한
+        if (horizontalInput != 0)
+        {
+            
+            if(horizontalInput > 0)
+            {
+                Vector2 swingDirection = Vector2.right;
+                rigid.AddForce(swingDirection * swingForce, ForceMode2D.Force);
+
+            }
+
+            else if(horizontalInput < 0)
+            {
+                Vector2 swingDirection = Vector2.left;
+                rigid.AddForce(swingDirection * swingForce, ForceMode2D.Force);
+            }
+            
+            
+          
+        }
+    }
+
+    Vector3 rotationhook;
     void hookDetailDir()
     {
         if (transform.localScale.x == 1)
         {
-            if ((rotation.z >= 0.0f && rotation.z <= 90.0f) || (rotation.z > 180.0f && rotation.z < 270.0f))
+            if ((rotationhook.z >= 0.0f && rotationhook.z <= 90.0f) || (rotationhook.z > 180.0f && rotationhook.z < 270.0f))
             {
                 hookisLeft = true;
                 hookisRight = false;
             }
-            else if ((rotation.z > 90.0f && rotation.z < 180.0f) || (rotation.z < 360.0f && rotation.z > 270.0f))//후크는 오른쪽
+            else if ((rotationhook.z > 90.0f && rotationhook.z < 180.0f) || (rotationhook.z < 360.0f && rotationhook.z > 270.0f))//후크는 오른쪽
             {
                 hookisRight = true;
                 hookisLeft = false;
             }
         }
-        else if(transform.localScale.x == -1)
+        else if (transform.localScale.x == -1)
         {
-            if ((rotation.z >= 0.0f && rotation.z <= 90.0f) || (rotation.z > 180.0f && rotation.z < 270.0f))
+            if ((rotationhook.z >= 0.0f && rotationhook.z <= 90.0f) || (rotationhook.z > 180.0f && rotationhook.z < 270.0f))
             {
                 hookisRight = true;
                 hookisLeft = false;
             }
-            else if ((rotation.z > 90.0f && rotation.z < 180.0f) || (rotation.z < 360.0f && rotation.z > 270.0f))//후크는 오른쪽
+            else if ((rotationhook.z > 90.0f && rotationhook.z < 180.0f) || (rotationhook.z < 360.0f && rotationhook.z > 270.0f))//후크는 오른쪽
             {
                 hookisLeft = true;
                 hookisRight = false;
             }
         }
-       
+
     }
     public void hookRightLeft()
     {
-      
+
         if (transform.position.x > hook.transform.position.x)
         {
-           
+
             hookisLeft = true;
             hookisRight = false;
             hook.GetComponent<Hooking>().hookSpr.flipX = false;
@@ -426,8 +502,37 @@ public class Grapling : MonoBehaviour
     }
     public bool isStop;
     public float delay;
-  
 
+    public void grapCounting()
+    {
+
+        isenemyGrapling = true;
+
+        GraplingPlayerFlip(aim.EnemyObj);
+
+        hook.position = enemyHookPos.position;
+
+        if (grapCount == 1.0f && graplingRange.isenemySkill == true)
+        {
+
+            //InstanComboSlider();
+            hook.gameObject.SetActive(true);
+
+            hook.GetComponent<Hooking>().target = aim.EnemyObj.transform;
+
+
+            //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
+
+        }
+        else if (grapCount == 2.0f)
+        {
+
+
+            hook.position = aim.EnemyObj.transform.position;
+
+            //GrapHandling(aim.EnemyObj);     
+        }
+    }
 
     public Vector2 comboBarPos;
 
@@ -445,6 +550,7 @@ public class Grapling : MonoBehaviour
 
         if (uiCanvas != null && comboSliderPrefab == null)
         {
+            comboBarPos = Camera.main.WorldToScreenPoint(transform.GetChild(9).position);
             comboSliderPrefab = Instantiate(comboSlider, comboBarPos, Quaternion.identity);
             // comboBarUI를 UI_Canvas의 하위로 설정
             comboSliderPrefab.transform.SetParent(uiCanvas.transform, false);
@@ -458,40 +564,11 @@ public class Grapling : MonoBehaviour
             Debug.LogError("UI_Canvas not found");
         }
 
-    
+
     }
-    public void grapCounting()
-    {
-        
-        isenemyGrapling = true;
 
-        GraplingPlayerFlip(aim.EnemyObj);
-
-        hook.position = enemyHookPos.position;
-
-        if (grapCount == 1.0f && graplingRange.isenemySkill == true)
-        {
-            
-            //InstanComboSlider();
-            hook.gameObject.SetActive(true);
-            
-            hook.GetComponent<Hooking>().target = aim.EnemyObj.transform;
-
-           
-            //hook 처음 위치는 적 갈고리 발사 애니메이션 팔 위치에 초기화.
-
-        }
-        else if(grapCount == 2.0f)
-        {
-            
-
-            hook.position = aim.EnemyObj.transform.position;
-
-            //GrapHandling(aim.EnemyObj);     
-        }
-    }
     public void SetComboSlider()
-    {  
+    {
         Transform passTransform = comboSlider.transform.GetChild(1);
         pass = passTransform as RectTransform;
 
@@ -532,31 +609,31 @@ public class Grapling : MonoBehaviour
             yield return null;
         }
 
-      
+
         if (comboSliderPrefab.value >= minPos && comboSliderPrefab.value <= maxPos)  // 슬라이더가 초록색 바에 위치 하지 않았을 떄
         {
-            lerpTime = 0.8f; 
+            lerpTime = 0.8f;
             graplingDamage = 1.0f;
             GrapHandling(aim.EnemyObj, lerpTime, graplingDamage);
         }
-        else if(comboSliderPrefab.value <= minPos || comboSliderPrefab.value >= maxPos) //슬라이더가 초록색 바에 위치했을 때
+        else if (comboSliderPrefab.value <= minPos || comboSliderPrefab.value >= maxPos) //슬라이더가 초록색 바에 위치했을 때
         {
             lerpTime = 0.5f;
             graplingDamage = 2.0f;
             GrapHandling(aim.EnemyObj, lerpTime, graplingDamage);
         }
     }
-    public void GrapHandling(GameObject enemy,float graplingTime,float damage)
+    public void GrapHandling(GameObject enemy, float graplingTime, float damage)
     {
-           // hook.position = enemy.transform.position;
+        // hook.position = enemy.transform.position;
 
-            DestroyImmediate(comboSliderPrefab.gameObject);
-
-            StartCoroutine(LerpToTarget(enemy.transform, enemy, graplingTime, damage));
+        DestroyImmediate(comboSliderPrefab.gameObject);
+       
+        StartCoroutine(LerpToTarget(enemy.transform, enemy, graplingTime, damage));
     }
 
     public float playerToEnemyDistance;
-    IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj,float graplingTime,float damage)
+    IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj, float graplingTime, float damage)
     {
         enemyPosition = targetPosition;
 
@@ -566,13 +643,15 @@ public class Grapling : MonoBehaviour
         if (enemyObj != null)
         {
             isLerping = true;
-            
+
             float elapsedTime = 0f;
             Vector3 startingPos = transform.position;
             Vector3 targetPos = targetPosition.GetChild(1).position;
 
             while (elapsedTime < lerpTime)
             {
+                isMakeGhost = true; //고스트 이펙트 true
+
                 //2. 플레이어 회전
                 //  transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, angle - 99.0f), rotationSpeed * Time.deltaTime); 
                 //targetPosition = enemyPosition.position;
@@ -595,22 +674,23 @@ public class Grapling : MonoBehaviour
 
                     GraplingPlayerFlip(enemyObj);
                     animPlayer.SetTrigger("PlayerAttack");
-                    yield return new WaitForSeconds(grapanimdelay);
-
+                    
+                    yield return new WaitForSeconds(0.1f);
                     Enemies enemyScript = enemyObj.GetComponentInParent<Enemies>(); //적에게 데미지 주는 함수 호출 코드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                     if (enemyScript != null)
                     {
-                        StartCoroutine(enemyScript.GraplingAtkDamaged(damage));
+                        StartCoroutine(enemyScript.baseDamaged());
                     }
                     else
                     {
                         Debug.Log("Enemies인터페이스 찾지 못함");
                     }
+
                     break;
-                    
+
                 }
 
-              
+
                 yield return null;
             }
 
@@ -618,10 +698,11 @@ public class Grapling : MonoBehaviour
 
             grapCount = 0.0f;
             animPlayer.SetFloat("EnemyGraplingCount", grapCount);
-            
+
+            isMakeGhost = false; //Ghost 이펙트 종료.
             isLerping = false; // Lerp 종료
             isenemyGrapling = false; //적 그래플링 종료
-            
+            isGraplingEnemy = false;
         }
 
     }
@@ -674,6 +755,15 @@ public class Grapling : MonoBehaviour
 
     }
 
+    public bool isWall;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Wall" && isFlyReady)
+        {
+            Debug.Log("벽 충돌");
+            isWall = true;
+        }
+    }
 
 
 

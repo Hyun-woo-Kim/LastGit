@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface Enemies
 {
-    public abstract IEnumerator GraplingAtkDamaged(float damage);
+    public abstract IEnumerator GraplingAtkDamaged();
     public abstract IEnumerator baseDamaged();
     public abstract void PlayerToDamaged();
 
@@ -12,6 +12,9 @@ public interface Enemies
 
     public abstract void SpeedDown();
     public abstract void EnemySet();
+    public abstract IEnumerator NotFindPlayer(SpriteRenderer sprite);
+    public abstract IEnumerator EnemyAtkStop();
+    public abstract void UpdateOutline(bool outline);
   
 
 
