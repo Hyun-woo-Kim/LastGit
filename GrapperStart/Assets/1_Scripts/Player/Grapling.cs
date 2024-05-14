@@ -551,10 +551,12 @@ public class Grapling : MonoBehaviour
         if (uiCanvas != null && comboSliderPrefab == null)
         {
             comboBarPos = Camera.main.WorldToScreenPoint(transform.GetChild(9).position);
+
             comboSliderPrefab = Instantiate(comboSlider, comboBarPos, Quaternion.identity);
             // comboBarUI를 UI_Canvas의 하위로 설정
+            comboSliderPrefab.GetComponent<RectTransform>().anchoredPosition = comboBarPos;
             comboSliderPrefab.transform.SetParent(uiCanvas.transform, false);
-
+            
             SetComboSlider();
 
         }
@@ -627,8 +629,11 @@ public class Grapling : MonoBehaviour
     {
         // hook.position = enemy.transform.position;
 
-        DestroyImmediate(comboSliderPrefab.gameObject);
-       
+        
+         DestroyImmediate(comboSliderPrefab.gameObject);
+
+
+
         StartCoroutine(LerpToTarget(enemy.transform, enemy, graplingTime, damage));
     }
 
