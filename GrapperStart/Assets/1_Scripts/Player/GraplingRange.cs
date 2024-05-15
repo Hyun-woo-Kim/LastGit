@@ -46,20 +46,20 @@ public class GraplingRange : MonoBehaviour
     }
 
 
-    
+
     private SpriteRenderer GetFifthChildSpriteRenderer()
     {
-        Transform fifthChild = transform.GetChild(4);
+        Transform fifthChild = transform.GetChild(3);
         if (fifthChild.gameObject.activeSelf)
         {
             isFifthchild = true;
         }
-            return fifthChild.GetComponent<SpriteRenderer>();
+        return fifthChild.GetComponent<SpriteRenderer>();
     }
 
     public void PlayerRangeSkill()
     {
-        Transform fifthChild = transform.GetChild(4);
+        Transform fifthChild = transform.GetChild(3);
         GameObject fchild = fifthChild.gameObject;
         fchild.SetActive(true);
 
@@ -68,10 +68,10 @@ public class GraplingRange : MonoBehaviour
             grapRangeCount++;
             isRange = true;
 
-          
-                StartCoroutine(isobjSkill ? ViewObjRange() : UnViewObjRange());
-            
-            
+
+            StartCoroutine(isobjSkill ? ViewObjRange() : UnViewObjRange());
+
+
 
 
         }
@@ -97,7 +97,7 @@ public class GraplingRange : MonoBehaviour
         }
 
 
-        
+
         if (grapRangeCount == 0 || grapRangeCount == 1)
         {
 
@@ -118,7 +118,7 @@ public class GraplingRange : MonoBehaviour
 
 
     }
-    
+
     IEnumerator ViewObjRange()
     {
         SpriteRenderer objspr = GetFifthChildSpriteRenderer();
@@ -134,7 +134,7 @@ public class GraplingRange : MonoBehaviour
     {
 
         SpriteRenderer objspr = GetFifthChildSpriteRenderer();
-        
+
 
 
         if (isFifthchild == true)
@@ -161,16 +161,16 @@ public class GraplingRange : MonoBehaviour
 
     }
 
-  
 
 
-   
+
+
     private void OnDrawGizmos()
     {
 
         Gizmos.color = Color.blue;
 
-        Gizmos.DrawWireSphere(skillPos.position,radius);//DrawWireCube(pos.position,boxsize)
+        Gizmos.DrawWireSphere(skillPos.position, radius);//DrawWireCube(pos.position,boxsize)
         //Gizmos.DrawWireCube(skillattackpos.position, skillAtkboxSize);//DrawWireCube(pos.position,boxsize)
     }
 

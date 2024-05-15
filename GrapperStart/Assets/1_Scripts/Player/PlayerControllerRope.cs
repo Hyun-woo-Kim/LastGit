@@ -10,7 +10,7 @@ public class PlayerControllerRope : MonoBehaviour
     Hooking hooking;
 
     Rigidbody2D rigid;
-    Animator animatorPlayer;
+    public Animator animatorPlayer;
     SpriteRenderer sprPlayer;
 
     public PlayerData playerData;
@@ -160,7 +160,7 @@ public class PlayerControllerRope : MonoBehaviour
 
         if (isGrounded ==  false)
         {
-            animatorPlayer.SetTrigger("PlayerJump");
+            animatorPlayer.SetBool("PlayerJump0",true);
         }       
 
     }
@@ -171,7 +171,8 @@ public class PlayerControllerRope : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            
+            animatorPlayer.SetBool("PlayerJump0", false);
+
         }
         if (collision.gameObject.name == "Lava")
         {

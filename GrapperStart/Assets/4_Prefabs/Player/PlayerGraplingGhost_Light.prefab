@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6662659904691614242
+--- !u!1 &3524478306083722556
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9197775228473918904}
-  - component: {fileID: 5269948158612461129}
-  - component: {fileID: 2152064738079020028}
-  - component: {fileID: -8458723306851250535}
+  - component: {fileID: 3374588884065228343}
+  - component: {fileID: 761220416353294516}
+  - component: {fileID: 669720553266838907}
   m_Layer: 0
-  m_Name: BM_PunchEffect_0
+  m_Name: PlayerGraplingGhost_Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9197775228473918904
+--- !u!4 &3374588884065228343
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6662659904691614242}
+  m_GameObject: {fileID: 3524478306083722556}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: -6, y: -7.326, z: 0.47158846}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5269948158612461129
+--- !u!212 &761220416353294516
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6662659904691614242}
+  m_GameObject: {fileID: 3524478306083722556}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,29 +73,29 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
-  m_Sprite: {fileID: 1975582032, guid: 2af670ccb86b1b5478d51278c292a37b, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -736741085, guid: 8c2a3b25b5e550f4992825e29a57aa64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.875, y: 1.875}
+  m_Size: {x: 1.7375, y: 2.7625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2152064738079020028
+--- !u!95 &669720553266838907
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6662659904691614242}
+  m_GameObject: {fileID: 3524478306083722556}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 290895f8b3eed104898b696f8f5df217, type: 2}
+  m_Controller: {fileID: 9100000, guid: b7c404b4a39a74d4aa4f3255a9a8aa31, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -107,17 +106,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-8458723306851250535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6662659904691614242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fc93b67f62b1b4fa36133588d1fa7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effSpr: {fileID: 5269948158612461129}
-  effDestroySpeed: 0.3

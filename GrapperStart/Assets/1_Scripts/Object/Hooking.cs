@@ -86,7 +86,7 @@ public class Hooking : MonoBehaviour
         if (collision.CompareTag("Ring"))
         {
             GetComponent<SpriteRenderer>().sprite = defaultSprite;
-            //joint2D.enabled = false;
+            joint2D.enabled = false;
             graplingRange.isobjSkill = false;
             grappling.isAttatch = false; //Ãß°¡
             GrapplingObjManager.Instance.brightnessDown(collision);
