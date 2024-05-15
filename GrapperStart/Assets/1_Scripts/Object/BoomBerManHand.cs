@@ -16,9 +16,15 @@ public class BoomBerManHand : MonoBehaviour
     
     private IObjectPool<BMPunchEff> _Pool;
 
+
+    PlayerHP playerHP;
+    BManAction BmAction;
+    PlayerControllerRope player;
     private void Awake()
     {
-
+        playerHP = FindFirstObjectByType <PlayerHP>();
+        BmAction = FindFirstObjectByType <BManAction>();
+        player = FindFirstObjectByType <PlayerControllerRope>();
         _Pool = new ObjectPool<BMPunchEff>(CreateEff, OnGetEff, OnReleaseEff, OnDestroyEff, maxSize: 3);
     }
    
@@ -29,6 +35,7 @@ public class BoomBerManHand : MonoBehaviour
         {
             
             Debug.Log("BB");
+            playerHP.TakeDamage(1);
             collisionPos = collision.transform;
             var eff = _Pool.Get();
             eff.TransformEff();
@@ -41,7 +48,7 @@ public class BoomBerManHand : MonoBehaviour
     {
        
 
-        BMPunchEff eff = Instantiate(effPrefab, collisionPos.transform.position, UnityEngine.Quaternion.identity).GetComponent<BMPunchEff>();
+        BMPunchEff eff = Instantiate(effPrefab, player.transform.position, UnityEngine.Quaternion.identity).GetComponent<BMPunchEff>();
 
        
 
@@ -52,20 +59,7 @@ public class BoomBerManHand : MonoBehaviour
 
     private void OnGetEff(BMPunchEff eff)
     {
-       
-
-        if (collisionPos.transform.position.x < transform.position.x)
-        {
-            eff.effSpr.flipX = false;
-            Debug.Log("FlipX == false");
-
-        }
-        else
-        {
-            eff.effSpr.flipX = true;
-            Debug.Log("FlipX == true");
-
-        }
+        eff.transform.localScale = BmAction.transform.localScale;
 
         eff.gameObject.SetActive(true);
         
