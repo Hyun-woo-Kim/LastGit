@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +10,13 @@ public class PlayerHP : MonoBehaviour
     public float currentHP;
     public float maxHP;
 
-
+    public bool isHealth;
      PlayerControllerRope player;
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
         currentHP = maxHP;
-        UpdateHealthUI();
+        isHealth = true;
     }
 
     // Update is called once per frame
@@ -35,29 +36,28 @@ public class PlayerHP : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+
+        currentHP -= damage; // 데미지만큼 체력 감소
+        currentHP = Mathf.Clamp(currentHP, 0f, maxHP); // 최소값은 0, 최대값은 최대 체력으로 제한
+
         if (Mathf.RoundToInt(currentHP) > 0)
         {
             player.animatorPlayer.SetTrigger("PlayerHit");
-            currentHP -= damage; // 데미지만큼 체력 감소
-            currentHP = Mathf.Clamp(currentHP, 0f, maxHP); // 최소값은 0, 최대값은 최대 체력으로 제한
             Debug.Log("피 있음");
         }
         else
         {
             player.animatorPlayer.SetTrigger("PlayerDeath");
             Debug.Log("피 없음");
-            return;
         }
 
+        UpdateHealthUI(damage); // UI 업데이트
 
-        UpdateHealthUI(); // UI 업데이트
-
-      
     }
 
-    void UpdateHealthUI()
+    void UpdateHealthUI(float damage)
     {
-        sliderHP.value = currentHP; // Slider 값을 현재 체력에 따라 조절
+        sliderHP.value = currentHP / maxHP;
     }
 
 
