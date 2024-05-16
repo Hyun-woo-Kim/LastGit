@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
     public Slider sliderHP;
-    public float correntHP;
+    public float currentHP;
     public float maxHP;
 
+    public bool isHealth;
+     PlayerControllerRope player;
     void Start()
     {
-        correntHP = maxHP;
-        UpdateHealthUI();
+        player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
+        currentHP = maxHP;
+        isHealth = true;
     }
 
     // Update is called once per frame
@@ -21,32 +25,41 @@ public class PlayerHP : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.CompareTag("Enemy"))
+    //    {
+    //        Debug.Log("데미지 입음");
+    //        TakeDamage(10f);
+    //    }
+    //}
+
+    public void TakeDamage(float damage)
     {
-        if(collision.CompareTag("Enemy"))
+
+        currentHP -= damage; // 데미지만큼 체력 감소
+        currentHP = Mathf.Clamp(currentHP, 0f, maxHP); // 최소값은 0, 최대값은 최대 체력으로 제한
+
+        if (Mathf.RoundToInt(currentHP) > 0)
         {
-            Debug.Log("데미지 입음");
-            TakeDamage(10f);
+            player.animatorPlayer.SetTrigger("PlayerHit");
+            Debug.Log("피 있음");
         }
-    }
-
-    void TakeDamage(float damage)
-    {
-        correntHP -= damage; // 데미지만큼 체력 감소
-        correntHP = Mathf.Clamp(correntHP, 0f, maxHP); // 최소값은 0, 최대값은 최대 체력으로 제한
-
-        UpdateHealthUI(); // UI 업데이트
-
-        if (correntHP <= 0f)
+        else
         {
-            Die(); // 체력이 0 이하인 경우 사망 처리
+            player.animatorPlayer.SetTrigger("PlayerDeath");
+            Debug.Log("피 없음");
         }
+
+        UpdateHealthUI(damage); // UI 업데이트
+
     }
 
-    void UpdateHealthUI()
+    void UpdateHealthUI(float damage)
     {
-        sliderHP.value = correntHP; // Slider 값을 현재 체력에 따라 조절
+        sliderHP.value = currentHP / maxHP;
     }
+
 
     void Die()
     {

@@ -24,8 +24,6 @@ public class BManAction : MonoBehaviour,Enemies
         bmSpr = GetComponent<SpriteRenderer>();
         collder = GetComponent<CapsuleCollider2D>();
 
-      
-
         Bmrigid = GetComponent<Rigidbody2D>();
         //hand.gameObject.SetActive(false);
         animSpeed = BManim.speed;
@@ -484,8 +482,8 @@ public class BManAction : MonoBehaviour,Enemies
 
         }
     }
-    public GameObject punchEff;
-    private GameObject attEff;
+    
+   
 
    
 
