@@ -527,15 +527,15 @@ public class BManAction : MonoBehaviour,Enemies
         if (!hasReachedStartPosition)
         {
             startPosition = transform.position;
-            Debug.Log("1");
+            //Debug.Log("1");
             if (target.position.x < transform.position.x)
             {
-                Debug.Log("2");
+                //Debug.Log("2");
                 patrolDirection = Vector2.right;
             }
             else if (target.position.x > transform.position.x)
             {
-                Debug.Log("3");
+                //Debug.Log("3");
                 patrolDirection = Vector2.left;
             }
 

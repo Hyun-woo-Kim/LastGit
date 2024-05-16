@@ -76,7 +76,8 @@ public class PlayerControllerRope : MonoBehaviour
 
     private void Update()
     {
-        
+        iDown = Input.GetButtonDown("Interation");
+
         PlayerCollider();
         if (Input.GetButtonDown("Jump") && isGrounded && grapling.isAttatch == false)
         {
@@ -457,4 +458,47 @@ public class PlayerControllerRope : MonoBehaviour
         Gizmos.DrawWireCube(attackpos.position, baseAtkboxSize);//DrawWireCube(pos.position,boxsize)      
         Gizmos.DrawWireCube(playerPos.position, playerColliderBox);//DrawWireCube(pos.position,boxsize)      
     }
+
+
+    //Item ฐüทร
+    private bool iDown;
+    GameObject nearItem;
+    public GameObject[] Items;
+    public bool[] hasItems;
+
+    void Interation()
+    {
+        if (iDown && nearItem != null)
+        {
+            if (nearItem.tag == "Weapon")
+            {
+                ItemTest item = nearItem.GetComponent<ItemTest>();
+                int ItemIndex = item.value;
+                hasItems[ItemIndex] = true;
+
+                Destroy(nearItem);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            nearItem = other.gameObject;
+            Debug.Log(nearItem.name);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            nearItem = null;
+        }
+    }
+
+
+
+
 }
