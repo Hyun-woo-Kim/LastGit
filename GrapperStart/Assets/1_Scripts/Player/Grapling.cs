@@ -425,7 +425,7 @@ public class Grapling : MonoBehaviour
         // 수평 입력을 받았을 때 180도 각도로 회전하도록 제한
         if (horizontalInput != 0)
         {
-            isMakeLightGrapligGhost = true;
+       
             if (horizontalInput > 0)
             {
                 Vector2 swingDirection = Vector2.right;
@@ -442,10 +442,7 @@ public class Grapling : MonoBehaviour
             
           
         }
-        else
-        {
-            isMakeLightGrapligGhost = false;
-        }
+        
     }
 
     Vector3 rotationhook;
@@ -640,6 +637,8 @@ public class Grapling : MonoBehaviour
     public float playerToEnemyDistance;
     IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj, float graplingTime, float damage)
     {
+        animPlayer.SetBool("EnemyGrapling", true);
+        animPlayer.SetFloat("EnemyGraplingCount", 2.0f);
         enemyPosition = targetPosition;
 
         gameObject.layer = 8;
