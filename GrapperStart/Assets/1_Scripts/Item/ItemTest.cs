@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class ItemTest : MonoBehaviour
 {
+    public enum Type
+    {
+        Item,
+
+    }
+
+    public Type type;
+    public int value;
+
+
     private Rigidbody2D rb;
     private bool isGrounded = false;
+
+    
 
     void Start()
     {

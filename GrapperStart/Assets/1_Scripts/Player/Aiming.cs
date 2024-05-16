@@ -85,10 +85,10 @@ public class Aiming : MonoBehaviour
 
                         if (collider.CompareTag("Ring") && isCollEnemy == false && grapling.isFlyReady == false && grapling.isHookActive == false)
                         {
-                            Debug.Log("b");
+                            //Debug.Log("b");
                             targetRing = collider.transform;
                             isAimRing = true;
-                            Debug.Log("b");
+                            //Debug.Log("b");
 
                             grapling.iscollObj = true;
 
@@ -106,7 +106,7 @@ public class Aiming : MonoBehaviour
 
                         if (collider.CompareTag("Enemy") && grapling.isGraplingEnemy == false && isAimRing == false)
                         {
-                            Debug.Log("a");
+                            //Debug.Log("a");
                             isAimEnemy = true;
                             isCollEnemy = true;
 
