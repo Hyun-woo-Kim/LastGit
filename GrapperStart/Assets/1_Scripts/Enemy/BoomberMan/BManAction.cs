@@ -17,6 +17,8 @@ public class BManAction : MonoBehaviour,Enemies
 
     public BMdata bmdata;
 
+
+    
     Vector2 InitCollSize;
     void Start()
     {
