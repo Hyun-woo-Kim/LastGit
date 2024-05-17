@@ -27,15 +27,17 @@ public class BoomBerManHand : MonoBehaviour
         player = FindFirstObjectByType <PlayerControllerRope>();
         _Pool = new ObjectPool<BMPunchEff>(CreateEff, OnGetEff, OnReleaseEff, OnDestroyEff, maxSize: 3);
     }
-   
-   
+
+    public bool isDamaging = false;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             
             Debug.Log("BB");
-            playerHP.TakeDamage(1);
+            isDamaging = true;
+            playerHP.TakeDamage(1.0f);
             collisionPos = collision.transform;
             var eff = _Pool.Get();
             eff.TransformEff();
@@ -43,6 +45,16 @@ public class BoomBerManHand : MonoBehaviour
         }
     }
 
+   
+
+
+    private void Update()
+    {
+       
+
+
+
+    }
 
     private BMPunchEff CreateEff()
     {

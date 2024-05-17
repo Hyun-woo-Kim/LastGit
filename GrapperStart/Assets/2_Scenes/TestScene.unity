@@ -2897,6 +2897,7 @@ MonoBehaviour:
   effPrefab: {fileID: 6662659904691614242, guid: cf2a6e8a459018e42b180b3a916deb48, type: 3}
   collisionPos: {fileID: 0}
   isParticleSpawned: 0
+  isDamaging: 0
 --- !u!58 &343749992
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5817,6 +5818,7 @@ MonoBehaviour:
   isAttacking: 0
   isAtk: 0
   maxAttackDistance: 3
+  RepeatCount: 0
   isDamaged: 0
   dieEffPrefab: {fileID: 3816636789055737438, guid: 3a44a36367846ad40902840bb51f327f, type: 3}
   OutLineEnemycolor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -18381,6 +18383,11 @@ MonoBehaviour:
   currentMP: 3
   maxMP: 3
   isMPzero: 0
+  damageInterval: 1
+  totalDuration: 5
+  elapsedTime: 0
+  damageTimer: 0
+  isDamaging: 0
 --- !u!1 &2042176659
 GameObject:
   m_ObjectHideFlags: 0

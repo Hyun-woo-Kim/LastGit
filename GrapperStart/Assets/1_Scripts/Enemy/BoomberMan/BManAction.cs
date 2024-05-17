@@ -412,7 +412,7 @@ public class BManAction : MonoBehaviour,Enemies
         }
         else
         {
-            
+            RepeatCount = 0;
             BManim.SetBool("BmAtk", false);
             
         }
@@ -424,6 +424,8 @@ public class BManAction : MonoBehaviour,Enemies
         return Vector3.Distance(playerTransform.position, enemyTransform.position);
     }
 
+
+    public int RepeatCount;
     public bool isDamaged;
     IEnumerator PlayAttackAnimation()
     {
@@ -438,6 +440,7 @@ public class BManAction : MonoBehaviour,Enemies
             isMove = false;  
             BManim.SetBool("BmAtk", true); // 공격 애니메이션1
             BManim.SetFloat("BmAtkCount", 1.0f); // 공격 애니메이션2
+            
             //UpdateOutline(false);
 
             isAttacking = false; // 공격 종료
@@ -446,7 +449,10 @@ public class BManAction : MonoBehaviour,Enemies
 
     }
 
-
+    public void RepeatCountAnim() //애니메이션에서 이벤트 형식으로 호출.
+    {
+        RepeatCount++;
+    }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
