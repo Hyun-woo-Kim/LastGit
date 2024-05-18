@@ -7,17 +7,22 @@ using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
+    [Header("##Player")]
     public Slider sliderHP;
     public Slider sliderMP;
-
     public float currentHP;
     public float maxHP;
-
-
     public float currentMP;
     public float maxMP;
-
     public bool isMPzero;
+
+    [Header("##BoomBerMan")]
+    public float damageInterval; // 지속적인 피해를 줄 때 몇초 간격으로 줄어들게 할건지.
+    public float totalDuration;   // 총 피해를 줄 지속 시간 (초 단위)
+    private float elapsedTime = 0.0f;
+    private float damageTimer = 0.0f;
+    public bool isDamaging = false;
+
     PlayerControllerRope player;
     BManAction bm;
     void Start()
@@ -30,11 +35,6 @@ public class PlayerHP : MonoBehaviour
         isMPzero = false;
     }
 
-    public float damageInterval = 1.0f;  // 피해를 줄 시간 간격 (초 단위)
-    public float totalDuration = 5.0f;   // 총 피해를 줄 지속 시간 (초 단위)
-    public float elapsedTime = 0.0f;
-    public float damageTimer = 0.0f;
-    public bool isDamaging = false;
     void Update()
     {
         UpdateHealthUI(); // UI 업데이트
@@ -51,7 +51,7 @@ public class PlayerHP : MonoBehaviour
             elapsedTime += Time.deltaTime;
             damageTimer += Time.deltaTime;
 
-            if (damageTimer >= damageInterval)
+            if (damageTimer >= damageInterval) 
             {
                 StartCoroutine(Firedamage(0.1f));
                 damageTimer = 0.0f;
@@ -66,6 +66,7 @@ public class PlayerHP : MonoBehaviour
     IEnumerator Firedamage(float damage)
     {
         currentHP -= damage;
+        player.animatorPlayer.SetTrigger("PlayerHit");
         yield return new WaitForSeconds(0.1f);
     }
     public void TakeDamage(float damage)

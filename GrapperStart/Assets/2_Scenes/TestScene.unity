@@ -18384,7 +18384,7 @@ MonoBehaviour:
   maxMP: 3
   isMPzero: 0
   damageInterval: 1
-  totalDuration: 5
+  totalDuration: 10
   elapsedTime: 0
   damageTimer: 0
   isDamaging: 0
