@@ -18385,8 +18385,6 @@ MonoBehaviour:
   isMPzero: 0
   damageInterval: 1
   totalDuration: 10
-  elapsedTime: 0
-  damageTimer: 0
   isDamaging: 0
 --- !u!1 &2042176659
 GameObject:
