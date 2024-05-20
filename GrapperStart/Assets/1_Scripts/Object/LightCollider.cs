@@ -6,9 +6,9 @@ public class LightCollider : MonoBehaviour
 {
      EdgeCollider2D childboxCollider;
     public GameObject childObject;
-    public int childIndex = 0;
+    public int childIndex = 0; //자식 중 콜라이더있는 자식의 인덱스
     SpriteRenderer spriteRenderer;
-
+    public float brightnessOnCollision = 0.5f;
     public Sprite LightOnSprite;
      Sprite LightOffSprite;
 
@@ -33,7 +33,10 @@ public class LightCollider : MonoBehaviour
 
         if (collision.gameObject.tag == "Hook")
         {
+            spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f); // 명도 조절
             spriteRenderer.sprite = LightOnSprite;
+           
+            childObject.SetActive(true);
             childObject.SetActive(true);
             childObject.GetComponentInChildren<EdgeCollider2D>().isTrigger = false;     // childboxCollider를 사용한 코드
         
@@ -47,6 +50,7 @@ public class LightCollider : MonoBehaviour
         if (collision.gameObject.tag == "Hook")
         {
             spriteRenderer.sprite = LightOffSprite;
+            //spriteRenderer.color = new Color(1, 1, 1); // 기본 명도로 복원
             childObject.SetActive(false);
             childObject.GetComponentInChildren<EdgeCollider2D>().isTrigger = true;     // childboxCollider를 사용한 코드
 
