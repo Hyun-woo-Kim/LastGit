@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +11,12 @@ public class GameManager : MonoBehaviour
     private GameObject button;
     public GameObject soundop;
 
- 
+    public DialogueManager dialogueManager;
+    public GameObject dialoguePanel;
+    public Text dialogueText;
+    public GameObject scanObject;
+    public bool isAction;
+    public int DialogueIndex;
 
     private void Start()
     {
@@ -46,11 +52,41 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("TestScene");
     }
 
-
-
     public void QuitSceneChange()
     {
         Debug.Log("종료");
         Application.Quit();
+    }
+
+    //대화 관련
+    public void Action(GameObject scanobj)
+    {
+        if (isAction)
+        {
+            isAction = false;
+        }
+        else
+        {
+            isAction = true;
+            scanObject = scanobj;
+            ObjData objData = scanObject.GetComponent<ObjData>();
+            Talk(objData.id, objData.isNpc);
+        }
+
+        dialoguePanel.SetActive(isAction);
+    }
+
+    void Talk(int id, bool isNpc)
+    {
+       string dialogueData = dialogueManager.GetTalk(id, DialogueIndex);
+       
+        if(isNpc)
+        {
+            dialogueText.text = dialogueData;
+        }
+        else
+        {
+            dialogueText.text = dialogueData;
+        }
     }
 }

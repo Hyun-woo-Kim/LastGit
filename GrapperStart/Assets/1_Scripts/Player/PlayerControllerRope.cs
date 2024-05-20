@@ -43,8 +43,9 @@ public class PlayerControllerRope : MonoBehaviour
     public bool isFlyAction = false;
     public bool isStopMove = false;
 
-
-   
+    int direction;
+    float detect_range = 1.5f;
+    GameObject scanObject;
 
     void Start()
     {
@@ -67,7 +68,22 @@ public class PlayerControllerRope : MonoBehaviour
     {
         Move();
 
+        Debug.DrawRay(rigid.position, new Vector3(direction * detect_range, 0, 0), new Color(0, 0, 1));
 
+        //Layer가 Object인 물체만 rayHit_detect에 감지 
+        RaycastHit2D rayHit_detect = Physics2D.Raycast(rigid.position, new Vector3(direction, 0, 0), detect_range, LayerMask.GetMask("Object"));
+
+        //감지되면 scanObject에 오브젝트 저장 
+        if (rayHit_detect.collider != null)
+        {
+            scanObject = rayHit_detect.collider.gameObject;
+            Debug.Log(scanObject.name);
+
+        }
+        else
+        {
+            scanObject = null;
+        }
     }
    
     Vector3 mouse;
@@ -76,7 +92,7 @@ public class PlayerControllerRope : MonoBehaviour
 
     private void Update()
     {
-        iDown = Input.GetButtonDown("Interation");
+        iDown = Input.GetKeyDown(KeyCode.F);
 
         PlayerCollider();
         if (Input.GetButtonDown("Jump") && isGrounded && grapling.isAttatch == false)
@@ -94,6 +110,13 @@ public class PlayerControllerRope : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyDown(KeyCode.F)) 
+        {
+            if (scanObject != null) 
+            {
+                Debug.Log(scanObject.name);
+            }
+        }
 
 
         AttackCool();
@@ -497,7 +520,7 @@ public class PlayerControllerRope : MonoBehaviour
         }
     }
 
-
+       
 
 
 }
