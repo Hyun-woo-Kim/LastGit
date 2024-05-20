@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHP : MonoBehaviour
+public class PlayerUI : SingleTonGeneric<PlayerUI>
 {
     [Header("##Player")]
     public Slider sliderHP;
@@ -25,12 +24,25 @@ public class PlayerHP : MonoBehaviour
     public bool isDamagedPlayer = false;
     public int continueCount; //연속 조건, 1로 설정 시 (1타 -> 2타) x 1  , 2로 설정 시 (1타 -> 2타) x 2
 
+    [Header("##UI")]
+    public GameObject SelectUI;
+    public bool isSelectUI = false;
+
     PlayerControllerRope player;
     BManAction bm;
+
+    public void UISingleTonSet()
+    {
+
+    }
+
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
         bm = FindAnyObjectByType<BManAction>();
+
+        UIBeAcitve();
+        
         currentHP = maxHP;
         currentMP = maxMP;
 
@@ -45,7 +57,7 @@ public class PlayerHP : MonoBehaviour
         {
             // 점화 시작
             isDamaging = true;
-           
+
         }
 
         if (isDamaging)
@@ -53,7 +65,7 @@ public class PlayerHP : MonoBehaviour
             elapsedTime += Time.deltaTime;
             damageTimer += Time.deltaTime;
 
-            if (damageTimer >= damageInterval) 
+            if (damageTimer >= damageInterval)
             {
                 StartCoroutine(Firedamage(0.1f));
                 damageTimer = 0.0f;
@@ -80,10 +92,10 @@ public class PlayerHP : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-      
+
         currentHP -= damage; // 데미지만큼 체력 감소
         currentHP = Mathf.Clamp(currentHP, 0f, maxHP); // 최소값은 0, 최대값은 최대 체력으로 제한
-        
+
         if (Mathf.RoundToInt(currentHP) > 0)
         {
             player.animatorPlayer.SetTrigger("PlayerHit");
@@ -92,11 +104,11 @@ public class PlayerHP : MonoBehaviour
         else
         {
             player.animatorPlayer.SetTrigger("PlayerDeath");
-            Debug.Log("피 없음"); 
+            Debug.Log("피 없음");
         }
 
 
-      
+
     }
 
     void UpdateHealthUI()
@@ -107,7 +119,7 @@ public class PlayerHP : MonoBehaviour
     public void TakeGrapling(float grapValue)
     {
         currentMP -= grapValue;
-        if(currentMP <= float.Epsilon)
+        if (currentMP <= float.Epsilon)
         {
             isMPzero = true;
         }
@@ -120,10 +132,20 @@ public class PlayerHP : MonoBehaviour
         Debug.Log("GraplingValue");
 
 
-        sliderMP.value = currentMP ; // Update sliderMP based on currentMP and maxMP
-       
+        sliderMP.value = currentMP; // Update sliderMP based on currentMP and maxMP
+
     }
 
+    public void UIActive()
+    {
+        isSelectUI = true;
+        SelectUI.gameObject.SetActive(true);
+    }
+    public void UIBeAcitve()
+    {
+        isSelectUI = false;
+        SelectUI.gameObject.SetActive(false);
+    }
     void Die()
     {
         Debug.Log("Player died!");

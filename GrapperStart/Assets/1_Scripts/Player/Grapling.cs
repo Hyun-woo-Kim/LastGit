@@ -57,7 +57,7 @@ public class Grapling : MonoBehaviour
     //한 점은 Hook의 포지션: SetPosition
 
     PlayerControllerRope player;
-    PlayerHP playerHP;
+    PlayerUI playerUI;
 
 
 
@@ -68,7 +68,7 @@ public class Grapling : MonoBehaviour
         animPlayer = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         playerColl = GetComponent<CapsuleCollider2D>();
-        playerHP = FindFirstObjectByType<PlayerHP>();
+        playerUI = FindFirstObjectByType<PlayerUI>();
 
         graplingRange = FindAnyObjectByType<GraplingRange>();
         aim = FindAnyObjectByType<Aiming>();
@@ -121,7 +121,7 @@ public class Grapling : MonoBehaviour
       
         GraplingSkill();
 
-        if (Input.GetKeyDown(KeyCode.E) && aim.isAimEnemy && aim.isCollEnemy && playerHP.isMPzero == false)
+        if (Input.GetKeyDown(KeyCode.E) && aim.isAimEnemy && aim.isCollEnemy && playerUI.isMPzero == false)
         {
             isGraplingEnemy = true;
             line.SetPosition(0, transform.GetChild(5).position);
@@ -294,7 +294,7 @@ public class Grapling : MonoBehaviour
         line.SetPosition(1, hook.GetComponent<Hooking>().hooklinePos.position);
 
         if (Input.GetKeyDown(KeyCode.E) &&
-            isHookActive == false && iscollObj == true && playerHP.isMPzero == false)
+            isHookActive == false && iscollObj == true && playerUI.isMPzero == false)
         {
             isHookActive = true;
             hook.gameObject.SetActive(true);
@@ -362,8 +362,8 @@ public class Grapling : MonoBehaviour
                 {
                     // E 키가 놓였을 때 실행할 코드
                     hookDetailDir();
-                    
-                    playerHP.TakeGrapling(1.0f);
+
+                    playerUI.TakeGrapling(1.0f);
 
                     isFlyReady = true;
                     isStop = true;
@@ -652,7 +652,7 @@ public class Grapling : MonoBehaviour
     public float playerToEnemyDistance;
     IEnumerator LerpToTarget(Transform targetPosition, GameObject enemyObj, float graplingTime, float damage)
     {
-        playerHP.TakeGrapling(1.0f);
+        playerUI.TakeGrapling(1.0f);
         animPlayer.SetBool("EnemyGrapling", true);
         animPlayer.SetFloat("EnemyGraplingCount", 2.0f);
         enemyPosition = targetPosition;

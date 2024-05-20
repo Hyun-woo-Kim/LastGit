@@ -128,7 +128,7 @@ public class PlayerControllerRope : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.F))
             {                
-                SelectManager.Instance.UIActive();
+                PlayerUI.Instance.UIActive();
             }
         }
       
@@ -239,7 +239,7 @@ public class PlayerControllerRope : MonoBehaviour
     void MoveToPlayer(float horizontalInput)
     {
         //if (grapling.isAttatch == false && SelectManager.Instance.isSelectUI == false)
-        if (SelectManager.Instance.isSelectUI == false && grapling.isAttatch == false)
+        if (PlayerUI.Instance.isSelectUI == false && grapling.isAttatch == false)
         {
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)

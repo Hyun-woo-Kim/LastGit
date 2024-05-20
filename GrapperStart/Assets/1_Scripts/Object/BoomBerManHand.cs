@@ -16,12 +16,12 @@ public class BoomBerManHand : MonoBehaviour
     private IObjectPool<BMPunchEff> _Pool;
 
 
-    PlayerHP playerHP;
+    PlayerUI playerUI;
     BManAction BmAction;
     PlayerControllerRope player;
     private void Awake()
     {
-        playerHP = FindFirstObjectByType <PlayerHP>();
+        playerUI = FindFirstObjectByType <PlayerUI>();
         BmAction = FindFirstObjectByType <BManAction>();
         player = FindFirstObjectByType <PlayerControllerRope>();
         _Pool = new ObjectPool<BMPunchEff>(CreateEff, OnGetEff, OnReleaseEff, OnDestroyEff, maxSize: 3);
@@ -36,7 +36,7 @@ public class BoomBerManHand : MonoBehaviour
             
             Debug.Log("BB");
             isDamaging = true;
-            playerHP.TakeDamage(1.0f);
+            playerUI.TakeDamage(1.0f);
 
             collisionPos = collision.transform;
 
