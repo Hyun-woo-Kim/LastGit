@@ -31,6 +31,9 @@ public class SingleTonGeneric<T> : MonoBehaviour where T : MonoBehaviour
         {
             DontDestroyOnLoad(this.transform.root.gameObject);
         }
-       
+        else if (gameObject.name == "UI_Canvas")
+        {
+            DontDestroyOnLoad(transform.root.gameObject); // 씬 전환 시 파괴되지 않도록 설정
+        }
     }
 }

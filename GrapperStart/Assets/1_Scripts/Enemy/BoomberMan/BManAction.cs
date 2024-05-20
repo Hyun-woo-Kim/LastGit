@@ -18,39 +18,6 @@ public class BManAction : MonoBehaviour,Enemies
     public BMdata bmdata;
 
 
-    
-    Vector2 InitCollSize;
-    void Start()
-    {
-        BManim = GetComponent<Animator>();
-        bmSpr = GetComponent<SpriteRenderer>();
-        collder = GetComponent<CapsuleCollider2D>();
-
-        Bmrigid = GetComponent<Rigidbody2D>();
-        //hand.gameObject.SetActive(false);
-        animSpeed = BManim.speed;
-        InitCollSize = collder.size;
-
-        UpdateOutline(false);
-    }
-
- 
-
-    IEnumerator test()
-    {
-
-        childCollider = GetComponentInChildren<CircleCollider2D>();
-        // 자식 클래스의 콜라이더가 존재하면 비활성화
-        if (childCollider != null)
-        {
-            Debug.Log("ss");
-            childCollider.enabled = true;
-            yield return new WaitForSeconds(0.1f);
-            childCollider.enabled = false;
-        }
-    }
-    // Update is called once per frame
-
     [Header("##Basic")]
     public Transform Findboxpos;
     public Vector2 FindboxSize;
@@ -94,6 +61,39 @@ public class BManAction : MonoBehaviour,Enemies
     public float patrolDistance = 5.0f; // 순찰 거리
     private bool hasReachedStartPosition;
 
+
+
+    Vector2 InitCollSize;
+
+    void Start()
+    {
+        BManim = GetComponent<Animator>();
+        bmSpr = GetComponent<SpriteRenderer>();
+        collder = GetComponent<CapsuleCollider2D>();
+
+        Bmrigid = GetComponent<Rigidbody2D>();
+        //hand.gameObject.SetActive(false);
+        animSpeed = BManim.speed;
+        InitCollSize = collder.size;
+
+        UpdateOutline(false);
+    }
+    void Update()
+    {
+        if (!isPlayerFindCoroutineRunning && isFindPlayer && chaneAttackMon) // 코루틴이 실행 중이 아닌 경우에만 실행
+        {
+            StartCoroutine(playerFind());
+        }
+
+        FindedPlayer();
+
+        if (hasReachedStartPosition == true)
+        {
+            Debug.Log("이동");
+            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
+        }
+    }
+    // Update is called once per frame
     public IEnumerator GraplingAtkDamaged()
     {
         StartCoroutine(baseDamaged());
@@ -143,26 +143,32 @@ public class BManAction : MonoBehaviour,Enemies
 
 
 
-    public void PlayerToDamaged()
+    IEnumerator handColliderVisiable()
     {
-        StartCoroutine(test());
-        ApplyDamageToPlayer(basicDamage);
-    }
 
-    public void PlayerToPowerDamaged()
-    {
-        StartCoroutine(test());
-        ApplyDamageToPlayer(powerDamage);
-    }
-    private void ApplyDamageToPlayer(float damage)
-    {
-        PlayerControllerRope player = GameObject.Find("Player").GetComponent<PlayerControllerRope>();
-        if (player != null)
+        childCollider = GetComponentInChildren<CircleCollider2D>();
+        // 자식 클래스의 콜라이더가 존재하면 비활성화
+        if (childCollider != null)
         {
-            PlayerData playerData = player.playerData;
-            playerData.DamagedHp(damage);
+            Debug.Log("ss");
+            childCollider.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+            childCollider.enabled = false;
         }
     }
+
+    public void handCollider() //애니메이션 1타 및 2타때 이벤트 형식으로 호출함.
+    {
+        StartCoroutine(handColliderVisiable());
+    }
+    public void RepeatCountAnim() //애니메이션 2타때만 이벤트 형식으로 호출.
+    {
+        RepeatCount++;
+        BoomBerManHand bmHand = FindAnyObjectByType<BoomBerManHand>();
+        bmHand.test();
+    }
+
+
     public IEnumerator Died()
     {
 
@@ -206,21 +212,7 @@ public class BManAction : MonoBehaviour,Enemies
         BManim.speed = animSpeed;
     }
 
-    void Update()
-    {
-        if (!isPlayerFindCoroutineRunning && isFindPlayer && chaneAttackMon) // 코루틴이 실행 중이 아닌 경우에만 실행
-        {
-            StartCoroutine(playerFind());
-        }
-
-        FindedPlayer();
-
-        if (hasReachedStartPosition == true)
-        {
-            Debug.Log("이동");
-            PatrolMovement(patrolSpeed, patrolDistance, patrolDirection, startPosition);
-        }
-    }
+   
 
     void FindedPlayer()
     {
@@ -449,10 +441,7 @@ public class BManAction : MonoBehaviour,Enemies
 
     }
 
-    public void RepeatCountAnim() //애니메이션에서 이벤트 형식으로 호출.
-    {
-        RepeatCount++;
-    }
+    
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -561,5 +550,10 @@ public class BManAction : MonoBehaviour,Enemies
         isAtkStop = true;
         //StartCoroutine(baseDamaged());
         yield return null;
+    }
+
+    public void PlayerToDamaged()
+    {
+        throw new System.NotImplementedException();
     }
 }

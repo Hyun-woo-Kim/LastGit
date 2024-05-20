@@ -22,6 +22,8 @@ public class PlayerHP : MonoBehaviour
     private float elapsedTime = 0.0f;
     private float damageTimer = 0.0f;
     public bool isDamaging = false;
+    public bool isDamagedPlayer = false;
+    public int continueCount; //연속 조건, 1로 설정 시 (1타 -> 2타) x 1  , 2로 설정 시 (1타 -> 2타) x 2
 
     PlayerControllerRope player;
     BManAction bm;
@@ -39,7 +41,7 @@ public class PlayerHP : MonoBehaviour
     {
         UpdateHealthUI(); // UI 업데이트
 
-        if (bm.RepeatCount >= 1.0f)
+        if (bm.RepeatCount >= continueCount)
         {
             // 점화 시작
             isDamaging = true;
@@ -63,18 +65,25 @@ public class PlayerHP : MonoBehaviour
             }
         }
     }
+
+
     IEnumerator Firedamage(float damage)
     {
+        isDamagedPlayer = true;
         currentHP -= damage;
         player.animatorPlayer.SetTrigger("PlayerHit");
         yield return new WaitForSeconds(0.1f);
+        isDamagedPlayer = false;
+
+
+
     }
     public void TakeDamage(float damage)
     {
-        
+      
         currentHP -= damage; // 데미지만큼 체력 감소
         currentHP = Mathf.Clamp(currentHP, 0f, maxHP); // 최소값은 0, 최대값은 최대 체력으로 제한
-
+        
         if (Mathf.RoundToInt(currentHP) > 0)
         {
             player.animatorPlayer.SetTrigger("PlayerHit");
@@ -86,8 +95,8 @@ public class PlayerHP : MonoBehaviour
             Debug.Log("피 없음"); 
         }
 
-       
 
+      
     }
 
     void UpdateHealthUI()
