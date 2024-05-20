@@ -40,6 +40,7 @@ public class ScenesManager : SingleTonGeneric<ScenesManager>
 
     public void Nest()
     {
-        SceneManager.LoadScene(2);
+        PlayerUI.Instance.UIBeAcitve(); //UI ≤Ù∞Ì 
+        SceneManager.LoadScene(2); // æ¿ ¿Ãµø
     }
 }
