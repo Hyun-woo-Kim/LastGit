@@ -199,20 +199,19 @@ public class PlayerControllerRope : MonoBehaviour
       
     }
 
-   
+
 
 
 
     //public DistanceJoint2D distanceJoint; // DistanceJoint2D ÄÄÆ÷³ÍÆ®
 
-    
+    public bool isMovementRestricted = false;
 
     void Move()
     {
 
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        //if (grapling.grapCount != 1.0f && grapling.isAttatch == false && grapling.isFlyReady  == false) 
         if (grapling.grapCount != 1.0f && grapling.isFlyReady == false)
         {
 

@@ -12,7 +12,6 @@ public class BoomBerManHand : MonoBehaviour
     [SerializeField]
     private GameObject effPrefab;
     public Transform collisionPos; // 충돌한 오브젝트의 충돌체를 저장할 변수
-    public bool isParticleSpawned = false; // 이펙트가 생성되었는지 여부를 나타내는 플래그
     
     private IObjectPool<BMPunchEff> _Pool;
 
@@ -38,31 +37,21 @@ public class BoomBerManHand : MonoBehaviour
             Debug.Log("BB");
             isDamaging = true;
             playerHP.TakeDamage(1.0f);
+
             collisionPos = collision.transform;
-            var eff = _Pool.Get();
-            eff.TransformEff();
-            isParticleSpawned = true;
+
+            
         }
     }
 
-   
-
-
-    private void Update()
+    public void test()
     {
-       
-
-
-
+        var eff = _Pool.Get();
+        eff.SetEffDestroy();
     }
-
     private BMPunchEff CreateEff()
     {
-       
-
         BMPunchEff eff = Instantiate(effPrefab, player.transform.position, UnityEngine.Quaternion.identity).GetComponent<BMPunchEff>();
-
-       
 
         eff.SetManagedPool(_Pool);
      

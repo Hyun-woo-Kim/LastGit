@@ -10,17 +10,8 @@ public class BMPunchEff : MonoBehaviour
     public SpriteRenderer effSpr;
     public float effDestroySpeed;
 
-    private void Start()
-    {
-       
-    }
 
-    private void OnEnable()
-    {
-        
-    }
-
-    public void TransformEff()
+    public void SetEffDestroy()
     {
        
         Invoke("DestroyEff", effDestroySpeed);
