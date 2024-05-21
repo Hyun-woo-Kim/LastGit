@@ -16,6 +16,7 @@ TagManager:
   - Icon
   - Trap
   - Item
+  - Npc
   layers:
   - Default
   - TransparentFX

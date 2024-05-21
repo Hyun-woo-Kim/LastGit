@@ -43,9 +43,9 @@ public class PlayerControllerRope : MonoBehaviour
     public bool isFlyAction = false;
     public bool isStopMove = false;
 
-    int direction;
-    float detect_range = 1.5f;
-    GameObject scanObject;
+
+    public float raycastDistance = 50f;  // Raycast 최대 거리
+    public LayerMask npcLayerMask;        // NPC 레이어 마스크 설정
 
     void Start()
     {
@@ -68,22 +68,7 @@ public class PlayerControllerRope : MonoBehaviour
     {
         Move();
 
-        Debug.DrawRay(rigid.position, new Vector3(direction * detect_range, 0, 0), new Color(0, 0, 1));
-
-        //Layer가 Object인 물체만 rayHit_detect에 감지 
-        RaycastHit2D rayHit_detect = Physics2D.Raycast(rigid.position, new Vector3(direction, 0, 0), detect_range, LayerMask.GetMask("Object"));
-
-        //감지되면 scanObject에 오브젝트 저장 
-        if (rayHit_detect.collider != null)
-        {
-            scanObject = rayHit_detect.collider.gameObject;
-            Debug.Log(scanObject.name);
-
-        }
-        else
-        {
-            scanObject = null;
-        }
+       
     }
    
     Vector3 mouse;
@@ -92,7 +77,7 @@ public class PlayerControllerRope : MonoBehaviour
 
     private void Update()
     {
-        iDown = Input.GetKeyDown(KeyCode.F);
+       
 
         PlayerCollider();
         if (Input.GetButtonDown("Jump") && isGrounded && grapling.isAttatch == false)
@@ -110,16 +95,26 @@ public class PlayerControllerRope : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.F)) 
+        AttackCool();
+
+
+        // 카메라의 Forward 방향으로 Raycast 발사
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        // 레이캐스트 실행
+        if (Physics.Raycast(ray, out hit, raycastDistance, npcLayerMask))
         {
-            if (scanObject != null) 
+            // 충돌한 객체가 "NPC" 태그를 가지고 있는지 확인
+            if (hit.collider.CompareTag("Npc"))
             {
-                Debug.Log(scanObject.name);
+                Debug.Log("NPC found: " + hit.collider.name);
+                // NPC를 찾았을 때의 추가 처리 (예: NPC에게 알림 보내기, 효과 재생 등)
             }
         }
 
-
-        AttackCool();
+        // 기즈모를 사용하여 Raycast 시각화
+        Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red);
     }
 
     void PlayerCollider()
@@ -271,10 +266,10 @@ public class PlayerControllerRope : MonoBehaviour
                 Vector2 moveDirection = new Vector2(horizontalInput, 0);
                 rigid.velocity = new Vector2(moveDirection.x * playerData.curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(1, 1, 1);
-
+              
                 //transform.eulerAngles = new Vector3(0, 0, 0);
                 //sprPlayer.flipX = false;
-                if(grapling.isFlyReady == false)
+                if (grapling.isFlyReady == false)
                 {
                     animatorPlayer.SetFloat("Position_X", moveDirection.x); 
                 }
@@ -287,6 +282,7 @@ public class PlayerControllerRope : MonoBehaviour
                 Vector2 moveDirection = new Vector2(-horizontalInput, 0);
                 rigid.velocity = new Vector2(-moveDirection.x * playerData.curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(-1, 1, 1);
+              
                 //transform.eulerAngles = new Vector3(0, 180, 0);
                 //sprPlayer.flipX = true;
                 if (grapling.isFlyReady == false)
