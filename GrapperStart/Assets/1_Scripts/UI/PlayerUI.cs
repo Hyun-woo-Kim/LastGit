@@ -53,29 +53,33 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
     {
         UpdateHealthUI(); // UI 업데이트
 
-        if (bm.RepeatCount >= continueCount)
+        if(bm != null)
         {
-            // 점화 시작
-            isDamaging = true;
-
-        }
-
-        if (isDamaging)
-        {
-            elapsedTime += Time.deltaTime;
-            damageTimer += Time.deltaTime;
-
-            if (damageTimer >= damageInterval)
+            if (bm.RepeatCount >= continueCount)
             {
-                StartCoroutine(Firedamage(0.1f));
-                damageTimer = 0.0f;
+                // 점화 시작
+                isDamaging = true;
+
             }
 
-            if (elapsedTime >= totalDuration)
+            if (isDamaging)
             {
-                isDamaging = false;
+                elapsedTime += Time.deltaTime;
+                damageTimer += Time.deltaTime;
+
+                if (damageTimer >= damageInterval)
+                {
+                    StartCoroutine(Firedamage(0.1f));
+                    damageTimer = 0.0f;
+                }
+
+                if (elapsedTime >= totalDuration)
+                {
+                    isDamaging = false;
+                }
             }
         }
+        
     }
 
 

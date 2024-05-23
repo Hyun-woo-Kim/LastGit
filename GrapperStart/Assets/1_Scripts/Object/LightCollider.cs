@@ -33,7 +33,6 @@ public class LightCollider : MonoBehaviour
 
         if (collision.gameObject.tag == "Hook")
         {
-            spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f); // 명도 조절
             spriteRenderer.sprite = LightOnSprite;
            
             childObject.SetActive(true);
