@@ -201,7 +201,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         // 코루틴이 종료되었으므로 플래그를 다시 false로 설정합니다.
         isRockDelayMoveRunning = false;
     }
-    public LayerMask wallLayer;
+   
     void Update()
     {
         
@@ -243,6 +243,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
                 break;
         }
     }
+    public LayerMask wallLayer;
     public float rayDistance = 5f; // Ray의 최대 거리
     public void WallTurn()
     {
