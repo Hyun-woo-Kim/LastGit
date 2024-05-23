@@ -13875,6 +13875,7 @@ GameObject:
   - component: {fileID: 1918091565}
   - component: {fileID: 1918091564}
   - component: {fileID: 1918091566}
+  - component: {fileID: 1918091567}
   m_Layer: 17
   m_Name: Ground
   m_TagString: Ground
@@ -22087,6 +22088,33 @@ PolygonCollider2D:
       - {x: 9.2315445, y: -5.1247272}
       - {x: 7.9706182, y: -3.8488138}
   m_UseDelaunayMesh: 0
+--- !u!50 &1918091567
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918091562}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1925071430
 GameObject:
   m_ObjectHideFlags: 0
