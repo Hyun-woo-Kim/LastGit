@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Grapling : MonoBehaviour
@@ -350,7 +351,6 @@ public class Grapling : MonoBehaviour
               
                 if (!isEKeyHeld)
                 {
-
                     isEKeyHeld = true;
                 }
 ;
@@ -413,24 +413,62 @@ public class Grapling : MonoBehaviour
         playerArm.gameObject.SetActive(false);
         hook.gameObject.SetActive(false);
 
-        GameObject ground = GameObject.FindGameObjectWithTag("Ground");
-        Transform groundPos = ground.transform;
-        float verticalDistanceToGround = Mathf.Abs(transform.position.y - groundPos.position.y);
-        if (verticalDistanceToGround < 3f && player.isFlyAction == true)
+
+        Vector2 rayOrigin = transform.position;
+        Vector2 rayDirection = Vector2.down;
+        float rayLength = 3f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, rayLength, LayerMask.GetMask("Ground"));
+
+        // 레이캐스트 디버그 드로우
+        Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.red); // 3 units long ray, lasts for 1 second
+
+        if(player.isFlyAction)
         {
-            //aim.targetRing.GetComponentInChildren<BoxCollider2D>().isTrigger = true;
-            Debug.Log("땅과 충돌 직전");
-            player.isFlyAction = false;
-            isFlyReady = false;
-            playerColl.isTrigger = false;
-            isWall = false;
-            isMakeLightGrapligGhost = false;
-            animPlayer.SetBool("PlayerGrapling", false);
-
+            if (hit.collider != null )
+            {
+                float verticalDistanceToGround = hit.distance;
+                Debug.Log("Vertical Distance to Ground: " + verticalDistanceToGround);
+                if (verticalDistanceToGround < 3f && hit.collider.CompareTag("Ground"))
+                {
+                    Debug.Log("About to collide with the ground");
+                    player.isFlyAction = false;
+                    isFlyReady = false;
+                    playerColl.isTrigger = false;
+                    isWall = false;
+                    isMakeLightGrapligGhost = false;
+                    animPlayer.SetBool("PlayerGrapling", false);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Raycast did not hit any ground");
+            }
         }
-    }
+       
+    
 
 
+    //GameObject grid = GameObject.Find("Grid");
+    //Transform ground = grid.transform.GetChild(0);
+    //Debug.Log("땅과 충돌 직전" + ground.name);
+    ////Transform groundPos = ground.transform;
+    //float verticalDistanceToGround = Mathf.Abs(transform.position.y - ground.position.y);
+    //Debug.Log("수직 거리: " + verticalDistanceToGround);
+    //if (verticalDistanceToGround < 3f && player.isFlyAction == true)
+    //{
+    //    //aim.targetRing.GetComponentInChildren<BoxCollider2D>().isTrigger = true;
+    //    Debug.Log("땅과 충돌 직전");
+    //    player.isFlyAction = false;
+    //    isFlyReady = false;
+    //    playerColl.isTrigger = false;
+    //    isWall = false;
+    //    isMakeLightGrapligGhost = false;
+    //    animPlayer.SetBool("PlayerGrapling", false);
+
+    //}
+}
+
+ 
 
     public float maxSwingAngle = 180f; // 최대 스윙 각도
     public float swingForce = 5f; // 스윙 힘
