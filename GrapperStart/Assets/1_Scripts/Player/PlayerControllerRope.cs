@@ -189,6 +189,7 @@ public class PlayerControllerRope : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            Debug.Log("¶¥ Ãæµ¹");
             isGrounded = true;
             animatorPlayer.SetBool("PlayerJump0", false);
 
