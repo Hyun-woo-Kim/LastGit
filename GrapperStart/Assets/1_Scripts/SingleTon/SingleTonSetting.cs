@@ -9,7 +9,6 @@ public class SingleTonSetting : MonoBehaviour //메인카메라에 들어있음.
     {
         ResourceManager.Instance.ResourceSingleTonSet();
         MouseManager.Instance.MouseSingleTonSet();
-        GrapplingObjManager.Instance.ObjManagerSingleTonSet();
         ScenesManager.Instance.SceneSingleTonSet();
         PlayerUI.Instance.UISingleTonSet();
     }

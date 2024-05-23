@@ -413,12 +413,13 @@ public class Grapling : MonoBehaviour
         playerArm.gameObject.SetActive(false);
         hook.gameObject.SetActive(false);
 
-        GameObject ground = GameObject.Find("Ground");
+        GameObject ground = GameObject.FindGameObjectWithTag("Ground");
         Transform groundPos = ground.transform;
         float verticalDistanceToGround = Mathf.Abs(transform.position.y - groundPos.position.y);
         if (verticalDistanceToGround < 3f && player.isFlyAction == true)
         {
             //aim.targetRing.GetComponentInChildren<BoxCollider2D>().isTrigger = true;
+            Debug.Log("땅과 충돌 직전");
             player.isFlyAction = false;
             isFlyReady = false;
             playerColl.isTrigger = false;
