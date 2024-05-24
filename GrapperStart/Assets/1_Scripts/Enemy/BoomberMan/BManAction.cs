@@ -161,12 +161,7 @@ public class BManAction : MonoBehaviour,Enemies
     {
         StartCoroutine(handColliderVisiable());
     }
-    public void RepeatCountAnim() //애니메이션 2타때만 이벤트 형식으로 호출.
-    {
-        RepeatCount++;
-        BoomBerManHand bmHand = FindAnyObjectByType<BoomBerManHand>();
-        bmHand.test();
-    }
+
 
 
     public IEnumerator Died()
@@ -417,7 +412,7 @@ public class BManAction : MonoBehaviour,Enemies
     }
 
 
-    public int RepeatCount;
+    public float RepeatCount;
     public bool isDamaged;
     IEnumerator PlayAttackAnimation()
     {
@@ -441,8 +436,17 @@ public class BManAction : MonoBehaviour,Enemies
 
     }
 
-    
+    public void RepeatCountAnim() //애니메이션 2타때만 이벤트 형식으로 호출.
+    {
+        RepeatCount += 1.0f;
+        BoomBerManHand bmHand = FindAnyObjectByType<BoomBerManHand>();
+        bmHand.test();
+    }
 
+    public void CountSet()
+    {
+        RepeatCount = 0.0f;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -525,22 +529,31 @@ public class BManAction : MonoBehaviour,Enemies
         {
             startPosition = transform.position;
             //Debug.Log("1");
-            if (target.position.x < transform.position.x)
+            if(target != null)
             {
-                //Debug.Log("2");
-                patrolDirection = Vector2.right;
+                if (target.position.x < transform.position.x)
+                {
+                    //Debug.Log("2");
+                    patrolDirection = Vector2.right;
+                }
+                else if (target.position.x > transform.position.x)
+                {
+                    //Debug.Log("3");
+                    patrolDirection = Vector2.left;
+                }
+
+                BManim.SetBool("BmIdle", true);
+
+                yield return new WaitForSeconds(notFindDelayAnim);
+
+                hasReachedStartPosition = true;
             }
-            else if (target.position.x > transform.position.x)
+            else
             {
-                //Debug.Log("3");
-                patrolDirection = Vector2.left;
+                isMove = false;
+                BManim.SetBool("BmIdle", true);
             }
-
-            BManim.SetBool("BmIdle", true);
-
-           yield return new WaitForSeconds(notFindDelayAnim);
             
-            hasReachedStartPosition = true;
         }
         yield return null;
     }

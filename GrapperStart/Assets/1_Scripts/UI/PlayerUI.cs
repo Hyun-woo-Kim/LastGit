@@ -82,37 +82,51 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
         
     }
 
+    public bool isDead;
 
     IEnumerator Firedamage(float damage)
     {
-        isDamagedPlayer = true;
-        currentHP -= damage;
-        player.animatorPlayer.SetTrigger("PlayerHit");
-        yield return new WaitForSeconds(0.1f);
-        isDamagedPlayer = false;
-
-
-
+        yield return ApplyDamage(damage, 0.1f);
     }
+
     public void TakeDamage(float damage)
     {
+        StartCoroutine(ApplyDamage(damage));
+    }
 
-        currentHP -= damage; // 데미지만큼 체력 감소
-        currentHP = Mathf.Clamp(currentHP, 0f, maxHP); // 최소값은 0, 최대값은 최대 체력으로 제한
+    private IEnumerator ApplyDamage(float damage, float delay = 0f)
+    {
+        isDamagedPlayer = true;
+        currentHP -= damage;
+        currentHP = Mathf.Clamp(currentHP, 0f, maxHP);
 
         if (Mathf.RoundToInt(currentHP) > 0)
         {
             player.animatorPlayer.SetTrigger("PlayerHit");
-            Debug.Log("피 있음");
         }
         else
         {
-            player.animatorPlayer.SetTrigger("PlayerDeath");
-            Debug.Log("피 없음");
+            isDamaging = false;
+            PlayerDead();
         }
 
+        if (delay > 0)
+        {
+            yield return new WaitForSeconds(delay);
+        }
 
+        isDamagedPlayer = false;
+    }
+    public void PlayerDead()
+    {
+        Debug.Log("a");
+        player.animatorPlayer.SetTrigger("PlayerDeath");
+        PlayerDelete();
+    }
 
+    public void PlayerDelete()
+    {
+        Destroy(this.gameObject);
     }
 
     void UpdateHealthUI()
@@ -127,15 +141,11 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
         {
             isMPzero = true;
         }
-        Debug.Log("GraplingValue: " + currentMP);
         GraplingSliderUI(); // UI 업데이트
     }
 
     void GraplingSliderUI()
     {
-        Debug.Log("GraplingValue");
-
-
         sliderMP.value = currentMP; // Update sliderMP based on currentMP and maxMP
 
     }
