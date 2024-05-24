@@ -2259,14 +2259,21 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.6153846
-    functionName: handCollider
+    functionName: RepeatCountAnim
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.6153846
-    functionName: RepeatCountAnim
+    functionName: handCollider
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.3846154
+    functionName: CountSet
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

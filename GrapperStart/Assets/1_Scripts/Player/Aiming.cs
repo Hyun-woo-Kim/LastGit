@@ -170,8 +170,8 @@ public class Aiming : MonoBehaviour
 
         else if (grapling.iscollObj == true)
         {
-            anim = GetComponent<Animator>();
-            anim.SetBool("PlayerAimEnemy", true);
+            //anim = GetComponent<Animator>();
+            //anim.SetBool("PlayerAimEnemy", true);
         }
         else if (grapling.isGraplingEnemy == true)
         {

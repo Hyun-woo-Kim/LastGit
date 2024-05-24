@@ -13956,9 +13956,10 @@ MonoBehaviour:
   totalDuration: 10
   isDamaging: 0
   isDamagedPlayer: 0
-  continueCount: 2
+  continueCount: 1
   SelectUI: {fileID: 787677792}
   isSelectUI: 0
+  isDead: 0
 --- !u!1 &1694123118
 GameObject:
   m_ObjectHideFlags: 0

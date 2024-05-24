@@ -255,6 +255,7 @@ public class PlayerControllerRope : MonoBehaviour
         
     }
 
+  
     void MoveToPlayer(float horizontalInput)
     {
         //if (grapling.isAttatch == false && SelectManager.Instance.isSelectUI == false)
