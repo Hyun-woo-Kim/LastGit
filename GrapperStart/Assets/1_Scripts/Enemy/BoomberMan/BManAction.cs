@@ -22,7 +22,7 @@ public class BManAction : MonoBehaviour,Enemies
     public Transform Findboxpos;
     public Vector2 FindboxSize;
     public Transform target;
-    private bool isFindPlayer;
+    public bool isFindPlayer;
     public float followSpeed;
     public float moveSpeed;
     public bool isStand = false;
@@ -55,7 +55,7 @@ public class BManAction : MonoBehaviour,Enemies
     public float maxAttackDistance = 3.0f; //공격할 때 광선 길이를 말함. 광선 길이 이내에 있어야 공격조건1 만족됨
     public float RepeatCount; //연타공격 변수 
     private bool isAttacking;
-    private bool isAtk;
+    public bool isAtk;
     public Color OutLineEnemycolor = Color.yellow; //아웃라인 기본컬러 
     [Range(0, 16)]
     public int outlineSize; //아웃라인 두께조절
@@ -256,11 +256,13 @@ public class BManAction : MonoBehaviour,Enemies
             isMove = false;
             isPlayerMissing = true;
             StartCoroutine(NotFindPlayer(spriteRenderer));
+            Debug.Log("순찰함수2");
             //필드 순회
         }
 
         if(isFindPlayer == true && chaneAttackMon == true && isStand )
         {
+            Debug.Log("공격함수2");
             HandAttack();
         }       
         PatrolReaction(spriteRenderer);
@@ -422,7 +424,6 @@ public class BManAction : MonoBehaviour,Enemies
 
         if (isDamaged == false && isAttacking == true)
         {
-            Debug.Log("공격 시작");
             isMove = false;  
             BManim.SetBool("BmAtk", true); // 공격 애니메이션1
             BManim.SetFloat("BmAtkCount", 1.0f); // 공격 애니메이션2
@@ -441,7 +442,6 @@ public class BManAction : MonoBehaviour,Enemies
         // 자식 클래스의 콜라이더가 존재하면 비활성화
         if (childCollider != null)
         {
-            Debug.Log("ss");
             childCollider.enabled = true;
             yield return new WaitForSeconds(0.1f);
             childCollider.enabled = false;
@@ -480,7 +480,6 @@ public class BManAction : MonoBehaviour,Enemies
     {
         if (transform.position.x > _target.position.x)
         {
-            Debug.Log("왼쪽 턴2");
             transform.localScale = new Vector3(1, 1, 1);
         }
         else if (transform.position.x < _target.position.x)

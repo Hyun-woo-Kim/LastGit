@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerUI : SingleTonGeneric<PlayerUI>
 {
@@ -105,7 +106,7 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
     {
         isDamagedPlayer = true;
         currentHP -= damage;
-        currentHP = Mathf.Clamp(currentHP, 0f, maxHP);
+         currentHP = Mathf.Clamp(currentHP, 0f, maxHP);
 
         if (Mathf.RoundToInt(currentHP) > 0)
         {
@@ -127,13 +128,38 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
     public void PlayerDead()
     {
         Debug.Log("a");
+        player.isNockBack = true;
+        player.tag = "Untagged";
+        player.gameObject.layer = 8;
         player.animatorPlayer.SetTrigger("PlayerDeath");
         PlayerDelete();
     }
-
+    public GameObject DeathUI;
+    private GameObject DeathUIPrefab;
     public void PlayerDelete()
     {
-        Destroy(this.gameObject);
+        GameObject uiCanvas = GameObject.Find("UI_Canvas");
+
+        if (uiCanvas != null)
+        {
+            DeathUIPrefab = Instantiate(DeathUI, new Vector3(0,0,0), Quaternion.identity);
+            // comboBarUI를 UI_Canvas의 하위로 설정
+            DeathUIPrefab.transform.SetParent(uiCanvas.transform, false);
+        }
+        else
+        {
+            Debug.Log("없음");
+        }
+        //mn  Destroy(this.gameObject);
+    }
+    public GameObject Lava;
+    private GameObject LavaPrefab;
+    public Vector3 Lavaoffset;
+    public void CreateLava()
+    {
+
+        Vector3 spawnPosition = transform.position + Vector3.down + Lavaoffset;
+        LavaPrefab = Instantiate(Lava, spawnPosition, Quaternion.identity);
     }
 
     void UpdateHealthUI()

@@ -602,6 +602,7 @@ public class Grapling : MonoBehaviour
 
         if (uiCanvas != null && comboSliderPrefab == null)
         {
+
             //comboBarPos = Camera.main.WorldToScreenPoint(transform.GetChild(9).position);
             comboSliderPrefab = Instantiate(comboSlider, pos,Quaternion.identity);
             // comboBarUI를 UI_Canvas의 하위로 설정

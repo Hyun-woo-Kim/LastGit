@@ -13935,7 +13935,7 @@ MonoBehaviour:
   sliderHP: {fileID: 1694123120}
   sliderMP: {fileID: 85640154}
   currentHP: 10
-  maxHP: 10
+  maxHP: 3
   currentMP: 3
   maxMP: 3
   isMPzero: 0
@@ -13947,6 +13947,9 @@ MonoBehaviour:
   SelectUI: {fileID: 787677792}
   isSelectUI: 0
   isDead: 0
+  DeathUI: {fileID: 1473348243585265367, guid: 0f5d6966ed34c3743979daca8b48072c, type: 3}
+  Lava: {fileID: 8634851812818066279, guid: fa2e98c79dae50843899bc986fe64583, type: 3}
+  Lavaoffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1694123118
 GameObject:
   m_ObjectHideFlags: 0
@@ -17523,7 +17526,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -171, y: 78}
+  m_AnchoredPosition: {x: -311, y: 44}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2039926464
