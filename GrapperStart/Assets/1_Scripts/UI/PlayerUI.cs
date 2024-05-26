@@ -61,25 +61,31 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
                 isDamaging = true;
 
             }
-
-            if (isDamaging)
+            else if (bm.RepeatCount == float.Epsilon)
             {
-                elapsedTime += Time.deltaTime;
-                damageTimer += Time.deltaTime;
+                isDamaging = false;
+            }
 
-                if (damageTimer >= damageInterval)
-                {
-                    StartCoroutine(Firedamage(0.1f));
-                    damageTimer = 0.0f;
-                }
+            
+        }
 
-                if (elapsedTime >= totalDuration)
-                {
-                    isDamaging = false;
-                }
+        if (isDamaging)
+        {
+            elapsedTime += Time.deltaTime;
+            damageTimer += Time.deltaTime;
+
+            if (damageTimer >= damageInterval)
+            {
+                Debug.Log("ÂÞ·ç·è");
+                StartCoroutine(Firedamage(0.1f));
+                damageTimer = 0.0f;
+            }
+
+            if (elapsedTime >= totalDuration)
+            {
+                isDamaging = false;
             }
         }
-        
     }
 
     public bool isDead;
@@ -91,6 +97,7 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
 
     public void TakeDamage(float damage)
     {
+        
         StartCoroutine(ApplyDamage(damage));
     }
 
