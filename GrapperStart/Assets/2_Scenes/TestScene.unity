@@ -5639,53 +5639,40 @@ MonoBehaviour:
   Findboxpos: {fileID: 464977479}
   FindboxSize: {x: 11.46, y: 5.16}
   target: {fileID: 0}
-  isFindPlayer: 0
   followSpeed: 0.5
-  moveSpeed: 3
+  moveSpeed: 1.2
   isStand: 0
   growthRate: 0.5
   notFindDelayAnim: 2
-  isMove: 0
-  isPlayerMissing: 0
-  isDied: 0
   animAimSpeed: 0.5
   animSpeed: 0
-  isReact: 0
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
   missSprite: {fileID: 21300000, guid: 6d01503afda11de478bbcba2e7c7067e, type: 3}
   nockbackForce: 10
-  hasAttacked: 0
-  isPlayerFindCoroutineRunning: 0
   Punchboxpos: {fileID: 1248433073}
   PunchboxSize: {x: 1.2, y: 2.6}
-  isColliderPlayer: 0
-  isPunch: 0
-  isAttack: 0
   DamagedValue: 1
   basicDamage: 1
   powerDamage: 2
+  maxAttackDistance: 3
+  RepeatCount: 0
+  OutLineEnemycolor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  outlineSize: 2
   patrolDirection: {x: 0, y: 0}
   startPosition: {x: 0, y: 0}
   patrolSpeed: 2
   patrolDistance: 5
-  isAtkStop: 0
-  chaneAttackMon: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  lastPlayerPos: {x: 0, y: 0, z: 0}
+  DiedPrefab: {fileID: 8651603981893324460, guid: 76fea4d7f0d1a8a44b16d9ede1c977ca, type: 3}
+  bmStopDel: 0.5
+  bmDestoryDel: 2
   WallrayDistance: 5
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 128
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 32768
-  isWall: 0
-  isAttacking: 0
-  isAtk: 0
-  maxAttackDistance: 3
-  RepeatCount: 0
-  isDamaged: 0
-  dieEffPrefab: {fileID: 3816636789055737438, guid: 3a44a36367846ad40902840bb51f327f, type: 3}
-  OutLineEnemycolor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  outlineSize: 2
 --- !u!95 &769229555
 Animator:
   serializedVersion: 5
@@ -13953,7 +13940,7 @@ MonoBehaviour:
   maxMP: 3
   isMPzero: 0
   damageInterval: 1
-  totalDuration: 10
+  totalDuration: 2
   isDamaging: 0
   isDamagedPlayer: 0
   continueCount: 1
@@ -14243,7 +14230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  animatorPlayer: {fileID: 0}
   isTrap: 0
 --- !u!60 &1731782422
 PolygonCollider2D:

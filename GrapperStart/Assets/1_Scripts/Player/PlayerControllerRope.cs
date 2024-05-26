@@ -259,7 +259,7 @@ public class PlayerControllerRope : MonoBehaviour
     void MoveToPlayer(float horizontalInput)
     {
         //if (grapling.isAttatch == false && SelectManager.Instance.isSelectUI == false)
-        if (PlayerUI.Instance.isSelectUI == false && grapling.isAttatch == false)
+        if (PlayerUI.Instance.isSelectUI == false && grapling.isAttatch == false && isNockBack == false)
         {
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)
@@ -461,16 +461,18 @@ public class PlayerControllerRope : MonoBehaviour
         yield return null;
 
     }
-    public void BMSkillMove(Transform bmPos,float _nockbackForce)
-    {
-        Vector2 knockbackVector = bmPos.position.x > transform.position.x ? Vector2.left : Vector2.right;
+ 
 
-        // ³Ë¹é º¤ÅÍ¸¦ ÀÌ¿ëÇÏ¿© ³Ë¹é ½ÇÇà
+    public bool isNockBack;
+    public IEnumerator BMSkillMove(Transform bmPos, float _nockbackForce)
+    {
+        isNockBack = true;
+        Vector2 knockbackVector = bmPos.position.x > transform.position.x ? Vector2.left : Vector2.right;
         Debug.Log(knockbackVector);
         rigid.AddForce(knockbackVector * _nockbackForce, ForceMode2D.Impulse);
-
+        yield return new WaitForSeconds(0.5f);
+        isNockBack = false;
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

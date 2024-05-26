@@ -4276,6 +4276,7 @@ MonoBehaviour:
   continueCount: 2
   SelectUI: {fileID: 1745916338}
   isSelectUI: 0
+  isDead: 0
 --- !u!114 &637652023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12867,8 +12868,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
   cameraPosition: {x: 0, y: 0, z: -10}
-  center: {x: 1.05, y: -1.6}
-  mapSize: {x: 21, y: 10.66}
+  center: {x: 15, y: 11.7}
+  mapSize: {x: 50.2, y: 21.5}
   cameraMoveSpeed: 25
 --- !u!81 &1826709135
 AudioListener:
@@ -13874,8 +13875,7 @@ GameObject:
   - component: {fileID: 1918091563}
   - component: {fileID: 1918091565}
   - component: {fileID: 1918091564}
-  - component: {fileID: 1918091566}
-  - component: {fileID: 1918091567}
+  - component: {fileID: 1918091568}
   m_Layer: 17
   m_Name: Ground
   m_TagString: Ground
@@ -22037,8 +22037,8 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!60 &1918091566
-PolygonCollider2D:
+--- !u!19719996 &1918091568
+TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -22070,51 +22070,9 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -34.026768, y: -3.9215121}
-      - {x: -35.135654, y: -5.009031}
-      - {x: -35.06728, y: -10.102778}
-      - {x: 9.117706, y: -9.9410095}
-      - {x: 9.2315445, y: -5.1247272}
-      - {x: 7.9706182, y: -3.8488138}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!50 &1918091567
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918091562}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1925071430
 GameObject:
   m_ObjectHideFlags: 0
