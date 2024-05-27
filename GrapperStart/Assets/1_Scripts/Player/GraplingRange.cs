@@ -109,6 +109,7 @@ public class GraplingRange : MonoBehaviour
             {
                 if (isUnViewObjRangeRunning == false)
                 {
+                    grapling.TestA();
                     StartCoroutine(UnViewObjRange());
                     isUnViewObjRangeRunning = true;
 
