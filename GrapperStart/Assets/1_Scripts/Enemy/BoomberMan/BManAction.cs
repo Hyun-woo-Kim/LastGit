@@ -67,16 +67,20 @@ public class BManAction : MonoBehaviour,Enemies
     private bool hasReachedStartPosition;
     public LayerMask wallLayer; //벽 레이어.
     private bool isWall; // 벽 충돌시 true
+    public float WallrayDistance = 5f; // 벽을 감지할 길이.
     [Header("##Damaged or Dead")]
     public Vector3 lastPlayerPos;
     public GameObject DiedPrefab;
-    public float bmStopDel; //폭발 이펙트 보여주고 bm이 몇초동안 일시정지 시킬건지
-    public float bmDestoryDel; //폭발 이펙트 보여주고 bm이 몇초동안 일시정지 시킬건지
-    private bool isAtkStop;
     private bool chaneAttackMon;
     Vector2 InitCollSize;
     private bool isDamaged;
-
+    [Header("##Delay")]
+    public float nockbackDelay; //넉백 딜레이
+    public float boomMoveDelay; //자폭돌진 딜레이
+    public float bmStopDel; //폭발 이펙트 보여주고 bm이 몇초동안 일시정지 시킬건지
+    public float bmDestoryDel; //폭발 이펙트 보여주고 bm이 몇초동안 일시정지 시킬건지
+    public float AttackToIdleDel; //공격 전 Idle상태 딜레이
+    private bool isAtkStop;
     void Start()
     {
         BManim = GetComponent<Animator>();
@@ -118,8 +122,10 @@ public class BManAction : MonoBehaviour,Enemies
     }
 
     
-    public float WallrayDistance = 5f; // 벽을 감지할 길이.
-    public LayerMask PlayerLayer;
+ 
+  
+   
+
     public IEnumerator baseDamaged()
     {
         bmdata.DamagedHp(DamagedValue);
@@ -132,7 +138,7 @@ public class BManAction : MonoBehaviour,Enemies
             {
                 isMove = false;
                 isDamaged = true;
-                
+                yield return new WaitForSeconds(nockbackDelay);
                 BManim.SetTrigger("BmNockBack");
                 yield return new WaitForSeconds(0.5f);
                 BManim.SetTrigger("BmNockBackToIdle");
@@ -166,6 +172,7 @@ public class BManAction : MonoBehaviour,Enemies
         isReact = false;
        
         FlipEnemy(target);
+        yield return new WaitForSeconds(boomMoveDelay);
         BManim.SetTrigger("BmBoomMove");
         float elapsedTime = 0f;
         Vector2 initialPosition = transform.position;
@@ -414,12 +421,12 @@ public class BManAction : MonoBehaviour,Enemies
     }
 
 
-
+    
     IEnumerator PlayAttackAnimation()
     {
         UpdateOutline(true);
-        BManim.SetBool("BmIdle", true); // 이전 스탠딩 상태 해제.
-        yield return new WaitForSeconds(1.0f);
+        BManim.SetBool("BmIdle", true); // 이전 스탠딩 상태.
+        yield return new WaitForSeconds(AttackToIdleDel);
         BManim.SetBool("BmIdle", false); // 이전 스탠딩 상태 해제.
 
         if (isDamaged == false && isAttacking == true)
