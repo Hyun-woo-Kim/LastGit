@@ -66,7 +66,11 @@ public class PlayerControllerRope : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
+        if(isMoveStop == false)
+        {
+            Move();
+        }
+        
 
        
     }
@@ -231,7 +235,7 @@ public class PlayerControllerRope : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        if (grapling.grapCount != 1.0f && grapling.isFlyReady == false)
+        if (grapling.grapCount != 1.0f && grapling.isFlyReady == false )
         {
 
             if(grapling.isLerping == false )
@@ -259,7 +263,7 @@ public class PlayerControllerRope : MonoBehaviour
     void MoveToPlayer(float horizontalInput)
     {
         //if (grapling.isAttatch == false && SelectManager.Instance.isSelectUI == false)
-        if (PlayerUI.Instance.isSelectUI == false && grapling.isAttatch == false && isNockBack == false)
+        if (PlayerUI.Instance.isSelectUI == false && grapling.isAttatch == false && isMoveStop == false)
         {
 
             if (horizontalInput > 0) //else if (horizontalInput < 0 && grapling.isLerping == false)
@@ -297,6 +301,7 @@ public class PlayerControllerRope : MonoBehaviour
 
 
         }
+       
     }
 
     #region 전등 그래플링 360도 회전 메서드
@@ -463,15 +468,15 @@ public class PlayerControllerRope : MonoBehaviour
     }
  
 
-    public bool isNockBack;
+    public bool isMoveStop;
     public IEnumerator BMSkillMove(Transform bmPos, float _nockbackForce)
     {
-        isNockBack = true;
+        isMoveStop = true;
         Vector2 knockbackVector = bmPos.position.x > transform.position.x ? Vector2.left : Vector2.right;
         Debug.Log(knockbackVector);
         rigid.AddForce(knockbackVector * _nockbackForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.5f);
-        isNockBack = false;
+        isMoveStop = false;
     }
     private void OnDrawGizmos()
     {

@@ -152,7 +152,7 @@ public class BManAction : MonoBehaviour,Enemies
         }
 
         isAtkStop = false;
-
+       
         yield return null;
 
     }

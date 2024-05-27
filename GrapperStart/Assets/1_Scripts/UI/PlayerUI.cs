@@ -128,7 +128,7 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
     public void PlayerDead()
     {
         Debug.Log("a");
-        player.isNockBack = true;
+        player.isMoveStop = true;
         player.tag = "Untagged";
         player.gameObject.layer = 8;
         player.animatorPlayer.SetTrigger("PlayerDeath");
