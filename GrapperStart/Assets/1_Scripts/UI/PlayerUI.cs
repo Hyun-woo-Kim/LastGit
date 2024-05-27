@@ -15,6 +15,9 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
     public float currentMP;
     public float maxMP;
     public bool isMPzero;
+    public float mpUpTime;
+
+
 
     [Header("##BoomBerMan")]
     public float damageInterval; // 지속적인 피해를 줄 때 몇초 간격으로 줄어들게 할건지.
@@ -48,6 +51,8 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
         currentMP = maxMP;
 
         isMPzero = false;
+
+        InvokeRepeating("PlayerMpUp", 0.1f, mpUpTime);
     }
 
     void Update()
@@ -87,6 +92,7 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
                 isDamaging = false;
             }
         }
+      
     }
 
     public bool isDead;
@@ -182,6 +188,22 @@ public class PlayerUI : SingleTonGeneric<PlayerUI>
         sliderMP.value = currentMP; // Update sliderMP based on currentMP and maxMP
 
     }
+
+    void PlayerMpUp()
+    {
+        if (currentMP < maxMP)
+        {
+            Debug.Log("에너지 1충전");
+            currentMP += 1.0f;
+            currentMP = Mathf.Clamp(currentMP, 0f, maxMP);
+            GraplingSliderUI(); // Update MP slider UI
+        }
+        else
+        {
+            Debug.Log("에너지 꽉참");
+        }
+    }
+
 
     public void UIActive()
     {
