@@ -98,6 +98,11 @@ public class GraplingRange : MonoBehaviour
                 isobjSkill = true;
                 isenemySkill = true;
             }
+            if (colliderA.CompareTag("Boss"))
+            {
+                isobjSkill = true;
+                isenemySkill = true;
+            }
         }
 
 

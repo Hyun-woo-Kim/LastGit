@@ -63,7 +63,7 @@ public class Aiming : MonoBehaviour
             foreach (Collider2D collider in colliders)
             {
 
-                if ((collider.CompareTag("Ring") || collider.CompareTag("Enemy"))
+                if ((collider.CompareTag("Ring") || collider.CompareTag("Enemy") || collider.CompareTag("Boss"))
                     && graplingRange.isRange && graplingRange.isobjSkill
                     && grapling.isAttatch == false) //범위 안에 있어야 하며, 범위 안에 obj가 있어야 하며 , Hook가 Ring과 충돌하지 않을때.
                 {
@@ -104,7 +104,7 @@ public class Aiming : MonoBehaviour
 
 
 
-                        if (collider.CompareTag("Enemy") && grapling.isGraplingEnemy == false && isAimRing == false)
+                        if (collider.CompareTag("Enemy") || (collider.CompareTag("Boss") && grapling.isGraplingEnemy == false && isAimRing == false))
                         {
                             //Debug.Log("a");
                             isAimEnemy = true;
