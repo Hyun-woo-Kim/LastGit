@@ -5730,7 +5730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &769229554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5779,7 +5779,7 @@ MonoBehaviour:
   lastPlayerPos: {x: 0, y: 0, z: 0}
   DiedPrefab: {fileID: 8651603981893324460, guid: 76fea4d7f0d1a8a44b16d9ede1c977ca, type: 3}
   nockbackDelay: 0.2
-  boomMoveDelay: 0.3
+  boomMoveDelay: 3
   bmStopDel: 0.5
   bmDestoryDel: 2
   AttackToIdleDel: 1
@@ -7864,13 +7864,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1017176673}
+  - component: {fileID: 1017176675}
+  - component: {fileID: 1017176676}
   m_Layer: 9
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1017176673
 Transform:
   m_ObjectHideFlags: 0
@@ -7887,6 +7889,53 @@ Transform:
   - {fileID: 1421090587}
   m_Father: {fileID: 1565152439}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1017176675
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017176672}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.29
+--- !u!114 &1017176676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017176672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685f31d5c08853d4d947faf5e9b3f03b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1024680299
 GameObject:
   m_ObjectHideFlags: 0
@@ -9090,7 +9139,7 @@ Transform:
   m_GameObject: {fileID: 1176911622}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 1.58, z: 0}
+  m_LocalPosition: {x: -0.08, y: 1.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12937,7 +12986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1565152434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12978,6 +13027,9 @@ MonoBehaviour:
   reactSprite: {fileID: 21300000, guid: 24f130bb682414e45a7e6d13b78206c9, type: 3}
   animAimSpeed: 0.5
   animSpeed: 0
+  DieEffect: {fileID: 4649290603030358971, guid: b0868c89530f47e4ab6593f684b4ff54, type: 3}
+  offset: {x: 0, y: -1.2, z: 0}
+  isDied: 0
   handChild: {fileID: 1017176673}
   wallLayer:
     serializedVersion: 2
@@ -13113,7 +13165,7 @@ Transform:
   m_GameObject: {fileID: 1565152433}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.57, y: -7.3, z: 0}
+  m_LocalPosition: {x: 12.57, y: -7.443, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19029,7 +19081,7 @@ PrefabInstance:
       objectReference: {fileID: 1544696274998534039}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.56
+      value: 3.56
       objectReference: {fileID: 0}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.y

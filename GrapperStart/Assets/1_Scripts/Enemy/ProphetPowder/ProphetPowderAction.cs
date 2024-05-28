@@ -1,7 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum PpPaze
+{
+    STATE_PATROL,
+    STATE_ROCKATTACK,
+    STATE_STOP,
+    STATE_FOLLOW,
+    STATE_DIE,
+}
 public class ProphetPowderAction : MonoBehaviour
 {
     // 근거리 사용 무기: 척력

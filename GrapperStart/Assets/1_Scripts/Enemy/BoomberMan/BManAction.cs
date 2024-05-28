@@ -81,8 +81,10 @@ public class BManAction : MonoBehaviour,Enemies
     public float bmDestoryDel; //폭발 이펙트 보여주고 bm이 몇초동안 일시정지 시킬건지
     public float AttackToIdleDel; //공격 전 Idle상태 딜레이
     private bool isAtkStop;
+   
     void Start()
     {
+      
         BManim = GetComponent<Animator>();
         bmSpr = GetComponent<SpriteRenderer>();
         collder = GetComponent<CapsuleCollider2D>();
@@ -172,6 +174,7 @@ public class BManAction : MonoBehaviour,Enemies
         isReact = false;
        
         FlipEnemy(target);
+        BManim.SetTrigger("BmNockBack");
         yield return new WaitForSeconds(boomMoveDelay);
         BManim.SetTrigger("BmBoomMove");
         float elapsedTime = 0f;
@@ -429,7 +432,7 @@ public class BManAction : MonoBehaviour,Enemies
         yield return new WaitForSeconds(AttackToIdleDel);
         BManim.SetBool("BmIdle", false); // 이전 스탠딩 상태 해제.
 
-        if (isDamaged == false && isAttacking == true)
+        if (isDamaged == false && isAttacking == true && isDied == false)
         {
             isMove = false;  
             BManim.SetBool("BmAtk", true); // 공격 애니메이션1

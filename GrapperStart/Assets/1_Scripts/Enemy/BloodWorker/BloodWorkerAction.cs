@@ -24,6 +24,7 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     SpriteRenderer bwSpr;
     Enemies enemies;
 
+    protected CircleCollider2D childCollider;
 
 
     public bool isWall;
@@ -106,26 +107,39 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
     }
     public IEnumerator baseDamaged()  //BW가 플레이어로 부터 기본공격에 맞았을 때 호출 하는 함수
     {
-        bwSpr.color = Color.red;
         bwData.DamagedHp(1);
-        bloodWorkerAnim.SetTrigger("BWKnockBack");
-        yield return new WaitForSeconds(damagedDelay);
-        bwSpr.color = Color.white;
-        if (bwData.bwHp <= float.Epsilon)
+        if (bwData.bwHp > float.Epsilon)
+        {
+            bwSpr.color = Color.red;
+       
+            bloodWorkerAnim.SetTrigger("BWKnockBack");
+            yield return new WaitForSeconds(damagedDelay);
+            bwSpr.color = Color.white;
+        }
+        else if (bwData.bwHp <= float.Epsilon)
         {
             this.bloodState = BloodState.STATE_DIE;
-            bloodWorkerAnim.SetTrigger("BWDie");
+            isDied = true;
             Debug.Log("1");
             StartCoroutine(Died());
         }
         isAtkStop = false;
     }
-
+    public GameObject DieEffect;
+   
+    public Vector3 offset;
+    public bool isDied;
     public IEnumerator Died()
     {
-
-        yield return new WaitForSeconds(0.5f);
+        bloodWorkerAnim.SetTrigger("BWKnockBack");
+        yield return new WaitForSeconds(0.1f);
+        bloodWorkerAnim.SetTrigger("BWDie");
+        yield return new WaitForSeconds(0.7f);
         bloodWorkerAnim.enabled = false;
+        capsuleColl.enabled = false;
+        GameObject DieEffectPrefab = Instantiate(DieEffect, transform.position + offset, Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
+        Destroy(DieEffectPrefab);
         Destroy(this.gameObject);
 
     }
@@ -321,7 +335,8 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
         {
             if (collider.CompareTag("Player")) //적 감지 
             {
-                handChild.gameObject.SetActive(true);
+               
+
                 target = collider.transform;
                 isReact = true;
                 isTargetPlayer = true; //적 감지 확인
@@ -407,12 +422,13 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
 
     IEnumerator AttackAnimDelayCoroutine(Transform playerTransform, float _attackDelay)
     {
-      
+
         //bloodWorkerAnim.SetBool("BWStop", true);
         // bloodWorkerAnim.SetBool("BWRenchRun", true);
+        handChild.gameObject.SetActive(true);
         yield return new WaitForSeconds(OutlineDealy);
         UpdateOutline(false);
-        if(isAtkStop == false)
+        if(isAtkStop == false && isDied == false)
         {
             bloodWorkerAnim.SetTrigger("BWRenchAtk");
         }
@@ -425,6 +441,23 @@ public class BloodWorkerAction : MonoBehaviour, Enemies
             bwAttackCoroutines.Remove(playerTransform);
             
         }
+    }
+    IEnumerator handColliderVisiable()
+    {
+
+        childCollider = GetComponentInChildren<CircleCollider2D>();
+        // 자식 클래스의 콜라이더가 존재하면 비활성화
+        if (childCollider != null)
+        {
+            childCollider.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+            childCollider.enabled = false;
+        }
+    }
+
+    public void handColliderA() //애니메이션 1타 및 2타때 이벤트 형식으로 호출함.
+    {
+        StartCoroutine(handColliderVisiable());
     }
     void FlipEnemy()
     {

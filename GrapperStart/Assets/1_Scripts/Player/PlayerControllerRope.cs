@@ -50,7 +50,6 @@ public class PlayerControllerRope : MonoBehaviour
     void Start()
     {
         playerData.curSpeed = InitSpeed;
-
         grapling = GetComponent<Grapling>();
         
         rigid = GetComponent<Rigidbody2D>();
@@ -515,6 +514,7 @@ public class PlayerControllerRope : MonoBehaviour
             nearItem = other.gameObject;
             Debug.Log(nearItem.name);
         }
+       
     }
 
     private void OnTriggerExit(Collider other)

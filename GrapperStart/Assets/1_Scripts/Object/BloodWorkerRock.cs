@@ -10,8 +10,12 @@ public class BloodWorkerRock : MonoBehaviour
     private Rigidbody2D rockRigid;
 
     GameObject BwWorker;
+    PlayerUI playerUI;
+    BloodWorkerAction bw;
     void Start()
     {
+        playerUI = FindFirstObjectByType<PlayerUI>();
+        bw = FindFirstObjectByType<BloodWorkerAction>();
         rockRigid = GetComponent<Rigidbody2D>();
         rockRigid.gravityScale = 1.0f; // 초기 중력 값 설정
         BwWorker = GameObject.Find("BloodWorker");
@@ -22,7 +26,9 @@ public class BloodWorkerRock : MonoBehaviour
     private void Update()
     {
         // 중력 값을 시간에 따라 감소시킴
-        rockRigid.gravityScale = Mathf.Max(0, rockRigid.gravityScale - gravityScaleDecreaseRate * Time.deltaTime);
+        if(bw.rockPref != null)
+        {
+            rockRigid.gravityScale = Mathf.Max(0, rockRigid.gravityScale - gravityScaleDecreaseRate * Time.deltaTime);
 
         if(BwWorker.transform.localScale == new Vector3(1, 1, 1))
         {
@@ -34,18 +40,26 @@ public class BloodWorkerRock : MonoBehaviour
             throwDirection = new Vector2(1, 0); 
             transform.Translate(throwDirection * throwForce * Time.deltaTime);
         }
+        }
+        
         
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ground") || collision.CompareTag("Wall") || collision.CompareTag("Player"))
+        if(collision.CompareTag("Ground") || collision.CompareTag("Wall"))
         {
-            DestroyRock();
+            DestroyWeapon();
+        }
+
+        else if(collision.CompareTag("Player"))
+        {
+            playerUI.TakeDamage(1.0f);
+            DestroyWeapon();
         }
     }
 
-    private void DestroyRock()
+    private void DestroyWeapon()
     {
         Destroy(this.gameObject);
     }
