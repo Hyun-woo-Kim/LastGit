@@ -470,6 +470,7 @@ public class PlayerControllerRope : MonoBehaviour
     public bool isMoveStop;
     public IEnumerator BMSkillMove(Transform bmPos, float _nockbackForce)
     {
+        Debug.Log("³Ë¹é");
         isMoveStop = true;
         Vector2 knockbackVector = bmPos.position.x > transform.position.x ? Vector2.left : Vector2.right;
         Debug.Log(knockbackVector);
