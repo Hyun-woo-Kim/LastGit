@@ -18,6 +18,7 @@ TagManager:
   - Item
   - Npc
   - Boss
+  - BossWeapon
   layers:
   - Default
   - TransparentFX

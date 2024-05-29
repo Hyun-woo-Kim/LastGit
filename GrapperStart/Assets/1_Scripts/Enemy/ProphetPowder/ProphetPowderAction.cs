@@ -14,8 +14,10 @@ public class ProphetPowderAction : MonoBehaviour
     // 근거리 사용 무기: 척력
     //원거리 사용 무기: 인력, 용언
     SpriteRenderer PpSpriteRenderer;
+    Transform playerObject;
     void Start()
     {
+        playerObject = GameObject.Find("Player").transform;
         isAttackStart = false;
         PpSpriteRenderer = GetComponent<SpriteRenderer>();
         //맵 한 가운데에서 순간이동을 하며 등장
@@ -50,19 +52,25 @@ public class ProphetPowderAction : MonoBehaviour
 
         color.a = 1;
         PpSpriteRenderer.color = color;
+        FindPlayer();
 
-        isAttackStart = true;
+
     }
     void Update()
     {
         if(isAttackStart)
         {
-            DragonShoot();
+            //DragonShoot();
         }
 
-        GraplingPlayerNockBack();
-        UpdateGraplingCooldown();
+        GraplingPlayerNockBack(); //1. 플레이어가 그래플링을 선지자 파우더에게 했을 때만 실행됨
+        UpdateGraplingCooldown(); //2. 플레이어를 밀치고 나서만 실행되며,쿨타임 메서드임.
 
+        if (isRush)
+        {
+            StartCoroutine(ChargeToPlayer());
+            //ChargeToPlayer();
+        }
     }
 
     public LayerMask playerLayer;
@@ -74,8 +82,10 @@ public class ProphetPowderAction : MonoBehaviour
     private GameObject DragonWeaponPrefab;
     void DragonShoot() //기본공격1 : 용언 발사
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Mathf.Infinity, playerLayer);
-        Debug.DrawRay(transform.position, Vector2.right * ShootDistance, Color.red);
+        PpDirection();
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, Mathf.Infinity, playerLayer);
+        Debug.DrawRay(transform.position, PpDir * ShootDistance, Color.red);
 
         if (hit.collider != null)
         {
@@ -203,4 +213,89 @@ public class ProphetPowderAction : MonoBehaviour
             }
         }
     }
+
+
+
+
+
+    public float chargeSpeed = 5f;
+    private Transform playerTransform;
+    public bool isRush = false;
+
+    public float chargeMaxDistance = 5f; // 돌진 가능한 최대 거리
+    public float chargeDistace = 5f; // 돌진 조건 거리.
+
+    public float isChargeDel = 1f; // 돌진 딜레이
+
+    void FindPlayer()
+    {
+        isRush = true;
+
+
+    }
+
+    public float UnChargeTime;
+    public float NotChargeTime;
+
+    public bool isMove;
+    IEnumerator ChargeToPlayer()
+    {
+        playerTransform = playerObject.transform;
+        PpDirection();
+        //돌진 준비 애니메이션 재생 코드 여기다. 
+        yield return new WaitForSeconds(isChargeDel);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, chargeDistace,playerLayer);
+        Debug.DrawRay(transform.position,PpDir * chargeDistace, Color.red);
+
+        if(hit.collider != null)
+        {
+            float playerdistance = Mathf.Abs(hit.point.x - transform.position.x);
+
+            if (playerdistance > chargeMaxDistance )
+            {
+                isMove = true;
+                Debug.Log("돌진합니다.");
+                transform.position += (Vector3)PpDir * chargeSpeed * Time.deltaTime;
+            }
+            else
+            {
+                //척력 공격 메서드 호출 여기다.
+                Debug.Log("돌진하지 않습니다.");
+            }
+            
+
+        }
+       
+        else if(isMove && hit.collider == null)
+        {
+            UnChargeTime += Time.deltaTime;
+            if (UnChargeTime > NotChargeTime)
+            {
+                isRush = false;
+                isMove = false;
+                UnChargeTime = 0;
+            }
+            Debug.Log("hit충돌x");
+        }
+        
+ 
+    }
+
+    public Vector2 PpDir;
+    void PpDirection()
+    {
+        if(playerTransform.transform.position.x > transform.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            PpDir = Vector2.right;
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            PpDir = Vector2.left;
+        }
+    }
+
+    
 }

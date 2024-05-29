@@ -65,7 +65,7 @@ public class PlayerControllerRope : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(isMoveStop == false)
+        if(isMoveStop == false && isRestraint == false)
         {
             Move();
         }
@@ -478,6 +478,16 @@ public class PlayerControllerRope : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         isMoveStop = false;
     }
+
+    public bool isRestraint;
+    public IEnumerator PpRestraint(float time)
+    {
+        //속박 애니메이션 재생 
+        Debug.Log("속박 이동 정지");
+        isRestraint = true;
+        yield return new WaitForSeconds(time);
+        isRestraint = false;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
@@ -515,7 +525,8 @@ public class PlayerControllerRope : MonoBehaviour
             nearItem = other.gameObject;
             Debug.Log(nearItem.name);
         }
-       
+        
+
     }
 
     private void OnTriggerExit(Collider other)
