@@ -2570,8 +2570,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  ShootDistance: 3
-  projectileSpeed: 9
+  ShootDistance: 10
+  projectileSpeed: 5
   DragonWeapon: {fileID: 1385130430605870324, guid: 113f56d58cfba4041bfd94f97d6a3e52, type: 3}
   isCreateZakoom: 0
   ZaKoomObj: {fileID: 8019427082618062097, guid: 141868e5a60d156409954039eab1e492, type: 3}
@@ -2582,6 +2582,15 @@ MonoBehaviour:
   isGraplingCooldown: 0
   graplingCooldownTimer: 0
   graplingCooldownDuration: 10
+  chargeSpeed: 2
+  isRush: 0
+  chargeMaxDistance: 5
+  chargeDistace: 10
+  isChargeDel: 2
+  UnChargeTime: 0
+  NotChargeTime: 5
+  isMove: 0
+  PpDir: {x: 0, y: 0}
 --- !u!212 &319324622
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12508,7 +12517,6 @@ MonoBehaviour:
     m_Bits: 32768
   rayDistance: 3
   isMove: 0
-  isCollHook: 0
   color: {r: 0.99548566, g: 1, b: 0.07058823, a: 1}
   outlineSize: 2
   missSprite: {fileID: 21300000, guid: 6d01503afda11de478bbcba2e7c7067e, type: 3}
@@ -18553,7 +18561,7 @@ PrefabInstance:
       objectReference: {fileID: 1544696274998534039}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.56
+      value: 5.48
       objectReference: {fileID: 0}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18598,6 +18606,10 @@ PrefabInstance:
     - target: {fileID: 6919277150649794602, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267813865469448253, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
+      propertyPath: jumpForce
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7267813865469448253, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: baseAtkboxSize.x
