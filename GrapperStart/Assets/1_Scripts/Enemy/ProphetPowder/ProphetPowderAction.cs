@@ -174,7 +174,7 @@ public class ProphetPowderAction : MonoBehaviour
                     PlayerControllerRope playerController = FindAnyObjectByType<PlayerControllerRope>();
                     if (playerController != null)
                     {
-                        StartCoroutine(GraplingKnockback(playerController));
+                        StartCoroutine(GraplingKnockback(playerController,nockbackForce));
                         
                     }
                 }
@@ -188,11 +188,10 @@ public class ProphetPowderAction : MonoBehaviour
 
         //DragonShoot(); //밀쳐낸 적에게 용언 발사.
     }
-    IEnumerator GraplingKnockback(PlayerControllerRope playerController)
+    IEnumerator GraplingKnockback(PlayerControllerRope playerController,float nockbackForce)
     {
         yield return playerController.BMSkillMove(transform, nockbackForce);
-        yield return new WaitForSeconds(0.5f);
-        DragonShoot();
+        //DragonShoot();
         StartGraplingCooldown();
     }
     void StartGraplingCooldown()
@@ -231,7 +230,7 @@ public class ProphetPowderAction : MonoBehaviour
     {
         isRush = true;
 
-
+        lastPlayerPos = playerObject.transform.position;
     }
 
     public float UnChargeTime;
@@ -240,56 +239,110 @@ public class ProphetPowderAction : MonoBehaviour
     public bool isMove;
     IEnumerator ChargeToPlayer()
     {
-        lastPlayerPos = playerObject.transform.position;
+        
         PpDirection();
         //돌진 준비 애니메이션 재생 코드 여기다. 
         yield return new WaitForSeconds(isChargeDel);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, chargeDistace,playerLayer);
         Debug.DrawRay(transform.position,PpDir * chargeDistace, Color.red);
-        float elapsedTime = 0f;
+
+        float playerdistance = Mathf.Abs(lastPlayerPos.x - transform.position.x);
+
         if (hit.collider != null)
         {
-            //float playerdistance = Mathf.Abs(lastPlayerPos - transform.position.x);
-            while (hit.collider.CompareTag("Player") && elapsedTime < 1.0f)
-            {
-                transform.position = Vector2.Lerp(transform.position, lastPlayerPos, elapsedTime);
-                elapsedTime += Time.deltaTime * chargeSpeed;
 
-                yield return null;
+            //while (hit.collider.CompareTag("Player") && elapsedTime < 3.0f)
+            //{
+            //    transform.position = Vector2.Lerp(transform.position, lastPlayerPos , elapsedTime);
+            //    elapsedTime += Time.deltaTime * chargeSpeed;
+
+            //    yield return null;
+            //}
+
+
+            if (playerdistance > chargeMaxDistance)
+            {
+                isMove = true;
+                Debug.Log("돌진합니다.");
+                transform.position += (Vector3)PpDir * chargeSpeed * Time.deltaTime;
+            }
+            else
+            {
+                MeleeAttack();
+                playerdistance = 0.0f;
+                //척력 공격 메서드 호출 여기다.
+                Debug.Log("돌진하지 않습니다.");
             }
 
-            //if (playerdistance > chargeMaxDistance )
-            //{
-            //    isMove = true;
-            //    Debug.Log("돌진합니다.");
-            //    transform.position += (Vector3)PpDir * chargeSpeed * Time.deltaTime;
-            //}
-            //else
-            //{
-            //    //척력 공격 메서드 호출 여기다.
-            //    Debug.Log("돌진하지 않습니다.");
-            //}
-            
 
         }
        
         
         
-        else if(isMove && hit.collider == null)
+        else if(hit.collider == null)
         {
+            
             UnChargeTime += Time.deltaTime;
             if (UnChargeTime > NotChargeTime)
             {
+                //기본 상태 애니메이션 
                 isRush = false;
                 isMove = false;
                 UnChargeTime = 0;
+
+                Invoke("FindPlayer", 3.0f);
             }
             Debug.Log("hit충돌x");
         }
 
-        Debug.Log("돌진중지");
     }
+
+    public Transform bounsing;
+    public Vector3 bounsingSize;
+    public bool isAttack = false;
+    public float meleeAttackForce;
+    void MeleeAttack()
+    {
+        if (isGraplingCooldown)
+        {
+            Debug.Log("쿨타임 중입니다.");
+            return; // 아무것도 실행안하고 반환
+        }
+
+        isAttack = false;
+        Collider2D[] coliderMelee = Physics2D.OverlapBoxAll(bounsing.position, bounsingSize, 0);
+
+        foreach(Collider2D collider in coliderMelee)
+        {
+            if(collider.CompareTag("Player"))
+            {
+                isAttack = true;
+            }
+        }
+
+        if(isAttack)
+        {
+            //척력공격 애니메이션 재생
+            Debug.Log("공격 범위에 있음 -> 넉백");
+            PlayerControllerRope playerController = FindAnyObjectByType<PlayerControllerRope>();
+            if (playerController != null)
+            {
+                StartCoroutine(GraplingKnockback(playerController, meleeAttackForce));
+
+               
+
+            }
+
+        }
+        else
+        {
+            Debug.Log("공격 범위에 없음");
+        }
+    }
+
+
+
 
     public Vector2 PpDir;
     void PpDirection()
@@ -307,5 +360,10 @@ public class ProphetPowderAction : MonoBehaviour
         }
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawWireCube(bounsing.position, bounsingSize);//DrawWireCube(pos.position,boxsize)      
+    }
 }
