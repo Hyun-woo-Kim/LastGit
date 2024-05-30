@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class PlayerControllerRope : MonoBehaviour
@@ -483,8 +484,10 @@ public class PlayerControllerRope : MonoBehaviour
     public IEnumerator PpRestraint(float time)
     {
         //속박 애니메이션 재생 
+        animatorPlayer.SetTrigger("PlayerHit");
         Debug.Log("속박 이동 정지");
         isRestraint = true;
+        animatorPlayer.SetFloat("Position_X", 0);
         yield return new WaitForSeconds(time);
         isRestraint = false;
     }
