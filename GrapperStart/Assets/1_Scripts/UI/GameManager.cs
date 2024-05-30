@@ -78,15 +78,15 @@ public class GameManager : MonoBehaviour
 
     void Talk(int id, bool isNpc)
     {
-       string dialogueData = dialogueManager.GetTalk(id, DialogueIndex);
+       //string dialogueData = dialogueManager.GetTalk(id, DialogueIndex);
        
-        if(isNpc)
-        {
-            dialogueText.text = dialogueData;
-        }
-        else
-        {
-            dialogueText.text = dialogueData;
-        }
+        //if(isNpc)
+        //{
+        //    dialogueText.text = dialogueData;
+        //}
+        //else
+        //{
+        //    dialogueText.text = dialogueData;
+        //}
     }
 }
