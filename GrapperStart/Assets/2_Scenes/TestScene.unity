@@ -2612,8 +2612,8 @@ MonoBehaviour:
   nockbackForce: 1
   isGraplingCooldown: 0
   graplingCooldownTimer: 0
-  graplingCooldownDuration: 10
-  chargeSpeed: 2
+  graplingCooldownDuration: 3
+  chargeSpeed: 5
   isRush: 0
   chargeMaxDistance: 5
   chargeDistace: 10
@@ -2625,7 +2625,7 @@ MonoBehaviour:
   bounsing: {fileID: 36088439}
   bounsingSize: {x: 1.06, y: 2.67, z: 0}
   isAttack: 0
-  meleeAttackForce: 0.5
+  meleeAttackForce: 5
   PpDir: {x: 0, y: 0}
 --- !u!212 &319324622
 SpriteRenderer:
@@ -2688,7 +2688,7 @@ Transform:
   m_GameObject: {fileID: 319324620}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15769465, y: -7.24, z: -8.391085}
+  m_LocalPosition: {x: 1.44, y: -7.24, z: -8.391085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18598,7 +18598,7 @@ PrefabInstance:
       objectReference: {fileID: 1544696274998534039}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.48
+      value: 11.75
       objectReference: {fileID: 0}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.y
