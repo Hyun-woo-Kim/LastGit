@@ -236,37 +236,46 @@ public class ProphetPowderAction : MonoBehaviour
 
     public float UnChargeTime;
     public float NotChargeTime;
-
+    public Vector3 lastPlayerPos;
     public bool isMove;
     IEnumerator ChargeToPlayer()
     {
-        playerTransform = playerObject.transform;
+        lastPlayerPos = playerObject.transform.position;
         PpDirection();
         //돌진 준비 애니메이션 재생 코드 여기다. 
         yield return new WaitForSeconds(isChargeDel);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, chargeDistace,playerLayer);
         Debug.DrawRay(transform.position,PpDir * chargeDistace, Color.red);
-
-        if(hit.collider != null)
+        float elapsedTime = 0f;
+        if (hit.collider != null)
         {
-            float playerdistance = Mathf.Abs(hit.point.x - transform.position.x);
+            //float playerdistance = Mathf.Abs(lastPlayerPos - transform.position.x);
+            while (hit.collider.CompareTag("Player") && elapsedTime < 1.0f)
+            {
+                transform.position = Vector2.Lerp(transform.position, lastPlayerPos, elapsedTime);
+                elapsedTime += Time.deltaTime * chargeSpeed;
 
-            if (playerdistance > chargeMaxDistance )
-            {
-                isMove = true;
-                Debug.Log("돌진합니다.");
-                transform.position += (Vector3)PpDir * chargeSpeed * Time.deltaTime;
+                yield return null;
             }
-            else
-            {
-                //척력 공격 메서드 호출 여기다.
-                Debug.Log("돌진하지 않습니다.");
-            }
+
+            //if (playerdistance > chargeMaxDistance )
+            //{
+            //    isMove = true;
+            //    Debug.Log("돌진합니다.");
+            //    transform.position += (Vector3)PpDir * chargeSpeed * Time.deltaTime;
+            //}
+            //else
+            //{
+            //    //척력 공격 메서드 호출 여기다.
+            //    Debug.Log("돌진하지 않습니다.");
+            //}
             
 
         }
        
+        
+        
         else if(isMove && hit.collider == null)
         {
             UnChargeTime += Time.deltaTime;
@@ -278,13 +287,14 @@ public class ProphetPowderAction : MonoBehaviour
             }
             Debug.Log("hit충돌x");
         }
-        
- 
+
+        Debug.Log("돌진중지");
     }
 
     public Vector2 PpDir;
     void PpDirection()
     {
+        playerTransform = playerObject.transform;
         if(playerTransform.transform.position.x > transform.position.x)
         {
             transform.localScale = new Vector3(1, 1, 1);
