@@ -4269,6 +4269,7 @@ MonoBehaviour:
   currentMP: 3
   maxMP: 3
   isMPzero: 0
+  mpUpTime: 0
   damageInterval: 1
   totalDuration: 10
   isDamaging: 0
@@ -4277,6 +4278,9 @@ MonoBehaviour:
   SelectUI: {fileID: 1745916338}
   isSelectUI: 0
   isDead: 0
+  DeathUI: {fileID: 0}
+  Lava: {fileID: 0}
+  Lavaoffset: {x: 0, y: 0, z: 0}
 --- !u!114 &637652023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5620,11 +5624,11 @@ PrefabInstance:
       objectReference: {fileID: 912668345}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.99
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.61
+      value: -2.56
       objectReference: {fileID: 0}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.z

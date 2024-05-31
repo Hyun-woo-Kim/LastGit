@@ -3,46 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum PpPaze
 {
-    STATE_PATROL,
-    STATE_ROCKATTACK,
-    STATE_STOP,
-    STATE_FOLLOW,
-    STATE_DIE,
+    STATE_None,
+    STATE_Basic,
+    STATE_PazeOne,
+    STATE_PazeTwo,
+    STATE_PazeThree,
+    STATE_PazeFour,
 }
 public class ProphetPowderAction : MonoBehaviour
 {
     // 근거리 사용 무기: 척력
     //원거리 사용 무기: 인력, 용언
+    public PpPaze ppState;
     SpriteRenderer PpSpriteRenderer;
     Transform playerObject;
     void Start()
     {
+        this.ppState = PpPaze.STATE_None;
         playerObject = GameObject.Find("Player").transform;
         isAttackStart = false;
         PpSpriteRenderer = GetComponent<SpriteRenderer>();
-        //맵 한 가운데에서 순간이동을 하며 등장
-        StartCoroutine(FadeInSprite());
+        isMoving = false;
+
+        if (ppState == PpPaze.STATE_None)
+        {
+            StartCoroutine(FadeInSprite());
+        }
     }
 
-    public bool isAttackStart;
-
-    public GameObject TelePortEffect;
-    private GameObject TpEffectPrefab;
-    public float TelePortDel; //이펙트 보여줄 딜레이. 이 시간이 끝나면 순간이동
     IEnumerator FadeInSprite()
     {
+        PpDirection();
+
         isAttackStart = false;
 
         Color color = PpSpriteRenderer.color;
         color.a = 0;
         PpSpriteRenderer.color = color;
-        if(TpEffectPrefab == null)
+        if (TpEffectPrefab == null)
         {
-             TpEffectPrefab = Instantiate(TelePortEffect, transform.position, Quaternion.identity);
+            TpEffectPrefab = Instantiate(TelePortEffect, transform.position, Quaternion.identity);
         }
-      
+
         yield return new WaitForSeconds(TelePortDel);
         Destroy(TpEffectPrefab);
+
+        lastPlayerPos = playerObject.transform.position;
         while (color.a < 1)
         {
             color.a += Time.deltaTime;
@@ -52,24 +58,75 @@ public class ProphetPowderAction : MonoBehaviour
 
         color.a = 1;
         PpSpriteRenderer.color = color;
-        FindPlayer();
 
-
+        this.ppState = PpPaze.STATE_Basic;
+        Debug.Log("State changed to STATE_Basic");
+        isRush = true;
     }
-    void Update()
+    public float moveDistance = 5.0f; // 이동할 거리
+
+    IEnumerator PpMove()
     {
-        if(isAttackStart)
+        if (isMoving)
         {
-            //DragonShoot();
+            yield break;
         }
 
-        GraplingPlayerNockBack(); //1. 플레이어가 그래플링을 선지자 파우더에게 했을 때만 실행됨
-        UpdateGraplingCooldown(); //2. 플레이어를 밀치고 나서만 실행되며,쿨타임 메서드임.
+        isMoving = true;
 
-        if (isRush)
+        float elapsedTime = 0f;
+        Vector2 initialPosition = (Vector2)transform.position; // 명시적으로 캐스팅하여 Vector2로 변환
+
+        // Calculate the target position
+        Vector2 direction = (lastPlayerPos - initialPosition).normalized;
+        Vector2 targetPosition = initialPosition + direction * moveDistance;
+
+        while (elapsedTime < 1.0f)
         {
-            StartCoroutine(ChargeToPlayer());
-            //ChargeToPlayer();
+            transform.position = Vector2.Lerp(initialPosition, targetPosition, elapsedTime);
+            elapsedTime += Time.deltaTime * chargeSpeed;
+            yield return null;
+        }
+        transform.position = targetPosition;
+
+        this.ppState = PpPaze.STATE_PazeOne;
+        isRush = true;
+        isMoving = false;
+    }
+
+    public bool isAttackStart;
+    public bool isMoving;
+
+    public GameObject TelePortEffect;
+    private GameObject TpEffectPrefab;
+    public float TelePortDel; // 이펙트 보여줄 딜레이. 이 시간이 끝나면 순간이동
+
+    void Update()
+    {
+
+        //GraplingPlayerNockBack(); // 1. 플레이어가 그래플링을 선지자 파우더에게 했을 때만 실행됨
+        //UpdateGraplingCooldown(); // 2. 플레이어를 밀치고 나서만 실행되며, 쿨타임 메서드임.
+
+        switch (this.ppState)
+        {
+            case PpPaze.STATE_Basic:
+                StartCoroutine(PpMove());
+                break;
+            case PpPaze.STATE_PazeOne:
+                if (isChargeReady == false)
+                {
+                    StartCoroutine(ChargedStop());
+                }
+<<<<<<< Updated upstream
+                else if (isRush == true && isChargeReady == true)
+=======
+                else if(isRush == true && isChargeReady == true)
+>>>>>>> Stashed changes
+                {
+                    StartCoroutine(ChargeToPlayer());
+                }
+                break;
+                // 필요하다면 다른 상태 추가
         }
     }
 
@@ -93,22 +150,21 @@ public class ProphetPowderAction : MonoBehaviour
 
             if (playerdistance < ShootDistance)
             {
-                //용언 발사
-                if(DragonWeaponPrefab == null)
-                {
-                    DragonWeaponPrefab = Instantiate(DragonWeapon, transform.GetChild(1).position, Quaternion.identity);
-                    Rigidbody2D rb = DragonWeaponPrefab.GetComponent<Rigidbody2D>();
-                    if (rb != null)
-                    {
-                        rb.velocity = Vector2.right * projectileSpeed;
-                    }
-                }
+                //용언 소환
+                //if(DragonWeaponPrefab == null)
+                //{
+
+                //}
+<<<<<<< Updated upstream
+
+=======
                
+>>>>>>> Stashed changes
                 if (isCreateZakoom == false)
                 {
                     StartCoroutine(ZaKoomCreate());
                 }
-                
+
             }
         }
     }
@@ -126,11 +182,11 @@ public class ProphetPowderAction : MonoBehaviour
     {
         isAttackStart = false; //false로 설정하여 이 코루틴 진입 시 프레임 1번만 돌고 Update문에서 호출 x -> true로 설정 시 용언 발사 가능.
         yield return new WaitForSeconds(ZaKoomEffectDel);
-        if(CtEffectPrefab == null)
+        if (CtEffectPrefab == null)
         {
             Debug.Log("자쿰 돌 소환 이펙트");
             CtEffectPrefab = Instantiate(CreateEffect, transform.GetChild(0).position, Quaternion.identity);
-          
+
         }
 
         yield return new WaitForSeconds(ZaKoomCreateDel);
@@ -141,13 +197,13 @@ public class ProphetPowderAction : MonoBehaviour
             Debug.Log("자쿰 돌 소환");
             ZaKoomPrefab = Instantiate(ZaKoomObj, transform.GetChild(0).position, Quaternion.identity);
         }
-        
+
         isCreateZakoom = true;
         //자쿰 돌 소환
         yield return null;
     }
 
-   
+
     public float nockbackForce;
     public bool isGraplingCooldown;
     public float graplingCooldownTimer; // 쿨타임 타이머
@@ -174,8 +230,8 @@ public class ProphetPowderAction : MonoBehaviour
                     PlayerControllerRope playerController = FindAnyObjectByType<PlayerControllerRope>();
                     if (playerController != null)
                     {
-                        StartCoroutine(GraplingKnockback(playerController,nockbackForce));
-                        
+                        StartCoroutine(GraplingKnockback(playerController, nockbackForce));
+
                     }
                 }
             }
@@ -184,11 +240,11 @@ public class ProphetPowderAction : MonoBehaviour
         {
             Debug.Log("적이 그래플링 하지 않음");
         }
-        
+
 
         //DragonShoot(); //밀쳐낸 적에게 용언 발사.
     }
-    IEnumerator GraplingKnockback(PlayerControllerRope playerController,float nockbackForce)
+    IEnumerator GraplingKnockback(PlayerControllerRope playerController, float nockbackForce)
     {
         yield return playerController.BMSkillMove(transform, nockbackForce);
         //DragonShoot();
@@ -214,9 +270,6 @@ public class ProphetPowderAction : MonoBehaviour
     }
 
 
-
-
-
     public float chargeSpeed = 5f;
     private Transform playerTransform;
     public bool isRush = false;
@@ -226,76 +279,103 @@ public class ProphetPowderAction : MonoBehaviour
 
     public float isChargeDel = 1f; // 돌진 딜레이
 
-    void FindPlayer()
-    {
-        isRush = true;
-
-        lastPlayerPos = playerObject.transform.position;
-    }
-
     public float UnChargeTime;
     public float NotChargeTime;
-    public Vector3 lastPlayerPos;
+    private Vector2 lastPlayerPos;
     public bool isMove;
-    IEnumerator ChargeToPlayer()
+    public bool isChargeReady;
+
+    IEnumerator ChargedStop()
     {
-        
+        isChargeReady = false;
         PpDirection();
+        Debug.Log("돌진 준비");
         //돌진 준비 애니메이션 재생 코드 여기다. 
         yield return new WaitForSeconds(isChargeDel);
+        Debug.Log("돌진 준비 끝");
+        isChargeReady = true;
+        isRush = true;
+    }
+<<<<<<< Updated upstream
 
+    IEnumerator ChargeToPlayer()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+
+        Debug.Log("돌진 시작");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, chargeDistace, playerLayer);
+        Debug.DrawRay(transform.position, PpDir * chargeDistace, Color.red);
+=======
+   
+    IEnumerator ChargeToPlayer()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+
+        Debug.Log("돌진 시작");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, chargeDistace,playerLayer);
         Debug.DrawRay(transform.position,PpDir * chargeDistace, Color.red);
+>>>>>>> Stashed changes
 
         float playerdistance = Mathf.Abs(lastPlayerPos.x - transform.position.x);
 
         if (hit.collider != null)
         {
-
-            //while (hit.collider.CompareTag("Player") && elapsedTime < 3.0f)
-            //{
-            //    transform.position = Vector2.Lerp(transform.position, lastPlayerPos , elapsedTime);
-            //    elapsedTime += Time.deltaTime * chargeSpeed;
-
-            //    yield return null;
-            //}
-
-
             if (playerdistance > chargeMaxDistance)
             {
                 isMove = true;
-                Debug.Log("돌진합니다.");
                 transform.position += (Vector3)PpDir * chargeSpeed * Time.deltaTime;
             }
             else
             {
-                MeleeAttack();
-                playerdistance = 0.0f;
-                //척력 공격 메서드 호출 여기다.
-                Debug.Log("돌진하지 않습니다.");
+                Debug.Log("돌진 중지");
             }
-
-
         }
+<<<<<<< Updated upstream
+
+        else if (hit.collider == null)
+        {
+            if (isMove)
+            {
+                UnChargeTime += Time.deltaTime;
+                if (UnChargeTime > NotChargeTime)
+                {
+                    //기본 상태 애니메이션 
+                    isRush = false;
+                    isMove = false;
+                    UnChargeTime = 0;
+
+=======
        
-        
-        
         else if(hit.collider == null)
         {
-            
-            UnChargeTime += Time.deltaTime;
-            if (UnChargeTime > NotChargeTime)
+            if(isMove)
             {
-                //기본 상태 애니메이션 
-                isRush = false;
-                isMove = false;
-                UnChargeTime = 0;
+                UnChargeTime += Time.deltaTime;
+                if (UnChargeTime > NotChargeTime)
+                {
+                    //기본 상태 애니메이션 
+                    isRush = false;
+                    isMove = false;
+                    UnChargeTime = 0;
 
-                Invoke("FindPlayer", 3.0f);
+>>>>>>> Stashed changes
+                    Debug.Log("돌진 ");
+                    Invoke("FindPlayer", 3.0f);
+                }
             }
+<<<<<<< Updated upstream
+
             Debug.Log("hit충돌x");
         }
-
+        // 코루틴 종료 시 플래그 해제
+=======
+            
+            Debug.Log("hit충돌x");
+        }
+         // 코루틴 종료 시 플래그 해제
+>>>>>>> Stashed changes
     }
 
     public Transform bounsing;
@@ -313,15 +393,15 @@ public class ProphetPowderAction : MonoBehaviour
         isAttack = false;
         Collider2D[] coliderMelee = Physics2D.OverlapBoxAll(bounsing.position, bounsingSize, 0);
 
-        foreach(Collider2D collider in coliderMelee)
+        foreach (Collider2D collider in coliderMelee)
         {
-            if(collider.CompareTag("Player"))
+            if (collider.CompareTag("Player"))
             {
                 isAttack = true;
             }
         }
 
-        if(isAttack)
+        if (isAttack)
         {
             //척력공격 애니메이션 재생
             Debug.Log("공격 범위에 있음 -> 넉백");
@@ -330,7 +410,7 @@ public class ProphetPowderAction : MonoBehaviour
             {
                 StartCoroutine(GraplingKnockback(playerController, meleeAttackForce));
 
-               
+
 
             }
 
@@ -348,7 +428,7 @@ public class ProphetPowderAction : MonoBehaviour
     void PpDirection()
     {
         playerTransform = playerObject.transform;
-        if(playerTransform.transform.position.x > transform.position.x)
+        if (playerTransform.transform.position.x > transform.position.x)
         {
             transform.localScale = new Vector3(1, 1, 1);
             PpDir = Vector2.right;
