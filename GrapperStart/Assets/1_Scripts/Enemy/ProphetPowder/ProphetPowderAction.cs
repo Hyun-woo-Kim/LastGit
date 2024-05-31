@@ -117,7 +117,11 @@ public class ProphetPowderAction : MonoBehaviour
                 {
                     StartCoroutine(ChargedStop());
                 }
+<<<<<<< Updated upstream
                 else if (isRush == true && isChargeReady == true)
+=======
+                else if(isRush == true && isChargeReady == true)
+>>>>>>> Stashed changes
                 {
                     StartCoroutine(ChargeToPlayer());
                 }
@@ -151,7 +155,11 @@ public class ProphetPowderAction : MonoBehaviour
                 //{
 
                 //}
+<<<<<<< Updated upstream
 
+=======
+               
+>>>>>>> Stashed changes
                 if (isCreateZakoom == false)
                 {
                     StartCoroutine(ZaKoomCreate());
@@ -288,6 +296,7 @@ public class ProphetPowderAction : MonoBehaviour
         isChargeReady = true;
         isRush = true;
     }
+<<<<<<< Updated upstream
 
     IEnumerator ChargeToPlayer()
     {
@@ -297,6 +306,17 @@ public class ProphetPowderAction : MonoBehaviour
         Debug.Log("돌진 시작");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, chargeDistace, playerLayer);
         Debug.DrawRay(transform.position, PpDir * chargeDistace, Color.red);
+=======
+   
+    IEnumerator ChargeToPlayer()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+
+        Debug.Log("돌진 시작");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, chargeDistace,playerLayer);
+        Debug.DrawRay(transform.position,PpDir * chargeDistace, Color.red);
+>>>>>>> Stashed changes
 
         float playerdistance = Mathf.Abs(lastPlayerPos.x - transform.position.x);
 
@@ -312,6 +332,7 @@ public class ProphetPowderAction : MonoBehaviour
                 Debug.Log("돌진 중지");
             }
         }
+<<<<<<< Updated upstream
 
         else if (hit.collider == null)
         {
@@ -325,14 +346,36 @@ public class ProphetPowderAction : MonoBehaviour
                     isMove = false;
                     UnChargeTime = 0;
 
+=======
+       
+        else if(hit.collider == null)
+        {
+            if(isMove)
+            {
+                UnChargeTime += Time.deltaTime;
+                if (UnChargeTime > NotChargeTime)
+                {
+                    //기본 상태 애니메이션 
+                    isRush = false;
+                    isMove = false;
+                    UnChargeTime = 0;
+
+>>>>>>> Stashed changes
                     Debug.Log("돌진 ");
                     Invoke("FindPlayer", 3.0f);
                 }
             }
+<<<<<<< Updated upstream
 
             Debug.Log("hit충돌x");
         }
         // 코루틴 종료 시 플래그 해제
+=======
+            
+            Debug.Log("hit충돌x");
+        }
+         // 코루틴 종료 시 플래그 해제
+>>>>>>> Stashed changes
     }
 
     public Transform bounsing;
