@@ -48,10 +48,6 @@ public class PlayerControllerRope : MonoBehaviour
     public float raycastDistance = 50f;  // Raycast 최대 거리
     public LayerMask npcLayerMask;        // NPC 레이어 마스크 설정
 
-    int direction;
-    float detect_range = 1.5f;
-    GameObject scanObject;
-
     void Start()
     {
         playerData.curSpeed = InitSpeed;
@@ -74,41 +70,9 @@ public class PlayerControllerRope : MonoBehaviour
         {
             Move();
         }
+        
 
-        //Landing Paltform
-        Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0)); //빔을 쏨(디버그는 게임상에서보이지 않음 ) 시작위치, 어디로 쏠지, 빔의 색 
-
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
-        //빔의 시작위치, 빔의 방향 , 1:distance , ( 빔에 맞은 오브젝트를 특정 레이어로 한정 지어야할 때 사용 ) // RaycastHit2D : Ray에 닿은 오브젝트 클래스 
-
-        //rayHit는 여러개 맞더라도 처음 맞은 오브젝트의 정보만을 저장(?) 
-        if (rigid.velocity.y < 0)
-        { // 뛰어올랐다가 아래로 떨어질 때만 빔을 쏨 
-            if (rayHit.collider != null)
-            { //빔을 맞은 오브젝트가 있을때  -> 맞지않으면 collider도 생성되지않음 
-              // if (rayHit.distance < 0.5f)
-              //animator.SetBool("isJumping", false); //거리가 0.5보다 작아지면 변경
-
-            }
-        }
-
-        Debug.DrawRay(rigid.position, new Vector3(direction * detect_range, 0, 0), new Color(0, 0, 1));
-
-        //Layer가 Object인 물체만 rayHit_detect에 감지 
-        RaycastHit2D rayHit_detect = Physics2D.Raycast(rigid.position, new Vector3(direction, 0, 0), detect_range, LayerMask.NameToLayer("Object"));
-
-        //감지되면 scanObject에 오브젝트 저장 
-        if (rayHit_detect.collider != null)
-        {
-            scanObject = rayHit_detect.collider.gameObject;
-            Debug.Log(scanObject.name);
-
-        }
-        else
-        {
-            scanObject = null;
-        }
-
+       
     }
    
     Vector3 mouse;
@@ -138,17 +102,23 @@ public class PlayerControllerRope : MonoBehaviour
         AttackCool();
 
 
-        if (Input.GetKeyDown(KeyCode.K))
+        // 카메라의 Forward 방향으로 Raycast 발사
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        // 레이캐스트 실행
+        if (Physics.Raycast(ray, out hit, raycastDistance, npcLayerMask))
         {
-
-            if (scanObject != null)
+            // 충돌한 객체가 "NPC" 태그를 가지고 있는지 확인
+            if (hit.collider.CompareTag("Npc"))
             {
-                GameManager.instance.Action(scanObject);
-                //Debug.Log(scanObject.name);
+                Debug.Log("NPC found: " + hit.collider.name);
+                // NPC를 찾았을 때의 추가 처리 (예: NPC에게 알림 보내기, 효과 재생 등)
             }
-
-
         }
+
+        // 기즈모를 사용하여 Raycast 시각화
+        Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red);
     }
 
     void PlayerCollider()
@@ -302,7 +272,6 @@ public class PlayerControllerRope : MonoBehaviour
                 Vector2 moveDirection = new Vector2(horizontalInput, 0);
                 rigid.velocity = new Vector2(moveDirection.x * playerData.curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(1, 1, 1);
-                direction = 2;
               
                 //transform.eulerAngles = new Vector3(0, 0, 0);
                 //sprPlayer.flipX = false;
@@ -319,8 +288,7 @@ public class PlayerControllerRope : MonoBehaviour
                 Vector2 moveDirection = new Vector2(-horizontalInput, 0);
                 rigid.velocity = new Vector2(-moveDirection.x * playerData.curSpeed, rigid.velocity.y);
                 transform.localScale = new Vector3(-1, 1, 1);
-                direction = -2;
-
+              
                 //transform.eulerAngles = new Vector3(0, 180, 0);
                 //sprPlayer.flipX = true;
                 if (grapling.isFlyReady == false)
@@ -530,6 +498,49 @@ public class PlayerControllerRope : MonoBehaviour
         Gizmos.DrawWireCube(attackpos.position, baseAtkboxSize);//DrawWireCube(pos.position,boxsize)      
         Gizmos.DrawWireCube(playerPos.position, playerColliderBox);//DrawWireCube(pos.position,boxsize)      
     }
+
+
+    //Item 관련
+    private bool iDown;
+    GameObject nearItem;
+    public GameObject[] Items;
+    public bool[] hasItems;
+
+    void Interation()
+    {
+        if (iDown && nearItem != null)
+        {
+            if (nearItem.tag == "Weapon")
+            {
+                ItemTest item = nearItem.GetComponent<ItemTest>();
+                int ItemIndex = item.value;
+                hasItems[ItemIndex] = true;
+
+                Destroy(nearItem);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            nearItem = other.gameObject;
+            Debug.Log(nearItem.name);
+        }
+        
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            nearItem = null;
+        }
+    }
+
+       
 
 
 }
