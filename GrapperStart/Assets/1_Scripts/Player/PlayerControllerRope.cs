@@ -76,7 +76,7 @@ public class PlayerControllerRope : MonoBehaviour
         }
 
         //Landing Paltform
-        Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0)); //빔을 쏨(디버그는 게임상에서보이지 않음 ) 시작위치, 어디로 쏠지, 빔의 색 
+        Debug.DrawRay(rigid.position, Vector3.down*2, new Color(0, 1, 0)); //빔을 쏨(디버그는 게임상에서보이지 않음 ) 시작위치, 어디로 쏠지, 빔의 색 
 
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
         //빔의 시작위치, 빔의 방향 , 1:distance , ( 빔에 맞은 오브젝트를 특정 레이어로 한정 지어야할 때 사용 ) // RaycastHit2D : Ray에 닿은 오브젝트 클래스 
@@ -92,7 +92,7 @@ public class PlayerControllerRope : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(rigid.position, new Vector3(direction * detect_range, 0, 0), new Color(0, 0, 1));
+        Debug.DrawRay(rigid.position, new Vector3(direction * detect_range, 0, 0), new Color(0, 1, 0));
 
         //Layer가 Object인 물체만 rayHit_detect에 감지 
         RaycastHit2D rayHit_detect = Physics2D.Raycast(rigid.position, new Vector3(direction, 0, 0), detect_range, LayerMask.NameToLayer("Object"));
@@ -138,17 +138,17 @@ public class PlayerControllerRope : MonoBehaviour
         AttackCool();
 
 
-        //if (Input.GetKeyDown(KeyCode.K))
-        //{
+        if (Input.GetKeyDown(KeyCode.K))
+        {
 
-        //    if (scanObject != null)
-        //    {
-        //        GameManager.instance.Action(scanObject);
-        //        //Debug.Log(scanObject.name);
-        //    }
+            if (scanObject != null)
+            {
+                GameManager.instance.Action(scanObject);
+                //Debug.Log(scanObject.name);
+            }
 
 
-        //}
+        }
     }
 
     void PlayerCollider()
