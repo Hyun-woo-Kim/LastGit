@@ -21,6 +21,8 @@ public class GraplingRange : MonoBehaviour
     private void Start()
     {
         grapling = FindFirstObjectByType <Grapling>();
+
+        Debug.Log("Å×½ºÆ®");
     }
     // Update is called once per frame
     void Update()
