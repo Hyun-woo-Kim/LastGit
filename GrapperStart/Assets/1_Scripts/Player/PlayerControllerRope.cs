@@ -54,9 +54,14 @@ public class PlayerControllerRope : MonoBehaviour
 
     void Start()
     {
+      
+    }
+
+    private void Awake()
+    {
         playerData.curSpeed = InitSpeed;
         grapling = GetComponent<Grapling>();
-        
+
         rigid = GetComponent<Rigidbody2D>();
         animatorPlayer = GetComponent<Animator>();
         sprPlayer = GetComponent<SpriteRenderer>();
@@ -95,7 +100,8 @@ public class PlayerControllerRope : MonoBehaviour
         Debug.DrawRay(rigid.position, new Vector3(direction * detect_range, 0, 0), new Color(0, 1, 0));
 
         //Layer가 Object인 물체만 rayHit_detect에 감지 
-        RaycastHit2D rayHit_detect = Physics2D.Raycast(rigid.position, new Vector3(direction, 0, 0), detect_range, LayerMask.NameToLayer("Object"));
+        LayerMask objectLayerMask = LayerMask.GetMask("Object");
+        RaycastHit2D rayHit_detect = Physics2D.Raycast(rigid.position, new Vector3(direction, 0, 0), detect_range, objectLayerMask);
 
         //감지되면 scanObject에 오브젝트 저장 
         if (rayHit_detect.collider != null)
@@ -137,8 +143,18 @@ public class PlayerControllerRope : MonoBehaviour
 
         AttackCool();
 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
 
-      
+            if (scanObject != null)
+            {
+                GameManager.instance.Action(scanObject);
+                //Debug.Log(scanObject.name);
+            }
+
+
+        }
+
     }
 
     void PlayerCollider()
