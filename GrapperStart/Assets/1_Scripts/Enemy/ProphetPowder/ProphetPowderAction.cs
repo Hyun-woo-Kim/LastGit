@@ -1,8 +1,10 @@
 using Cinemachine.Utility;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
+using static UnityEditor.PlayerSettings;
 public enum PpPaze
 {
     STATE_None,
@@ -31,6 +33,7 @@ public class ProphetPowderAction : MonoBehaviour
     [Header("##First Move")]
     public bool isMoving;
     public float chargeSpeed = 5f;
+    public float moveSpeed;
     public float moveDistance = 5.0f; // 이동할 거리
 
     [Header("##Chaged")]
@@ -38,26 +41,11 @@ public class ProphetPowderAction : MonoBehaviour
     public float chargeMaxDistance = 5f; // 돌진 가능한 최대 거리
     public float chargeDistace = 5f; // 돌진 조건 거리.
     public float isChargeDel = 1f; // 돌진 딜레이
-    public float UnChargeTime;
-    public float NotChargeTime;
     private Vector2 lastPlayerPos;
-    public bool isMove;
-    public bool isChargeReady;
     public bool isChaging;
 
-    [Header("##ZaKoomAtk")]
-    public GameObject BombEffect;
-    private GameObject bombEffectPrefab;
-    private IObjectPool<ProPhetWeapon> _Pool;
-    public float ZaKoomCreateDel; //몇 초 뒤에 자쿰 돌을 생성할건지 ,이 초가 지나면 자쿰 돌 생성
-    public float ZaKoomEffectDel; //몇 초 뒤에 자쿰 돌 소환 이펙트를 보여줄건지, 이 초가 지나면 자쿰 돌 소환 이펙트 생성
-    private IObjectPool<PpZaKoom> _ZaKoomPool; // 자쿰 돌을 위한 오브젝트 풀 추가
-    public bool isCreateZakoom;
-    public GameObject ZaKoomObj;
-    private GameObject ZaKoomPrefab;
-    public GameObject CreateEffect;
-    private GameObject CtEffectPrefab;
-    public bool isZaKoomActive = false; // 자쿰 돌 활성화 중인지 확인하는 플래그
+    
+
 
     [Header("##GraplingNockBackAtk")]
     public float nockbackForce;
@@ -69,6 +57,7 @@ public class ProphetPowderAction : MonoBehaviour
     public float ShootDistance;
 
     [Header("##DragonWeaponAtk")]
+    private IObjectPool<ProPhetWeapon> _Pool;
     public Transform bounsing;
     public Vector3 bounsingSize;
     public bool isAttack = false;
@@ -83,7 +72,6 @@ public class ProphetPowderAction : MonoBehaviour
     private void Awake()
     {
         _Pool = new ObjectPool<ProPhetWeapon>(CreateWeapon, OnGetWeapon, OnReleaseWeapon, OnDestroyWeapon, maxSize: 6);
-        _ZaKoomPool = new ObjectPool<PpZaKoom>(CreateZaKoom, OnGetZaKoom, OnReleaseZaKoom, OnDestroyZaKoom, maxSize: 1); // 자쿰 돌 풀 초기화
     }
     void Start()
     {
@@ -155,7 +143,7 @@ public class ProphetPowderAction : MonoBehaviour
 
         while (elapsedTime < 1.0f)
         {
-            transform.position = Vector2.Lerp(initialPosition, targetPosition, elapsedTime * chargeSpeed);
+            transform.position = Vector2.Lerp(initialPosition, targetPosition, elapsedTime * moveSpeed);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -174,6 +162,9 @@ public class ProphetPowderAction : MonoBehaviour
         GraplingPlayerNockBack(); // 1. 플레이어가 그래플링을 선지자 파우더에게 했을 때만 실행됨
         UpdateGraplingCooldown(); // 2. 플레이어를 밀치고 나서만 실행되며, 쿨타임 메서드임.
 
+       
+        UpdateChargingCooldown();
+
         switch (this.ppState)
         {
             case PpPaze.STATE_Basic:
@@ -184,98 +175,22 @@ public class ProphetPowderAction : MonoBehaviour
                
                 break;
             case PpPaze.STATE_PazeOne:
-                if (isChargeReady == false && grapling.isAttatch == false)
-                {
-                    StartCoroutine(ChargedStop());
-                }
-                else if (isRush == true && isChargeReady == true && grapling.isAttatch == false )
+                if (isRush == true && grapling.isAttatch == false && !isChaging)
                 {
                     StartCoroutine(ChargeToPlayer());
                 }
-              
+                else if (!isRush && isDragonAtkReady)
+                {
+                    MeleeAttack();
+                }
 
                 break;
                 // 필요하다면 다른 상태 추가
         }
+
+
     }
 
-
-    private PpZaKoom CreateZaKoom()
-    {
-        PpZaKoom zakoom = Instantiate(ZaKoomObj).GetComponent<PpZaKoom>();
-        zakoom.SetManagedPool(_ZaKoomPool);
-        return zakoom;
-    }
-
-    private void OnGetZaKoom(PpZaKoom zakoom)
-    {
-        zakoom.gameObject.SetActive(true);
-        isZaKoomActive = true;
-    }
-
-    private void OnReleaseZaKoom(PpZaKoom zakoom)
-    {
-        zakoom.gameObject.SetActive(false);
-        isZaKoomActive = false;
-          isCreateZakoom = false;
-    }
-
-    private void OnDestroyZaKoom(PpZaKoom zakoom)
-    {
-        Destroy(zakoom.gameObject);
-    }
-
-    IEnumerator ZaKoomCreate()
-    {
-        if (isZaKoomActive)
-        {
-            Debug.Log("자쿰 돌이 이미 활성화 중입니다.");
-            yield break;
-        }
-
-        isAttackStart = false;
-        yield return new WaitForSeconds(ZaKoomEffectDel);
-        if (CtEffectPrefab == null)
-        {
-            Debug.Log("자쿰 돌 소환 이펙트");
-            CtEffectPrefab = Instantiate(CreateEffect, transform.GetChild(0).position, Quaternion.identity);
-        }
-
-        yield return new WaitForSeconds(ZaKoomCreateDel);
-        Destroy(CtEffectPrefab);
-        Debug.Log("자쿰 돌 소환 이펙트 삭제");
-        if (!isZaKoomActive)
-        {
-            Debug.Log("자쿰 돌 소환");
-            var zakoom = _ZaKoomPool.Get();
-            zakoom.transform.position = transform.GetChild(0).position;
-            isZaKoomActive = true; // 자쿰 돌이 활성화된 상태로 설정
-
-            StartCoroutine(ZaKoomDestroy(zakoom));
-        }
-        isCreateZakoom = true;
-        yield return null;
-    }
-
-
-
-    IEnumerator ZaKoomDestroy(PpZaKoom zakoom)
-    {
-        yield return new WaitForSeconds(1f);
-
-        // 폭탄 이펙트 생성
-        if (bombEffectPrefab == null)
-        {
-            bombEffectPrefab = Instantiate(BombEffect, zakoom.transform.position, Quaternion.identity);
-        }
-
-        // 자쿰 오브젝트 비활성화
-        _ZaKoomPool.Release(zakoom);
-        isZaKoomActive = false;
-        // 1초 후 폭탄 이펙트 제거
-        yield return new WaitForSeconds(1f);
-        Destroy(bombEffectPrefab);
-    }
 
 
     void GraplingPlayerNockBack() //기본공격3: 적이 그래플링 스킬 사용하면 밀쳐내기 (쿨타임 존재) 
@@ -340,64 +255,67 @@ public class ProphetPowderAction : MonoBehaviour
         }
     }
 
-
-    IEnumerator ChargedStop()
+    public bool isChargingCooldown;
+    public float chargingCoolTimer = 5f; // 쿨타임 타이머
+    public float chargingCoolTimerDur;// 쿨타임 지속 시간
+    void StartChargingCooldown()
     {
-        isChargeReady = false;
-        PpDirection();
-        Debug.Log("돌진 준비");
-        yield return new WaitForSeconds(isChargeDel);
-        Debug.Log("돌진 준비 끝");
-        isChargeReady = true;
-        isRush = true;
-        isMove = true;
+        isChargingCooldown = true; // 쿨타임 시작
+        chargingCoolTimer = chargingCoolTimerDur; // 타이머 초기화
     }
 
+    void UpdateChargingCooldown()
+    {
+        if (isChargingCooldown)
+        {
+            chargingCoolTimer -= Time.deltaTime; // 타이머 감소
+            if (chargingCoolTimer <= 0)
+            {
+                isChargingCooldown = false; // 쿨타임 종료
+                chargingCoolTimer = 0;
+                isRush = true;
+            }
+        }
+    }
+
+    public bool isDragonAtkReady;
     IEnumerator ChargeToPlayer()
     {
-        lastPlayerPos = playerObject.transform.position;
-        yield return new WaitForSeconds(0.1f);
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, PpDir, chargeDistace, playerLayer);
-        Debug.DrawRay(transform.position, PpDir * chargeDistace, Color.red);
-
-        float playerPos = Vector2.Distance(transform.position, lastPlayerPos);
-        if (isChaging)
+        if (isChargingCooldown)
         {
-            if (playerPos < chargeMaxDistance)
-            {
-                Debug.Log("거리 도달했으므로 돌진 정지" + playerPos);
-                isMove = false;
-               
-            }
-            MeleeAttack();
+            Debug.Log("돌진 쿨타임 중입니다.");
+            yield break;
         }
-        if (hit.collider != null && isMove == true)
+        isChaging = true; // 돌진 시작
+        chargeSpeed = 0.0f;
+        //돌진 준비 애니메이션 재생. 
+        Debug.Log("돌진 준비 애니메이션 재생");
+        yield return new WaitForSeconds(2.0f);
+        Debug.Log("돌진 애니메이션 재생");
+    
+        isDragonAtkReady = false;
+        chargeSpeed = 0.5f;
+        float elapsedTime = 0.0f;
+
+        Vector3 currentPosition = transform.position;
+        Vector3 targetPosition = currentPosition + (Vector3)PpDir;
+
+        while (elapsedTime < chargeSpeed)
         {
             isChaging = true;
-            transform.position += (Vector3)PpDir * chargeSpeed * Time.deltaTime;
-        }
-        else if (hit.collider != null)
-        {
-            UnChargeTime = 0;
-        }
-        else if (hit.collider == null)
-        {
-            if (isChaging == true)
-            {
-                UnChargeTime += Time.deltaTime;
-                if (UnChargeTime > NotChargeTime)
-                {
-                    isChargeReady = false;
-                    isRush = false;
-                    UnChargeTime = 0;
-                    yield return new WaitForSeconds(5f); // 5초 후 다시 돌진 준비
-                    StartCoroutine(ChargedStop());
-                }
-            }
+            transform.position = Vector3.Lerp(currentPosition, targetPosition, elapsedTime / chargeSpeed);
+            elapsedTime += Time.deltaTime;
+
+
+
+            yield return null;
         }
 
-       
+        isRush = false;
+        isDragonAtkReady = true;
+        transform.position = targetPosition;
+        isChaging = false; // 돌진 해제
+        StartChargingCooldown();
     }
 
 
@@ -428,22 +346,16 @@ public class ProphetPowderAction : MonoBehaviour
             Debug.Log("공격 범위에 있음 -> 넉백");
             StartCoroutine(GraplingKnockback(playerController, meleeAttackForce));
         }
-        else if (isAttack == false && isMove == false)
+        else if (isAttack == false && isDragonAtkReady == true)
         {
-            if (isCreateZakoom == false && !isZaKoomActive && isSpawningDragonWeapon) // 자쿰 돌이 활성화되어 있는지 확인
-            {
+            lastPlayerPos = playerObject.transform.position;
 
-                StartCoroutine(ZaKoomCreate());
-            }
-
-            if (!isSpawningDragonWeapon)
+            if (isSpawningDragonWeapon == false)
             {
                 isAttackStart = true;
                 isSpawningDragonWeapon = true;
                 StartCoroutine(DragonWeaponSpawner());
             }
-
-
 
             Debug.Log("공격 범위에 없음");
         }
@@ -548,7 +460,7 @@ public class ProphetPowderAction : MonoBehaviour
 
     IEnumerator DragonWeaponSpawner()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(3.0f);
         while (true)
         {
             DragonWeaponFunc();

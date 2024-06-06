@@ -2077,37 +2077,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &178391551
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 178391552}
-  m_Layer: 0
-  m_Name: DragonWeaponPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &178391552
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178391551}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.93, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 734778103}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187571057
 GameObject:
   m_ObjectHideFlags: 0
@@ -6377,7 +6346,7 @@ Transform:
   m_GameObject: {fileID: 597977942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.81, y: 0, z: 0}
+  m_LocalPosition: {x: 1.62, y: -0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7013,8 +6982,8 @@ GameObject:
   m_Component:
   - component: {fileID: 734778103}
   - component: {fileID: 734778102}
-  - component: {fileID: 734778101}
   - component: {fileID: 734778100}
+  - component: {fileID: 734778101}
   m_Layer: 0
   m_Name: PproPhetPowder
   m_TagString: Boss
@@ -7038,24 +7007,14 @@ MonoBehaviour:
   TelePortEffect: {fileID: 2887272731695183574, guid: cd4744509fd4eb74b8abf99063c7b20b, type: 3}
   TelePortDel: 3
   isMoving: 0
-  chargeSpeed: 2
+  chargeSpeed: 0.5
+  moveSpeed: 5
   moveDistance: 5
   isRush: 0
   chargeMaxDistance: 5
-  chargeDistace: 10
+  chargeDistace: 1
   isChargeDel: 2
-  UnChargeTime: 0
-  NotChargeTime: 5
-  isMove: 0
-  isChargeReady: 0
   isChaging: 0
-  BombEffect: {fileID: 5988189445039278582, guid: 1ceb2ca1a7672e34c9a7656a4f98adca, type: 3}
-  ZaKoomCreateDel: 3
-  ZaKoomEffectDel: 1
-  isCreateZakoom: 0
-  ZaKoomObj: {fileID: 3556108677845880537, guid: 141868e5a60d156409954039eab1e492, type: 3}
-  CreateEffect: {fileID: 5265585626981379869, guid: 22de6e3f08740b347a4e4ccf0c81b9ee, type: 3}
-  isZaKoomActive: 0
   nockbackForce: 1
   isGraplingCooldown: 0
   graplingCooldownTimer: 0
@@ -7073,6 +7032,10 @@ MonoBehaviour:
   activeDragonWeapons: 0
   maxDragonWeapons: 8
   isSpawningDragonWeapon: 0
+  isChargingCooldown: 0
+  chargingCoolTimer: 0
+  chargingCoolTimerDur: 5
+  isDragonAtkReady: 0
   PpDir: {x: 0, y: 0}
 --- !u!70 &734778101
 CapsuleCollider2D:
@@ -7170,14 +7133,12 @@ Transform:
   m_GameObject: {fileID: 734778099}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-
-  m_LocalPosition: {x: 1.48, y: 19.5, z: -8.521687}
+  m_LocalPosition: {x: 0, y: -2.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1886705598}
-  - {fileID: 178391552}
   - {fileID: 597977943}
+  - {fileID: 1353609074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &737361265
@@ -11874,6 +11835,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328333035}
   m_CullTransparentMesh: 1
+--- !u!1 &1353609073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1353609074}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1353609074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353609073}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 734778103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1358519518
 GameObject:
   m_ObjectHideFlags: 0
@@ -14053,7 +14045,7 @@ PrefabInstance:
       objectReference: {fileID: 429475595}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.99
+      value: -15.44
       objectReference: {fileID: 0}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14621,37 +14613,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1886705597
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1886705598}
-  m_Layer: 0
-  m_Name: ZaKoomPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1886705598
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886705597}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.55, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 734778103}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1889871160
 GameObject:
   m_ObjectHideFlags: 0
@@ -24922,4 +24883,7 @@ SceneRoots:
   - {fileID: 1549801209}
   - {fileID: 187571059}
   - {fileID: 1058402826}
-
+  - {fileID: 310594232}
+  - {fileID: 416215181}
+  - {fileID: 564838543}
+  - {fileID: 1033148481}
