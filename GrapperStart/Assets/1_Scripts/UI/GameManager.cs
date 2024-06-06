@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject soundop;
 
     //대화관련
-    //public DialogueManager2 dialogueManager;
+    public DialogueManager dialogueManager;
     public int talkIndex;
     public Text UINameText;
     public Text UITalkText;
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public bool isAction; //대화창 활성화 상태 
 
     //퀘스트 관련
-    //public QuestManager questManager;
+    public QuestManager questManager;
 
     //퀘스트 관련 UI
     public Text UIQuest;
@@ -88,61 +88,61 @@ public class GameManager : MonoBehaviour
     }
 
     //대화 관련
-    //public void Action(GameObject scanObj)
-    //{
-    //    scanObject = scanObj;
-    //    name = scanObject.name;
-    //    //UITalkText.text = "이것은 "+scanObject.name+"이다.";
-    //    ObjectData objData = scanObject.GetComponent<ObjectData>();
-    //    Talk(objData.id, objData.isNPC);
+    public void Action(GameObject scanObj)
+    {
+        scanObject = scanObj;
+        name = scanObject.name;
+        //UITalkText.text = "이것은 "+scanObject.name+"이다.";
+        ObjData objData = scanObject.GetComponent<ObjData>();
+        Talk(objData.id, objData.isNPC);
 
 
-    //    talkPanel.SetActive(isAction); //대화창 활성화 상태에 따라 대화창 활성화 변경
-    //}
+        talkPanel.SetActive(isAction); //대화창 활성화 상태에 따라 대화창 활성화 변경
+    }
 
-    //실제 대사들을 UI에 출력하는 함수     
-    //void Talk(int id, bool isNPC)
-    //{
-    //    int questTalkIndex = questManager.GetQuestTalkIndex(id); // 조사한 obj의 id를 넘겨 퀘스트 id를 반환받음 
+    //실제 대사들을 UI에 출력하는 함수
+    void Talk(int id, bool isNPC)
+    {
+        int questTalkIndex = questManager.GetQuestTalkIndex(id); // 조사한 obj의 id를 넘겨 퀘스트 id를 반환받음 
 
-    //    //string talkData = DialogueManager2.D_instance.GetTalk(id + questTalkIndex, talkIndex); //id에 퀘스트 id를 더하면 -> 해당 id를 가진 오브젝트가 가진 퀘스트의 대화를 반환하게 만들기
+        string talkData = DialogueManager.D_instance.GetTalk(id + questTalkIndex, talkIndex); //id에 퀘스트 id를 더하면 -> 해당 id를 가진 오브젝트가 가진 퀘스트의 대화를 반환하게 만들기
 
-    //    if (talkData == null) //반환된 것이 null이면 더이상 남은 대사가 없으므로 action상태변수를 false로 설정 
-    //    {
-    //        isAction = false;
-    //        talkIndex = 0; //talk인덱스는 다음에 또 사용되므로 초기화해야함 
-    //        Debug.Log(questManager.CheckQuest(id));
-    //        return; //void에서의 return 함수 강제종료 (밑의 코드는 실행되지 않음)
-    //    }
+        if (talkData == null) //반환된 것이 null이면 더이상 남은 대사가 없으므로 action상태변수를 false로 설정 
+        {
+            isAction = false;
+            talkIndex = 0; //talk인덱스는 다음에 또 사용되므로 초기화해야함 
+            Debug.Log(questManager.CheckQuest(id));
+            return; //void에서의 return 함수 강제종료 (밑의 코드는 실행되지 않음)
+        }
 
-    //    if (isNPC)
-    //    {
-    //        UITalkText.text = talkData.Split(':')[0]; //구분자로 문장을 나눠줌  0: 대사 1:portraitIndex
-    //                                                  //portraitImg.sprite = DialogueManager.D_instance.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
-    //                                                  //초상화를 보이게함 (투명도 1)
-    //                                                  //portraitImg.color = new Color(1, 1, 1, 1);
-    //        if (int.Parse(talkData.Split(':')[1]) == 1)
-    //        {
-    //            UINameText.text = "Player";//1인경우 백설공주 초상화가 저장되어 무조건 이거임...
-    //        }
-    //        else
-    //        {
-    //            UINameText.text = name; //나머지일 때는 이름 UI에 미리 저장해둔 name출력 
-    //        }
+        if (isNPC)
+        {
+            UITalkText.text = talkData.Split(':')[0]; //구분자로 문장을 나눠줌  0: 대사 1:portraitIndex
+                                                      //portraitImg.sprite = DialogueManager.D_instance.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
+                                                      //초상화를 보이게함 (투명도 1)
+                                                      //portraitImg.color = new Color(1, 1, 1, 1);
+            if (int.Parse(talkData.Split(':')[1]) == 1)
+            {
+                UINameText.text = "Player";//1인경우 백설공주 초상화가 저장되어 무조건 이거임...
+            }
+            else
+            {
+                UINameText.text = name; //나머지일 때는 이름 UI에 미리 저장해둔 name출력 
+            }
 
-    //    }
-    //    else
-    //    {
-    //        UINameText.text = "";
-    //        UITalkText.text = "";
-    //        UITalkText.text = talkData; //별도의 구분자가 없으므로 그냥 출력가능 
+        }
+        else
+        {
+            UINameText.text = "";
+            UITalkText.text = "";
+            UITalkText.text = talkData; //별도의 구분자가 없으므로 그냥 출력가능 
 
-    //        //초상화를 안보이게함(투명도 0) 
-    //        //portraitImg.color = new Color(1, 1, 1, 0);
-    //    }
+            //초상화를 안보이게함(투명도 0) 
+            //portraitImg.color = new Color(1, 1, 1, 0);
+        }
 
-    //    //다음 문장을 가져오기 위해 talkData의 인덱스를 늘림
-    //    isAction = true; //대사가 남아있으므로 계속 진행되어야함 
-    //    talkIndex++;
-    //}
+        //다음 문장을 가져오기 위해 talkData의 인덱스를 늘림
+        isAction = true; //대사가 남아있으므로 계속 진행되어야함 
+        talkIndex++;
+    }
 }
