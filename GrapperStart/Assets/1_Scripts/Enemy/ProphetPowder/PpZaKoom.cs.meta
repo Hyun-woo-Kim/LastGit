@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:GrapperStart/Assets/1_Scripts/UI/Dialogue/DialogueManager.cs.meta
 guid: ead74c881c6145e4ab7ed47168345e7a
+=======
+guid: 99564b32d2e5cb946a54afca48d93bbe
+>>>>>>> Stashed changes:GrapperStart/Assets/1_Scripts/Enemy/ProphetPowder/PpZaKoom.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

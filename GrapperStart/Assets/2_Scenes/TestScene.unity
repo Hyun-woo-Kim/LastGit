@@ -2595,37 +2595,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae33cbf85191694e8dd3164e5032c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAttackStart: 0
+  ppState: 0
   TelePortEffect: {fileID: 2887272731695183574, guid: cd4744509fd4eb74b8abf99063c7b20b, type: 3}
   TelePortDel: 3
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  ShootDistance: 10
-  projectileSpeed: 5
-  DragonWeapon: {fileID: 1385130430605870324, guid: 113f56d58cfba4041bfd94f97d6a3e52, type: 3}
-  isCreateZakoom: 0
-  ZaKoomObj: {fileID: 8019427082618062097, guid: 141868e5a60d156409954039eab1e492, type: 3}
-  CreateEffect: {fileID: 5265585626981379869, guid: 22de6e3f08740b347a4e4ccf0c81b9ee, type: 3}
-  ZaKoomCreateDel: 3
-  ZaKoomEffectDel: 1
-  nockbackForce: 1
-  isGraplingCooldown: 0
-  graplingCooldownTimer: 0
-  graplingCooldownDuration: 3
+  isMoving: 0
   chargeSpeed: 5
+  moveDistance: 5
   isRush: 0
   chargeMaxDistance: 5
   chargeDistace: 10
   isChargeDel: 2
   UnChargeTime: 0
   NotChargeTime: 5
-  lastPlayerPos: {x: 0, y: 0, z: 0}
   isMove: 0
+  isChargeReady: 0
+  isChaging: 0
+  BombEffect: {fileID: 5988189445039278582, guid: 1ceb2ca1a7672e34c9a7656a4f98adca, type: 3}
+  ZaKoomCreateDel: 1
+  ZaKoomEffectDel: 1
+  isCreateZakoom: 0
+  ZaKoomObj: {fileID: 8019427082618062097, guid: 141868e5a60d156409954039eab1e492, type: 3}
+  CreateEffect: {fileID: 5265585626981379869, guid: 22de6e3f08740b347a4e4ccf0c81b9ee, type: 3}
+  isZaKoomActive: 0
+  nockbackForce: 1
+  isGraplingCooldown: 0
+  graplingCooldownTimer: 0
+  graplingCooldownDuration: 3
+  isAttackStart: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  ShootDistance: 10
   bounsing: {fileID: 36088439}
   bounsingSize: {x: 1.06, y: 2.67, z: 0}
   isAttack: 0
   meleeAttackForce: 5
+  DragonWeapon: {fileID: 1385130430605870324, guid: 113f56d58cfba4041bfd94f97d6a3e52, type: 3}
+  activeDragonWeapons: 0
+  maxDragonWeapons: 8
+  isSpawningDragonWeapon: 0
   PpDir: {x: 0, y: 0}
 --- !u!212 &319324622
 SpriteRenderer:
@@ -2688,7 +2696,7 @@ Transform:
   m_GameObject: {fileID: 319324620}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.44, y: -7.24, z: -8.391085}
+  m_LocalPosition: {x: 6.35, y: -7.24, z: -8.391085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10591,8 +10599,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.9056604, g: 0.2341046, b: 0.2341046, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5df752d3330c19f46a26ea72f585d4c8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -10638,7 +10646,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.9, y: 1.13}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -18306,9 +18314,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 899609387}
     m_Modifications:
+    - target: {fileID: 145454057896109320, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 45ad8131d91f47b439c390618bb17917, type: 3}
+    - target: {fileID: 1648340584447986476, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_Size.x
+      value: 2.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648340584447986476, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_Size.y
+      value: 4.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648340584447986476, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.884375
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648340584447986476, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 4.33125
+      objectReference: {fileID: 0}
     - target: {fileID: 1928025197573220142, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
       propertyPath: m_Name
       value: Elevator
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960265456434216730, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960265456434216730, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960265456434216730, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746129496217216912, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746129496217216912, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8746129496217216912, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18316,7 +18364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8746129496217216912, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3492246
+      value: -1.59
       objectReference: {fileID: 0}
     - target: {fileID: 8746129496217216912, guid: c5ef8fae6a371ff46872229665f4d8b8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18842,7 +18890,11 @@ PrefabInstance:
       objectReference: {fileID: 1544696274998534039}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< Updated upstream
       value: 7.26
+=======
+      value: -7.17
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.y

@@ -138,17 +138,7 @@ public class PlayerControllerRope : MonoBehaviour
         AttackCool();
 
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-
-            if (scanObject != null)
-            {
-                GameManager.instance.Action(scanObject);
-                //Debug.Log(scanObject.name);
-            }
-
-
-        }
+      
     }
 
     void PlayerCollider()

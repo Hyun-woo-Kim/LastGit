@@ -1,58 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class ProPhetWeapon : MonoBehaviour
 {
-    CircleCollider2D collder;
+    private IObjectPool<ProPhetWeapon> _ManagedPool;
 
-    public bool isPlayerWeaponDamaged;
-    public float RestraintTime;
-    void Start()
+
+
+
+    public void SetManagedPool(IObjectPool<ProPhetWeapon> pool)
     {
-        collder = GetComponent<CircleCollider2D>();
-        isPlayerWeaponDamaged = false; //생성되었으니 존재 true
-
-       
-
+        _ManagedPool = pool;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InvokeDestroyWeapon()
     {
-        
+        Invoke("DestroyWeapon", 1.0f);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void DestroyWeapon()
     {
-        if(collision.CompareTag("Player") || collision.CompareTag("Wall"))
-        {
-            isPlayerWeaponDamaged = true;
-            StartCoroutine(DragonWeapon());
-          
-        }
-      
-    }
-
-    IEnumerator DragonWeapon()
-    {
-        PlayerControllerRope plyerController = FindAnyObjectByType<PlayerControllerRope>();
-
-        StartCoroutine(plyerController.PpRestraint(RestraintTime)); 
-
-        yield return new WaitForSeconds(0.1f);
-
-        WeaponDestroy();
-        
-    }
-
-
-    void WeaponDestroy()
-    {
-        if(this.gameObject != null)
-        {
-            isPlayerWeaponDamaged = false;
-            Destroy(this.gameObject);
-        }
+        _ManagedPool.Release(this);
     }
 }

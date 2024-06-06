@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour
     private GameObject button;
     public GameObject soundop;
 
-    //대화관련
-    public DialogueManager dialogueManager;
     public int talkIndex;
     public Text UINameText;
     public Text UITalkText;
@@ -22,8 +20,8 @@ public class GameManager : MonoBehaviour
     public Image portraitImg; //초상화
     public bool isAction; //대화창 활성화 상태 
 
-    //퀘스트 관련
-    public QuestManager questManager;
+
+  
 
     //퀘스트 관련 UI
     public Text UIQuest;
@@ -47,7 +45,11 @@ public class GameManager : MonoBehaviour
     {
         button = GameObject.Find("StartButton");
 
+<<<<<<< Updated upstream
         //questManager.CheckQuest(); //게임 시작하자마자 퀘스트 이름을 가져오기
+=======
+       
+>>>>>>> Stashed changes
     }
 
     public void Fadebutton()
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+<<<<<<< Updated upstream
     //대화 관련
     public void Action(GameObject scanObj)
     {
@@ -145,4 +148,7 @@ public class GameManager : MonoBehaviour
         isAction = true; //대사가 남아있으므로 계속 진행되어야함 
         talkIndex++;
     }
+=======
+   
+>>>>>>> Stashed changes
 }

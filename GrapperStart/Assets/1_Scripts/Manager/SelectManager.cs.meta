@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:GrapperStart/Assets/1_Scripts/UI/Quest/QuestData.cs.meta
 guid: 17872d480c7c0d34b905e10e330f112d
+=======
+guid: e1987b798376a5f42b531325c0b827c9
+>>>>>>> Stashed changes:GrapperStart/Assets/1_Scripts/Manager/SelectManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
