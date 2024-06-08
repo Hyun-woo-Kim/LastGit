@@ -1,9 +1,11 @@
 using Cinemachine.Utility;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Rendering;
 using static UnityEditor.PlayerSettings;
 public enum PpPaze
 {
@@ -26,28 +28,28 @@ public class ProphetPowderAction : MonoBehaviour
 
     private Transform playerTransform;
 
-    [Header("##TelePort")]
+    private IObjectPool<PpZakoom> _zacomPool;
+    private IObjectPool<PpBoom> _explosionPool;
+    private IObjectPool<ProPhetWeapon> _Pool;
+
+    [Header("##순간이동")]
     public GameObject TelePortEffect;
     private GameObject TpEffectPrefab;
     public float TelePortDel; // 이펙트 보여줄 딜레이. 이 시간이 끝나면 순간이동
-    [Header("##First Move")]
+    [Header("##기본 이동")]
     public bool isMoving;
-    public float chargeSpeed = 5f;
     public float moveSpeed;
     public float moveDistance = 5.0f; // 이동할 거리
 
-    [Header("##Chaged")]
+    [Header("##돌진 관련 변수")]
     public bool isRush = false;
     public float chargeMaxDistance = 5f; // 돌진 가능한 최대 거리
     public float chargeDistace = 5f; // 돌진 조건 거리.
     public float isChargeDel = 1f; // 돌진 딜레이
     private Vector2 lastPlayerPos;
     public bool isChaging;
-
-    
-
-
-    [Header("##GraplingNockBackAtk")]
+    public float chargeSpeed = 5f;
+    [Header("##적이 그래플링하여 날라올 때 필요한 변수")]
     public float nockbackForce;
     public bool isGraplingCooldown;
     public float graplingCooldownTimer; // 쿨타임 타이머
@@ -56,22 +58,80 @@ public class ProphetPowderAction : MonoBehaviour
     public LayerMask playerLayer;
     public float ShootDistance;
 
-    [Header("##DragonWeaponAtk")]
-    private IObjectPool<ProPhetWeapon> _Pool;
+    [Header("##용언 공격을 하기 위한 변수와 필요 오브젝트")]
     public Transform bounsing;
     public Vector3 bounsingSize;
     public bool isAttack = false;
     public float meleeAttackForce;
     public GameObject DragonWeapon;
     private GameObject DragonWeaponPrefab;
+    public GameObject ZacomPrefab;
+    public GameObject ExplosionPrefab;
     public int activeDragonWeapons = 0; // 활성화된 용언 오브젝트 수를 추적하기 위한 변수
-    public int maxDragonWeapons = 8; // 최대 용언 오브젝트 수
     public bool isSpawningDragonWeapon = false; // 용언 소환 중인지 확인하는 플래그
-    private bool spawnInCircle = true;
+    public bool spawnShapeCircle = true;
+
+    [Header("##용언 패턴들의 사이즈와 갯수")]
+    public float CircleRadius;
+    public int CircleCount;
+    public float squareSize;
+    public int squareCount;
+    [Header("##용언,자쿰 돌 , 자쿰 돌 폭탄 이펙트 딜레이")]
+    public float WeaponLifeTime;
+    public float ZakoomLifeTime;
+    public float BoomEffLifeTime;
+    public bool isDragonAttackCooldown = false;
+    public float dragonAttackCooldownDuration = 10f;
+    public float dragonAttackCooldownTimer = 0f;
 
     private void Awake()
     {
-        _Pool = new ObjectPool<ProPhetWeapon>(CreateWeapon, OnGetWeapon, OnReleaseWeapon, OnDestroyWeapon, maxSize: 6);
+        _zacomPool = new UnityEngine.Pool.ObjectPool<PpZakoom>(CreateZacom, OnGetZacom, OnReleaseZacom, OnDestroyZacom, maxSize: 10);
+        _explosionPool = new UnityEngine.Pool.ObjectPool<PpBoom>(CreateExplosion, OnGetExplosion, OnReleaseExplosion, OnDestroyExplosion, maxSize: 10);
+        _Pool = new UnityEngine.Pool.ObjectPool<ProPhetWeapon>(CreateWeapon, OnGetWeapon, OnReleaseWeapon, OnDestroyWeapon, maxSize: 6); // 명시적으로 UnityEngine.Pool 네임스페이스를 지정
+    }
+    private PpZakoom CreateZacom()
+    {
+        PpZakoom zacom = Instantiate(ZacomPrefab).GetComponent<PpZakoom>();
+        zacom.SetManagedPool(_zacomPool);
+        return zacom;
+    }
+
+    private void OnGetZacom(PpZakoom zacom)
+    {
+        zacom.gameObject.SetActive(true);
+    }
+
+    private void OnReleaseZacom(PpZakoom zacom)
+    {
+        zacom.gameObject.SetActive(false);
+    }
+
+    private void OnDestroyZacom(PpZakoom zacom)
+    {
+        Destroy(zacom.gameObject);
+    }
+
+    private PpBoom CreateExplosion()
+    {
+        PpBoom explosion = Instantiate(ExplosionPrefab).GetComponent<PpBoom>();
+        explosion.SetManagedPool(_explosionPool);
+        return explosion;
+    }
+
+    private void OnGetExplosion(PpBoom explosion)
+    {
+        explosion.gameObject.SetActive(true);
+    }
+
+    private void OnReleaseExplosion(PpBoom explosion)
+    {
+        explosion.gameObject.SetActive(false);
+    }
+
+    private void OnDestroyExplosion(PpBoom explosion)
+    {
+        Destroy(explosion.gameObject);
     }
     void Start()
     {
@@ -162,7 +222,7 @@ public class ProphetPowderAction : MonoBehaviour
         GraplingPlayerNockBack(); // 1. 플레이어가 그래플링을 선지자 파우더에게 했을 때만 실행됨
         UpdateGraplingCooldown(); // 2. 플레이어를 밀치고 나서만 실행되며, 쿨타임 메서드임.
 
-       
+        UpdateDragonAttackCooldown();
         UpdateChargingCooldown();
 
         switch (this.ppState)
@@ -278,6 +338,28 @@ public class ProphetPowderAction : MonoBehaviour
         }
     }
 
+ 
+    void UpdateDragonAttackCooldown()
+    {
+        if (isDragonAttackCooldown)
+        {
+            dragonAttackCooldownTimer -= Time.deltaTime; // 쿨타임 타이머 감소
+            if (dragonAttackCooldownTimer <= 0)
+            {
+                spawnShapeCircle = !spawnShapeCircle;
+                isDragonAttackCooldown = false; // 쿨타임 종료
+                dragonAttackCooldownTimer = 0;
+            }
+        }
+    }
+
+    // 용언 공격 쿨타임 시작
+    void StartDragonAttackCooldown()
+    {
+        isDragonAttackCooldown = true; // 쿨타임 시작
+        dragonAttackCooldownTimer = dragonAttackCooldownDuration; // 쿨타임 타이머 설정
+    }
+
     public bool isDragonAtkReady;
     IEnumerator ChargeToPlayer()
     {
@@ -350,11 +432,11 @@ public class ProphetPowderAction : MonoBehaviour
         {
             lastPlayerPos = playerObject.transform.position;
 
-            if (isSpawningDragonWeapon == false)
+            if (isSpawningDragonWeapon == false && isDragonAttackCooldown == false)
             {
                 isAttackStart = true;
                 isSpawningDragonWeapon = true;
-                StartCoroutine(DragonWeaponSpawner());
+                DragonWeaponFunc(lastPlayerPos); //용언 공격 메서드 호출
             }
 
             Debug.Log("공격 범위에 없음");
@@ -363,72 +445,94 @@ public class ProphetPowderAction : MonoBehaviour
     }
 
 
-    void DragonWeaponFunc()
+    void DragonWeaponFunc(Vector3 playerPos)
     {
-        if (activeDragonWeapons + 8 <= maxDragonWeapons)
-        {
-            Debug.Log("용언 생성");
 
-            Vector3 spawnPosition = (Vector3)lastPlayerPos;
-            if (spawnInCircle)
-            {
-                SpawnInCircle(spawnPosition);
-            }
-            else
-            {
-                SpawnInSquare(spawnPosition);
-            }
+        Vector3 spawnPosition = (Vector3)playerPos;
+
+        if (spawnShapeCircle)
+        {
+            SpawnInCircle(spawnPosition);
         }
         else
         {
-            Debug.Log("최대 용언 개수에 도달");
-            ReleaseDragonWeapons();
+            SpawnInSquare(spawnPosition);
         }
     }
 
+
     void SpawnInCircle(Vector3 spawnPosition)
     {
-        float radius = 1f; // 원의 반지름
-        int weaponCount = 8; // 한 번에 생성할 무기 개수
+        
+       
 
-        for (int i = 0; i < weaponCount; i++)
+        for (int i = 0; i < CircleCount; i++)
         {
-            float angle = i * Mathf.PI * 2f / weaponCount; // 각 무기의 각도
-            float x = spawnPosition.x + Mathf.Cos(angle) * radius;
-            float y = spawnPosition.y + Mathf.Sin(angle) * radius;
+           
+
+            float angle = i * Mathf.PI * 2f / CircleCount; // 각 무기의 각도
+            float x = spawnPosition.x + Mathf.Cos(angle) * CircleRadius;
+            float y = spawnPosition.y + Mathf.Sin(angle) * CircleRadius;
 
             Vector3 position = new Vector3(x, y, 0f);
             var weapon = _Pool.Get();
             weapon.transform.position = position;
             activeDragonWeapons++;
+
+            StartCoroutine(SpawnZacomAndExplosion(position));
         }
-        spawnInCircle = false; // 다음 번에는 사각형으로 스폰
+       
+
+    }
+
+
+    IEnumerator SpawnZacomAndExplosion(Vector3 position)
+    {
+        yield return new WaitForSeconds(WeaponLifeTime); //이 시간 뒤에 용언 비활성화  
+        ReleaseDragonWeapons(); //용언 비활성화
+        var zacom = _zacomPool.Get(); //자쿰 풀링으로 생성 후
+        zacom.transform.position = position; //용언 위치를 자쿰 위치와 통일 시키고
+
+        yield return new WaitForSeconds(ZakoomLifeTime); //0.5초 뒤
+        var explosion = _explosionPool.Get(); //자쿰 폭발 이펙트 생성 후
+        explosion.transform.position = position; //용언 위치를 자쿰 폭발 위치와 통일 시키고
+
+        zacom.ReturnToPool(); //자쿰 비활성화 - 이때는 자쿰 폭발 이펙트 보여지는 상태
+
+        yield return new WaitForSeconds(BoomEffLifeTime); // 0.2초 뒤
+        explosion.ReturnToPool(); //자쿰 폭탄 이펙트 비활성화
+
+        isSpawningDragonWeapon = false;
+
+
+        StartDragonAttackCooldown();
     }
 
     void SpawnInSquare(Vector3 spawnPosition)
     {
-        float halfSize = 1.0f; // 사각형의 반 크기
-        int weaponCount = 8; // 한 번에 생성할 무기 개수
+        
         Vector3[] offsets = new Vector3[]
         {
-            new Vector3(-halfSize, halfSize, 0),
-            new Vector3(0, halfSize, 0),
-            new Vector3(halfSize, halfSize, 0),
-            new Vector3(-halfSize, 0, 0),
-            new Vector3(halfSize, 0, 0),
-            new Vector3(-halfSize, -halfSize, 0),
-            new Vector3(0, -halfSize, 0),
-            new Vector3(halfSize, -halfSize, 0)
+            new Vector3(-squareSize, squareSize, 0),
+            new Vector3(0, squareSize, 0),
+            new Vector3(squareSize, squareSize, 0),
+            new Vector3(-squareSize, 0, 0),
+            new Vector3(squareSize, 0, 0),
+            new Vector3(-squareSize, -squareSize, 0),
+            new Vector3(0, -squareSize, 0),
+            new Vector3(squareSize, -squareSize, 0)
         };
 
-        for (int i = 0; i < weaponCount; i++)
+        for (int i = 0; i < squareCount; i++)
         {
             Vector3 position = spawnPosition + offsets[i];
             var weapon = _Pool.Get();
             weapon.transform.position = position;
             activeDragonWeapons++;
+
+            StartCoroutine(SpawnZacomAndExplosion(position));
         }
-        spawnInCircle = true; // 다음 번에는 원형으로 스폰
+ 
     }
 
     void ReleaseDragonWeapons()
@@ -458,16 +562,6 @@ public class ProphetPowderAction : MonoBehaviour
         return null;
     }
 
-    IEnumerator DragonWeaponSpawner()
-    {
-        yield return new WaitForSeconds(3.0f);
-        while (true)
-        {
-            DragonWeaponFunc();
-            yield return new WaitForSeconds(2.0f); // 2초 간격으로 8개씩 생성
-        }
-    }
-
     private ProPhetWeapon CreateWeapon()
     {
         ProPhetWeapon weapon = Instantiate(DragonWeapon).GetComponent<ProPhetWeapon>();
@@ -477,6 +571,7 @@ public class ProphetPowderAction : MonoBehaviour
 
     private void OnGetWeapon(ProPhetWeapon weapon)
     {
+        
         weapon.gameObject.SetActive(true);
     }
 
