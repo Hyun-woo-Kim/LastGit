@@ -7007,7 +7007,6 @@ MonoBehaviour:
   TelePortEffect: {fileID: 2887272731695183574, guid: cd4744509fd4eb74b8abf99063c7b20b, type: 3}
   TelePortDel: 3
   isMoving: 0
-  chargeSpeed: 0.5
   moveSpeed: 5
   moveDistance: 5
   isRush: 0
@@ -7015,6 +7014,7 @@ MonoBehaviour:
   chargeDistace: 1
   isChargeDel: 2
   isChaging: 0
+  chargeSpeed: 0.5
   nockbackForce: 1
   isGraplingCooldown: 0
   graplingCooldownTimer: 0
@@ -7029,9 +7029,18 @@ MonoBehaviour:
   isAttack: 0
   meleeAttackForce: 5
   DragonWeapon: {fileID: 1385130430605870324, guid: 113f56d58cfba4041bfd94f97d6a3e52, type: 3}
+  ZacomPrefab: {fileID: 76865599372082529, guid: de8efb902994cf748bab9214d2ba47f0, type: 3}
+  ExplosionPrefab: {fileID: 5988189445039278582, guid: 1ceb2ca1a7672e34c9a7656a4f98adca, type: 3}
   activeDragonWeapons: 0
-  maxDragonWeapons: 8
   isSpawningDragonWeapon: 0
+  spawnShapeCircle: 1
+  CircleRadius: 2
+  CircleCount: 8
+  squareSize: 2
+  squareCount: 8
+  WeaponLifeTime: 3
+  ZakoomLifeTime: 2
+  BoomEffLifeTime: 0.5
   isChargingCooldown: 0
   chargingCoolTimer: 0
   chargingCoolTimerDur: 5
