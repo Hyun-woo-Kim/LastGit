@@ -7014,7 +7014,11 @@ MonoBehaviour:
   chargeDistace: 1
   isChargeDel: 2
   isChaging: 0
-  chargeSpeed: 0.5
+  chargeSpeed: 1
+  ChargeForce: 0
+  isChargingCooldown: 0
+  chargingCoolTimer: 0
+  chargingCoolTimerDur: 5
   nockbackForce: 1
   isGraplingCooldown: 0
   graplingCooldownTimer: 0
@@ -7034,6 +7038,7 @@ MonoBehaviour:
   activeDragonWeapons: 0
   isSpawningDragonWeapon: 0
   spawnShapeCircle: 1
+  isDragonAtkReady: 0
   CircleRadius: 2
   CircleCount: 8
   squareSize: 2
@@ -7041,11 +7046,15 @@ MonoBehaviour:
   WeaponLifeTime: 3
   ZakoomLifeTime: 2
   BoomEffLifeTime: 0.5
-  isChargingCooldown: 0
-  chargingCoolTimer: 0
-  chargingCoolTimerDur: 5
-  isDragonAtkReady: 0
+  isDragonAttackCooldown: 0
+  dragonAttackCooldownDuration: 10
+  dragonAttackCooldownTimer: 0
+  isMeleCooldown: 0
+  MeleeCoolTimer: 5
+  MeleeCoolTimerDur: 5
+  isMeleeAttack: 0
   PpDir: {x: 0, y: 0}
+  isChargePlayer: 0
 --- !u!70 &734778101
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7075,7 +7084,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

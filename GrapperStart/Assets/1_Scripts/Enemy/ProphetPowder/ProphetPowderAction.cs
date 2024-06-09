@@ -25,7 +25,6 @@ public class ProphetPowderAction : MonoBehaviour
     Transform playerObject;
     PlayerControllerRope playerController;
     Grapling grapling;
-
     private Transform playerTransform;
 
     private IObjectPool<PpZakoom> _zacomPool;
@@ -49,6 +48,10 @@ public class ProphetPowderAction : MonoBehaviour
     private Vector2 lastPlayerPos;
     public bool isChaging;
     public float chargeSpeed = 5f;
+    public float ChargeForce; //돌진 넉백 힘
+    public bool isChargingCooldown;
+    public float chargingCoolTimer = 5f; // 쿨타임 타이머
+    public float chargingCoolTimerDur;// 쿨타임 지속 시간
     [Header("##적이 그래플링하여 날라올 때 필요한 변수")]
     public float nockbackForce;
     public bool isGraplingCooldown;
@@ -70,6 +73,7 @@ public class ProphetPowderAction : MonoBehaviour
     public int activeDragonWeapons = 0; // 활성화된 용언 오브젝트 수를 추적하기 위한 변수
     public bool isSpawningDragonWeapon = false; // 용언 소환 중인지 확인하는 플래그
     public bool spawnShapeCircle = true;
+    public bool isDragonAtkReady;
 
     [Header("##용언 패턴들의 사이즈와 갯수")]
     public float CircleRadius;
@@ -83,6 +87,8 @@ public class ProphetPowderAction : MonoBehaviour
     public bool isDragonAttackCooldown = false;
     public float dragonAttackCooldownDuration = 10f;
     public float dragonAttackCooldownTimer = 0f;
+
+
 
     private void Awake()
     {
@@ -205,6 +211,10 @@ public class ProphetPowderAction : MonoBehaviour
         {
             transform.position = Vector2.Lerp(initialPosition, targetPosition, elapsedTime * moveSpeed);
             elapsedTime += Time.deltaTime;
+
+           
+          
+           
             yield return null;
         }
         transform.position = targetPosition; // Ensure the final position is exact
@@ -220,10 +230,11 @@ public class ProphetPowderAction : MonoBehaviour
     {
 
         GraplingPlayerNockBack(); // 1. 플레이어가 그래플링을 선지자 파우더에게 했을 때만 실행됨
+        
         UpdateGraplingCooldown(); // 2. 플레이어를 밀치고 나서만 실행되며, 쿨타임 메서드임.
-
         UpdateDragonAttackCooldown();
         UpdateChargingCooldown();
+        UpdateMeleeAttackCooldown();
 
         switch (this.ppState)
         {
@@ -235,11 +246,11 @@ public class ProphetPowderAction : MonoBehaviour
                
                 break;
             case PpPaze.STATE_PazeOne:
-                if (isRush == true && grapling.isAttatch == false && !isChaging)
+                if (isRush == true && grapling.isAttatch == false && isChaging == false)
                 {
                     StartCoroutine(ChargeToPlayer());
                 }
-                else if (!isRush && isDragonAtkReady)
+                else if (isRush ==false && isMeleeAttack == true)
                 {
                     MeleeAttack();
                 }
@@ -257,11 +268,11 @@ public class ProphetPowderAction : MonoBehaviour
     {
         if (isGraplingCooldown)
         {
-            Debug.Log("쿨타임 중입니다.");
+            Debug.Log("그래플링 넉백 스킬 쿨타임 중입니다.");
             return; // 아무것도 실행안하고 반환
         }
         //밀쳐내기 코드 구현
-        Grapling grapling = FindAnyObjectByType<Grapling>();
+        
         if (grapling.isLerping)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Mathf.Infinity, playerLayer);
@@ -272,12 +283,7 @@ public class ProphetPowderAction : MonoBehaviour
 
                 if (playerdistance < ShootDistance)
                 {
-                    PlayerControllerRope playerController = FindAnyObjectByType<PlayerControllerRope>();
-                    if (playerController != null)
-                    {
-                        StartCoroutine(GraplingKnockback(playerController, nockbackForce));
-
-                    }
+                    StartCoroutine(GraplingKnockback(playerController, nockbackForce, "Grapling"));
                 }
             }
         }
@@ -289,12 +295,24 @@ public class ProphetPowderAction : MonoBehaviour
 
         //DragonShoot(); //밀쳐낸 적에게 용언 발사.
     }
-    IEnumerator GraplingKnockback(PlayerControllerRope playerController, float nockbackForce)
+    IEnumerator GraplingKnockback(PlayerControllerRope playerController, float nockbackForce,string attackWay)
     {
         lastPlayerPos = playerObject.transform.position;
         yield return playerController.BMSkillMove(transform, nockbackForce);
         //DragonShoot();
-        StartGraplingCooldown();
+        if (attackWay == "Grapling")
+        {
+            StartGraplingCooldown();
+        }
+        else if (attackWay == "Charging")
+        {
+            StartChargingCooldown();
+        }
+        else if (attackWay == "MeleeAttack")
+        {
+            StartMeleeAttackCooldown();
+        }
+
     }
     void StartGraplingCooldown()
     {
@@ -315,9 +333,7 @@ public class ProphetPowderAction : MonoBehaviour
         }
     }
 
-    public bool isChargingCooldown;
-    public float chargingCoolTimer = 5f; // 쿨타임 타이머
-    public float chargingCoolTimerDur;// 쿨타임 지속 시간
+
     void StartChargingCooldown()
     {
         isChargingCooldown = true; // 쿨타임 시작
@@ -331,9 +347,9 @@ public class ProphetPowderAction : MonoBehaviour
             chargingCoolTimer -= Time.deltaTime; // 타이머 감소
             if (chargingCoolTimer <= 0)
             {
+                ChagingSet();
                 isChargingCooldown = false; // 쿨타임 종료
                 chargingCoolTimer = 0;
-                isRush = true;
             }
         }
     }
@@ -360,7 +376,27 @@ public class ProphetPowderAction : MonoBehaviour
         dragonAttackCooldownTimer = dragonAttackCooldownDuration; // 쿨타임 타이머 설정
     }
 
-    public bool isDragonAtkReady;
+    public bool isMeleCooldown;
+    public float MeleeCoolTimer; // 쿨타임 타이머
+    public float MeleeCoolTimerDur;// 쿨타임 지속 시간
+    void StartMeleeAttackCooldown()
+    {
+        isMeleCooldown = true; // 쿨타임 시작
+        MeleeCoolTimer = MeleeCoolTimerDur; // 타이머 초기화
+    }
+    void UpdateMeleeAttackCooldown()
+    {
+        if (isMeleCooldown)
+        {
+            MeleeCoolTimer -= Time.deltaTime; // 타이머 감소
+            if (MeleeCoolTimer <= 0)
+            {
+                isMeleCooldown = false; // 쿨타임 종료
+                MeleeCoolTimer = 0;
+            }
+        }
+    }
+
     IEnumerator ChargeToPlayer()
     {
         if (isChargingCooldown)
@@ -369,14 +405,13 @@ public class ProphetPowderAction : MonoBehaviour
             yield break;
         }
         isChaging = true; // 돌진 시작
-        chargeSpeed = 0.0f;
         //돌진 준비 애니메이션 재생. 
         Debug.Log("돌진 준비 애니메이션 재생");
         yield return new WaitForSeconds(2.0f);
         Debug.Log("돌진 애니메이션 재생");
     
-        isDragonAtkReady = false;
-        chargeSpeed = 0.5f;
+        isDragonAtkReady = false; //돌진 중 용언 소환 못하게.false 처리
+       
         float elapsedTime = 0.0f;
 
         Vector3 currentPosition = transform.position;
@@ -384,34 +419,47 @@ public class ProphetPowderAction : MonoBehaviour
 
         while (elapsedTime < chargeSpeed)
         {
+            Debug.Log("돌진 중");
+
             isChaging = true;
             transform.position = Vector3.Lerp(currentPosition, targetPosition, elapsedTime / chargeSpeed);
             elapsedTime += Time.deltaTime;
 
-
-
+            if (isChargePlayer)
+            {
+                Debug.Log("돌진 공격!");
+                StartCoroutine(GraplingKnockback(playerController, ChargeForce, "Charging"));
+            }
             yield return null;
         }
 
-        isRush = false;
-        isDragonAtkReady = true;
+        isRush = false; //척력을 위한 bool변수 셋팅 1
+        isMeleeAttack = true;//척력을 위한 bool변수 셋팅 2
+
         transform.position = targetPosition;
-        isChaging = false; // 돌진 해제
+
+
         StartChargingCooldown();
     }
 
+    void ChagingSet()//돌진을 위한 bool변수 셋팅
+    {
+        isRush = true; //
+        isChaging = false; // 돌진 해제
+    }
 
+    public bool isMeleeAttack;
     void MeleeAttack()
     {
-        if (isGraplingCooldown)
+        if (isMeleCooldown)
         {
-            Debug.Log("쿨타임 중입니다.");
+            Debug.Log("용언 쿨타임 중입니다.");
             return;
         }
-
-        Debug.Log("척력공격 애니메이션 재생");
-
+        Debug.Log("척력 공격에 의하지 않으며 애니메이션만 재생.");
         isAttack = false;
+        isDragonAtkReady = true;
+
         Collider2D[] coliderMelee = Physics2D.OverlapBoxAll(bounsing.position, bounsingSize, 0);
 
         foreach (Collider2D collider in coliderMelee)
@@ -423,24 +471,25 @@ public class ProphetPowderAction : MonoBehaviour
         }
 
 
-        if (playerController != null && isAttack)
+        if (isAttack && isMeleeAttack == true)
         {
-            Debug.Log("공격 범위에 있음 -> 넉백");
-            StartCoroutine(GraplingKnockback(playerController, meleeAttackForce));
+            Debug.Log("척력 공격에 의한 넉백");
+            StartCoroutine(GraplingKnockback(playerController, meleeAttackForce,"MeleeAttack"));
         }
         else if (isAttack == false && isDragonAtkReady == true)
         {
             lastPlayerPos = playerObject.transform.position;
-
+            Debug.Log("용언 ");
             if (isSpawningDragonWeapon == false && isDragonAttackCooldown == false)
             {
+                Debug.Log("용언 공격");
                 isAttackStart = true;
                 isSpawningDragonWeapon = true;
                 DragonWeaponFunc(lastPlayerPos); //용언 공격 메서드 호출
             }
 
-            Debug.Log("공격 범위에 없음");
         }
+
 
     }
 
@@ -586,6 +635,18 @@ public class ProphetPowderAction : MonoBehaviour
     }
     public Vector2 PpDir;
 
+    public bool isChargePlayer;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if(isChaging)
+            {
+                isChargePlayer = true;
+            }
+         
+        }
+    }
     void PpDirection()
     {
         playerTransform = playerObject.transform;
