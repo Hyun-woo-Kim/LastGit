@@ -50,8 +50,14 @@ public class Grapling : MonoBehaviour
     public float graplingDamage;
 
 
+    //Sound 관련
+    [Header("##Sound")]
+    public AudioClip clip;
+
+
     private Camera cam;
 
+   
 
     //라인을 그리는 포지션을 두개로 설정.
     //한 점은 Player의 포지션: positionCount
@@ -138,7 +144,7 @@ public class Grapling : MonoBehaviour
                 }
                 grapCounting();
             }
-
+            
 
             animPlayer.SetBool("EnemyGrapling", true);
             animPlayer.SetFloat("EnemyGraplingCount", grapCount);
