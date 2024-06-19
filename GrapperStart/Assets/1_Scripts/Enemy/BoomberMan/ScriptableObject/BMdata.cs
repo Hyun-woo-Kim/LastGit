@@ -8,6 +8,6 @@ public class BMdata : ScriptableObject
     public float bmHp;
     public void DamagedHp(float amount)
     {
-        bmHp = bmHp -amount;   
+        bmHp = bmHp -amount;
     }
 }
