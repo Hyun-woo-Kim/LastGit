@@ -16,13 +16,14 @@ public enum PpPaze
     STATE_PazeThree,
     STATE_PazeFour,
 }
-public class ProphetPowderAction : MonoBehaviour
+public class ProphetPowderAction : MonoBehaviour,Enemies
 {
     // 근거리 사용 무기: 척력
     //원거리 사용 무기: 인력, 용언
     public PpPaze ppState;
     SpriteRenderer PpSpriteRenderer;
     Transform playerObject;
+    Animator PpAnim;
     PlayerControllerRope playerController;
     Grapling grapling;
     private Transform playerTransform;
@@ -57,7 +58,7 @@ public class ProphetPowderAction : MonoBehaviour
     public bool isGraplingCooldown;
     public float graplingCooldownTimer; // 쿨타임 타이머
     public float graplingCooldownDuration = 5f; // 쿨타임 지속 시간
-    public bool isAttackStart;
+
     public LayerMask playerLayer;
     public float ShootDistance;
 
@@ -87,7 +88,6 @@ public class ProphetPowderAction : MonoBehaviour
     public bool isDragonAttackCooldown = false;
     public float dragonAttackCooldownDuration = 10f;
     public float dragonAttackCooldownTimer = 0f;
-
 
 
     private void Awake()
@@ -146,9 +146,9 @@ public class ProphetPowderAction : MonoBehaviour
         grapling = FindAnyObjectByType<Grapling>();
         playerObject = GameObject.Find("Player").transform;
         PpSpriteRenderer = GetComponent<SpriteRenderer>();
+        PpAnim = GetComponent<Animator>();
 
-        isAttackStart = false;
-
+        PpAnim.enabled = false;
         isMoving = false;
 
         if (ppState == PpPaze.STATE_None)
@@ -161,7 +161,6 @@ public class ProphetPowderAction : MonoBehaviour
     {
         PpDirection();
 
-        isAttackStart = false;
 
         Color color = PpSpriteRenderer.color;
         color.a = 0;
@@ -174,6 +173,7 @@ public class ProphetPowderAction : MonoBehaviour
         yield return new WaitForSeconds(TelePortDel);
         Destroy(TpEffectPrefab);
 
+        PpAnim.enabled = true;
         lastPlayerPos = playerObject.transform.position;
         while (color.a < 1)
         {
@@ -184,9 +184,7 @@ public class ProphetPowderAction : MonoBehaviour
 
         color.a = 1;
         PpSpriteRenderer.color = color;
-
         this.ppState = PpPaze.STATE_Basic;
-        Debug.Log("State changed to STATE_Basic");
         isRush = true;
     }
    
@@ -206,7 +204,7 @@ public class ProphetPowderAction : MonoBehaviour
         // Calculate the target position only on the x-axis
         Vector2 direction = new Vector2((lastPlayerPos.x - initialPosition.x), 0).normalized;
         Vector2 targetPosition = initialPosition + direction * moveDistance;
-
+        PpAnim.Play("PP_Move");
         while (elapsedTime < 1.0f)
         {
             transform.position = Vector2.Lerp(initialPosition, targetPosition, elapsedTime * moveSpeed);
@@ -222,9 +220,21 @@ public class ProphetPowderAction : MonoBehaviour
         this.ppState = PpPaze.STATE_PazeOne;
         isRush = true;
         isMoving = false;
+        PpAnim.Play("PP_Idle");
     }
 
+    void Set() //페이즈 넘어갈 때 초기화 하는 함수.
+    {
+        isRush = false;
+        isMoving = false;
+        isChaging = false;
+        isDragonAtkReady = false;
+        isMeleeAttack = false;
+        isSpawningDragonWeapon = false;
 
+        this.ppState = PpPaze.STATE_Basic;
+        Debug.Log("초기화");
+    }
 
     void Update()
     {
@@ -233,7 +243,6 @@ public class ProphetPowderAction : MonoBehaviour
         
         UpdateGraplingCooldown(); // 2. 플레이어를 밀치고 나서만 실행되며, 쿨타임 메서드임.
         UpdateDragonAttackCooldown();
-        UpdateChargingCooldown();
         UpdateMeleeAttackCooldown();
 
         switch (this.ppState)
@@ -254,7 +263,9 @@ public class ProphetPowderAction : MonoBehaviour
                 {
                     MeleeAttack();
                 }
-
+                break;
+            case PpPaze.STATE_PazeTwo:
+                Debug.Log("2페이즈");
                 break;
                 // 필요하다면 다른 상태 추가
         }
@@ -268,7 +279,6 @@ public class ProphetPowderAction : MonoBehaviour
     {
         if (isGraplingCooldown)
         {
-            Debug.Log("그래플링 넉백 스킬 쿨타임 중입니다.");
             return; // 아무것도 실행안하고 반환
         }
         //밀쳐내기 코드 구현
@@ -297,25 +307,26 @@ public class ProphetPowderAction : MonoBehaviour
     }
     IEnumerator GraplingKnockback(PlayerControllerRope playerController, float nockbackForce,string attackWay)
     {
+        PpAnim.SetTrigger("PPNockBackSkill");
         lastPlayerPos = playerObject.transform.position;
         yield return playerController.BMSkillMove(transform, nockbackForce);
+        PpAnim.SetBool("PPMeleeAtk", true);
         //DragonShoot();
         if (attackWay == "Grapling")
         {
+            Debug.Log("그래플링 넉백");
             StartGraplingCooldown();
-        }
-        else if (attackWay == "Charging")
-        {
-            StartChargingCooldown();
         }
         else if (attackWay == "MeleeAttack")
         {
+            Debug.Log("척력 넉백");
             StartMeleeAttackCooldown();
         }
 
     }
     void StartGraplingCooldown()
     {
+     
         isGraplingCooldown = true; // 쿨타임 시작
         graplingCooldownTimer = graplingCooldownDuration; // 타이머 초기화
     }
@@ -334,25 +345,7 @@ public class ProphetPowderAction : MonoBehaviour
     }
 
 
-    void StartChargingCooldown()
-    {
-        isChargingCooldown = true; // 쿨타임 시작
-        chargingCoolTimer = chargingCoolTimerDur; // 타이머 초기화
-    }
 
-    void UpdateChargingCooldown()
-    {
-        if (isChargingCooldown)
-        {
-            chargingCoolTimer -= Time.deltaTime; // 타이머 감소
-            if (chargingCoolTimer <= 0)
-            {
-                ChagingSet();
-                isChargingCooldown = false; // 쿨타임 종료
-                chargingCoolTimer = 0;
-            }
-        }
-    }
 
  
     void UpdateDragonAttackCooldown()
@@ -406,12 +399,10 @@ public class ProphetPowderAction : MonoBehaviour
         }
         isChaging = true; // 돌진 시작
         //돌진 준비 애니메이션 재생. 
-        Debug.Log("돌진 준비 애니메이션 재생");
         yield return new WaitForSeconds(2.0f);
-        Debug.Log("돌진 애니메이션 재생");
-    
+        PpAnim.Play("PP_Idle");
         isDragonAtkReady = false; //돌진 중 용언 소환 못하게.false 처리
-       
+        PpAnim.Play("PP_Charging");
         float elapsedTime = 0.0f;
 
         Vector3 currentPosition = transform.position;
@@ -419,17 +410,11 @@ public class ProphetPowderAction : MonoBehaviour
 
         while (elapsedTime < chargeSpeed)
         {
-            Debug.Log("돌진 중");
 
             isChaging = true;
             transform.position = Vector3.Lerp(currentPosition, targetPosition, elapsedTime / chargeSpeed);
             elapsedTime += Time.deltaTime;
 
-            if (isChargePlayer)
-            {
-                Debug.Log("돌진 공격!");
-                StartCoroutine(GraplingKnockback(playerController, ChargeForce, "Charging"));
-            }
             yield return null;
         }
 
@@ -439,7 +424,6 @@ public class ProphetPowderAction : MonoBehaviour
         transform.position = targetPosition;
 
 
-        StartChargingCooldown();
     }
 
     void ChagingSet()//돌진을 위한 bool변수 셋팅
@@ -456,7 +440,6 @@ public class ProphetPowderAction : MonoBehaviour
             Debug.Log("용언 쿨타임 중입니다.");
             return;
         }
-        Debug.Log("척력 공격에 의하지 않으며 애니메이션만 재생.");
         isAttack = false;
         isDragonAtkReady = true;
 
@@ -465,25 +448,25 @@ public class ProphetPowderAction : MonoBehaviour
         foreach (Collider2D collider in coliderMelee)
         {
             if (collider.CompareTag("Player"))
-            {
+            {     
                 isAttack = true;
             }
         }
 
+        if(isAttack == false && isDragonAtk == false)
+        {
+            PpAnim.SetBool("PPMeleeAtk", true);
+        }
 
         if (isAttack && isMeleeAttack == true)
         {
-            Debug.Log("척력 공격에 의한 넉백");
             StartCoroutine(GraplingKnockback(playerController, meleeAttackForce,"MeleeAttack"));
         }
         else if (isAttack == false && isDragonAtkReady == true)
         {
             lastPlayerPos = playerObject.transform.position;
-            Debug.Log("용언 ");
             if (isSpawningDragonWeapon == false && isDragonAttackCooldown == false)
             {
-                Debug.Log("용언 공격");
-                isAttackStart = true;
                 isSpawningDragonWeapon = true;
                 DragonWeaponFunc(lastPlayerPos); //용언 공격 메서드 호출
             }
@@ -509,15 +492,15 @@ public class ProphetPowderAction : MonoBehaviour
         }
     }
 
-
+    public bool isDragonAtk;
     void SpawnInCircle(Vector3 spawnPosition)
     {
-        
-       
 
+
+        isDragonAtk = true;
         for (int i = 0; i < CircleCount; i++)
         {
-           
+            PpAnim.SetTrigger("PPLongAtk");
 
             float angle = i * Mathf.PI * 2f / CircleCount; // 각 무기의 각도
             float x = spawnPosition.x + Mathf.Cos(angle) * CircleRadius;
@@ -537,20 +520,24 @@ public class ProphetPowderAction : MonoBehaviour
 
     IEnumerator SpawnZacomAndExplosion(Vector3 position)
     {
+        isDragonAtk = false;
         yield return new WaitForSeconds(WeaponLifeTime); //이 시간 뒤에 용언 비활성화  
         ReleaseDragonWeapons(); //용언 비활성화
+        isDragonAtk = true;
+        PpAnim.SetTrigger("PPLongAtk");
         var zacom = _zacomPool.Get(); //자쿰 풀링으로 생성 후
         zacom.transform.position = position; //용언 위치를 자쿰 위치와 통일 시키고
 
         yield return new WaitForSeconds(ZakoomLifeTime); //0.5초 뒤
+        PpAnim.SetTrigger("PPLongAtk");
         var explosion = _explosionPool.Get(); //자쿰 폭발 이펙트 생성 후
         explosion.transform.position = position; //용언 위치를 자쿰 폭발 위치와 통일 시키고
 
         zacom.ReturnToPool(); //자쿰 비활성화 - 이때는 자쿰 폭발 이펙트 보여지는 상태
-
         yield return new WaitForSeconds(BoomEffLifeTime); // 0.2초 뒤
         explosion.ReturnToPool(); //자쿰 폭탄 이펙트 비활성화
 
+        isDragonAtk = false;
         isSpawningDragonWeapon = false;
 
 
@@ -574,6 +561,8 @@ public class ProphetPowderAction : MonoBehaviour
 
         for (int i = 0; i < squareCount; i++)
         {
+            PpAnim.SetTrigger("PPLongAtk");
+
             Vector3 position = spawnPosition + offsets[i];
             var weapon = _Pool.Get();
             weapon.transform.position = position;
@@ -581,7 +570,12 @@ public class ProphetPowderAction : MonoBehaviour
 
             StartCoroutine(SpawnZacomAndExplosion(position));
         }
- 
+
+
+    
+        
+
+
     }
 
     void ReleaseDragonWeapons()
@@ -652,12 +646,12 @@ public class ProphetPowderAction : MonoBehaviour
         playerTransform = playerObject.transform;
         if (playerTransform.position.x > transform.position.x)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(-1, 1, 1);
             PpDir = Vector2.right;
         }
         else
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(1, 1, 1);
             PpDir = Vector2.left;
         }
     }
@@ -666,5 +660,61 @@ public class ProphetPowderAction : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(bounsing.position, bounsingSize);
+    }
+
+    IEnumerator Enemies.GraplingAtkDamaged()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public PPData ppdata;
+    IEnumerator Enemies.baseDamaged()
+    {
+        ppdata.DamagedHp(10.0f);
+        if (ppdata.ppHP < 70.0f)
+        {
+            this.ppState = PpPaze.STATE_PazeTwo;
+            Set();
+            yield return null;
+        }
+        else if (ppdata.ppHP <= float.Epsilon)
+        {
+
+        }
+    }
+
+    void Enemies.PlayerToDamaged()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    IEnumerator Enemies.Died()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    void Enemies.SpeedDown()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    void Enemies.EnemySet()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    IEnumerator Enemies.NotFindPlayer(SpriteRenderer sprite)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    IEnumerator Enemies.EnemyAtkStop()
+    {
+        yield return null;
+    }
+
+    void Enemies.UpdateOutline(bool outline)
+    {
+        throw new System.NotImplementedException();
     }
 }

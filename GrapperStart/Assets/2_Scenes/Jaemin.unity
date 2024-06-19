@@ -6346,7 +6346,7 @@ Transform:
   m_GameObject: {fileID: 597977942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.62, y: -0.17, z: 0}
+  m_LocalPosition: {x: -1.76, y: -0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6984,6 +6984,7 @@ GameObject:
   - component: {fileID: 734778102}
   - component: {fileID: 734778100}
   - component: {fileID: 734778101}
+  - component: {fileID: 734778104}
   m_Layer: 0
   m_Name: PproPhetPowder
   m_TagString: Boss
@@ -7014,7 +7015,7 @@ MonoBehaviour:
   chargeDistace: 1
   isChargeDel: 2
   isChaging: 0
-  chargeSpeed: 1
+  chargeSpeed: 0.1
   ChargeForce: 0
   isChargingCooldown: 0
   chargingCoolTimer: 0
@@ -7023,7 +7024,6 @@ MonoBehaviour:
   isGraplingCooldown: 0
   graplingCooldownTimer: 0
   graplingCooldownDuration: 3
-  isAttackStart: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -7053,8 +7053,10 @@ MonoBehaviour:
   MeleeCoolTimer: 5
   MeleeCoolTimerDur: 5
   isMeleeAttack: 0
+  isDragonAtk: 0
   PpDir: {x: 0, y: 0}
   isChargePlayer: 0
+  ppdata: {fileID: 11400000, guid: f2d3d189da009e844b86ff9d92ae0380, type: 2}
 --- !u!70 &734778101
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7087,8 +7089,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.933138, y: 3.125}
+  m_Offset: {x: 0, y: -0.24}
+  m_Size: {x: 1.933138, y: 3.64}
   m_Direction: 0
 --- !u!212 &734778102
 SpriteRenderer:
@@ -7131,7 +7133,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -9207324096461601957, guid: c122e7b9aa279824f8fe5e868d93ab66, type: 3}
+  m_Sprite: {fileID: -1941565791, guid: 11a4259bd8c2aa24f9fb5739ba581599, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7151,7 +7153,7 @@ Transform:
   m_GameObject: {fileID: 734778099}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.31, z: 0}
+  m_LocalPosition: {x: -0.353, y: -1.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7159,6 +7161,27 @@ Transform:
   - {fileID: 1353609074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &734778104
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734778099}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c6333ed21aefffd4298645df2a60b54f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &737361265
 GameObject:
   m_ObjectHideFlags: 0
@@ -14063,7 +14086,7 @@ PrefabInstance:
       objectReference: {fileID: 429475595}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.44
+      value: -7.42
       objectReference: {fileID: 0}
     - target: {fileID: 3894739807588118383, guid: b1bb7ace044738147a1f38932d16c3c1, type: 3}
       propertyPath: m_LocalPosition.y
