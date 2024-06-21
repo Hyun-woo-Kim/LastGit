@@ -225,22 +225,26 @@ public class PlayerControllerRope : MonoBehaviour
     }
 
     public bool isLava;
+    public bool isBossWeapon;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("땅 충돌");
             isGrounded = true;
             animatorPlayer.SetBool("PlayerJump0", false);
 
         }
         if (collision.gameObject.name == "Lava")
         {
-            Debug.Log("용암 충돌");
             isLava = true;
         }
-       
 
+        if (collision.gameObject.CompareTag ("BossWeapon"))
+        {
+            Debug.Log("보스 지팡이와 충돌");
+            isBossWeapon = true;
+
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -255,7 +259,6 @@ public class PlayerControllerRope : MonoBehaviour
             Debug.Log("용암 충돌");
             isLava = false;
         }
-      
     }
 
 
@@ -509,13 +512,25 @@ public class PlayerControllerRope : MonoBehaviour
     public bool isMoveStop;
     public IEnumerator BMSkillMove(Transform bmPos, float _nockbackForce)
     {
-        Debug.Log("넉백");
-        isMoveStop = true;
-        Vector2 knockbackVector = bmPos.position.x > transform.position.x ? Vector2.left : Vector2.right;
-        Debug.Log(knockbackVector);
-        rigid.AddForce(knockbackVector * _nockbackForce, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.5f);
-        isMoveStop = false;
+        if(isBossWeapon)
+        {
+            Debug.Log("넉백");
+            isMoveStop = true;
+            Vector2 knockbackVector = bmPos.position.x > transform.position.x ? Vector2.left : Vector2.right;
+            Debug.Log(knockbackVector);
+
+            float adjustedKnockbackForce = Mathf.Clamp(_nockbackForce, 0.1f, 1.0f);
+            rigid.AddForce(knockbackVector * adjustedKnockbackForce, ForceMode2D.Impulse);
+
+            animatorPlayer.Play("Player_Hit_Anim");
+            yield return new WaitForSeconds(3.0f);
+            isMoveStop = false;
+            isBossWeapon = false;
+
+
+        }
+      
+    
     }
 
     public bool isRestraint;
