@@ -7030,7 +7030,7 @@ MonoBehaviour:
   bounsing: {fileID: 597977943}
   bounsingSize: {x: 1.26, y: 2.67, z: 0}
   isAttack: 0
-  meleeAttackForce: 1
+  meleeAttackForce: 0.1
   DragonWeapon: {fileID: 1385130430605870324, guid: 113f56d58cfba4041bfd94f97d6a3e52, type: 3}
   ZacomPrefab: {fileID: 76865599372082529, guid: de8efb902994cf748bab9214d2ba47f0, type: 3}
   ExplosionPrefab: {fileID: 5988189445039278582, guid: 1ceb2ca1a7672e34c9a7656a4f98adca, type: 3}
@@ -7048,6 +7048,7 @@ MonoBehaviour:
   isDragonAttackCooldown: 0
   dragonAttackCooldownDuration: 10
   dragonAttackCooldownTimer: 0
+  isKnockbackInProgress: 0
   isMeleCooldown: 0
   MeleeCoolTimer: 5
   MeleeCoolTimerDur: 5

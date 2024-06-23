@@ -192,7 +192,7 @@ public class BManAction : MonoBehaviour,Enemies
             PlayerControllerRope playerController = FindAnyObjectByType<PlayerControllerRope>();
             if (playerController != null)
             {
-                StartCoroutine(playerController.BMSkillMove(transform, nockbackForce)); // 적의 위치를 전달
+                StartCoroutine(playerController.BMSkillMove(transform.position, nockbackForce)); // 적의 위치를 전달
             }
 
         }

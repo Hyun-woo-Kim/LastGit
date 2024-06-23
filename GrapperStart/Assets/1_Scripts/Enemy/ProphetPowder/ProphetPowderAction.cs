@@ -94,6 +94,10 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
         _zacomPool = new UnityEngine.Pool.ObjectPool<PpZakoom>(CreateZacom, OnGetZacom, OnReleaseZacom, OnDestroyZacom, maxSize: 10);
         _explosionPool = new UnityEngine.Pool.ObjectPool<PpBoom>(CreateExplosion, OnGetExplosion, OnReleaseExplosion, OnDestroyExplosion, maxSize: 10);
         _Pool = new UnityEngine.Pool.ObjectPool<ProPhetWeapon>(CreateWeapon, OnGetWeapon, OnReleaseWeapon, OnDestroyWeapon, maxSize: 6); // 명시적으로 UnityEngine.Pool 네임스페이스를 지정
+
+
+        ppdata.ppHP = 100.0f;
+
     }
     private PpZakoom CreateZacom()
     {
@@ -228,7 +232,8 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
         isDragonAtkReady = false;
         isMeleeAttack = false;
         isSpawningDragonWeapon = false;
-        lastPlayerPos = Vector2.zero;
+        playerObject = GameObject.Find("Player").transform;
+        lastPlayerPos = playerObject.transform.position;
         Debug.Log("초기화");
     }
 
@@ -251,24 +256,26 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
                
                 break;
             case PpPaze.STATE_PazeOne:
-                if (isRush == true && grapling.isAttatch == false && isChaging == false)
-                {
-                    StartCoroutine(ChargeToPlayer());
-                }
-                else if (isRush ==false && isMeleeAttack == true)
-                {
-                    MeleeAttack();
-                }
-                break;
-            case PpPaze.STATE_PazeTwo:          
-                Debug.Log("2페이즈");
+            case PpPaze.STATE_PazeTwo:
+                PazeAttackSetting();
                 break;
                 // 필요하다면 다른 상태 추가
         }
 
         PpDirection();
     }
-
+    
+    void PazeAttackSetting()
+    {
+        if (isRush && !grapling.isAttatch && !isChaging)
+        {
+            StartCoroutine(ChargeToPlayer());
+        }
+        else if (!isRush && isMeleeAttack)
+        {
+            MeleeAttack();
+        }
+    }
 
 
     void GraplingPlayerNockBack() //기본공격3: 적이 그래플링 스킬 사용하면 밀쳐내기 (쿨타임 존재) 
@@ -293,20 +300,24 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
                 }
             }
         }
-        else
+        else //적이 그래플링 하지 않았을 때
         {
-            Debug.Log("적이 그래플링 하지 않음");
+           
         }
 
     }
     public bool isKnockbackInProgress = false;
     IEnumerator GraplingKnockback(PlayerControllerRope playerController, float nockbackForce,string attackWay)
     {
-        PpAnim.SetTrigger("PPNockBackSkill");
+        isKnockbackInProgress = true;
         lastPlayerPos = playerObject.transform.position;
-        yield return playerController.BMSkillMove(transform, nockbackForce);
+
+        // 넉백 방향 설정 (예시로 플레이어 방향을 기준으로 설정)
+        Vector2 knockbackDirection = (playerObject.transform.position - transform.position).normalized;
+
+        yield return playerController.BMSkillMove(transform.position, nockbackForce);
         PpAnim.SetBool("PPMeleeAtk", true);
-        //DragonShoot();
+
         if (attackWay == "Grapling")
         {
             Debug.Log("그래플링 넉백");
@@ -382,44 +393,71 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
         }
     }
 
-    IEnumerator ChargeToPlayer()
+    IEnumerator ChargeToPlayer() //페이즈에 따른 돌진 기능 세팅만함.
     {
         if (isChargingCooldown)
         {
             Debug.Log("돌진 쿨타임 중입니다.");
             yield break;
         }
+
         isChaging = true; // 돌진 시작
-        //돌진 준비 애니메이션 재생. 
+
+        PpAnim.Play("PP_Idle");         // 돌진 준비 애니메이션 재생
         yield return new WaitForSeconds(2.0f);
-        PpAnim.Play("PP_Idle");
-        isDragonAtkReady = false; //돌진 중 용언 소환 못하게.false 처리
 
+        isDragonAtkReady = false; // 돌진 중 용언 소환 못함
 
-        float elapsedTime = 0f;
-        Vector2 initialPosition = (Vector2)transform.position; // 명시적으로 캐스팅하여 Vector2로 변환
+        if (ppState == PpPaze.STATE_PazeTwo)
+        {
+            // 랜덤한 돌진 횟수 설정 (1회에서 2회)
+            int randomChargeCount = Random.Range(1, 3);
 
-        Vector2 targetPosition = lastPlayerPos;
+            Debug.Log(randomChargeCount);
+            for (int i = 0; i < randomChargeCount; i++)
+            {
+                yield return StartCoroutine(PerformCharge());
+            }
+        }
+        else if (ppState == PpPaze.STATE_PazeOne)
+        {
+            // 페이즈 원 상태에서는 한 번만 돌진
+            yield return StartCoroutine(PerformCharge());
+        }
+        else
+        {
+            Debug.Log("페이즈 투나 페이즈 원 상태가 아닙니다. 돌진을 수행할 수 없습니다.");
+        }
+
+        isChaging = false; // 돌진 완료
+    }
+    IEnumerator PerformCharge() //돌진 기능 함수.
+    {
         PpAnim.Play("PP_Charging");
+        playerObject = GameObject.Find("Player").transform;
+        lastPlayerPos = playerObject.transform.position;
+        float elapsedTime = 0f;
+        Vector3 initialPosition = transform.position;
+
         while (elapsedTime < chargeDistace)
         {
-            targetPosition = lastPlayerPos;
-
+            // 플레이어 위치를 기준으로 돌진
+            Vector3 targetPosition = lastPlayerPos;
             float newX = Mathf.Lerp(initialPosition.x, targetPosition.x, elapsedTime * chargeSpeed);
-
             transform.position = new Vector3(newX, transform.position.y, transform.position.z);
 
             elapsedTime += Time.deltaTime;
-
             yield return null;
         }
 
+        // 돌진 완료 후 대기 시간
         PpAnim.Play("PP_Idle");
         yield return new WaitForSeconds(2.0f);
-        isRush = false; //척력을 위한 bool변수 셋팅 1     
-        isMeleeAttack = true;//척력을 위한 bool변수 셋팅 2
-    }
 
+        // 추가 로직 (예시로 bool 변수 설정)
+        isRush = false; // 척력을 위한 bool 변수 설정 1
+        isMeleeAttack = true; // 척력을 위한 bool 변수 설정 2
+    }
     void ChagingSet()//돌진을 위한 bool변수 셋팅
     {
         isRush = true; //
@@ -456,7 +494,8 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
         if (isAttack && isMeleeAttack == true && !isKnockbackInProgress)
         {
             Debug.Log("척력 공격");
-            StartCoroutine(GraplingKnockback(playerController, meleeAttackForce,"MeleeAttack"));
+            PpAnim.Play("PP_NockbackSkill");
+            StartCoroutine(GraplingKnockback(playerController, meleeAttackForce, "MeleeAttack"));
         }
         else if (isAttack == false && isDragonAtkReady == true)
         {
@@ -471,7 +510,7 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
 
 
     }
-
+ 
 
     void DragonWeaponFunc(Vector3 playerPos)
     {
@@ -566,12 +605,6 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
 
             StartCoroutine(SpawnZacomAndExplosion(position));
         }
-
-
-    
-        
-
-
     }
 
     void ReleaseDragonWeapons()
@@ -669,6 +702,12 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
         ppdata.DamagedHp(10.0f);
 
         yield return null;
+        if (ppdata.ppHP <= 70 && ppdata.ppHP > 30)
+        {
+            Set();
+            ChagingSet();
+            ppState = PpPaze.STATE_PazeTwo;
+        }
 
         if (ppdata.ppHP <= float.Epsilon)
         {
