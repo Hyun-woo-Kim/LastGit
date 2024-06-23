@@ -510,29 +510,17 @@ public class PlayerControllerRope : MonoBehaviour
  
 
     public bool isMoveStop;
-    public IEnumerator BMSkillMove(Transform bmPos, float _nockbackForce)
+
+    public IEnumerator BMSkillMove(Vector2 knockbackDirection, float knockbackForce)
     {
-        if(isBossWeapon)
-        {
-            Debug.Log("넉백");
-            isMoveStop = true;
-            Vector2 knockbackVector = bmPos.position.x > transform.position.x ? Vector2.left : Vector2.right;
-            Debug.Log(knockbackVector);
+        // 넉백 애니메이션 재생
+        animatorPlayer.Play("Player_Hit_Anim");
 
-            float adjustedKnockbackForce = Mathf.Clamp(_nockbackForce, 0.1f, 1.0f);
-            rigid.AddForce(knockbackVector * adjustedKnockbackForce, ForceMode2D.Impulse);
+        rigid.AddForce(-knockbackDirection * knockbackForce, ForceMode2D.Impulse);
 
-            animatorPlayer.Play("Player_Hit_Anim");
-            yield return new WaitForSeconds(3.0f);
-            isMoveStop = false;
-            isBossWeapon = false;
-
-
-        }
-      
-    
+        yield return new WaitForSeconds(0.5f);
+        rigid.velocity = Vector2.zero;
     }
-
     public bool isRestraint;
     public IEnumerator PpRestraint(float time)
     {
