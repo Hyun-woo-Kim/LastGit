@@ -467,7 +467,7 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
     public bool isMeleeAttack;
     void MeleeAttack()
     {
-        if (isMeleCooldown)
+        if (isMeleCooldown )
         {
             Debug.Log("용언 쿨타임 중입니다.");
             return;
@@ -485,13 +485,13 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
             }
         }
 
-        if(isAttack == false && isDragonAtk == false)
+        if(isAttack == false && isDragonAtk == false) //척력 공격 애니메이션 계속 실행해야하므로 적어둔거고
         {
           
             PpAnim.SetBool("PPMeleeAtk", true);
         }
 
-        if (isAttack && isMeleeAttack == true && !isKnockbackInProgress)
+        if (isAttack && isMeleeAttack == true && !isKnockbackInProgress) // 박스 안에 있어야 하고 + 돌진을 끝냈을 경우  
         {
             Debug.Log("척력 공격");
             PpAnim.Play("PP_NockbackSkill");
@@ -530,9 +530,9 @@ public class ProphetPowderAction : MonoBehaviour,Enemies
     public bool isDragonAtk;
     void SpawnInCircle(Vector3 spawnPosition)
     {
-
-
+        
         isDragonAtk = true;
+
         for (int i = 0; i < CircleCount; i++)
         {
             PpAnim.SetTrigger("PPLongAtk");
