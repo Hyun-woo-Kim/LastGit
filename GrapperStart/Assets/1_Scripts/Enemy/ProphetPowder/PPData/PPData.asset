@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbe5bdba2d1bed40b2dab50d3d13ac4, type: 3}
   m_Name: PPData
   m_EditorClassIdentifier: 
-  ppHP: 60
+  ppHP: 100

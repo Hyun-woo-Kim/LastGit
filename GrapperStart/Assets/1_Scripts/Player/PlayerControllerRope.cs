@@ -514,9 +514,18 @@ public class PlayerControllerRope : MonoBehaviour
     public IEnumerator BMSkillMove(Vector2 knockbackDirection, float knockbackForce)
     {
         // 넉백 애니메이션 재생
-        animatorPlayer.Play("Player_Hit_Anim");
+        if(transform.position.x < knockbackDirection.x)
+        {
+            knockbackDirection = Vector2.left;
+        }
+        else
+        {
+            knockbackDirection = Vector2.right;
+        }
 
-        rigid.AddForce(-knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        animatorPlayer.Play("Player_Hit_Anim");
+        Debug.Log(knockbackDirection);
+        rigid.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(0.5f);
         rigid.velocity = Vector2.zero;
